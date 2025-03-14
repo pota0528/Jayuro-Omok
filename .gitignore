@@ -7,6 +7,13 @@ Assets/rho_Folder/
 Assets/park_Folder/
 Assets/yu_Folder/
 
+Assets/joe_Folder/*.meta
+Assets/kim_Folder/*.meta
+Assets/lee_Folder/*.meta
+Assets/rho_Folder/*.meta
+Assets/park_Folder/*.meta
+Assets/yu_Folder/*.meta
+
 # Created by https://www.toptal.com/developers/gitignore/api/rider,unity
 # Edit at https://www.toptal.com/developers/gitignore?templates=rider,unity
 
