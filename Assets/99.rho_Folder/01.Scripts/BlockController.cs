@@ -1,38 +1,41 @@
 using UnityEngine;
 
-public class BlockController : MonoBehaviour
+namespace rho_namespace
 {
-    [SerializeField] private Block[] blocks;
-    
-    public delegate void OnBlockClicked(int row, int col);
-    public OnBlockClicked OnBlockClickedDelegate;
-
-    public Block[] InitBlocks()
+    public class BlockController : MonoBehaviour
     {
-        for (int i = 0; i < blocks.Length; i++)
+        [SerializeField] private Block[] blocks;
+    
+        public delegate void OnBlockClicked(int row, int col);
+        public OnBlockClicked OnBlockClickedDelegate;
+
+        public Block[] InitBlocks()
         {
-            blocks[i].InitMarker(i, blockIndex =>
+            for (int i = 0; i < blocks.Length; i++)
             {
-                var clickedRow = blockIndex / 15;
-                var clickedCol = blockIndex % 15;
-                OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);
-            });
+                blocks[i].InitMarker(i, blockIndex =>
+                {
+                    var clickedRow = blockIndex / 15;
+                    var clickedCol = blockIndex % 15;
+                    OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);
+                });
+            }
+
+            return blocks;
         }
-
-        return blocks;
-    }
     
-    public void PlaceMarker(Block.MarkerType markerType, int row, int col, int moveIndex)
-    {
-        // row, col을 index로 변환
-        var markerIndex = row * 15 + col;
-        
-        // Block에게 마커 표시
-        blocks[markerIndex].SetMarker(markerType);
-
-        if (markerType != Block.MarkerType.Forbidden)
+        public void PlaceMarker(Block.MarkerType markerType, int row, int col, int moveIndex)
         {
-            blocks[markerIndex].SetMarkMoveIndex(moveIndex);
+            // row, col을 index로 변환
+            var markerIndex = row * 15 + col;
+        
+            // Block에게 마커 표시
+            blocks[markerIndex].SetMarker(markerType);
+
+            if (markerType != Block.MarkerType.Forbidden)
+            {
+                blocks[markerIndex].SetMarkMoveIndex(moveIndex);
+            }
         }
     }
 }
