@@ -15,11 +15,7 @@ namespace yu_namespace
             base.Show();
             messageText.text = message;
         }
-
-        public void OnConfirmButtonClick()
-        {
-            base.Hide();
-        }
+        
         
     }
     

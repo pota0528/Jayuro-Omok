@@ -27,7 +27,12 @@ namespace yu_namespace
                 baseHideDelegate?.Invoke();
                 Destroy(gameObject);
             });
-    }
+        }
+
+        public void OnConfirmButtonClick()
+        {
+            Hide();
+        }
 
     }
 }
