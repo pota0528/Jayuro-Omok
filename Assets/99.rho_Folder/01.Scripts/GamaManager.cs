@@ -109,7 +109,7 @@ namespace rho_namespace
                 case TurnType.PlayerA:
                     currentTurnType = TurnType.PlayerA;
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
-                    forbiddenPositions = CheckForbiddenBoard();
+                    forbiddenPositions = CheckForbiddenBoardLongJoists();
                     _blockController.OnBlockClickedDelegate = (row, col) =>
                     {
                         if (SetNewBoardValue(PlayerType.PlayerA, row, col))
@@ -158,34 +158,29 @@ namespace rho_namespace
             }
         }
 
-        private List<(int, int)> CheckForbiddenBoard()
+        private List<(int, int)> CheckForbiddenBoardLongJoists()
         {
             List<(int, int)> forbiddenList = new List<(int, int)>();
             int row = currentMoveindex.Item1;
             int col = currentMoveindex.Item2;
 
-            if (_board[row, col] != PlayerType.PlayerA)
-            {
-                return forbiddenPositions; // 최근 둔 돌이 흑돌이 아니면 검사 안 함, 방어적인 코드
-            }
-
             // 각 방향별로 6목 이상 여부 체크
-            if (CountStones(row, col, 1, 0) >= 6)
+            if (CountStones(row, col, 1, 0) >= 5)
             {
                 forbiddenPositions.Add((row, col)); // 가로(→)
             }           
             
-            if (CountStones(row, col, 0, 1) >= 6)
+            if (CountStones(row, col, 0, 1) >= 5)
             {
                 forbiddenPositions.Add((row, col)); // 세로(↓)
             }
             
-            if (CountStones(row, col, 1, 1) >= 6)
+            if (CountStones(row, col, 1, 1) >= 5)
             {
                 forbiddenPositions.Add((row, col)); // 대각선(↘)
             }
             
-            if (CountStones(row, col, 1, -1) >= 6)
+            if (CountStones(row, col, 1, -1) >= 5)
             {
                 forbiddenPositions.Add((row, col)); // 대각선(↙)
             }
@@ -200,34 +195,68 @@ namespace rho_namespace
             return forbiddenList;
         }
         
-        private int CountStones(int row, int col, int dRow, int dCol) // 1, 0
+        private int CountStones(int row, int col, int dRow, int dCol)
         {
-            int blackCount = 1; // 현재 돌 포함
+            int count = 1;  // 현재 돌 포함
+            int voidCount = 0;  // 빈칸 개수
+            int r, c;
 
             // 한쪽 방향으로 체크
-            int currentRow = row + dRow;
-            int currentCol = col + dCol;
-            
-            while (currentRow >= 0 && currentRow < LINE_COUNT && currentCol >= 0 && currentCol < LINE_COUNT && _board[currentRow, currentCol] == PlayerType.PlayerA)
+            r = row + dRow;
+            c = col + dCol;
+            while (r >= 0 && r < LINE_COUNT && c >= 0 && c < LINE_COUNT)
             {
-                blackCount++;
-                currentRow += dRow;
-                currentCol += dCol;
+                if (_board[r, c] == PlayerType.PlayerA) // 흑돌이면 카운트 증가
+                {
+                    count++;
+                }
+                else if (_board[r, c] == PlayerType.PlayerB) // 백돌이 나오면 count 초기화, 하지만 계속 검사해야 함!
+                {
+                    count = 0;
+                    continue;  // 다음 칸 검사
+                }
+                else if (_board[r, c] == PlayerType.None) // 빈칸이면 voidCount 증가
+                {
+                    voidCount++;
+                    if (voidCount >= 2) // 빈칸이 2개 이상이면 장목 체크 중단
+                    {
+                        continue;
+                    }
+                }
+                r += dRow;
+                c += dCol;
             }
 
             // 반대쪽 방향으로 체크
-            currentRow = row - dRow;
-            currentCol = col - dCol;
-            
-            while (currentRow >= 0 && currentRow < LINE_COUNT && currentCol >= 0 && currentCol < LINE_COUNT && _board[currentRow, currentCol] == PlayerType.PlayerA)
+            voidCount = 0;  // 다시 빈칸 개수 초기화
+            r = row - dRow;
+            c = col - dCol;
+            while (r >= 0 && r < LINE_COUNT && c >= 0 && c < LINE_COUNT)
             {
-                blackCount++;
-                currentRow -= dRow;
-                currentCol -= dCol;
+                if (_board[r, c] == PlayerType.PlayerA) // 흑돌이면 카운트 증가
+                {
+                    count++;
+                }
+                else if (_board[r, c] == PlayerType.PlayerB) // 백돌이 나오면 count 초기화, 하지만 계속 검사해야 함!
+                {
+                    count = 0;
+                    continue;  // 다음 칸 검사
+                }
+                else if (_board[r, c] == PlayerType.None) // 빈칸이면 voidCount 증가
+                {
+                    voidCount++;
+                    if (voidCount >= 2) // 빈칸이 2개 이상이면 장목 체크 중단
+                    {
+                        break;
+                    }
+                }
+                r -= dRow;
+                c -= dCol;
             }
 
-            return blackCount;
+            return count;
         }
+
         /// <summary>
         /// 게임 결과 확인 함수
         /// </summary>
