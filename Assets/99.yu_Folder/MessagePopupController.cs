@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace yu_namespace
 {
-    public class PopupController : BaseUIController
+    public class MessagePopupController : BaseUIController
     {
         [SerializeField] private TextMeshProUGUI messageText;
 
@@ -14,6 +15,8 @@ namespace yu_namespace
         {
             base.Show();
             messageText.text = message;
+            
+            
         }
         
         

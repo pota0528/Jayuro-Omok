@@ -22,7 +22,7 @@ namespace yu_namespace
         //패널 숨기다 지우기
         public void Hide(BaseHideDelegate baseHideDelegate = null)
         {
-            rectTransform.DOScale(0, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            rectTransform.DOScale(0, 0.3f).SetEase(Ease.Flash).OnComplete(() =>
             {
                 baseHideDelegate?.Invoke();
                 Destroy(gameObject);

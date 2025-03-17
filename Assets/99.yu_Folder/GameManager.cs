@@ -10,13 +10,18 @@ namespace yu_namespace
         
         [SerializeField] private GameObject messagePopupPrefab;
         [SerializeField] private GameObject settingPopupPrefab;
+        [SerializeField] private GameObject giveupPanelPrefab;
+        [SerializeField] private GameObject noCoinPanelPrefab;
+        
         [SerializeField] private RectTransform parent;
         
         //메시지팝업 오픈
         public void OpenMessagePopup(string msg)
         {
+            
             var messagePopup = Instantiate(messagePopupPrefab, parent);
-            messagePopup.GetComponent<PopupController>().Show(msg);
+            messagePopup.GetComponent<MessagePopupController>().Show(msg);
+            
         }
 
         //설정팝업 오픈
@@ -24,6 +29,21 @@ namespace yu_namespace
         {
             var settingPopup = Instantiate(settingPopupPrefab, parent);
             settingPopup.GetComponent<BaseUIController>().Show();
+        }
+        
+        //옵션 패널 오픈
+        public void OpenGiveupPanel()
+        {
+            var giveupPanel = Instantiate(giveupPanelPrefab, parent);
+            giveupPanel.GetComponent<BaseUIController>().Show();
+
+        }
+        
+        //노코인 패널 오픈
+        public void OpenNoCoinPanel()
+        {
+            var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
+            noCoinPanel.GetComponent<BaseUIController>().Show();
         }
 
         //테스트팝업오픈
@@ -36,6 +56,18 @@ namespace yu_namespace
         {
             OpenSettingPopup();
         }
+
+        public void TestGiveupPanelButton()
+        {
+            OpenGiveupPanel();
+        }
+
+        public void TestNoCoinPanelButton()
+        {
+            OpenNoCoinPanel();
+        }
+
+        
 
         
 
