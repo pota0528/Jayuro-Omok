@@ -24,8 +24,7 @@ namespace rho_namespace
         private Block[] blocks;
         private Block currentBlackBlock;
         private const int LINE_COUNT = 15;
-        private List<(int, int)> forbiddenPositions;
-        
+        private List<(int, int)> forbiddenList = new List<(int, int)>();
         void Start()
         {
             StartGame();
@@ -41,11 +40,10 @@ namespace rho_namespace
             
             // Game UI 초기화
             _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
-            _board[LINE_COUNT / 2, LINE_COUNT / 2] = PlayerType.PlayerA;
-            currentMoveindex = (LINE_COUNT / 2, LINE_COUNT / 2);
+            _board[7, 7] = PlayerType.PlayerA;
+            currentMoveindex = (7, 7);
             _blockController.PlaceMarker(Block.MarkerType.Black, LINE_COUNT / 2, LINE_COUNT / 2, moveIndex);
             SetTurn(TurnType.PlayerB);
-            ++moveIndex;
         }
 
         private void EndGame(GameResult gameResult)
@@ -109,13 +107,15 @@ namespace rho_namespace
                 case TurnType.PlayerA:
                     currentTurnType = TurnType.PlayerA;
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
-                    forbiddenPositions = CheckForbiddenBoardLongJoists();
+                    //최근에 놓인 흑돌을 기준으로, 가로 검사
+                    ForbiddenLongLength();
+                    SetForbiddenMark();
                     _blockController.OnBlockClickedDelegate = (row, col) =>
                     {
+                        ++moveIndex;
+                        currentMoveindex = (row, col);
                         if (SetNewBoardValue(PlayerType.PlayerA, row, col))
                         {
-                            currentMoveindex = (row, col);
-                            ++moveIndex;
                             var gameResult = CheckGameResult();
                             if (gameResult == GameResult.None)
                             {
@@ -135,15 +135,16 @@ namespace rho_namespace
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                     _blockController.OnBlockClickedDelegate = (row, col) =>
                     {
+                        ++moveIndex;
                         if (SetNewBoardValue(PlayerType.PlayerB, row, col))
                         {
-                            ++moveIndex;
+                            Debug.Log("하하!");
                             var gameResult = CheckGameResult();
                             if (gameResult == GameResult.None)
                             {
-                                SetTurn(TurnType.PlayerA);
+                                SetTurn(TurnType.PlayerA); //그러므로 SetTurn 하면서 뭔가 오류가 나는거일수도?
                             }
-                            else
+                            else //게임이 끝나면 금수 자리를 터치안해도 안 멈춘다.
                             {
                                 EndGame(gameResult);
                             }
@@ -158,105 +159,72 @@ namespace rho_namespace
             }
         }
 
-        private List<(int, int)> CheckForbiddenBoardLongJoists()
+        private void ForbiddenLongLength()
         {
-            List<(int, int)> forbiddenList = new List<(int, int)>();
+            int blackCount = 0;
+            int voidCount = 0;
+            bool isSequence = false;
+            (int, int) voidBoardCount = (-1, -1);
+                    
             int row = currentMoveindex.Item1;
-            int col = currentMoveindex.Item2;
-
-            // 각 방향별로 6목 이상 여부 체크
-            if (CountStones(row, col, 1, 0) >= 5)
+            for (int col = 0; col < LINE_COUNT; col++)
             {
-                forbiddenPositions.Add((row, col)); // 가로(→)
-            }           
-            
-            if (CountStones(row, col, 0, 1) >= 5)
-            {
-                forbiddenPositions.Add((row, col)); // 세로(↓)
-            }
-            
-            if (CountStones(row, col, 1, 1) >= 5)
-            {
-                forbiddenPositions.Add((row, col)); // 대각선(↘)
-            }
-            
-            if (CountStones(row, col, 1, -1) >= 5)
-            {
-                forbiddenPositions.Add((row, col)); // 대각선(↙)
-            }
-
-            // 금수 위치 마커 표시
-            foreach (var (fRow, fCol) in forbiddenPositions)
-            {
-                _board[fRow, fCol] = PlayerType.PlayerX;
-                _blockController.PlaceMarker(Block.MarkerType.Forbidden, fRow, fCol, moveIndex);
-            }
-
-            return forbiddenList;
-        }
-        
-        private int CountStones(int row, int col, int dRow, int dCol)
-        {
-            int count = 1;  // 현재 돌 포함
-            int voidCount = 0;  // 빈칸 개수
-            int r, c;
-
-            // 한쪽 방향으로 체크
-            r = row + dRow;
-            c = col + dCol;
-            while (r >= 0 && r < LINE_COUNT && c >= 0 && c < LINE_COUNT)
-            {
-                if (_board[r, c] == PlayerType.PlayerA) // 흑돌이면 카운트 증가
+                if (_board[row, col] == PlayerType.PlayerB)
                 {
-                    count++;
+                    blackCount = 0;
+                    voidCount = 0;
+                    isSequence = false;
                 }
-                else if (_board[r, c] == PlayerType.PlayerB) // 백돌이 나오면 count 초기화, 하지만 계속 검사해야 함!
+                else if (_board[row, col] == PlayerType.PlayerA)
                 {
-                    count = 0;
-                    continue;  // 다음 칸 검사
+                    ++blackCount;
+                    isSequence = false;
                 }
-                else if (_board[r, c] == PlayerType.None) // 빈칸이면 voidCount 증가
+                else if (_board[row, col] == PlayerType.None)
                 {
-                    voidCount++;
-                    if (voidCount >= 2) // 빈칸이 2개 이상이면 장목 체크 중단
+                    if (isSequence)
                     {
+                        blackCount = 0;
+                        voidCount = 0;
+                        isSequence = false;
                         continue;
                     }
-                }
-                r += dRow;
-                c += dCol;
-            }
 
-            // 반대쪽 방향으로 체크
-            voidCount = 0;  // 다시 빈칸 개수 초기화
-            r = row - dRow;
-            c = col - dCol;
-            while (r >= 0 && r < LINE_COUNT && c >= 0 && c < LINE_COUNT)
-            {
-                if (_board[r, c] == PlayerType.PlayerA) // 흑돌이면 카운트 증가
-                {
-                    count++;
+                    voidBoardCount = (row, col);
+                    ++voidCount;
+                    isSequence = true;
                 }
-                else if (_board[r, c] == PlayerType.PlayerB) // 백돌이 나오면 count 초기화, 하지만 계속 검사해야 함!
+                else if (_board[row, col] == PlayerType.PlayerX)
                 {
-                    count = 0;
-                    continue;  // 다음 칸 검사
+                    blackCount = 0;
+                    voidCount = 0;
+                    isSequence = false;
                 }
-                else if (_board[r, c] == PlayerType.None) // 빈칸이면 voidCount 증가
+                
+                if (blackCount >= 5)
                 {
-                    voidCount++;
-                    if (voidCount >= 2) // 빈칸이 2개 이상이면 장목 체크 중단
-                    {
-                        break;
-                    }
+                    (int voidRow, int voidCow) = voidBoardCount;
+                    _board[voidRow, voidCow] = PlayerType.PlayerX;
+                    forbiddenList.Add(voidBoardCount);
+                    
+                    col = voidBoardCount.Item2;
+                    blackCount = 0;
+                    voidCount = 0;
+                    isSequence = false;
+                    //voidBoardCount는 금수의 자리
+                    //금수 체크
+                    //다시 돌아가서 voidBoardCount.item2 + 1로 대입
                 }
-                r -= dRow;
-                c -= dCol;
             }
-
-            return count;
         }
 
+        private void SetForbiddenMark()
+        {
+            for (int i = 0; i < forbiddenList.Count; i++)
+            {
+                _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
+            }
+        }
         /// <summary>
         /// 게임 결과 확인 함수
         /// </summary>
@@ -265,6 +233,7 @@ namespace rho_namespace
         {
             if (CheckGameWin(PlayerType.PlayerA)) { return GameResult.Win; }
             if (CheckGameWin(PlayerType.PlayerB)) { return GameResult.Lose; }
+            //if (MinimaxAIController.IsAllBlocksPlaced(_board)) { return GameResult.Draw; }
             
             return GameResult.None;
         }
