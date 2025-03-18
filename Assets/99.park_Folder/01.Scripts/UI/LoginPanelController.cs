@@ -17,6 +17,7 @@ public class LoginPanelController : MonoBehaviour
 
     public void OnClickLogInButton()
     {
+        Debug.Log("로그인 버튼 누름");
         string id = _idInputField.text;
         string password = _passwordInputField.text;
         if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
@@ -33,6 +34,8 @@ public class LoginPanelController : MonoBehaviour
             if (PlayerPrefs.GetString("Password") == password)
             {
                 Debug.Log("로그인 성공");
+                //TODO: 로그인 진심 구현 
+                GameManager.Instance.OpenUserPanel();
             }
             else
             {
@@ -44,7 +47,7 @@ public class LoginPanelController : MonoBehaviour
 
 
         
-        //TODO: 로그인 진심 구현 
+        
     }
 
     public void OnClickSignUpButton()

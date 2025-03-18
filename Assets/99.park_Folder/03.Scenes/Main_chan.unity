@@ -151,9 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac847338459ac084e857be620f557022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popUpRectTransform: {fileID: 1352693091}
   loginPanel: {fileID: 1348692783323088093, guid: 74d8541904774a049a579154ada4b82e, type: 3}
   signUpPanel: {fileID: 464624426721254015, guid: 4d6905ee9a003204c8cc78bc0234c919, type: 3}
+  userPanel: {fileID: 464624426721254015, guid: e73cd624f65343c4794349c75557cca4, type: 3}
+  profilePanel: {fileID: 9041719760361966172, guid: 120bb3443cca90a4e90f71a3c23a3cd5, type: 3}
 --- !u!4 &1095279519
 Transform:
   m_ObjectHideFlags: 0

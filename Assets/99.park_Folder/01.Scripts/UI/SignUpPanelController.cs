@@ -56,6 +56,8 @@ public class SignUpPanelController : PanelController
             // signUpData.password = password;
             SaveSignUpDataToPlayerPrefs(signUpData);
             Debug.Log("회원가입 데이터 저장");
+            // Destroy(gameObject);
+            // GameManager.Instance.OpenLoginPanel();
             //TODO: 회원가입 진행 
         }
         else

@@ -11,6 +11,8 @@ namespace park_namespace
         
         [SerializeField] private GameObject loginPanel;
         [SerializeField] private GameObject signUpPanel;
+        [SerializeField] private GameObject userPanel;
+        [SerializeField] private GameObject profilePanel;
         //추가: 옵션패널 
         
         
@@ -38,6 +40,23 @@ namespace park_namespace
              Instantiate(signUpPanel, _canvas.transform);
                
             }
+        }
+
+        public void OpenUserPanel()
+        {
+            if (_canvas != null)
+            {
+                Instantiate(userPanel, _canvas.transform);
+            }
+        }
+
+        public void OpenProfilePanel()
+        {
+            if (_canvas != null)
+            {
+                Instantiate(profilePanel, _canvas.transform);
+            }
+            
         }
 
    
