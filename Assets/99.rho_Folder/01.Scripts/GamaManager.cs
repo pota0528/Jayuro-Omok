@@ -24,7 +24,7 @@ namespace rho_namespace
         private Block[] blocks;
         private Block currentBlackBlock;
         private const int LINE_COUNT = 15;
-        private List<(int, int)> forbiddenList = new List<(int, int)>();
+        private List<(int, int)> forbiddenCollecition = new List<(int, int)>();
         void Start()
         {
             StartGame();
@@ -108,8 +108,8 @@ namespace rho_namespace
                     currentTurnType = TurnType.PlayerA;
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                     //최근에 놓인 흑돌을 기준으로, 가로 검사
-                    ForbiddenLongLength();
-                    SetForbiddenMark();
+                    forbiddenCollecition = SetForbidden(FindEmptySpotsInRow());
+                    SetForbiddenMark(forbiddenCollecition);
                     _blockController.OnBlockClickedDelegate = (row, col) =>
                     {
                         ++moveIndex;
@@ -159,55 +159,98 @@ namespace rho_namespace
             }
         }
 
-        private void ForbiddenLongLength()
+        private List<(int, int)> FindEmptySpotsInRow() // int row = currentMoveindex.Item1, int col = currentMoveindex.Item2;
         {
-            int blackCount = 0;
+            List<(int, int)> emptyList = new List<(int, int)>();
             int row = currentMoveindex.Item1;
-            (int, int) voidBoardCount = (-1, -1);
-    
-            for (int col = 0; col < LINE_COUNT; col++)
-            {
-                var cell = _board[row, col];
-
-                if (cell == PlayerType.PlayerB || cell == PlayerType.PlayerX) // 백돌 or 금수
-                {
-                    blackCount = 0;
-                    voidBoardCount = (-1, -1);
-                }
-                else if (cell == PlayerType.PlayerA) // 흑돌이면 카운트 증가
-                {
-                    ++blackCount;
-                    voidBoardCount = (-1, -1);
-                }
-                else if (cell == PlayerType.None) // 빈칸이면 저장
-                {
-                    if (voidBoardCount.Item1 != -1) // 빈칸이 2개 이상이면 초기화
-                    {
-                        blackCount = 0;
-                        voidBoardCount = (-1, -1);
-                        continue;
-                    }
-                    
-                    voidBoardCount = (row, col);
-                }
-
-                if (blackCount >= 5 && voidBoardCount.Item1 != -1) // 장목 판정
-                {
-                    _board[voidBoardCount.Item1, voidBoardCount.Item2] = PlayerType.PlayerX;
-                    
-                    if (!forbiddenList.Contains(voidBoardCount))
-                    {
-                        forbiddenList.Add(voidBoardCount);
-                    }
+            int col = currentMoveindex.Item2;
             
-                    blackCount = 0;
-                    voidBoardCount = (-1, -1);
+            int currentCol = col + 1; // 오른쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
+            
+            while (0 <= currentCol && currentCol < col + 5 && currentCol <= 15) 
+            {
+                if (_board[row, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((row, currentCol));
                 }
+                else
+                {
+                    continue; // 돌을 만나면 탐색 종료
+                }
+                
+                ++currentCol;
             }
+            
+            currentCol = col - 1; // 왼쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
+            
+            while (0 <= currentCol && currentCol > col - 5 && currentCol <= 15) 
+            {
+                if (_board[row, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((row, currentCol));
+                }
+                else
+                {
+                    continue; // 돌을 만나면 탐색 종료
+                }
+                
+                --currentCol;
+            }
+            
+            return emptyList;
         }
 
-
-        private void SetForbiddenMark()
+        private List<(int, int)> SetForbidden(List<(int, int)> emptyList)
+        {
+            List<(int, int)> forbiddenList = new List<(int, int)>();
+            for (int i = 0; i < emptyList.Count; i++)
+            {
+                // 오른쪽 검사
+                int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                int col = emptyList[i].Item2 + 1;
+                
+                int blockIndex = 0;
+                
+                for (int j = col; j <= 15 && j < col + 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                // 왼쪽 검사
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 1;
+                
+                blockIndex = 0;
+                
+                for (int j = col; 0 <= j && j > col - 4; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 5)
+                {
+                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                }
+            }
+            
+            return forbiddenList;
+        }
+        
+        private void SetForbiddenMark(List<(int, int)> forbiddenList)
         {
             for (int i = 0; i < forbiddenList.Count; i++)
             {
