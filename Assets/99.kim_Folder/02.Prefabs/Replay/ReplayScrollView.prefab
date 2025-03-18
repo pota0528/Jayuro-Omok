@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2383060988951433757}
   - component: {fileID: 27502382348773812}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: ReplayScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2ba7b9cedf7e441b2c385ac642c6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellHeight: 300
+  cellHeight: 100
 --- !u!1 &5667971243328418777
 GameObject:
   m_ObjectHideFlags: 0
