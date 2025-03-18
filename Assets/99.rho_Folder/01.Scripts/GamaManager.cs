@@ -219,8 +219,6 @@ namespace rho_namespace
                 row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
                 col = emptyList[i].Item2 - 1;
                 
-                blockIndex = 0;
-                
                 for (int j = col; 0 <= j && j > col - 4; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     if (_board[row, j] == PlayerType.PlayerA)
