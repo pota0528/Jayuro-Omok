@@ -291,6 +291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 2771106334357390932}
+  audioMixer: {fileID: 24100000, guid: b43176cb43283874d99daf63cf212ecb, type: 2}
+  bgmSlider: {fileID: 6950980177654856584}
+  sfxSlider: {fileID: 4239902491218373862}
 --- !u!1 &1734360613117777355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,7 +1363,7 @@ GameObject:
   - component: {fileID: 8033318570249860169}
   - component: {fileID: 4239902491218373862}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1432,13 +1435,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 6498374099201928264}
   m_HandleRect: {fileID: 910388880899751901}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3482841990385209259}
+        m_TargetAssemblyTypeName: yu_namespace.SettingPopupController, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9133872775533768987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1635,7 @@ GameObject:
   - component: {fileID: 1395308978993022490}
   - component: {fileID: 6950980177654856584}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: BGMSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1692,10 +1707,22 @@ MonoBehaviour:
   m_FillRect: {fileID: 8286635137946208072}
   m_HandleRect: {fileID: 4777625874973303374}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3482841990385209259}
+        m_TargetAssemblyTypeName: yu_namespace.SettingPopupController, Assembly-CSharp
+        m_MethodName: SetBGMVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
