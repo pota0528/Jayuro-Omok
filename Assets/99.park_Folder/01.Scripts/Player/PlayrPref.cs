@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayrPref : MonoBehaviour
+namespace park_namespace
 {
+    public class PlayrPref : MonoBehaviour
+    {
    
     
+    }
+
 }

@@ -2,8 +2,9 @@
 using TMPro;
 using UnityEngine;
 
-
-public struct SignUpData
+namespace park_namespace
+{
+    public struct SignUpData
 {
     public string nickname;
     public string id;
@@ -77,4 +78,6 @@ public class SignUpPanelController : PanelController
         GameManager.Instance.OpenLoginPanel();
         //TODO: 뒤로가기 누르면 로그인 패널이 나오게 하기 
     }
+}
+
 }

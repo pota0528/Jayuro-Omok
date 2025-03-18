@@ -4,55 +4,59 @@ using park_namespace;
 using TMPro;
 using UnityEngine;
 
-public struct LoginData
+namespace park_namespace
 {
-    public string id;
-    public string password;
-}
-
-public class LoginPanelController : MonoBehaviour
-{
-    [SerializeField] private TMP_InputField _idInputField;
-    [SerializeField] private TMP_InputField _passwordInputField;
-
-    public void OnClickLogInButton()
+    public struct LoginData
     {
-        Debug.Log("로그인 버튼 누름");
-        string id = _idInputField.text;
-        string password = _passwordInputField.text;
-        if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
-        {
-            return;
-        }
+        public string id;
+        public string password;
+    }
 
-        var loginData = new LoginData();
-        loginData.id = id;
-        loginData.password = password;
+    public class LoginPanelController : MonoBehaviour
+    {
+        [SerializeField] private TMP_InputField _idInputField;
+        [SerializeField] private TMP_InputField _passwordInputField;
 
-        if (PlayerPrefs.GetString("ID") == id)
+        public void OnClickLogInButton()
         {
-            if (PlayerPrefs.GetString("Password") == password)
+            Debug.Log("로그인 버튼 누름");
+            string id = _idInputField.text;
+            string password = _passwordInputField.text;
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
             {
-                Debug.Log("로그인 성공");
-                //TODO: 로그인 진심 구현 
-                GameManager.Instance.OpenUserPanel();
+                return;
             }
-            else
+
+            var loginData = new LoginData();
+            loginData.id = id;
+            loginData.password = password;
+
+            if (PlayerPrefs.GetString("ID") == id)
             {
-                Debug.Log("비밀번호가 틀렸습니다.");
+                if (PlayerPrefs.GetString("Password") == password)
+                {
+                    Debug.Log("로그인 성공");
+                    //TODO: 로그인 진심 구현 
+                    GameManager.Instance.OpenUserPanel();
+                }
+                else
+                {
+                    Debug.Log("비밀번호가 틀렸습니다.");
+                }
             }
-        }
      
       
 
 
         
         
-    }
+        }
 
-    public void OnClickSignUpButton()
-    {
-        Destroy(gameObject);
-       GameManager.Instance.OpenSignUpPanel();
+        public void OnClickSignUpButton()
+        {
+            Destroy(gameObject);
+            GameManager.Instance.OpenSignUpPanel();
+        }
     }
 }
+

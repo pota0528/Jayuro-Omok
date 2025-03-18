@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainPanelController: MonoBehaviour
+namespace park_namespace
 {
-
-    public void OnClickLoginButton()
+    public class MainPanelController: MonoBehaviour
     {
+
+        public void OnClickLoginButton()
+        {
         
-    }
+        }
    
+    } 
 }
+
