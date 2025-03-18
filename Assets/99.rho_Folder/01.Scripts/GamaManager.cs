@@ -165,7 +165,7 @@ namespace rho_namespace
             int row = currentMoveindex.Item1;
             int col = currentMoveindex.Item2;
             
-            int currentCol = col + 1; // 오른쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
+            int currentCol = col + 1; // 오른쪽 탐색
             
             while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
             {
@@ -177,7 +177,7 @@ namespace rho_namespace
                 ++currentCol;
             }
             
-            currentCol = col - 1; // 왼쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
+            currentCol = col - 1; // 왼쪽 탐색
             
             while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
             {
@@ -189,13 +189,113 @@ namespace rho_namespace
                 --currentCol;
             }
             
+            // 위쪽 탐색
+            int currentRow = row + 1;
+            
+            while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
+            {
+                if (_board[currentRow, col] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, col));
+                }
+                
+                ++currentRow;
+            }
+            
+            //아래쪽 탐색
+            currentRow = row - 1;
+            
+            while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
+            {
+                if (_board[currentRow, col] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, col));
+                }
+                
+                --currentRow;
+            }
+            
+            // 오른쪽 아래 탐색
+            currentRow = row + 1;
+            currentCol = col + 1;
+            
+            while (currentRow <= 14 && currentCol <= 14 && currentRow < row + 5 && currentCol < col + 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                }
+                else
+                {
+                    break;
+                }
+                
+                ++currentRow;
+                ++currentCol;
+            }
+            
+            // 왼쪽 위 탐색
+            currentRow = row - 1;
+            currentCol = col - 1;
+            
+            while (currentRow >= 0 && currentCol >= 0 && currentRow > row - 5 && currentCol > col - 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                }
+                else
+                {
+                    break;
+                }
+                --currentRow;
+                --currentCol;
+            }
+            
+            // 왼쪽 아래 탐색
+            currentRow = row + 1;
+            currentCol = col - 1;
+            
+            while (currentRow <= 14 && currentCol >= 0 && currentRow < row + 5 && currentCol > col - 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                }
+                else
+                {
+                    break;
+                }
+                ++currentRow;
+                --currentCol;
+            }
+            
+            // 오른쪽 위 탐색
+            currentRow = row - 1;
+            currentCol = col + 1;
+            
+            while (currentRow >= 0 && currentCol <= 14 && currentRow > row - 5 && currentCol < col + 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                }
+                else
+                {
+                    break;
+                }
+                --currentRow;
+                ++currentCol;
+            }
+            
             return emptyList;
         }
 
         private List<(int, int)> SetForbidden(List<(int, int)> emptyList)
         {
             List<(int, int)> forbiddenList = new List<(int, int)>();
-            for (int i = 0; i < emptyList.Count; i++)
+            
+            for (int i = 0; i < emptyList.Count; i++) //좌우 검사
             {
                 // 오른쪽 검사
                 int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
@@ -236,6 +336,104 @@ namespace rho_namespace
                     forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
+            
+            for (int i = 0; i < emptyList.Count; i++) //상하 검사
+            {
+                // 위쪽 검사
+                int row = emptyList[i].Item1 + 1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                int col = emptyList[i].Item2;
+                
+                int blockIndex = 0;
+                
+                for (int j = row; j <= 14 && j < row + 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (_board[j, col] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                // 아래쪽 검사
+                row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2;
+                
+                for (int j = row; 0 <= j && j > row - 4; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (_board[j, col] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 5)
+                {
+                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                }
+            }
+            
+            for (int i = 0; i < emptyList.Count; i++) // ↖↘
+            {
+                // ↘ 부터 검사!
+                
+                int row = emptyList[i].Item1 + 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
+                int col = emptyList[i].Item2 + 1;
+                
+                int blockIndex = 0;
+                
+                for (int j = 0; j < 5; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (row + j > 14 && col + j > 14)
+                    {
+                        break;
+                    }
+                    
+                    if (_board[row + j, col + j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
+                col = emptyList[i].Item2 - 1;
+                
+                blockIndex = 0;
+                
+                for (int j = 4; j > -1; j--) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (row - j > -1 && col - j > -1)
+                    {
+                        break;
+                    }
+                    
+                    if (_board[row - j, col - j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 5)
+                {
+                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                }
+            }
+            
+            
             
             return forbiddenList;
         }
