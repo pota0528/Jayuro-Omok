@@ -162,61 +162,50 @@ namespace rho_namespace
         private void ForbiddenLongLength()
         {
             int blackCount = 0;
-            int voidCount = 0;
-            bool isSequence = false;
-            (int, int) voidBoardCount = (-1, -1);
-                    
             int row = currentMoveindex.Item1;
+            (int, int) voidBoardCount = (-1, -1);
+    
             for (int col = 0; col < LINE_COUNT; col++)
             {
-                if (_board[row, col] == PlayerType.PlayerB)
+                var cell = _board[row, col];
+
+                if (cell == PlayerType.PlayerB || cell == PlayerType.PlayerX) // 백돌 or 금수
                 {
                     blackCount = 0;
-                    voidCount = 0;
-                    isSequence = false;
+                    voidBoardCount = (-1, -1);
                 }
-                else if (_board[row, col] == PlayerType.PlayerA)
+                else if (cell == PlayerType.PlayerA) // 흑돌이면 카운트 증가
                 {
                     ++blackCount;
-                    isSequence = false;
+                    voidBoardCount = (-1, -1);
                 }
-                else if (_board[row, col] == PlayerType.None)
+                else if (cell == PlayerType.None) // 빈칸이면 저장
                 {
-                    if (isSequence)
+                    if (voidBoardCount.Item1 != -1) // 빈칸이 2개 이상이면 초기화
                     {
                         blackCount = 0;
-                        voidCount = 0;
-                        isSequence = false;
+                        voidBoardCount = (-1, -1);
                         continue;
                     }
-
-                    voidBoardCount = (row, col);
-                    ++voidCount;
-                    isSequence = true;
-                }
-                else if (_board[row, col] == PlayerType.PlayerX)
-                {
-                    blackCount = 0;
-                    voidCount = 0;
-                    isSequence = false;
-                }
-                
-                if (blackCount >= 5)
-                {
-                    (int voidRow, int voidCow) = voidBoardCount;
-                    _board[voidRow, voidCow] = PlayerType.PlayerX;
-                    forbiddenList.Add(voidBoardCount);
                     
-                    col = voidBoardCount.Item2;
+                    voidBoardCount = (row, col);
+                }
+
+                if (blackCount >= 5 && voidBoardCount.Item1 != -1) // 장목 판정
+                {
+                    _board[voidBoardCount.Item1, voidBoardCount.Item2] = PlayerType.PlayerX;
+                    
+                    if (!forbiddenList.Contains(voidBoardCount))
+                    {
+                        forbiddenList.Add(voidBoardCount);
+                    }
+            
                     blackCount = 0;
-                    voidCount = 0;
-                    isSequence = false;
-                    //voidBoardCount는 금수의 자리
-                    //금수 체크
-                    //다시 돌아가서 voidBoardCount.item2 + 1로 대입
+                    voidBoardCount = (-1, -1);
                 }
             }
         }
+
 
         private void SetForbiddenMark()
         {
