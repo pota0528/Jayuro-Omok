@@ -167,15 +167,11 @@ namespace rho_namespace
             
             int currentCol = col + 1; // 오른쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
             
-            while (0 <= currentCol && currentCol < col + 5 && currentCol <= 15) 
+            while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
             {
                 if (_board[row, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((row, currentCol));
-                }
-                else
-                {
-                    continue; // 돌을 만나면 탐색 종료
                 }
                 
                 ++currentCol;
@@ -183,15 +179,11 @@ namespace rho_namespace
             
             currentCol = col - 1; // 왼쪽 탐색 ) 최근에 놓은 돌을 기준으로 가로 한 칸 이내로 빈칸이 있는지 확인 + 0보다 크고, 15보다 작아야하는 조건 충족
             
-            while (0 <= currentCol && currentCol > col - 5 && currentCol <= 15) 
+            while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
             {
                 if (_board[row, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((row, currentCol));
-                }
-                else
-                {
-                    continue; // 돌을 만나면 탐색 종료
                 }
                 
                 --currentCol;
@@ -211,7 +203,7 @@ namespace rho_namespace
                 
                 int blockIndex = 0;
                 
-                for (int j = col; j <= 15 && j < col + 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = col; j <= 14 && j < col + 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     if (_board[row, j] == PlayerType.PlayerA)
                     {
@@ -254,6 +246,7 @@ namespace rho_namespace
         {
             for (int i = 0; i < forbiddenList.Count; i++)
             {
+                _board[forbiddenList[i].Item1,  forbiddenList[i].Item2] = PlayerType.PlayerX;
                 _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
             }
         }
