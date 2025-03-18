@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using yu_namespace;
 
@@ -7,6 +8,12 @@ namespace yu_namespace
 {
     public class NoCoinController : BaseUIController
     {
+        [SerializeField] private TextMeshProUGUI coinText;
+
+        public void ShowCoinText(string coinString)//찬영님이 주시는 데이터 형태로 넣기
+        {
+            coinText.text = coinString;
+        }
         public void OnClickShopButton()
         {
             Hide(() =>
