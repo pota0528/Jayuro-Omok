@@ -12,8 +12,10 @@ namespace yu_namespace
             Hide(() =>
             {
                 //TODO: 메인씬+상점패널로 이동
-                //SceneManager.LoadScene("");
+                //장운님이 만드신 GameManager.Instance.OpenShopPanel();호출
                 Debug.Log("상점으로 이동");
+                GameManager.Instance.OpenGiveupPanel();
+                
                 
             });
         }

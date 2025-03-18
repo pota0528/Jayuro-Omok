@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3998666844585740257}
   - component: {fileID: 172495383834351904}
   m_Layer: 5
-  m_Name: CancelButton
+  m_Name: ShopButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: yu_namespace.BaseUIController, Assembly-CSharp
-        m_MethodName: OnConfirmButtonClick
+      - m_Target: {fileID: 3719018433205157994}
+        m_TargetAssemblyTypeName: yu_namespace.NoCoinController, Assembly-CSharp
+        m_MethodName: OnClickShopButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -302,7 +302,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAE30\uAD8C\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  m_text: "\uCF54\uC778\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uC0C1\uC810\uC73C\uB85C
+    \uC774\uB3D9\uD560\uAE4C\uC694?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}
   m_sharedMaterial: {fileID: 2310887602868615129, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}
@@ -430,7 +431,7 @@ GameObject:
   - component: {fileID: 1589806919213710303}
   - component: {fileID: 3821791549917384992}
   m_Layer: 5
-  m_Name: GiveupButton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,9 +539,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: yu_namespace.GiveupPanelController, Assembly-CSharp
-        m_MethodName: OnClickGiveupButton
+      - m_Target: {fileID: 3719018433205157994}
+        m_TargetAssemblyTypeName: yu_namespace.NoCoinController, Assembly-CSharp
+        m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -615,7 +616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD655\uC778"
+  m_text: "\uB098\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}
   m_sharedMaterial: {fileID: 2310887602868615129, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}
@@ -749,7 +750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCDE8\uC18C"
+  m_text: "\uC0C1\uC810\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}
   m_sharedMaterial: {fileID: 2310887602868615129, guid: 7050c3a1cb4a01045bfdeb5d4a0f8096, type: 2}

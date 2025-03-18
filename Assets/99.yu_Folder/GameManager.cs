@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace yu_namespace
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : Singleton<GameManager>
     {
         
         [SerializeField] private GameObject messagePopupPrefab;
