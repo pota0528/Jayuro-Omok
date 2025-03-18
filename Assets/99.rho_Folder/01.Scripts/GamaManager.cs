@@ -159,7 +159,7 @@ namespace rho_namespace
             }
         }
 
-        private List<(int, int)> FindEmptySpotsInRow() // int row = currentMoveindex.Item1, int col = currentMoveindex.Item2;
+        private List<(int, int)> FindEmptySpotsInRow()
         {
             List<(int, int)> emptyList = new List<(int, int)>();
             int row = currentMoveindex.Item1;
@@ -189,7 +189,7 @@ namespace rho_namespace
                 --currentCol;
             }
             
-            // 위쪽 탐색
+            //아래쪽 탐색
             int currentRow = row + 1;
             
             while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
@@ -202,7 +202,7 @@ namespace rho_namespace
                 ++currentRow;
             }
             
-            //아래쪽 탐색
+            // 위쪽 탐색
             currentRow = row - 1;
             
             while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
@@ -216,6 +216,7 @@ namespace rho_namespace
             }
             
             // 오른쪽 아래 탐색
+            
             currentRow = row + 1;
             currentCol = col + 1;
             
@@ -225,16 +226,13 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-                else
-                {
-                    break;
-                }
                 
                 ++currentRow;
                 ++currentCol;
             }
             
             // 왼쪽 위 탐색
+            
             currentRow = row - 1;
             currentCol = col - 1;
             
@@ -244,50 +242,43 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-                else
-                {
-                    break;
-                }
+                
                 --currentRow;
                 --currentCol;
             }
-            
+
+
+            //↙↗ 탐색 구현
+
             // 왼쪽 아래 탐색
             currentRow = row + 1;
             currentCol = col - 1;
-            
+
             while (currentRow <= 14 && currentCol >= 0 && currentRow < row + 5 && currentCol > col - 5)
             {
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-                else
-                {
-                    break;
-                }
+
                 ++currentRow;
                 --currentCol;
             }
-            
+
             // 오른쪽 위 탐색
             currentRow = row - 1;
             currentCol = col + 1;
-            
+
             while (currentRow >= 0 && currentCol <= 14 && currentRow > row - 5 && currentCol < col + 5)
             {
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-                else
-                {
-                    break;
-                }
+
                 --currentRow;
                 ++currentCol;
             }
-            
             return emptyList;
         }
 
@@ -381,16 +372,16 @@ namespace rho_namespace
             
             for (int i = 0; i < emptyList.Count; i++) // ↖↘
             {
-                // ↘ 부터 검사!
+                // ↘ 부터 검사! // TODO : 체크 확인
                 
                 int row = emptyList[i].Item1 + 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
                 int col = emptyList[i].Item2 + 1;
                 
-                int blockIndex = 0;
+                int blockIndex = 0; //1,2,3,4
                 
-                for (int j = 0; j < 5; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = 0; j < 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    if (row + j > 14 && col + j > 14)
+                    if (row + j > 14 || col + j > 14)
                     {
                         break;
                     }
@@ -405,14 +396,14 @@ namespace rho_namespace
                     }
                 }
                 
+                // ↖ 검사! // TODO : 체크 확인
+                
                 row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
                 col = emptyList[i].Item2 - 1;
                 
-                blockIndex = 0;
-                
-                for (int j = 4; j > -1; j--) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = 0; j < 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    if (row - j > -1 && col - j > -1)
+                    if (row - j < 0 || col - j < 0)
                     {
                         break;
                     }
@@ -432,9 +423,59 @@ namespace rho_namespace
                     forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
-            
-            
-            
+
+            for (int i = 0; i < emptyList.Count; i++) // ↙↗
+            {
+                // ↙(왼쪽 아래) 검사
+                int row = emptyList[i].Item1 + 1; // 공백의 그 다음 자리부터 계산해야 하니 +1
+                int col = emptyList[i].Item2 - 1;
+
+                int blockIndex = 0; // 1,2,3,4
+
+                for (int j = 0; j < 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                {
+                    if (row + j > 14 || col - j < 0) // 왼쪽 아래 방향 범위 초과 검사
+                    {
+                        break;
+                    }
+
+                    if (_board[row + j, col - j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                // ↗(오른쪽 위) 검사
+                row = emptyList[i].Item1 - 1; // 공백의 그 다음 자리부터 계산해야 하니 -1
+                col = emptyList[i].Item2 + 1;
+
+                for (int j = 0; j < 4; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                {
+                    if (row - j < 0 || col + j > 14) // 오른쪽 위 방향 범위 초과 검사
+                    {
+                        break;
+                    }
+
+                    if (_board[row - j, col + j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (blockIndex >= 5)
+                {
+                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                }
+            }
+
             return forbiddenList;
         }
         
