@@ -8,6 +8,12 @@ namespace Joe_namespace
 {
     public class MainPanelController : MonoBehaviour
     {
+        public void OnClickPlayButton()
+        {
+            GameManager.Instance.ChangeToGameScene();
+        }
+        
+        
         public void OnClickShopPanelButton()
         {
             GameManager.Instance.OpenShopPanel();
@@ -17,7 +23,11 @@ namespace Joe_namespace
         public void OnClickRankingPanelButton()
         {
             GameManager.Instance.OpenRankingPanel();
+            Debug.Log("Ranking Panel Opened");
         }
+
+      
+        
     }
 
 }

@@ -13,20 +13,33 @@ namespace Joe_namespace
         [SerializeField] private GameObject rankingPanel;
         
         private Canvas _canvas;
+
+
+        public void Awake()
+        {
+            _canvas = FindObjectOfType<Canvas>();
+        }
+
+
+        public void ChangeToGameScene()
+        {
+            SceneManager.LoadScene("Game_jk");
+        }
+        
+        public void ChangeToMainScene()
+        {
+            SceneManager.LoadScene("Main_jk");
+        }
+        
         
         
         public void OpenShopPanel()
         {
-          
-            _canvas = FindObjectOfType<Canvas>();
-            
             if (_canvas != null)
             {
-                
                 var shopPanelObject = Instantiate(shopPanel, _canvas.transform);
                 shopPanelObject.GetComponent<PanelController>().ShowPanel();
                 Debug.Log("상점 떳드아!");
-               
             }
         }
 
@@ -36,6 +49,7 @@ namespace Joe_namespace
             {
                 var rankingPanelObject = Instantiate(rankingPanel, _canvas.transform);
                 rankingPanelObject.GetComponent<PanelController>().ShowPanel();
+                Debug.Log("랭킹 떳드아!!!");
             }
         }
     
