@@ -4,10 +4,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-// using Joe_namespace;
 
-// namespace Joe_namespace
-// {
+
+namespace Joe_namespace
+{
 
     [RequireComponent(typeof(CanvasGroup))]
 
@@ -71,4 +71,4 @@ using DG.Tweening;
 
     }
 
-// }
+}
