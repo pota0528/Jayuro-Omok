@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,19 +10,37 @@ namespace yu_namespace
 {
     public class SettingPopupController : BaseUIController
     {
-        public AudioMixer audioMixer;
         public Slider bgmSlider;
         public Slider sfxSlider;
+        
 
-        public void SetBGMVolume()
+        private void Start()
         {
-            audioMixer.SetFloat("BGMParam", Mathf.Log10(bgmSlider.value) * 20);
+            // 저장된 BGM 값으로 슬라이더 초기화
+            float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.75f);
+            bgmSlider.value = savedBGMVolume;
+            float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
+            sfxSlider.value = savedSFXVolume;
+            
+            // 슬라이더 값 변경 시 BGM 볼륨 업데이트
+            bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
+            sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+
+            // 초기 BGM 볼륨 설정
+            AudioManager.Instance.SetBGMVolume(bgmSlider.value);
+            AudioManager.Instance.SetSFXVolume(sfxSlider.value);
+        }
+        
+        private void OnDestroy()
+        {
+            // 슬라이더 값 변경 시 PlayerPrefs에 저장
+            PlayerPrefs.SetFloat("BGMParam", bgmSlider.value);
+            PlayerPrefs.SetFloat("SFXParam", sfxSlider.value);
+            PlayerPrefs.Save();
         }
 
-        public void SetSFXVolume()
-        {
-            audioMixer.SetFloat("SFXParam", Mathf.Log10(sfxSlider.value) * 20);
-        }
+
+        
 
 
     }

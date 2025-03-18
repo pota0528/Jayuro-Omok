@@ -1,21 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace yu_namespace{
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : Singleton<AudioManager>
     {
         [SerializeField] private AudioSource BgmAudioSource;
         [SerializeField] public AudioSource SfxAudioSource;
+        public AudioMixer audioMixer;
 
-        public void OnPutStone()//바둑알 놓을때
+        public void OnPutStone() // 바둑알 놓을 때
         {
             SfxAudioSource.Play();
         }
 
-        public void OnPlayBGM()//배경음
+        public void OnPlayBGM() // 배경음
         {
             BgmAudioSource.Play();
+        }
+
+        private void Start()
+        {
+            // 저장된 볼륨 값을 불러옴
+            float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.75f);
+            SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
+            float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
+            SetBGMVolume(savedSFXVolume); // 초기 BGM 볼륨 설정
+        }
+
+        public void SetBGMVolume(float volume)
+        {
+            // BGM 볼륨 설정
+            audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
+
+            // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
+            PlayerPrefs.SetFloat("BGMParam", volume); 
+            PlayerPrefs.Save();
+        }
+
+        public void SetSFXVolume(float volume)
+        {
+            // BGM 볼륨 설정
+            audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
+
+            // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
+            PlayerPrefs.SetFloat("SFXParam", volume); 
+            PlayerPrefs.Save();
         }
 
     }
