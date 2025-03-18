@@ -26,7 +26,7 @@ namespace yu_namespace{
             float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.75f);
             SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
             float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
-            SetBGMVolume(savedSFXVolume); // 초기 BGM 볼륨 설정
+            SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
         }
 
         public void SetBGMVolume(float volume)
