@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
-{
-    public string imageFileName;
-    public string title;
+public class Item 
+{ 
     public string subtitle;
+    public System.Action onClick;
 }
