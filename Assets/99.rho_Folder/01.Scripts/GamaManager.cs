@@ -159,6 +159,11 @@ namespace rho_namespace
             }
         }
 
+        /// <summary>
+        /// 최근에 놓은 흑돌을 기준으로 양방향으로 4칸을 돌면서 빈 공백(금수의 가능성이 있는 좌표)을 담는 함수이다.
+        /// 만약 순회할 때 백돌이 보이면 반대 방향으로 돌거나, 순회를 멈춘다.
+        /// </summary>
+        /// <returns></returns>
         private List<(int, int)> FindEmptySpotsInRow()
         {
             List<(int, int)> emptyList = new List<(int, int)>();
@@ -173,7 +178,10 @@ namespace rho_namespace
                 {
                     emptyList.Add((row, currentCol));
                 }
-                
+                else if (_board[row, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
                 ++currentCol;
             }
             
@@ -185,7 +193,10 @@ namespace rho_namespace
                 {
                     emptyList.Add((row, currentCol));
                 }
-                
+                else if (_board[row, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
                 --currentCol;
             }
             
@@ -197,6 +208,10 @@ namespace rho_namespace
                 if (_board[currentRow, col] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, col));
+                }
+                else if (_board[currentRow, col] == PlayerType.PlayerB)
+                {
+                    break;
                 }
                 
                 ++currentRow;
@@ -211,7 +226,10 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, col));
                 }
-                
+                else if (_board[currentRow, col] == PlayerType.PlayerB)
+                {
+                    break;
+                }
                 --currentRow;
             }
             
@@ -225,6 +243,10 @@ namespace rho_namespace
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
+                }
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
                 }
                 
                 ++currentRow;
@@ -242,7 +264,10 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-                
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
                 --currentRow;
                 --currentCol;
             }
@@ -260,7 +285,11 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
                 ++currentRow;
                 --currentCol;
             }
@@ -275,13 +304,22 @@ namespace rho_namespace
                 {
                     emptyList.Add((currentRow, currentCol));
                 }
-
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
                 --currentRow;
                 ++currentCol;
             }
             return emptyList;
         }
 
+        /// <summary>
+        /// 금수의 가능성이 있는 공백을 양방향으로 4칸 돌면서 흑돌이 5개 이상인지, 즉 금수가 되는 조건인지 검사하는 함수이다.
+        /// 만약 순회할 때 백돌이 반대 방향으로 돌거나, 순회를 멈춘다.
+        /// </summary>
+        /// <returns></returns>
         private List<(int, int)> SetForbidden(List<(int, int)> emptyList)
         {
             List<(int, int)> forbiddenList = new List<(int, int)>();
