@@ -7,8 +7,8 @@ namespace yu_namespace{
     public class AudioManager : Singleton<AudioManager>
     {
         [SerializeField] private AudioSource BgmAudioSource;
-        [SerializeField] public AudioSource SfxAudioSource;
-        public AudioMixer audioMixer;
+        [SerializeField] private AudioSource SfxAudioSource;
+        [SerializeField] private AudioMixer audioMixer;
 
         public void OnPutStone() // 바둑알 놓을 때
         {

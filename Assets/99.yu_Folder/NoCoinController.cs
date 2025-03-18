@@ -9,11 +9,12 @@ namespace yu_namespace
     public class NoCoinController : BaseUIController
     {
         [SerializeField] private TextMeshProUGUI coinText;
-
-        public void ShowCoinText(string coinString)//찬영님이 주시는 데이터 형태로 넣기
+        
+        public void ShowCoinText(string coin)//찬영님이 주시는 데이터 형태로 넣기
         {
-            coinText.text = coinString;
+            coinText.text = coin; ;
         }
+        
         public void OnClickShopButton()
         {
             Hide(() =>
@@ -33,7 +34,7 @@ namespace yu_namespace
             {
                 //TODO: 메인씬+프로필패널로 이동
                 //SceneManager.LoadScene("");
-                Debug.Log("프로필로 이동");
+                Debug.Log("메인씬으로 이동");
                 
             });
         }

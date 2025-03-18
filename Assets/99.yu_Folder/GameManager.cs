@@ -44,7 +44,7 @@ namespace yu_namespace
         {
             var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
             noCoinPanel.GetComponent<BaseUIController>().Show();
-            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText("$:500");//찬영님이 주시는 데이터 형태로
+            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText("$:999");//찬영님이 주시는 데이터 형태로
         }
 
         //테스트팝업오픈
