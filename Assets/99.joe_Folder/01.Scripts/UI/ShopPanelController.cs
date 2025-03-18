@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using Joe_namespace;
 
-public class ShopPanelController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+// namespace Joe_namespace
+// {
+    public class ShopPanelController : PanelController
     {
-        
+        public void OnClickCloseButton()
+        {
+            HidePanel();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+// }

@@ -3,52 +3,72 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-//using DG.Tweening;
+using DG.Tweening;
+// using Joe_namespace;
 
-public class PanelController : MonoBehaviour
-{
-    [SerializeField] private TMP_Text titleText;
-    [SerializeField] private GameObject panelObject;
+// namespace Joe_namespace
+// {
 
+    [RequireComponent(typeof(CanvasGroup))]
 
-    private void Awake()
+    public class PanelController : MonoBehaviour
     {
-        
+        //[SerializeField] private TMP_Text titleText;
+        //[SerializeField] private GameObject panelObject;
+        [SerializeField] private RectTransform panelRectTransform;
+
+        private CanvasGroup _backgroundCanvasGroup;
+
+        public delegate void PanelControllerHideDelegate();
+
+
+
+        private void Awake()
+        {
+            _backgroundCanvasGroup = GetComponent<CanvasGroup>();
+        }
+
+
+        // public void SetTitleText(string title)
+        // {
+        //     titleText.text = title;
+        // }
+
+        // public void OnClickCloseButton()
+        // {
+        //     HidePanel();
+        // }
+
+
+
+        public void ShowPanel()
+        {
+
+            
+            _backgroundCanvasGroup.alpha = 1;
+            panelRectTransform.localScale = Vector3.one;
+            
+            
+            _backgroundCanvasGroup.DOFade(1f, 0.3f).SetEase(Ease.Linear);
+            panelRectTransform.DOScale(1f, 0.3f).SetEase(Ease.OutBack);
+        }
+
+        public void HidePanel(PanelControllerHideDelegate hideDelegate = null)
+        {
+
+            _backgroundCanvasGroup.alpha = 0;
+            panelRectTransform.localScale = Vector3.zero;
+
+            _backgroundCanvasGroup.DOFade(0f, 0.3f).SetEase(Ease.Linear);
+            panelRectTransform.DOScale(0f, 0.3f)
+                .SetEase(Ease.InBack).OnComplete(() =>
+                {
+                    hideDelegate?.Invoke();
+                    Destroy(gameObject);
+                });
+        }
+
+
     }
 
-    
-    
-    
-    private void Start()
-    {
-        //ShowPanel();
-    }
-    
-    
-    
-    
-    
-    // private void ShowPanel()
-    // {
-    //     _backgroundImage.DOFade(0, 0);
-    //     panelObject.GetComponent<CanvasGroup>().DOFade(0, 0);
-    //     panelObject.GetComponent<RectTransform>().DOAnchorPosY(-500f, 0);
-    //     
-    //     _backgroundImage.DOFade(1f, 0.2f);
-    //     panelObject.GetComponent<CanvasGroup>().DOFade(1f, 0.2f);
-    //     panelObject.GetComponent<RectTransform>().DOAnchorPosY(0, 0.2f);
-    //     
-    // }
-    //
-    //
-    // public void OnClickCloseButton()
-    // {
-    //     HidePopupPanel();
-    // }
-    
-    
-    
-    
-    
-    
-}
+// }
