@@ -12,7 +12,7 @@ namespace yu_namespace
         
         public void ShowCoinText(string coin)//찬영님이 주시는 데이터 형태로 넣기
         {
-            coinText.text = coin; ;
+            coinText.text = coin;
         }
         
         public void OnClickShopButton()
