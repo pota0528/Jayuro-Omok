@@ -108,7 +108,8 @@ namespace rho_namespace
                     currentTurnType = TurnType.PlayerA;
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                     //최근에 놓인 흑돌을 기준으로, 가로 검사
-                    forbiddenCollecition = SetForbidden(FindEmptySpotsInRow());
+                    SetOverlineForbidden(FindEmptySpotsInRow());
+                    Set4X4Forbidden(FindEmpty4X4());
                     SetForbiddenMark(forbiddenCollecition);
                     _blockController.OnBlockClickedDelegate = (row, col) =>
                     {
@@ -159,6 +160,7 @@ namespace rho_namespace
             }
         }
 
+        #region 장목 검사할 때 쓰이는 함수
         /// <summary>
         /// 최근에 놓은 흑돌을 기준으로 양방향으로 4칸을 돌면서 빈 공백(금수의 가능성이 있는 좌표)을 담는 함수이다.
         /// 만약 순회할 때 백돌이 보이면 반대 방향으로 돌거나, 순회를 멈춘다.
@@ -320,10 +322,8 @@ namespace rho_namespace
         /// 만약 순회할 때 백돌이 반대 방향으로 돌거나, 순회를 멈춘다.
         /// </summary>
         /// <returns></returns>
-        private List<(int, int)> SetForbidden(List<(int, int)> emptyList)
+        private void SetOverlineForbidden(List<(int, int)> emptyList)
         {
-            List<(int, int)> forbiddenList = new List<(int, int)>();
-            
             for (int i = 0; i < emptyList.Count; i++) //좌우 검사
             {
                 // 오른쪽 검사
@@ -362,7 +362,7 @@ namespace rho_namespace
                 
                 if (blockIndex >= 5)
                 {
-                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
             
@@ -404,7 +404,7 @@ namespace rho_namespace
                 
                 if (blockIndex >= 5)
                 {
-                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
             
@@ -458,7 +458,7 @@ namespace rho_namespace
                 
                 if (blockIndex >= 5)
                 {
-                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
 
@@ -510,11 +510,379 @@ namespace rho_namespace
 
                 if (blockIndex >= 5)
                 {
-                    forbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
                 }
             }
+        }
+        #endregion
+        
+        private List<(int, int)> FindEmpty4X4()
+        {
+            List<(int, int)> emptyList = new List<(int, int)>();
+            int row = currentMoveindex.Item1;
+            int col = currentMoveindex.Item2;
+            
+            int currentCol = col + 1; // 오른쪽 탐색
+            
+            while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
+            {
+                if (_board[row, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((row, currentCol));
+                    break;
+                }
+                else if (_board[row, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
+                ++currentCol;
+            }
+            
+            currentCol = col - 1; // 왼쪽 탐색
+            
+            while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
+            {
+                if (_board[row, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((row, currentCol));
+                    break;
+                }
+                else if (_board[row, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                --currentCol;
+            }
+            
+            //아래쪽 탐색
+            int currentRow = row + 1;
+            
+            while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
+            {
+                if (_board[currentRow, col] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, col));
+                    break;
+                }
+                else if (_board[currentRow, col] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
+                ++currentRow;
+            }
+            
+            // 위쪽 탐색
+            currentRow = row - 1;
+            
+            while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
+            {
+                if (_board[currentRow, col] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, col));
+                    break;
+                }
+                else if (_board[currentRow, col] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                --currentRow;
+            }
+            
+            // 오른쪽 아래 탐색
+            
+            currentRow = row + 1;
+            currentCol = col + 1;
+            
+            while (currentRow <= 14 && currentCol <= 14 && currentRow < row + 5 && currentCol < col + 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                    break;
+                }
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
+                ++currentRow;
+                ++currentCol;
+            }
+            
+            // 왼쪽 위 탐색
+            
+            currentRow = row - 1;
+            currentCol = col - 1;
+            
+            while (currentRow >= 0 && currentCol >= 0 && currentRow > row - 5 && currentCol > col - 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                    break;
+                }
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                --currentRow;
+                --currentCol;
+            }
 
-            return forbiddenList;
+
+            //↙↗ 탐색 구현
+
+            // 왼쪽 아래 탐색
+            currentRow = row + 1;
+            currentCol = col - 1;
+
+            while (currentRow <= 14 && currentCol >= 0 && currentRow < row + 5 && currentCol > col - 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                    break;
+                }
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
+                ++currentRow;
+                --currentCol;
+            }
+
+            // 오른쪽 위 탐색
+            currentRow = row - 1;
+            currentCol = col + 1;
+
+            while (currentRow >= 0 && currentCol <= 14 && currentRow > row - 5 && currentCol < col + 5)
+            {
+                if (_board[currentRow, currentCol] == PlayerType.None)
+                {
+                    emptyList.Add((currentRow, currentCol));
+                    break;
+                }
+                else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                
+                --currentRow;
+                ++currentCol;
+            }
+            return emptyList;
+        }
+        
+        private void Set4X4Forbidden(List<(int, int)> emptyList)
+        {
+            const int MAX_TURNING_COUNT = 4;
+            int tempForbiddenCount = 0;
+            
+            for (int i = 0; i < emptyList.Count; i++)
+            {
+                // 오른쪽 검사
+                int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                int col = emptyList[i].Item2 + 1;
+
+                int blockIndex = 1;
+                int turningCount = 0;
+                
+                for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++turningCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                // 왼쪽 검사
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 1;
+                
+                for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++turningCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 4)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                // 위쪽 검사
+                row = emptyList[i].Item1 + 1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2;
+                
+                blockIndex = 1;
+                turningCount = 0;
+                
+                for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++turningCount;
+                    
+                    if (_board[j, col] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if  (_board[j, col] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                // 아래쪽 검사
+                row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2;
+                
+                for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (_board[j, col] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if  (_board[j, col] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 4)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                // ↘ 부터 검사! // TODO : 체크 확인
+                row = emptyList[i].Item1 + 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
+                col = emptyList[i].Item2 + 1;
+                
+                blockIndex = 1; //1,2,3,4
+                turningCount = 0;
+                
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (row + j > 14 || col + j > 14)
+                    {
+                        break;
+                    }
+                    
+                    ++turningCount;
+                    
+                    if (_board[row + j, col + j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row + j, col + j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                // ↖ 검사! // TODO : 체크 확인
+                
+                row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
+                col = emptyList[i].Item2 - 1;
+                
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    if (row - j < 0 || col - j < 0)
+                    {
+                        break;
+                    }
+                    
+                    ++turningCount;
+                    
+                    if (_board[row - j, col - j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row - j, col - j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+                
+                if (blockIndex >= 4)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                // ↙(왼쪽 아래) 검사
+                row = emptyList[i].Item1 + 1; // 공백의 그 다음 자리부터 계산해야 하니 +1
+                col = emptyList[i].Item2 - 1;
+
+                blockIndex = 1; // 1,2,3,4
+                turningCount = 0;
+
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                {
+                    if (row + j > 14 || col - j < 0) // 왼쪽 아래 방향 범위 초과 검사
+                    {
+                        break;
+                    }
+                    
+                    ++turningCount;
+                    
+                    if (_board[row + j, col - j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row + j, col - j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+
+                // ↗(오른쪽 위) 검사
+                row = emptyList[i].Item1 - 1; // 공백의 그 다음 자리부터 계산해야 하니 -1
+                col = emptyList[i].Item2 + 1;
+
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                {
+                    if (row - j < 0 || col + j > 14) // 오른쪽 위 방향 범위 초과 검사
+                    {
+                        break;
+                    }
+
+                    ++turningCount;
+                    
+                    if (_board[row - j, col + j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row - j, col + j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                }
+
+                if (blockIndex >= 4)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                if (tempForbiddenCount >= 2)
+                {
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                }
+            }
         }
         
         private void SetForbiddenMark(List<(int, int)> forbiddenList)
@@ -524,7 +892,7 @@ namespace rho_namespace
                 _board[forbiddenList[i].Item1,  forbiddenList[i].Item2] = PlayerType.PlayerX;
                 _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
             }
-        }
+        } //금수 마크 표시하는 함수
         /// <summary>
         /// 게임 결과 확인 함수
         /// </summary>
