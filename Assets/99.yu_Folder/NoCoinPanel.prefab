@@ -541,7 +541,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3719018433205157994}
-        m_TargetAssemblyTypeName: yu_namespace.NoCoinController, Assembly-CSharp
+        m_TargetAssemblyTypeName: yu_namespace.BaseUIController, Assembly-CSharp
         m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:

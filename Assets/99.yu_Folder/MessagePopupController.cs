@@ -15,8 +15,6 @@ namespace yu_namespace
         {
             base.Show();
             messageText.text = message;
-            
-            
         }
         
         

@@ -539,8 +539,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4406505343657886586}
-        m_TargetAssemblyTypeName: yu_namespace.GiveupPanelController, Assembly-CSharp
-        m_MethodName: OnClickGiveupButton
+        m_TargetAssemblyTypeName: yu_namespace.BaseUIController, Assembly-CSharp
+        m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

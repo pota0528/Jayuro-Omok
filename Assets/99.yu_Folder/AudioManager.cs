@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 namespace yu_namespace{
-    public class AudioManager : Singleton<AudioManager>
+    public class AudioManager : YuSingleton<AudioManager>
     {
         [SerializeField] private AudioSource BgmAudioSource;
         [SerializeField] private AudioSource SfxAudioSource;

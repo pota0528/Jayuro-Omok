@@ -33,6 +33,17 @@ namespace yu_namespace
         {
             Hide();
         }
+        
+        public void OnClickExitButton()
+        {
+            Hide(() =>
+            {
+                //TODO: 메인씬+프로필패널로 이동
+                //SceneManager.LoadScene("");
+                Debug.Log("메인씬으로 이동");
+                
+            });
+        }
 
        
 

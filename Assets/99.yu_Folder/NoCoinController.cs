@@ -10,9 +10,9 @@ namespace yu_namespace
     {
         [SerializeField] private TextMeshProUGUI coinText;
         
-        public void ShowCoinText(string coin)//찬영님이 주시는 데이터 형태로 넣기
+        public void ShowCoinText(int coin)//찬영님이 주시는 데이터 형태로 넣기
         {
-            coinText.text = coin;
+            coinText.text = coin.ToString();
         }
         
         public void OnClickShopButton()
@@ -22,22 +22,13 @@ namespace yu_namespace
                 //TODO: 메인씬+상점패널로 이동
                 //장운님이 만드신 GameManager.Instance.OpenShopPanel();호출
                 Debug.Log("상점으로 이동");
-                GameManager.Instance.OpenGiveupPanel();
+                YuGameManager.Instance.OpenGiveupPanel();
                 
                 
             });
         }
     
-        public void OnClickExitButton()
-        {
-            Hide(() =>
-            {
-                //TODO: 메인씬+프로필패널로 이동
-                //SceneManager.LoadScene("");
-                Debug.Log("메인씬으로 이동");
-                
-            });
-        }
+        
     }
 }
 
