@@ -3,60 +3,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private BlockController _blockController;
     [SerializeField] private GameUIController _gameUIController;
-    private Canvas _canvas;
-    
-    public enum PlayerType { None, PlayerA, PlayerB }
-    private PlayerType[,] _board;
-    
-    private enum TurnType { PlayerA, PlayerB }
 
+    public enum PlayerType
+    {
+        None,
+        PlayerA,
+        PlayerB
+    }
+    private PlayerType[,] _board;
+    private enum TurnType
+    {
+        PlayerA,
+        PlayerB
+    }
     private enum GameResult
     {
-        None,   // 게임 진행 중
-        Win,    // 플레이어 승
-        Lose,   // 플레이어 패
-        Draw    // 비김
+        None,
+        Win,
+        Lose,
+        Draw
     }
-
     void Start()
     {
         StartGame();
     }
-    
     private void StartGame()
     {
-        // _board 초기화
+        //TODO: 총 게임 수 증가시키기 (승률 계산 위함)
+        
         _board = new PlayerType[15, 15];
-        
-        // 블록 초기화
         _blockController.InitBlocks();
-        
-        // Game UI 초기화
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
-        
-        // 턴 시작
         SetTurn(TurnType.PlayerA);
     }
 
     private void EndGame(GameResult gameResult)
     {
-        // 게임오버 표시
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
-        
+
         switch (gameResult)
         {
             case GameResult.Win:
-                Debug.Log("Player A win");
+                Debug.Log("PlayerA win");
+                //TODO:  여기서 승점 증가 
                 break;
             case GameResult.Lose:
-                Debug.Log("Player B win");
+                Debug.Log("AI win");
+                //TODO:  여기서 점수 감소
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
@@ -67,7 +66,7 @@ public class GameManager : Singleton<GameManager>
     private bool SetNewBoardValue(PlayerType playerType, int row, int col)
     {
         if (_board[row, col] != PlayerType.None) return false;
-        
+
         if (playerType == PlayerType.PlayerA)
         {
             _board[row, col] = playerType;
@@ -80,14 +79,20 @@ public class GameManager : Singleton<GameManager>
             _blockController.PlaceMarker(Block.MarkerType.White, row, col);
             return true;
         }
+
         return false;
     }
 
+    /// <summary>
+    /// 턴 교체
+    /// </summary>
+    /// <param name="turnType"></param>
     private void SetTurn(TurnType turnType)
     {
         switch (turnType)
         {
-            case TurnType.PlayerA:
+            case TurnType.PlayerA: // 나
+                //todo: 여기서 프로필 색 띄우기
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = (row, col) =>
                 {
@@ -99,52 +104,55 @@ public class GameManager : Singleton<GameManager>
                         else
                             EndGame(gameResult);
                     }
-                    else
-                    {
-                        // TODO: 이미 있는 곳을 터치했을 때 처리
-                    }
                 };
                 break;
-            case TurnType.PlayerB:
+            case TurnType.PlayerB: // AI 
+                //todo: 여기서 프로필 색 띄우기
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
-                _blockController.OnBlockClickedDelegate = (row, col) =>
-                {
-                    if (SetNewBoardValue(PlayerType.PlayerB, row, col))
-                    {
-                        var gameResult = CheckGameResult();
-                        if (gameResult == GameResult.None)
-                            SetTurn(TurnType.PlayerA);
-                        else
-                            EndGame(gameResult);
-                    }
-                    else
-                    {
-                        // TODO: 이미 있는 곳을 터치했을 때 처리
-                    }
-                };
-
+                StartCoroutine(AIMove());
                 break;
         }
-
     }
 
     /// <summary>
-    /// 게임 결과 확인 함수
+    /// AI의 움직임
     /// </summary>
-    /// <returns>플레이어 기준 게임 결과</returns>
+    /// <returns></returns>
+    private IEnumerator AIMove()
+    {
+        MCTS mcts = new MCTS(_board);
+        var (row, col) = mcts.GetBestMove(2000); // 계속 조정하면서 테스트 하기 (2000 일때 나쁘지않음 (중하수정도))
+        yield return new WaitForSeconds(1f);
+
+        if (SetNewBoardValue(PlayerType.PlayerB, row, col))
+        {
+            var gameResult = CheckGameResult();
+            if (gameResult == GameResult.None)
+                SetTurn(TurnType.PlayerA);
+            else
+                EndGame(gameResult);
+        }
+    }
+
+    /// <summary>
+    /// 게임결과 알려주는 함수
+    /// </summary>
+    /// <returns></returns>
     private GameResult CheckGameResult()
     {
-        if (CheckGameWin(PlayerType.PlayerA)) { return GameResult.Win; }
-        if (CheckGameWin(PlayerType.PlayerB)) { return GameResult.Lose; }
-        //if (MinimaxAIController.IsAllBlocksPlaced(_board)) { return GameResult.Draw; }
-        
+        if (CheckGameWin(PlayerType.PlayerA)) return GameResult.Win;
+        if (CheckGameWin(PlayerType.PlayerB)) return GameResult.Lose;
+        if (GetPossibleMoves(_board).Count == 0) return GameResult.Draw;
         return GameResult.None;
     }
-    
-    //게임의 승패를 판단하는 함수
+
+    /// <summary>
+    /// 게임이 이겼는지 판단하는 함수
+    /// </summary>
+    /// <param name="playerType">플레이어 타입</param>
+    /// <returns></returns>
     private bool CheckGameWin(PlayerType playerType)
     {
-        // 가로로 마커가 일치하는지 확인
         for (var row = 0; row < _board.GetLength(0); row++)
         {
             for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
@@ -152,14 +160,10 @@ public class GameManager : Singleton<GameManager>
                 if (_board[row, col] == playerType && _board[row, col + 1] == playerType &&
                     _board[row, col + 2] == playerType && _board[row, col + 3] == playerType &&
                     _board[row, col + 4] == playerType)
-                {
-                    Debug.Log("게임 끝!");
                     return true;
-                }
             }
         }
-        
-        // 세로로 마커가 일치하는지 확인
+
         for (var col = 0; col < _board.GetLength(0); col++)
         {
             for (var row = 0; row < _board.GetLength(1) - 5 + 1; row++)
@@ -167,14 +171,10 @@ public class GameManager : Singleton<GameManager>
                 if (_board[row, col] == playerType && _board[row + 1, col] == playerType &&
                     _board[row + 2, col] == playerType && _board[row + 3, col] == playerType &&
                     _board[row + 4, col] == playerType)
-                {
-                    Debug.Log("게임 끝!");
                     return true;
-                }
             }
         }
-        
-        // \ 대각선 마커 일치하는지 확인
+
         for (var row = 0; row < _board.GetLength(0) - 5 + 1; row++)
         {
             for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
@@ -182,14 +182,10 @@ public class GameManager : Singleton<GameManager>
                 if (_board[row, col] == playerType && _board[row + 1, col + 1] == playerType &&
                     _board[row + 2, col + 2] == playerType && _board[row + 3, col + 3] == playerType &&
                     _board[row + 4, col + 4] == playerType)
-                {
-                    Debug.Log("게임 끝!");
                     return true;
-                }
             }
         }
 
-        // / 대각선 마커 일치하는지 확인
         for (var row = 0; row < _board.GetLength(0) - 5 + 1; row++)
         {
             for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
@@ -197,26 +193,29 @@ public class GameManager : Singleton<GameManager>
                 if (_board[row, col + 4] == playerType && _board[row + 1, col + 3] == playerType &&
                     _board[row + 2, col + 2] == playerType && _board[row + 3, col + 1] == playerType &&
                     _board[row + 4, col] == playerType)
-                {
-                    Debug.Log("게임 끝!");
                     return true;
-                }
             }
         }
+
         return false;
+    }
+
+    private List<(int row, int col)> GetPossibleMoves(PlayerType[,] board)
+    {
+        List<(int row, int col)> moves = new List<(int row, int col)>();
+        for (int r = 0; r < 15; r++)
+        {
+            for (int c = 0; c < 15; c++)
+            {
+                if (board[r, c] == PlayerType.None)
+                    moves.Add((r, c));
+            }
+        }
+
+        return moves;
     }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // if (scene.name == "Game")
-        // {
-        //     _blockController = GameObject.FindObjectOfType<BlockController>();
-        //     _gameUIController = GameObject.FindObjectOfType<GameUIController>();
-        //
-        //     // 게임 시작
-        //     StartGame();
-        // }
-        //
-        // _canvas = GameObject.FindObjectOfType<Canvas>();
     }
 }
