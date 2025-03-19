@@ -13,9 +13,8 @@ namespace yu_namespace
         [SerializeField] private GameObject giveupPanelPrefab;
         [SerializeField] private GameObject noCoinPanelPrefab;
         [SerializeField] private GameObject winLosePanelPrefab;
-        
+
         [SerializeField] private RectTransform parent;
-       
         
         //메시지팝업 오픈
         public void OpenMessagePopup(string msg)
@@ -49,30 +48,37 @@ namespace yu_namespace
             noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(YuConstants.coin);//찬영님이 주시는 데이터 형태로
         }
 
-        public void OpenWinLosePanel()
+        public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
         {
+            //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
+            //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+            //_blockGontroller.OnBlockClickedDelegate=null;
+            
             var winLosePanel = Instantiate(winLosePanelPrefab, parent);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
             int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(YuConstants.level);//안에 들어가는 수는 level
             bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.levelPoint);
                 
-            if (resultPanel == false)
+            if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
-                Debug.Log("오케이");
                 var ResultPanel= Instantiate(messagePopupPrefab, parent);
                 if (YuConstants.levelPoint > 0)
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.");
+                    YuConstants.levelPoint = 0;
+                    Debug.Log(YuConstants.levelPoint);
                 }
                 else if (YuConstants.levelPoint < 0)
                 {
                     ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.");
+                    YuConstants.levelPoint = 0;
+                    Debug.Log(YuConstants.levelPoint);
                 }
                 
             }
-
             
         }
+        
 
         //테스트팝업오픈
         public void TestShowMessagePopupButton()
@@ -94,11 +100,7 @@ namespace yu_namespace
         {
             OpenNoCoinPanel();
         }
-
         
-
-        
-
     }
 }
 

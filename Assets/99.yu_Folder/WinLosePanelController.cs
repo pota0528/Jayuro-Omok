@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -49,19 +50,16 @@ public class WinLosePanelController : MessagePopupController
         if (currentLevelCount + levelPoint < 0)
         {
             //TODO: 강등패널 띄우기
-            Debug.Log("강등");
             if (YuConstants.level <= 18 && YuConstants.level >= 1)
             {
                 YuConstants.level++;//급수가 클수록 레벨이 낮음
             }
             Destroy(gameObject);
-            Debug.Log("사라짐");
             return false;
         }
         else if (currentLevelCount - Mathf.Abs(levelPoint) < 0)
         {
             //Todo: 승급패널 띄우기
-            Debug.Log("승급");
             if (YuConstants.level<= 18 && YuConstants.level >= 1)
             {
                 YuConstants.level--;//급수가 클수록 레벨이 낮음
@@ -72,13 +70,13 @@ public class WinLosePanelController : MessagePopupController
         }
         else
         {
-            if (YuConstants.isWin)//기준이 승급포인트
+            if (YuConstants.isWin)//if(GameLogic.GameResult.Win)
             {
                 GetComponent<MessagePopupController>().Show("승리하였습니다!");
                 levelPointResultText.text = currentLevelCount*2-(levelPoint+currentLevelCount)+"점을 얻으시면 승급됩니다.";
             }
             
-            else 
+            else //else if(GameLogic.GameResult.Lose)
             {
                 GetComponent<MessagePopupController>().Show("패배하였습니다!");
                 levelPointResultText.text = (levelPoint+currentLevelCount)+"점을 잃으시면 강등됩니다.";
@@ -136,10 +134,14 @@ public class WinLosePanelController : MessagePopupController
             //TODO: 메인씬+상점패널로 이동
             //게임씬 이동
             Debug.Log("게임씬으로 이동");
-                
-                
+            //todo: 코인 -100차감
+            
         });
     }
-    
-    
+
+    private void OnDestroy()
+    {
+        //todo: 데이터 저장(코인, 급수, 승점포인트)
+        Debug.Log("데이터 저장");
+    }
 }
