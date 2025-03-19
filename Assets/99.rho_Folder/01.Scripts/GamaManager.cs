@@ -679,18 +679,21 @@ namespace rho_namespace
         private void Set4X4Forbidden(List<(int, int)> emptyList)
         {
             const int MAX_TURNING_COUNT = 4;
-            int tempForbiddenCount = 0;
+            const int MAX_VOID_COUNT = 2;
             
             for (int i = 0; i < emptyList.Count; i++)
             {
+                int tempForbiddenCount = 0;
+                
                 // 오른쪽 검사
                 int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
                 int col = emptyList[i].Item2 + 1;
-
-                int blockIndex = 1;
-                int turningCount = 0;
                 
-                for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                int blockIndex = 1;
+                int turningCount = 0; //공백 맞닿뜨리는 곳까지 합쳐서 turningCount를 계산해야한다. 현재 공백 좌표까지 합쳐서 turningCount가 포함됨
+                int voidCount = 0;
+                
+                for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     ++turningCount;
                     
@@ -701,14 +704,19 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.PlayerB)
                     {
                         break;
+                    }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
                     }
                 }
                 
                 // 왼쪽 검사
                 row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
                 col = emptyList[i].Item2 - 1;
+                voidCount = 0;
                 
-                for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     ++turningCount;
                     
@@ -719,6 +727,10 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.PlayerB)
                     {
                         break;
+                    }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
                     }
                 }
                 
@@ -733,8 +745,9 @@ namespace rho_namespace
                 
                 blockIndex = 1;
                 turningCount = 0;
+                voidCount = 0;
                 
-                for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     ++turningCount;
                     
@@ -746,13 +759,18 @@ namespace rho_namespace
                     {
                         break;
                     }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
+                    }
                 }
                 
                 // 아래쪽 검사
                 row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
                 col = emptyList[i].Item2;
+                voidCount = 0;
                 
-                for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     if (_board[j, col] == PlayerType.PlayerA)
                     {
@@ -761,6 +779,10 @@ namespace rho_namespace
                     else if  (_board[j, col] == PlayerType.PlayerB)
                     {
                         break;
+                    }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
                     }
                 }
                 
@@ -775,8 +797,9 @@ namespace rho_namespace
                 
                 blockIndex = 1; //1,2,3,4
                 turningCount = 0;
+                voidCount = 0;
                 
-                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     if (row + j > 14 || col + j > 14)
                     {
@@ -793,14 +816,19 @@ namespace rho_namespace
                     {
                         break;
                     }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
+                    }
                 }
                 
                 // ↖ 검사! // TODO : 체크 확인
                 
                 row = emptyList[i].Item1 - 1; //공백의 그 다음 자리부터 계산을 해야하니 - 1이 되어야한다.
                 col = emptyList[i].Item2 - 1;
+                voidCount = 0;
                 
-                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
                     if (row - j < 0 || col - j < 0)
                     {
@@ -817,6 +845,10 @@ namespace rho_namespace
                     {
                         break;
                     }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
+                    }
                 }
                 
                 if (blockIndex >= 4)
@@ -830,8 +862,9 @@ namespace rho_namespace
 
                 blockIndex = 1; // 1,2,3,4
                 turningCount = 0;
-
-                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                voidCount = 0;
+                
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
                 {
                     if (row + j > 14 || col - j < 0) // 왼쪽 아래 방향 범위 초과 검사
                     {
@@ -848,13 +881,18 @@ namespace rho_namespace
                     {
                         break;
                     }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
+                    }
                 }
 
                 // ↗(오른쪽 위) 검사
                 row = emptyList[i].Item1 - 1; // 공백의 그 다음 자리부터 계산해야 하니 -1
                 col = emptyList[i].Item2 + 1;
-
-                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
+                voidCount = 0;
+                
+                for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야 한다.
                 {
                     if (row - j < 0 || col + j > 14) // 오른쪽 위 방향 범위 초과 검사
                     {
@@ -870,6 +908,10 @@ namespace rho_namespace
                     else if (_board[row - j, col + j] == PlayerType.PlayerB)
                     {
                         break;
+                    }
+                    else if (_board[row, j] == PlayerType.None)
+                    {
+                        ++voidCount;
                     }
                 }
 
