@@ -240,8 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelRectTransform: {fileID: 0}
-  _idInputField: {fileID: 570215724882089608}
-  _nicknameInputField: {fileID: 7456848124280111294}
+  _idInputField: {fileID: 7456848124280111294}
+  _nicknameInputField: {fileID: 570215724882089608}
   _passwordInputField: {fileID: 516366030125175664}
   _confirmPasswordInputField: {fileID: 5874013304688088239}
 --- !u!1 &572057714672025776

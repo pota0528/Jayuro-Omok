@@ -15,10 +15,13 @@ namespace park_namespace
         [SerializeField] private GameObject profilePanel;
         //추가: 옵션패널 
         
-        
+        //DB관련
+        public GameObject playerPrefab;
+        private DBManager mongoDBManager;
         private void Start()
         {
             OpenLoginPanel();
+            mongoDBManager = FindObjectOfType<DBManager>();
         }
 
         public void OpenLoginPanel()
@@ -57,6 +60,23 @@ namespace park_namespace
                 Instantiate(profilePanel, _canvas.transform);
             }
             
+        }
+
+
+        public void LoginPlayer(string id, string password)
+        {
+            PlayerData playerData = mongoDBManager.Login(id, password);
+
+            if (playerData != null)
+            {
+                GameObject playerObject = Instantiate (playerPrefab,Vector3.zero,Quaternion.identity);
+                PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
+
+                if (playerObject != null)
+                {
+                    playerScript.SetPlayerData(playerData);
+                }
+            }
         }
 
    
