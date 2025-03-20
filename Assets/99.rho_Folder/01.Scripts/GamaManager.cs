@@ -528,7 +528,6 @@ namespace rho_namespace
                 if (_board[row, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((row, currentCol));
-                    break;
                 }
                 else if (_board[row, currentCol] == PlayerType.PlayerB)
                 {
@@ -545,7 +544,6 @@ namespace rho_namespace
                 if (_board[row, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((row, currentCol));
-                    break;
                 }
                 else if (_board[row, currentCol] == PlayerType.PlayerB)
                 {
@@ -562,7 +560,6 @@ namespace rho_namespace
                 if (_board[currentRow, col] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, col));
-                    break;
                 }
                 else if (_board[currentRow, col] == PlayerType.PlayerB)
                 {
@@ -580,7 +577,6 @@ namespace rho_namespace
                 if (_board[currentRow, col] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, col));
-                    break;
                 }
                 else if (_board[currentRow, col] == PlayerType.PlayerB)
                 {
@@ -599,7 +595,6 @@ namespace rho_namespace
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
-                    break;
                 }
                 else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
                 {
@@ -620,7 +615,6 @@ namespace rho_namespace
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
-                    break;
                 }
                 else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
                 {
@@ -642,7 +636,6 @@ namespace rho_namespace
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
-                    break;
                 }
                 else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
                 {
@@ -662,7 +655,6 @@ namespace rho_namespace
                 if (_board[currentRow, currentCol] == PlayerType.None)
                 {
                     emptyList.Add((currentRow, currentCol));
-                    break;
                 }
                 else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
                 {
@@ -677,6 +669,7 @@ namespace rho_namespace
         
         private void Set4X4Forbidden(List<(int, int)> emptyList)
         {
+            //서로 다른 방향으로 4X4금수일 때
             for (int i = 0; i < emptyList.Count; i++)
             {
                 const int MAX_TURNING_COUNT = 4; //한 줄 당 최대 공백 3칸까지 제한
@@ -927,24 +920,24 @@ namespace rho_namespace
                 }
             }
             
-            //서로 다른 방향으로 4X4금수일 때
-            
-            for (int i = 0; i < emptyList.Count; i++) // 같은 줄로 4x4 금수일 때
+            // 같은 줄로 4x4 금수일 때
+            for (int i = 0; i < emptyList.Count; i++) 
             {
-                const int MAX_VOID_COUNT = 3; //한쪽 방향의 공백
-                
+                const int MAX_VOID_COUNT = 5; //한쪽 방향의 공백
                 int tempForbiddenCount = 0;
 
-                #region 한쪽 방향으로 검사
                 // 오른쪽 검사
                 int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
-                int col = emptyList[i].Item2 + 1;
+                int col = emptyList[i].Item2;
                 
                 int blockIndex = 1;
                 int voidCount = 0;
+                bool isSecond = false;
                 
-                for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                for (int j = col; 0 <= j && j <= 14 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
+                    ++voidCount;
+                    
                     if (_board[row, j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -953,46 +946,147 @@ namespace rho_namespace
                     {
                         break;
                     }
-                    else if (_board[row, j] == PlayerType.None)
+                    else if (_board[row, j] == PlayerType.None && !isSecond && j != emptyList[i].Item2)
                     {
-                        ++voidCount;
+                        ++blockIndex;
+                        isSecond = true;
                     }
                 }
 
-                ++blockIndex;
-                // 왼쪽 검사
-                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
-                col = emptyList[i].Item2 - 1;
-                voidCount = 0;
-                
-                for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_VOID_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
-                {
-                    if (_board[row, j] == PlayerType.PlayerA)
-                    {
-                        ++blockIndex;
-                    }
-                    else if (_board[row, j] == PlayerType.PlayerB)
-                    {
-                        break;
-                    }
-                    else if (_board[row, j] == PlayerType.None)
-                    {
-                        ++voidCount;
-                    }
-                }
-                
-                #endregion
-                
-                if (blockIndex == 8)
+                if (blockIndex == 5)
                 {
                     ++tempForbiddenCount;
                 }
                 
-                if (tempForbiddenCount >= 1)
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 1;
+                    
+                blockIndex = 1;
+                voidCount = 0;
+                isSecond = false;
+                
+                for (int j = col; 0 <= j && j <= 14 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                    ++voidCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                    else if (_board[row, j] == PlayerType.None && !isSecond && j != emptyList[i].Item2)
+                    {
+                        ++blockIndex;
+                        isSecond = true;
+                    }
                 }
-            }
+                
+                if (blockIndex == 5)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 2;
+                    
+                blockIndex = 1;
+                voidCount = 0;
+                isSecond = false;
+                
+                for (int j = col; 0 <= j && j <= 14 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++voidCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                    else if (_board[row, j] == PlayerType.None && !isSecond && j != emptyList[i].Item2)
+                    {
+                        ++blockIndex;
+                        isSecond = true;
+                    }
+                }
+                
+                if (blockIndex == 5)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 3;
+                    
+                blockIndex = 1;
+                voidCount = 0;
+                isSecond = false;
+                
+                for (int j = col; 0 <= j && j <= 14 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++voidCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                    else if (_board[row, j] == PlayerType.None && !isSecond && j != emptyList[i].Item2)
+                    {
+                        ++blockIndex;
+                        isSecond = true;
+                    }
+                }
+                
+                if (blockIndex == 5)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+                col = emptyList[i].Item2 - 4;
+                    
+                blockIndex = 1;
+                voidCount = 0;
+                isSecond = false;
+                
+                for (int j = col; 0 <= j && j <= 14 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+                {
+                    ++voidCount;
+                    
+                    if (_board[row, j] == PlayerType.PlayerA)
+                    {
+                        ++blockIndex;
+                    }
+                    else if (_board[row, j] == PlayerType.PlayerB)
+                    {
+                        break;
+                    }
+                    else if (_board[row, j] == PlayerType.None && !isSecond && j != emptyList[i].Item2)
+                    {
+                        ++blockIndex;
+                        isSecond = true;
+                    }
+                }
+
+                if (blockIndex == 5)
+                {
+                    ++tempForbiddenCount;
+                }
+                
+                if (tempForbiddenCount == 2) //2이상이면 금수가 아님! == 거짓금수?비슷 (나중에 장목으로 처리됨)
+                {
+                    forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2)); //장목 가능성 검사 안함 나중에 장목 가능성 있는 건 검사해야함.
+                }
+            } 
         }
         
         private void SetForbiddenMark(List<(int, int)> forbiddenList)
