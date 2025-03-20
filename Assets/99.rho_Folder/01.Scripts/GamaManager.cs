@@ -21,7 +21,6 @@ namespace rho_namespace
         private enum GameResult { None, Win, Lose, Draw }
         private int moveIndex = 0;
         private (int, int) currentMoveindex = (-1, -1);
-        private Block[] blocks;
         private Block currentBlackBlock;
         private const int LINE_COUNT = 15;
         private List<(int, int)> forbiddenCollecition = new List<(int, int)>();
@@ -36,7 +35,7 @@ namespace rho_namespace
             _board = new PlayerType[LINE_COUNT, LINE_COUNT];
             
             // 블록 초기화
-            blocks = _blockController.InitBlocks();
+            _blockController.InitBlocks();
             
             // Game UI 초기화
             _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
@@ -679,7 +678,7 @@ namespace rho_namespace
         private void Set4X4Forbidden(List<(int, int)> emptyList)
         {
             const int MAX_TURNING_COUNT = 4;
-            const int MAX_VOID_COUNT = 2;
+            const int MAX_VOID_COUNT = 3;
             
             for (int i = 0; i < emptyList.Count; i++)
             {
@@ -695,8 +694,6 @@ namespace rho_namespace
                 
                 for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    ++turningCount;
-                    
                     if (_board[row, j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -708,6 +705,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -718,8 +716,6 @@ namespace rho_namespace
                 
                 for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    ++turningCount;
-                    
                     if (_board[row, j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -731,6 +727,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -749,8 +746,6 @@ namespace rho_namespace
                 
                 for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
                 {
-                    ++turningCount;
-                    
                     if (_board[j, col] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -762,6 +757,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -783,6 +779,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -806,8 +803,6 @@ namespace rho_namespace
                         break;
                     }
                     
-                    ++turningCount;
-                    
                     if (_board[row + j, col + j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -819,6 +814,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -835,8 +831,6 @@ namespace rho_namespace
                         break;
                     }
                     
-                    ++turningCount;
-                    
                     if (_board[row - j, col - j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -848,6 +842,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
                 
@@ -871,8 +866,6 @@ namespace rho_namespace
                         break;
                     }
                     
-                    ++turningCount;
-                    
                     if (_board[row + j, col - j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -884,6 +877,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
 
@@ -899,8 +893,6 @@ namespace rho_namespace
                         break;
                     }
 
-                    ++turningCount;
-                    
                     if (_board[row - j, col + j] == PlayerType.PlayerA)
                     {
                         ++blockIndex;
@@ -912,6 +904,7 @@ namespace rho_namespace
                     else if (_board[row, j] == PlayerType.None)
                     {
                         ++voidCount;
+                        ++turningCount;
                     }
                 }
 
