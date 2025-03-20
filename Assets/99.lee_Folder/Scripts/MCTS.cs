@@ -210,7 +210,7 @@ namespace lee_namespace
             // AI 자신의 연속 돌 만들기
             int aiCount = CountConsecutive(tempBoard, row, col, GameManager.PlayerType.PlayerB);
             if (aiCount == 4) score += 800;
-            else if (aiCount == 3) score += 900;
+            else if (aiCount == 3) score += 750;
 
             // 플레이어의 흑돌 3개 4개 막기
             int opponentCount = CountConsecutive(tempBoard, row, col, GameManager.PlayerType.PlayerA);

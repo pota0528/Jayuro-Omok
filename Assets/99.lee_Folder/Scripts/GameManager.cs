@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using lee_namespace;
+using UnityEngine.UI;
 
 namespace lee_namespace
 {
@@ -11,30 +12,14 @@ namespace lee_namespace
     {
         [SerializeField] private BlockController _blockController;
         [SerializeField] private GameUIController _gameUIController;
+        //[SerializeField] private Button confirmButton;
 
-        public enum PlayerType
-        {
-            None,
-            PlayerA,
-            PlayerB
-        }
+        public enum PlayerType {None, PlayerA, PlayerB}
+        private enum TurnType {PlayerA, PlayerB}
+        private enum GameResult {None, Win, Lose, Draw}
 
         private PlayerType[,] _board;
-
-        private enum TurnType
-        {
-            PlayerA,
-            PlayerB
-        }
-
-        private enum GameResult
-        {
-            None,
-            Win,
-            Lose,
-            Draw
-        }
-
+        private TurnType currentTurn; // 턴 상태 업데이트 위함..
         void Start()
         {
             StartGame();
@@ -74,21 +59,9 @@ namespace lee_namespace
         private bool SetNewBoardValue(PlayerType playerType, int row, int col)
         {
             if (_board[row, col] != PlayerType.None) return false;
-
-            if (playerType == PlayerType.PlayerA)
-            {
-                _board[row, col] = playerType;
-                _blockController.PlaceMarker(Block.MarkerType.Black, row, col);
-                return true;
-            }
-            else if (playerType == PlayerType.PlayerB)
-            {
-                _board[row, col] = playerType;
-                _blockController.PlaceMarker(Block.MarkerType.White, row, col);
-                return true;
-            }
-
-            return false;
+            _board[row, col] = playerType;
+            _blockController.PlaceMarker(playerType == PlayerType.PlayerA ? Block.MarkerType.Black : Block.MarkerType.White, row, col);
+            return true;
         }
 
         /// <summary>
@@ -97,28 +70,40 @@ namespace lee_namespace
         /// <param name="turnType"></param>
         private void SetTurn(TurnType turnType)
         {
+            currentTurn = turnType;
             switch (turnType)
             {
-                case TurnType.PlayerA: // 나
-                    //todo: 여기서 프로필 색 띄우기
+                case TurnType.PlayerA:
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
-                    _blockController.OnBlockClickedDelegate = (row, col) =>
-                    {
-                        if (SetNewBoardValue(PlayerType.PlayerA, row, col))
-                        {
-                            var gameResult = CheckGameResult();
-                            if (gameResult == GameResult.None)
-                                SetTurn(TurnType.PlayerB);
-                            else
-                                EndGame(gameResult);
-                        }
-                    };
+                    _blockController.OnBlockClickedDelegate = OnBlockClicked;
                     break;
-                case TurnType.PlayerB: // AI 
-                    //todo: 여기서 프로필 색 띄우기
+                case TurnType.PlayerB:
                     _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
+                    _blockController.OnBlockClickedDelegate = null;
                     StartCoroutine(AIMove());
                     break;
+            }
+        }
+        
+        private void OnBlockClicked(int row, int col)
+        {
+            if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None)
+            {
+                _gameUIController.UpdateSelectedPosition(row, col); // 미리보기 위치 전달
+                _blockController.SetPreviewMarker(row, col, true); // 미리보기 표시
+            }
+        }
+
+        public void OnClickedConfirmButton()
+        {
+            var (row, col) = _gameUIController.GetSelectedPosition();
+            if (currentTurn == TurnType.PlayerA && row != -1 && col != -1 && SetNewBoardValue(PlayerType.PlayerA, row, col))
+            {
+                var gameResult = CheckGameResult();
+                if (gameResult == GameResult.None)
+                    SetTurn(TurnType.PlayerB);
+                else
+                    EndGame(gameResult);
             }
         }
 
@@ -129,7 +114,7 @@ namespace lee_namespace
         private IEnumerator AIMove()
         {
             MCTS mcts = new MCTS(_board);
-            var (row, col) = mcts.GetBestMove(2000); // 계속 조정하면서 테스트 하기 (2000 일때 나쁘지않음 (중하수정도))
+            var (row, col) = mcts.GetBestMove(1000); // 계속 조정하면서 테스트 하기 (2000 일때 나쁘지않음 (중하수정도))
             yield return new WaitForSeconds(1f);
 
             if (SetNewBoardValue(PlayerType.PlayerB, row, col))
