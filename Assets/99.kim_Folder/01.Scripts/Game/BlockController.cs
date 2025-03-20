@@ -60,7 +60,7 @@ public class BlockController : MonoBehaviour
         OmokBlock.MarkerType markerType = isBlackTurn ? OmokBlock.MarkerType.Black : OmokBlock.MarkerType.White;
         blocks[row, col].SetMarker(markerType);
         board[row, col] = isBlackTurn ? 1 : 2; // 게임 상태 업데이트
-        moves.Add(new Move { row = row, col = col, color = isBlackTurn ? "black" : "white" }); // 돌을 놓을때 기록됨.
+        moves.Add(new Move { row = row, col = col, color = isBlackTurn ? "흑돌" : "백돌" }); // 돌을 놓을때 기록됨.
         isBlackTurn = !isBlackTurn; // 턴 넘기기
     }
 

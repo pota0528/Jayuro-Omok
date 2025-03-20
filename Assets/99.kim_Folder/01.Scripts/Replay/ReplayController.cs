@@ -40,8 +40,8 @@ public class ReplayController : MonoBehaviour
         for (int i = 0; i < currentMatch.moves.Count; i++) // 모든 수 재현
         {
             Move move = currentMatch.moves[i];
-            blockController.PlaceStone(move.row, move.col, move.color == "black" ? 1 : 2);
-            string logText = $" {i + 1}: Row {move.row}, col {move.col}, {move.color}";
+            blockController.PlaceStone(move.row, move.col, move.color == "흑돌" ? 1 : 2);
+            string logText = $" {i + 1}: 행 {move.row}, 열 {move.col}, {move.color}";
             logItems.Add(new Item { subtitle = logText });
         }
 
@@ -56,8 +56,8 @@ public class ReplayController : MonoBehaviour
         if (currentMatch == null || currentStep >= currentMatch.moves.Count) return;
 
         Move move = currentMatch.moves[currentStep];
-        blockController.PlaceStone(move.row, move.col, move.color == "black" ? 1 : 2);
-        string logText = $" {currentStep + 1}: Row {move.row}, Col {move.col}, {move.color}";
+        blockController.PlaceStone(move.row, move.col, move.color == "흑돌" ? 1 : 2);
+        string logText = $" {currentStep + 1}: 행 {move.row}, 열 {move.col}, {move.color}";
         logItems.Add(new Item { subtitle = logText });
         logScrollView.LoadData(logItems); // 로그 업데이트
         currentStep++;
@@ -74,7 +74,7 @@ public class ReplayController : MonoBehaviour
         for (int i = 0; i < currentStep; i++)
         {
             Move move = currentMatch.moves[i];
-            blockController.PlaceStone(move.row, move.col, move.color == "black" ? 1 : 2);
+            blockController.PlaceStone(move.row, move.col, move.color == "흑돌" ? 1 : 2);
         }
         logScrollView.LoadData(logItems); // 로그 업데이트
     }
