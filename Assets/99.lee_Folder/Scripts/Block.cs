@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using lee_namespace;
+using UnityEngine.Serialization;
 
 namespace lee_namespace
 {
@@ -10,9 +11,9 @@ namespace lee_namespace
     public class Block : MonoBehaviour
     {
         public Sprite BlackSprite;
-        [SerializeField] private Sprite WhiteSprite;
-        [SerializeField] private SpriteRenderer markerSpriteRenderer;
-        public Sprite priviewSpriteRenderer;
+        public Sprite WhiteSprite;
+        public SpriteRenderer markerSpriteRenderer;
+        public SpriteRenderer previewSpriteRenderer;
         public Sprite preSprite;
 
         public enum MarkerType {None, Black, White}
@@ -20,12 +21,13 @@ namespace lee_namespace
         private OnBlockClicked _onBlockClicked;
         private int _blockIndex;
         
-        private SpriteRenderer _spriteRenderer;
-        
-
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            markerSpriteRenderer = GetComponent<SpriteRenderer>();
+            if (previewSpriteRenderer == null)
+            {
+                previewSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            }
         }
 
         public void InitMarker(int blockIndex, OnBlockClicked onBlockClicked)
@@ -41,9 +43,11 @@ namespace lee_namespace
             {
                 case MarkerType.Black:
                     markerSpriteRenderer.sprite = BlackSprite;
+                    previewSpriteRenderer.sprite = null; // 미리보기 제거
                     break;
                 case MarkerType.White:
                     markerSpriteRenderer.sprite = WhiteSprite;
+                    previewSpriteRenderer.sprite = null;
                     break;
                 case MarkerType.None:
                     markerSpriteRenderer.sprite = null;
@@ -57,13 +61,13 @@ namespace lee_namespace
         /// <param name="show">true of false</param>
         public void SetPreviewMarker(bool show)
         {
-            priviewSpriteRenderer = show? preSprite : null;
+            previewSpriteRenderer.sprite = show ? preSprite : null; // 미리보기 표시/제거
+            previewSpriteRenderer.color = new Color(1, 1, 1, show ? 1f : 1f); // 반투명 효과
         }
 
-        public void OnMouseUpAsButton() 
+        public void OnMouseUpAsButton()
         {
-            _onBlockClicked?.Invoke(_blockIndex);
-            markerSpriteRenderer.sprite = preSprite;
+            _onBlockClicked?.Invoke(_blockIndex); // 클릭 이벤트만 전달
         }
     }
 }

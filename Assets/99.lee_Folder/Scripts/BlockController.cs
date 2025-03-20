@@ -6,11 +6,13 @@ namespace lee_namespace
     public class BlockController : MonoBehaviour
     {
         [SerializeField] private Block[] blocks;
+
         public delegate void OnBlockClicked(int row, int col);
+
         public OnBlockClicked OnBlockClickedDelegate;
 
-        private int selectedRow = -1;
-        private int selectedCol = -1;
+        private int lastPreviewRow = -1;
+        private int lastPreviewCol = -1;
 
         public void InitBlocks()
         {
@@ -20,41 +22,56 @@ namespace lee_namespace
                 {
                     var clickedRow = blockIndex / 15;
                     var clickedCol = blockIndex % 15;
-                
+
                     OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);
                 });
             }
         }
-    
+
         public void PlaceMarker(Block.MarkerType markerType, int row, int col)
         {
-            var markerIndex = row * 15 + col;
-            blocks[markerIndex].SetMarker(markerType);
-            if (selectedRow == row && selectedCol == col)
+            var index = row * 15 + col;
+            blocks[index].SetMarker(markerType); // 현재 마커 타입으로 마커 설정
+            // PlayerA 턴에서만 미리보기 제거 -> PlayerB(AI) 턴에도 지워지는 버그 발생..
+            if (markerType == Block.MarkerType.Black && lastPreviewRow == row && lastPreviewCol == col)
             {
-                blocks[markerIndex].SetPreviewMarker(false); // 돌이 놓이면 priview 제거하기
-                selectedRow = -1;
-                selectedCol = -1;
+                blocks[index].SetPreviewMarker(false);
+                lastPreviewRow = -1;
+                lastPreviewCol = -1;
             }
+
+            // 마커 유지 되는과정 보기
+            if (markerType == Block.MarkerType.Black && blocks[index].markerSpriteRenderer.sprite != blocks[index].BlackSprite)
+            {
+                blocks[index].markerSpriteRenderer.sprite = blocks[index].BlackSprite;
+            }
+            else if (markerType == Block.MarkerType.White && blocks[index].markerSpriteRenderer.sprite != blocks[index].WhiteSprite)
+            {
+                blocks[index].markerSpriteRenderer.sprite = blocks[index].WhiteSprite;
+            }
+            
         }
-        
+
         // 미리보기 표시/제거 메서드
         public void SetPreviewMarker(int row, int col, bool show)
         {
-            var markerIndex = row * 15 + col;
+            if (lastPreviewRow != -1 && (lastPreviewRow != row || lastPreviewCol != col))
+            {
+                var lastIndex = lastPreviewRow * 15 + lastPreviewCol;
+                blocks[lastIndex].SetPreviewMarker(false);
+            }
+            
+            var index = row * 15 + col;
+            blocks[index].SetPreviewMarker(show);
             if (show)
             {
-                if (selectedRow != -1 && (selectedRow != row || selectedCol != col))
-                {
-                    blocks[selectedRow * 15 + selectedCol].SetPreviewMarker(false); // 이전 미리보기 제거
-                }
-                blocks[markerIndex].SetPreviewMarker(true);
-                selectedRow = row;
-                selectedCol = col;
+                lastPreviewRow = row;
+                lastPreviewCol = col;
             }
             else
             {
-                blocks[markerIndex].SetPreviewMarker(false);
+                lastPreviewRow = -1;
+                lastPreviewCol = -1;
             }
         }
     }

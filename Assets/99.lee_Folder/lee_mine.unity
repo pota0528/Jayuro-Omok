@@ -11122,7 +11122,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -13.260002, y: -14.440002}
+  m_AnchoredPosition: {x: -13.26001, y: -14.439941}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1192352815
@@ -16075,6 +16075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blockController: {fileID: 826415291}
   _gameUIController: {fileID: 1064201750}
+  confirmButton: {fileID: 0}
 --- !u!1001 &1792365757
 PrefabInstance:
   m_ObjectHideFlags: 0
