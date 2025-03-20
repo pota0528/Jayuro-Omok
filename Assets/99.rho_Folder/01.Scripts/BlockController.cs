@@ -9,7 +9,7 @@ namespace rho_namespace
         public delegate void OnBlockClicked(int row, int col);
         public OnBlockClicked OnBlockClickedDelegate;
 
-        public Block[] InitBlocks()
+        public void InitBlocks()
         {
             for (int i = 0; i < blocks.Length; i++)
             {
@@ -20,8 +20,6 @@ namespace rho_namespace
                     OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);
                 });
             }
-
-            return blocks;
         }
     
         public void PlaceMarker(Block.MarkerType markerType, int row, int col, int moveIndex)
