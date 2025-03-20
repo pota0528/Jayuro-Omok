@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,18 @@ public class ScrollViewController : MonoBehaviour
 
     private void ReloadData()
     {
+        if (content == null)
+        {
+            Debug.LogError("content가 null입니다!");
+            return;
+        }
+
+        if (cellPrefab == null)
+        {
+            Debug.LogError("cellPrefab이 null입니다!");
+            return;
+        }
+
         // 기존 셀 제거
         foreach (Transform child in content)
         {
@@ -27,9 +40,22 @@ public class ScrollViewController : MonoBehaviour
         foreach (var item in _items)
         {
             GameObject cell = Instantiate(cellPrefab, content);
-            cell.GetComponentInChildren<Text>().text = item.subtitle;
+            TMP_Text textComponent = cell.GetComponentInChildren<TMP_Text>();
+            if (textComponent == null)
+            {
+                Debug.LogError("셀 프리팹에 Text 컴포넌트가 없습니다!");
+                continue;
+            }
+            textComponent.text = item.subtitle;
+
             Button button = cell.GetComponent<Button>();
-            if (item.onClick != null && button != null)
+            if (button == null)
+            {
+                Debug.LogError("셀 프리팹에 Button 컴포넌트가 없습니다!");
+                continue;
+            }
+
+            if (item.onClick != null)
             {
                 button.onClick.AddListener(() => item.onClick());
             }

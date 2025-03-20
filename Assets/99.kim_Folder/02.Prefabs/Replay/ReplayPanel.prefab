@@ -246,7 +246,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5047744220272742903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1701806709827111581}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: LastMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1041007243142961760
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +690,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7394423132968855987}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1701806709827111581}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: FirstMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2127062149152736476
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fc453e3ebc2614594b536957622130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockController: {fileID: 4232910905602388026}
+  blockController: {fileID: 0}
   logScrollView: {fileID: 6457040108280915885}
   replayPanel: {fileID: 4087473941099390873}
 --- !u!1 &4087473941099390873
@@ -1027,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fc453e3ebc2614594b536957622130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockController: {fileID: 4232910905602388026}
+  blockController: {fileID: 8813451145503357272}
   logScrollView: {fileID: 6457040108280915885}
   replayPanel: {fileID: 4087473941099390873}
 --- !u!1 &4220372676483962125
@@ -1041,10 +1065,10 @@ GameObject:
   - component: {fileID: 3462525668040323488}
   - component: {fileID: 4730746526636893922}
   - component: {fileID: 1776866497627306542}
-  - component: {fileID: 4232910905602388026}
   - component: {fileID: 2513931944515476102}
+  - component: {fileID: 8813451145503357272}
   m_Layer: 5
-  m_Name: OmokBoard
+  m_Name: ReplayBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,21 +1131,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4232910905602388026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220372676483962125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 025611a1a409919479868042e761706a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  omokCellPrefab: {fileID: 5014063893924845143, guid: bb2d522da0f70e2478d0acdd5ed4e268, type: 3}
-  gridSize: 15
-  cellSize: 40
 --- !u!114 &2513931944515476102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,6 +1155,21 @@ MonoBehaviour:
   m_Spacing: {x: 22, y: 22}
   m_Constraint: 1
   m_ConstraintCount: 15
+--- !u!114 &8813451145503357272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220372676483962125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a343b5ad747eb44cb08a007e4b8ecf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  omokCellPrefab: {fileID: 5014063893924845143, guid: bb2d522da0f70e2478d0acdd5ed4e268, type: 3}
+  gridSize: 15
+  cellSize: 64
 --- !u!1 &4259334676704089685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,7 +1290,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8968307011677614289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1701806709827111581}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: PreviousMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4290881868466237189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,7 +1671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00015148957}
+  m_AnchoredPosition: {x: 0, y: 0.00008146967}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7940248758361805741
@@ -1655,8 +1691,8 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
+  m_ChildAlignment: 4
+  m_Spacing: -50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1899,7 +1935,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4725327674641418460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1701806709827111581}
+        m_TargetAssemblyTypeName: ReplayController, Assembly-CSharp
+        m_MethodName: NextMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6291565298222452133
 GameObject:
   m_ObjectHideFlags: 0

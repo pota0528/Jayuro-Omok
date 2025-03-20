@@ -620,11 +620,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be816ef6f1af1484098334288a20e56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 5688028245915365450, guid: bc410aa17eb02ee44bc0e5d766524032, type: 3}
+  cellPrefab: {fileID: 5688028245915365450, guid: 8178ba598c0dd254a91268435b90be84, type: 3}
   content: {fileID: 5178802149604277811}
 --- !u!224 &6491832064015651580 stripped
 RectTransform:
