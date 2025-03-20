@@ -25,9 +25,6 @@ namespace Joe_namespace
             GameManager.Instance.OpenRankingPanel();
             Debug.Log("Ranking Panel Opened");
         }
-
-      
-        
     }
 
 }

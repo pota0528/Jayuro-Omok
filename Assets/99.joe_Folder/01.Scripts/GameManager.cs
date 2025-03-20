@@ -11,15 +11,27 @@ namespace Joe_namespace
     {
         [SerializeField] private GameObject shopPanel;
         [SerializeField] private GameObject rankingPanel;
+
+        [HideInInspector] public int coinCount;
+        
         
         private Canvas _canvas;
 
 
-        public void Awake()
+        protected override void Awake()
         {
-            _canvas = FindObjectOfType<Canvas>();
+            base.Awake();
+            coinCount = UserInformations.CoinCount;
+            
         }
-
+        
+        private void OnApplicationQuit()
+        {
+            Debug.Log("OnApplicationQuit");
+            UserInformations.CoinCount = coinCount;
+        }
+        
+        
 
         public void ChangeToGameScene()
         {
@@ -53,13 +65,14 @@ namespace Joe_namespace
             }
         }
     
-    
-        
-        
         
     
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+
+            //DontDestroyOnLoad(gameObject);
+
+            _canvas = GameObject.FindObjectOfType<Canvas>();
         }
     
     }

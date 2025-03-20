@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePanelController : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+namespace Joe_namespace
+{
+    public class GamePanelController : MonoBehaviour
     {
+        public void OnClickMainButton()
+        {
+            GameManager.Instance.ChangeToMainScene();
+        }
         
+        public void OnClickShopPanelButton()
+        {
+            GameManager.Instance.OpenShopPanel();
+            Debug.Log("Shop Panel Opened");
+        }
+
+        public void OnClickRankingPanelButton()
+        {
+            GameManager.Instance.OpenRankingPanel();
+            Debug.Log("Ranking Panel Opened");
+        }
     }
 }
+
+
