@@ -22,7 +22,6 @@ namespace lee_namespace
 
         private void Awake()
         {
-            
            // if (confirmButton == null) Debug.LogError("컨펌버튼 널 ");
         }
         public void SetGameUIMode(GameUIMode mode)
@@ -72,27 +71,5 @@ namespace lee_namespace
         {
             return (selectedRow, selectedCol);
         }
-        
-        
-        // public void OnClickGameOverButton()
-        // {
-        //     GameManager.Instance.OpenConfirmPanel("게임을 종료하시겠습니까?", () =>
-        //     {
-        //         GameManager.Instance.ChangeToMainScene();
-        //     });
-        // }
-
-        // public void OnClickSettingsButton() 
-        // {
-        //     GameManager.Instance.OpenSettingsPanel();
-        // }
-
-        // public void OnClickBackButton()
-        // {
-        //     GameManager.Instance.OpenConfirmPanel("게임을 종료하시겠습니까?", () =>
-        //     {
-        //         GameManager.Instance.ChangeToMainScene();
-        //     });
-        // }
     }
 }

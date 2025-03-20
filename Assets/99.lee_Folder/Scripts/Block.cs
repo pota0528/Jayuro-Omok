@@ -9,10 +9,10 @@ namespace lee_namespace
     [RequireComponent(typeof(Collider2D))]
     public class Block : MonoBehaviour
     {
-        [SerializeField] private Sprite BlackSprite;
+        public Sprite BlackSprite;
         [SerializeField] private Sprite WhiteSprite;
         [SerializeField] private SpriteRenderer markerSpriteRenderer;
-        [SerializeField] private Sprite priviewSpriteRenderer;
+        public Sprite priviewSpriteRenderer;
         public Sprite preSprite;
 
         public enum MarkerType {None, Black, White}
@@ -52,15 +52,15 @@ namespace lee_namespace
         }
         
         /// <summary>
-        /// priview 표시 및 제거 
+        /// priview 표시 및 제거
         /// </summary>
         /// <param name="show">true of false</param>
         public void SetPreviewMarker(bool show)
         {
-            priviewSpriteRenderer = show? BlackSprite : null;
+            priviewSpriteRenderer = show? preSprite : null;
         }
 
-        public void OnMouseUpAsButton() //매개변수나 다른 걸로 현재 OmokSprite(Black, White값이 필요)
+        public void OnMouseUpAsButton() 
         {
             _onBlockClicked?.Invoke(_blockIndex);
             markerSpriteRenderer.sprite = preSprite;

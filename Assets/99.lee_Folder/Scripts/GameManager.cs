@@ -12,7 +12,7 @@ namespace lee_namespace
     {
         [SerializeField] private BlockController _blockController;
         [SerializeField] private GameUIController _gameUIController;
-        //[SerializeField] private Button confirmButton;
+        [SerializeField] private Button confirmButton;
 
         public enum PlayerType {None, PlayerA, PlayerB}
         private enum TurnType {PlayerA, PlayerB}
@@ -25,6 +25,9 @@ namespace lee_namespace
             StartGame();
         }
 
+        /// <summary>
+        /// 게임 시작
+        /// </summary>
         private void StartGame()
         {
             //TODO: 총 게임 수 증가시키기 (승률 계산 위함)
@@ -35,6 +38,10 @@ namespace lee_namespace
             SetTurn(TurnType.PlayerA);
         }
 
+        /// <summary>
+        /// 게임 종료 
+        /// </summary>
+        /// <param name="gameResult"></param>
         private void EndGame(GameResult gameResult)
         {
             _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
@@ -84,7 +91,11 @@ namespace lee_namespace
                     break;
             }
         }
-        
+        /// <summary>
+        /// 버튼클릭됐을때 위치 가져오기
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
         private void OnBlockClicked(int row, int col)
         {
             if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None)
@@ -94,6 +105,9 @@ namespace lee_namespace
             }
         }
 
+        /// <summary>
+        /// 버튼 눌렀을 때 이벤트
+        /// </summary>
         public void OnClickedConfirmButton()
         {
             var (row, col) = _gameUIController.GetSelectedPosition();
@@ -114,7 +128,7 @@ namespace lee_namespace
         private IEnumerator AIMove()
         {
             MCTS mcts = new MCTS(_board);
-            var (row, col) = mcts.GetBestMove(1000); // 계속 조정하면서 테스트 하기 (2000 일때 나쁘지않음 (중하수정도))
+            var (row, col) = mcts.GetBestMove(500); // 계속 조정하면서 테스트 하기 (2000 일때 나쁘지않음 (중하수정도))
             yield return new WaitForSeconds(1f);
 
             if (SetNewBoardValue(PlayerType.PlayerB, row, col))
