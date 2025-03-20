@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace kim_namespace
+public class MatchLoader : MonoBehaviour
 {
-    public class MatchLoader : MonoBehaviour
+    public List<MatchData> LoadMatches()
     {
-        public List<MatchData> LoadMatches()
+        string matchesDirectory = Path.Combine(Application.persistentDataPath, "matches");
+        if (!Directory.Exists(matchesDirectory)) return new List<MatchData>();
+
+        string[] files = Directory.GetFiles(matchesDirectory, "*.json");
+        List<MatchData> matches = new List<MatchData>();
+        foreach (string file in files)
         {
-            string matchesDirectory = Path.Combine(Application.persistentDataPath, "matches");
-            if (!Directory.Exists(matchesDirectory)) return new List<MatchData>();
-            
-            string[] files = Directory.GetFiles(matchesDirectory, "*.json");
-            List<MatchData> matches = new List<MatchData>();
-            foreach (string file in files)
-            {
-                string json = File.ReadAllText(file);
-                MatchData data = JsonUtility.FromJson<MatchData>(json);
-                matches.Add(data);
-            }
-            return matches;
+            string json = File.ReadAllText(file);
+            MatchData data = JsonUtility.FromJson<MatchData>(json);
+            matches.Add(data);
         }
+
+        return matches;
     }
 }

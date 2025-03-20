@@ -18,9 +18,15 @@ public class MatchListController : MonoBehaviour
 
     private void LoadMatches()
     {
-        // 예시 데이터s
-        matches.Add(new MatchData { matchName = "Match 1", moves = new List<Move> { new Move { row = 1, col = 1, color = "black" } } });
-        matches.Add(new MatchData { matchName = "Match 2", moves = new List<Move> { new Move { row = 2, col = 2, color = "white" } } });
+        MatchLoader loader = FindObjectOfType<MatchLoader>();
+        if (loader != null)
+        {
+            matches = loader.LoadMatches();
+        }
+        else
+        {
+            Debug.LogError("MatchLoader 컴포넌트가 없습니다.");
+        }
     }
 
     private void DisplayMatches()
@@ -31,24 +37,11 @@ public class MatchListController : MonoBehaviour
             int index = i;
             items.Add(new Item
             {
-                subtitle = matches[i].matchName,
+                subtitle = matches[i].title + "_" + matches[i].date, // 닉네임 + 날짜 표시
                 onClick = () => MatchSelected?.Invoke(matches[index]) // 클릭 시 이벤트 발생
             });
         }
 
         scrollView.LoadData(items); // 스크롤뷰에 데이터 설정
     }
-}
-
-public class MatchData
-{
-    public string matchName;
-    public List<Move> moves;
-}
-
-public class Move
-{
-    public int row;
-    public int col;
-    public string color;
 }
