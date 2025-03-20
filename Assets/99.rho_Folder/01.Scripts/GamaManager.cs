@@ -731,7 +731,7 @@ namespace rho_namespace
                     }
                 }
                 
-                if (blockIndex >= 4)
+                if (blockIndex == 4)
                 {
                     ++tempForbiddenCount;
                 }
@@ -783,7 +783,7 @@ namespace rho_namespace
                     }
                 }
                 
-                if (blockIndex >= 4)
+                if (blockIndex == 4)
                 {
                     ++tempForbiddenCount;
                 }
@@ -846,7 +846,7 @@ namespace rho_namespace
                     }
                 }
                 
-                if (blockIndex >= 4)
+                if (blockIndex == 4)
                 {
                     ++tempForbiddenCount;
                 }
@@ -908,7 +908,7 @@ namespace rho_namespace
                     }
                 }
 
-                if (blockIndex >= 4)
+                if (blockIndex == 4)
                 {
                     ++tempForbiddenCount;
                 }
