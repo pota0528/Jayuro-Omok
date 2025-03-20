@@ -20,6 +20,8 @@ namespace park_namespace
         public int coin { get; set; }
         public int win { get; set; } 
         public int lose { get; set; } 
+        
+        public int imageIndex { get; set; }
       //  public List<GameRecord> gameRecords { get; set; } = new List<GameRecord>(); 기보 
         
     

@@ -2,29 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace park_namespace
 {
-    public class UserSessionManager : MonoBehaviour
+    public class UserSessionManager :Singleton<UserSessionManager>
     {
-        public static UserSessionManager _instance;
-
-        public static UserSessionManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindObjectOfType<UserSessionManager>();
-                }
-                if (_instance == null)
-                {
-                    Debug.LogError("UserSessionManager가 씬에 존재하지 않습니다.");
-                }
-
-                return _instance;
-            }
-        }
+      
         
         private PlayerData _playerData;
 
@@ -38,7 +22,11 @@ namespace park_namespace
             return _playerData;
         }
 
-    
+       
+        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            
+        }
     }
 }
 

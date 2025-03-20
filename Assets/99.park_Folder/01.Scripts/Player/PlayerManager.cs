@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace park_namespace
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : Singleton<PlayerManager>
     {
-
+       
         public string nickname;
         public string id;
         public string password;
@@ -15,7 +16,9 @@ namespace park_namespace
         public int coin;
         public int win;
         public int lose;
+        public int imageIndex;
 
+     
         public void SetPlayerData(PlayerData playerData)
         {
             nickname = playerData.nickname;
@@ -26,6 +29,13 @@ namespace park_namespace
             coin = playerData.coin;
             win = playerData.win;
             lose = playerData.lose;
+            imageIndex = playerData.imageIndex; 
+        }
+
+
+        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+          
         }
     }
 }

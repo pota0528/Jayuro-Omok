@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using park_namespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace park_namespace
 {
@@ -11,6 +12,7 @@ namespace park_namespace
     {
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text cointText;
+        [SerializeField] private Button profileButton;
 
         public void Start()
         {
@@ -21,16 +23,25 @@ namespace park_namespace
 
         public void UpdataUI()
         {
-            PlayerData playerData = UserSessionManager.Instance.GetPlayerData();
+            playerData = UserSessionManager.Instance.GetPlayerData();
             if (playerData != null)
             {
                 userNameText.text = playerData.level+"급 "+playerData.nickname;
                 cointText.text = "코인: " +playerData.coin.ToString(); 
+                //GameManager에서 저장된 이미지 인덱스를 가져와서 프로필 이미지 갱신 
+              
             }
             else
             {
                 Debug.Log("사용자 정보가 없습니다.");
             }
+            
+        }
+        //프로필 이미지 갱신 메서드
+        public void UpdateProfileImage(Sprite newProfileImage)
+        {
+            // UserPanel의 프로필 이미지 갱신
+            profileButton.GetComponent<Image>().sprite = newProfileImage;
             
         }
 

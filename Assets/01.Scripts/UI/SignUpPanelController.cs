@@ -1,9 +1,10 @@
 ﻿using park_namespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
-    public struct SignUpData
+public struct SignUpData
 {
     public string nickname;
     public string id;
@@ -16,7 +17,7 @@ public class SignUpPanelController : PanelController
     [SerializeField] private TMP_InputField _nicknameInputField;
     [SerializeField] private TMP_InputField _passwordInputField;
     [SerializeField] private TMP_InputField _confirmPasswordInputField;
-
+    [SerializeField] private Button profileButton;
     private void SaveSignUpDataToPlayerPrefs(SignUpData signUpData)
     {
         PlayerPrefs.SetString("NickName", signUpData.nickname);
@@ -66,7 +67,18 @@ public class SignUpPanelController : PanelController
             //  });
         }
     }
+    public void UpdateProfileImage(Sprite newProfileImage)
+    {
+        // UserPanel의 프로필 이미지 갱신
+        profileButton.GetComponent<Image>().sprite = newProfileImage;
+            
+    }
 
+    public void OnClickProfileButton()
+    {
+        GameManager.Instance.OpenProfilePanel();
+    }
+    
     public void OnClickBackButton()
     {
         Debug.Log("BackButton누름!");
