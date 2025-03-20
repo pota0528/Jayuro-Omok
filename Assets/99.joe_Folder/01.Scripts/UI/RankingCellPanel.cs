@@ -12,19 +12,43 @@ namespace Joe_namespace
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI titleText;
         [SerializeField] private TextMeshProUGUI subtitleText;
+        [SerializeField] private TextMeshProUGUI[] RankingIndexText;
 
-        public int Index { get; private set; }
+        //public int Index { get; private set; }
+        private RectTransform _rectTransform;
+        public RectTransform RectTransform => _rectTransform;
+        
+        private int _rankingIndex;
 
-
-        public void SetItem(Item item, int index)
+        private void Awake()
         {
-            //리소스 파일안에 파일이름으로 가져옴
-            //image.sprite = Resources.Load<Sprite>(item.imageFileName);
-            titleText.text = item.title;
-            subtitleText.text = item.subtitle;
-
-            Index = index;
-
+            _rectTransform = GetComponent<RectTransform>();
         }
+
+        public void SetRankingCell(int rankingIndex)
+        {
+            _rankingIndex = rankingIndex;
+
+            foreach (var rankingIndexText in RankingIndexText)
+            {
+                var IndexText = _rankingIndex + 1;
+                rankingIndexText.text = IndexText.ToString();
+            }
+            
+        }
+        
+        
+
+
+        // public void SetItem(Item item, int index)
+        // {
+        //     //리소스 파일안에 파일이름으로 가져옴
+        //     //image.sprite = Resources.Load<Sprite>(item.imageFileName);
+        //     titleText.text = item.title;
+        //     subtitleText.text = item.subtitle;
+        //
+        //     Index = index;
+        //
+        // }
     }
 }
