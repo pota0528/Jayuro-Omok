@@ -64,13 +64,13 @@ namespace yu_namespace
                 var ResultPanel= Instantiate(messagePopupPrefab, parent);
                 if (YuConstants.levelPoint > 0)
                 {
-                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.");
+                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ YuConstants.level);
                     YuConstants.levelPoint = 0;
                     Debug.Log(YuConstants.levelPoint);
                 }
                 else if (YuConstants.levelPoint < 0)
                 {
-                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.");
+                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+YuConstants.level);
                     YuConstants.levelPoint = 0;
                     Debug.Log(YuConstants.levelPoint);
                 }

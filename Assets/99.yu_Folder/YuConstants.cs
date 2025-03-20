@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class YuConstants
 {
-    public static int level=3;
-    public static int levelPoint=8;
-    public static int coin = 777;
+    public static int level=5;
+    public static int levelPoint=4;
+    public static int coin = 299;
     public static bool isWin = true;
 }

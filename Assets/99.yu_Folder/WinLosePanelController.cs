@@ -47,7 +47,7 @@ public class WinLosePanelController : MessagePopupController
 
     public bool SetResultPanel(int currentLevelCount, int levelPoint)
     {
-        if (currentLevelCount + levelPoint < 0)
+        if (currentLevelCount + levelPoint <= 0)
         {
             //TODO: 강등패널 띄우기
             if (YuConstants.level <= 18 && YuConstants.level >= 1)
@@ -57,7 +57,7 @@ public class WinLosePanelController : MessagePopupController
             Destroy(gameObject);
             return false;
         }
-        else if (currentLevelCount - Mathf.Abs(levelPoint) < 0)
+        else if (currentLevelCount - Mathf.Abs(levelPoint) <= 0)
         {
             //Todo: 승급패널 띄우기
             if (YuConstants.level<= 18 && YuConstants.level >= 1)
@@ -72,14 +72,14 @@ public class WinLosePanelController : MessagePopupController
         {
             if (YuConstants.isWin)//if(GameLogic.GameResult.Win)
             {
-                GetComponent<MessagePopupController>().Show("승리하였습니다!");
-                levelPointResultText.text = currentLevelCount*2-(levelPoint+currentLevelCount)+"점을 얻으시면 승급됩니다.";
+                GetComponent<MessagePopupController>().Show("게임에서 승리하였습니다.\n1승급 포인트를 받았습니다.");
+                levelPointResultText.text = currentLevelCount*2-(levelPoint+currentLevelCount)+"게임을 승리하면\n승급됩니다.";
             }
             
             else //else if(GameLogic.GameResult.Lose)
             {
-                GetComponent<MessagePopupController>().Show("패배하였습니다!");
-                levelPointResultText.text = (levelPoint+currentLevelCount)+"점을 잃으시면 강등됩니다.";
+                GetComponent<MessagePopupController>().Show("게임에서 패배하였습니다.\n1승급 포인트를 잃었습니다.");
+                levelPointResultText.text = (levelPoint+currentLevelCount)+"게임을 패배하면\n강등됩니다.";
             }
             
             plusGaugeBlocks = new GameObject[currentLevelCount];
@@ -135,6 +135,15 @@ public class WinLosePanelController : MessagePopupController
             //게임씬 이동
             Debug.Log("게임씬으로 이동");
             //todo: 코인 -100차감
+            if (YuConstants.coin < 100)
+            {
+                YuGameManager.Instance.OpenNoCoinPanel();
+            }
+            else
+            {
+                YuConstants.coin -= 100;
+            }
+            Debug.Log(YuConstants.coin+"얼마냐면");
             
         });
     }
