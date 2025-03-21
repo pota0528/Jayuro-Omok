@@ -50,7 +50,7 @@ namespace Joe_namespace
             if (_canvas != null)
             {
                 var shopPanelObject = Instantiate(shopPanel, _canvas.transform);
-                shopPanelObject.GetComponent<PanelController>().ShowPanel();
+                shopPanelObject.GetComponent<PanelController>().Show();
                 Debug.Log("상점 떳드아!");
             }
         }
@@ -60,7 +60,7 @@ namespace Joe_namespace
             if (_canvas != null)
             {
                 var rankingPanelObject = Instantiate(rankingPanel, _canvas.transform);
-                rankingPanelObject.GetComponent<PanelController>().ShowPanel();
+                rankingPanelObject.GetComponent<PanelController>().Show();
                 Debug.Log("랭킹 떳드아!!!");
             }
         }

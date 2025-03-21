@@ -17,7 +17,7 @@ namespace Joe_namespace
 
         public void OnClickCloseButton()
         {
-            HidePanel();
+            Hide();
         }
         
         public void OnClickShopItemButton(int index)

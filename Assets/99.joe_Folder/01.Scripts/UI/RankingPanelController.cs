@@ -24,7 +24,7 @@ namespace Joe_namespace
         public int _maxRankingCount = 50;                       // 전체 랭킹 데이터 개수
         private int _bufferRows = 2;                            // 위아래 여유 셀 개수 (화면 밖에서도 추가 생성)
 
-        public void Awake()
+        protected override void Awake()
         {
             base.Awake();
             _scrollViewScrollRect = ScrollView.GetComponent<ScrollRect>();
@@ -177,7 +177,7 @@ namespace Joe_namespace
 
         public void OnClickCloseButton()
         {
-            HidePanel();
+            Hide();
         }
     }
 }
