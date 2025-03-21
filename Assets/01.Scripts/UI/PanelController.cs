@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 
+
     //캔버스 그룹이 꼭 있어야한다.
     [RequireComponent(typeof(CanvasGroup))]
     public class PanelController : MonoBehaviour

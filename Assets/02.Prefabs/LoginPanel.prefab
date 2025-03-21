@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6059456246332225642}
   - component: {fileID: 2889600439130077304}
   - component: {fileID: 5605964302878324527}
-  - component: {fileID: 4954123356629717362}
+  - component: {fileID: 5602036327163735418}
   m_Layer: 5
   m_Name: LoginPanel
   m_TagString: Untagged
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4954123356629717362
+--- !u!114 &5602036327163735418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1348692783323088093}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ff9f6c88d581d44ad7db99b873dddf, type: 3}
+  m_Script: {fileID: 11500000, guid: 2da219c2f5b689944aaf542066e8fdb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _idInputField: {fileID: 7675685220854399957}
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4954123356629717362}
+      - m_Target: {fileID: 5602036327163735418}
         m_TargetAssemblyTypeName: LoginPanelController, Assembly-CSharp
         m_MethodName: OnClickSignUpButton
         m_Mode: 1
@@ -1485,7 +1485,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4954123356629717362}
+      - m_Target: {fileID: 5602036327163735418}
         m_TargetAssemblyTypeName: LoginPanelController, Assembly-CSharp
         m_MethodName: OnClickLogInButton
         m_Mode: 1

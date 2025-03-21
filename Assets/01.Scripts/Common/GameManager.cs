@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
     public class GameManager : Singleton<GameManager>
     {
+    #region 찬영 UI 관련 
         private Canvas _canvas;
         
         [SerializeField] private GameObject loginPanel;
@@ -13,10 +15,18 @@ using UnityEngine.SceneManagement;
         [SerializeField] private GameObject profilePanel;
         //추가: 옵션패널 
         
+        //DB관련
+        public GameObject playerPrefab;
+        private DBManager mongoDBManager;
+        
+        //프로필 이미지 인덱스를 관리하는 변수 
+        private int currentIamgeIndex = 0; 
+        
         
         private void Start()
         {
             OpenLoginPanel();
+            mongoDBManager = FindObjectOfType<DBManager>();
         }
 
         public void OpenLoginPanel()
@@ -56,6 +66,43 @@ using UnityEngine.SceneManagement;
             }
             
         }
+        //이미지 인덱스 설정
+        public void SetProfileImageIndex(int index)
+        {
+            currentIamgeIndex = index;
+        }
+        
+        //현재 이미지 인덱스를 가져오는 메서드
+        public int GetProfileImageIndex()
+        {
+            return currentIamgeIndex;
+        }
+        // 이미지 업데이트
+        public void UpdateUserProfileImage(Sprite newProfileImage)
+        {
+            UserPanelController userPanelController = FindObjectOfType<UserPanelController>();
+            if (userPanelController != null)
+            {
+                userPanelController.UpdateProfileImage(newProfileImage);
+            }
+        }
+
+
+        public void LoginPlayer(string id, string password)
+        {
+            PlayerData playerData = mongoDBManager.Login(id, password);
+
+            if (playerData != null)
+            {
+                GameObject playerObject = Instantiate (playerPrefab,Vector3.zero,Quaternion.identity);
+                PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
+
+                if (playerObject != null)
+                {
+                    playerScript.SetPlayerData(playerData);
+                }
+            }
+        }
 
    
 
@@ -63,6 +110,9 @@ using UnityEngine.SceneManagement;
         {
             _canvas = GameObject.FindObjectOfType<Canvas>();
         }
-    }
+    
+    
 
+    #endregion
 
+}
