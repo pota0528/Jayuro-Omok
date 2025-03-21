@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 504966174114648562}
   - component: {fileID: 7853400334353788200}
   - component: {fileID: 5514091357549279124}
-  - component: {fileID: 1183072809978383752}
+  - component: {fileID: 3397533277404649717}
   m_Layer: 5
   m_Name: SignUpPanel
   m_TagString: Untagged
@@ -227,7 +227,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1183072809978383752
+--- !u!114 &3397533277404649717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1183072809978383752}
+      - m_Target: {fileID: 3397533277404649717}
         m_TargetAssemblyTypeName: SignUpPanelController, Assembly-CSharp
         m_MethodName: OnClickConfirmButton
         m_Mode: 1
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1183072809978383752}
+      - m_Target: {fileID: 3397533277404649717}
         m_TargetAssemblyTypeName: SignUpPanelController, Assembly-CSharp
         m_MethodName: OnClickBackButton
         m_Mode: 1

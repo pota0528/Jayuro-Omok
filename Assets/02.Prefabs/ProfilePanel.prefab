@@ -2125,7 +2125,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950848156446242897}
+      - m_Target: {fileID: 3728063583418216220}
         m_TargetAssemblyTypeName: ProfilePanelController, Assembly-CSharp
         m_MethodName: OnClickBackButton
         m_Mode: 1
@@ -2348,7 +2348,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 950848156446242897}
+      - m_Target: {fileID: 3728063583418216220}
         m_TargetAssemblyTypeName: ProfilePanelController, Assembly-CSharp
         m_MethodName: OnClickConfirmButton
         m_Mode: 1
@@ -2492,7 +2492,7 @@ GameObject:
   - component: {fileID: 8042124808169306594}
   - component: {fileID: 8466574599079968041}
   - component: {fileID: 4688842369699049398}
-  - component: {fileID: 950848156446242897}
+  - component: {fileID: 3728063583418216220}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -2572,7 +2572,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &950848156446242897
+--- !u!114 &3728063583418216220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
