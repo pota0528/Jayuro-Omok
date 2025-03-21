@@ -50,21 +50,29 @@ using UnityEngine.SceneManagement;
             }
         }
 
-        public PlayerData Login(string id, string password)
+        public (PlayerData, string) Login(string id, string password)
         {
-            var player = playerCollection.Find(p => p.id == id && p.password == password).FirstOrDefault();
-            if (player != null)
+            var player = playerCollection.Find(p => p.id == id).FirstOrDefault();
+
+            if (player == null)
             {
-                Debug.Log("로그인 성공 닉네임: " + player.nickname);
-                return player;
+                // 아이디가 존재하지 않으면
+                UIManager.Instance.OpenMessagePopup("아이디가 존재하지 않습니다.");
+                return (null, "아이디가 존재하지 않습니다.");
+               
             }
-            else
+
+            if (player.password != password)
             {
-                Debug.Log("로그인 실패");
-                //TODO:아이디 틀렸을떄, 비밀번호 틀렸을 떄 
-                UIManager.Instance.OpenMessagePopup("로그인에 실패하였습니다.");
-                return null;
+                // 비밀번호가 틀리면
+                UIManager.Instance.OpenMessagePopup("비밀번호가 틀렸습니다..");
+                return (null, "비밀번호가 틀렸습니다.");
+               
             }
+
+            // 아이디와 비밀번호가 일치하면 로그인 성공
+            Debug.Log("로그인 성공 닉네임: " + player.nickname);
+            return (player, "로그인 성공");
         }
 
         //데이터 업데이트

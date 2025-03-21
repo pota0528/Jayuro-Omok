@@ -95,7 +95,7 @@ using UnityEngine.SceneManagement;
 
         public void LoginPlayer(string id, string password)
         {
-            PlayerData playerData = mongoDBManager.Login(id, password);
+            var (playerData,message) = mongoDBManager.Login(id, password);
 
             if (playerData != null)
             {
