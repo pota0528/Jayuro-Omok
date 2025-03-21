@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 504966174114648562}
   - component: {fileID: 7853400334353788200}
   - component: {fileID: 5514091357549279124}
-  - component: {fileID: 2054882726420692885}
+  - component: {fileID: 1044144467216893939}
   m_Layer: 5
   m_Name: UserPanel
   m_TagString: Untagged
@@ -93,7 +93,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2054882726420692885
+--- !u!114 &1044144467216893939
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickShopButton
         m_Mode: 1
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickSettingBUtton
         m_Mode: 1
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickRanckingButton
         m_Mode: 1
@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickProfileButton
         m_Mode: 1
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickReplayButton
         m_Mode: 1
@@ -1854,7 +1854,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2054882726420692885}
+      - m_Target: {fileID: 1044144467216893939}
         m_TargetAssemblyTypeName: UserPanelController, Assembly-CSharp
         m_MethodName: OnClickStartButton
         m_Mode: 1
