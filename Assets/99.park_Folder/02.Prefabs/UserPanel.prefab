@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 464624426721254015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa86f86350d797499ac2823b6cdf941, type: 3}
+  m_Script: {fileID: 11500000, guid: 20b906660c2469748b0fb155ab167e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   userNameText: {fileID: 795478307145936054}
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 808122330522568133}
   - component: {fileID: 6953521771669004633}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Coin Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

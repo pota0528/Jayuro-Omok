@@ -236,10 +236,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 464624426721254015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 398c2b7c806344208054f99b7d3807bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 58b903657962cd943b22e8bc80b0ea6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelRectTransform: {fileID: 0}
+  panelRectTransform: {fileID: 1339042944199952119}
   _idInputField: {fileID: 7456848124280111294}
   _nicknameInputField: {fileID: 570215724882089608}
   _passwordInputField: {fileID: 516366030125175664}
