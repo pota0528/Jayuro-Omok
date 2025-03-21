@@ -3,7 +3,18 @@ guid: ab550b56ec5d4274693448895e32420e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - loginPanel: {fileID: 1348692783323088093, guid: acb5f345790dbbe4889acef0ca6a00c0, type: 3}
+  - signUpPanel: {fileID: 464624426721254015, guid: 10ee7e95067c93a40839bba7a03eb8e9, type: 3}
+  - userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
+  - profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
+  - playerPrefab: {instanceID: 0}
+  - messagePopupPrefab: {fileID: 1459309161923910732, guid: 7360fb4c423d81c4f9de1e65edb91920, type: 3}
+  - settingPopupPrefab: {fileID: 1459309161923910732, guid: 43e890aab796cbb44bced06052b56cbe, type: 3}
+  - giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}
+  - noCoinPanelPrefab: {fileID: 1459309161923910732, guid: 32be1f9ba38b6d94fba27c97519b4207, type: 3}
+  - winLosePanelPrefab: {fileID: 1459309161923910732, guid: af9e702d77130f54e8c6cc1dd6463540, type: 3}
+  - parent: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
     public class UIManager : Singleton<UIManager>
     {
+        //플레이어 데이터 선언 !! 
+        PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
     #region 찬영 UI 관련 
         private Canvas _canvas;
-        
+        [Header("찬영")]
         [SerializeField] private GameObject loginPanel;
         [SerializeField] private GameObject signUpPanel;
         [SerializeField] private GameObject userPanel;
@@ -24,8 +26,8 @@ using UnityEngine.SceneManagement;
         
         private void Start()
         {
-            //OpenLoginPanel();
-            //mongoDBManager = FindObjectOfType<DBManager>();
+            OpenLoginPanel();
+            mongoDBManager = FindObjectOfType<DBManager>();
         }
 
         public void OpenLoginPanel()
@@ -115,7 +117,7 @@ using UnityEngine.SceneManagement;
     #endregion
 
     #region 자현 UI 관련
-
+  [Header("자현")]
     [SerializeField] private GameObject messagePopupPrefab;
     [SerializeField] private GameObject settingPopupPrefab;
     [SerializeField] private GameObject giveupPanelPrefab;
