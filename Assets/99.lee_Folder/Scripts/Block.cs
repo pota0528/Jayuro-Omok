@@ -2,38 +2,32 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using lee_namespace;
+using UnityEngine.Serialization;
 
 namespace lee_namespace
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Collider2D))]
-    public class Block :
-        MonoBehaviour
+    public class Block : MonoBehaviour
     {
-        [SerializeField] private Sprite BlackSprite;
+        public Sprite BlackSprite;
+        public Sprite WhiteSprite;
+        public SpriteRenderer markerSpriteRenderer;
+        public SpriteRenderer previewSpriteRenderer;
+        public Sprite preSprite;
 
-        [SerializeField] private Sprite WhiteSprite;
-
-        [SerializeField] private SpriteRenderer markerSpriteRenderer;
-
-        public enum MarkerType
-        {
-            None,
-            Black,
-            White
-        }
-
+        public enum MarkerType {None, Black, White}
         public delegate void OnBlockClicked(int index);
-
         private OnBlockClicked _onBlockClicked;
-
         private int _blockIndex;
-        private SpriteRenderer _spriteRenderer;
-        private bool isPutDown = false;
-
+        
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            markerSpriteRenderer = GetComponent<SpriteRenderer>();
+            if (previewSpriteRenderer == null)
+            {
+                previewSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+            }
         }
 
         public void InitMarker(int blockIndex, OnBlockClicked onBlockClicked)
@@ -41,10 +35,6 @@ namespace lee_namespace
             _blockIndex = blockIndex;
             SetMarker(MarkerType.None);
             this._onBlockClicked = onBlockClicked;
-            //BlockController의 row와 col 초기화
-            //OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);를 미리 넣기
-            //BlockController.OnBlockClickedDelegate가 Block.onBlockClicked에 이식
-            //그러므로 BlockController.onBlockClicked에 값을 넣고, Block.onBlockClicked을 시행이 될 가능성이 높음.
         }
 
         public void SetMarker(MarkerType markerType)
@@ -53,19 +43,32 @@ namespace lee_namespace
             {
                 case MarkerType.Black:
                     markerSpriteRenderer.sprite = BlackSprite;
+                    previewSpriteRenderer.sprite = null; // 미리보기 제거
                     break;
                 case MarkerType.White:
                     markerSpriteRenderer.sprite = WhiteSprite;
+                    previewSpriteRenderer.sprite = null;
                     break;
                 case MarkerType.None:
                     markerSpriteRenderer.sprite = null;
                     break;
             }
         }
-
-        public void OnMouseUpAsButton() //매개변수나 다른 걸로 현재 OmokSprite(Black, White값이 필요)
+        
+        /// <summary>
+        /// priview 표시 및 제거
+        /// </summary>
+        /// <param name="show">true of false</param>
+        public void SetPreviewMarker(bool show)
         {
-            _onBlockClicked?.Invoke(_blockIndex);
+            previewSpriteRenderer.sprite = show ? preSprite : null; // 미리보기 표시/제거
+            previewSpriteRenderer.color = new Color(1, 1, 1, show ? 1f : 1f); // 반투명 효과
+        }
+
+        public void OnMouseUpAsButton()
+        {
+            _onBlockClicked?.Invoke(_blockIndex); // 클릭 이벤트만 전달
+            Debug.Log(_blockIndex);
         }
     }
 }
