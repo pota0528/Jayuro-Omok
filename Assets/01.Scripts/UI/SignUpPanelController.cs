@@ -1,30 +1,28 @@
 ﻿using park_namespace;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
-public struct SignUpData
-{
-    public string nickname;
-    public string id;
-    public string password;
-   
-}
+
 public class SignUpPanelController : PanelController
 {
     [SerializeField] private TMP_InputField _idInputField;
     [SerializeField] private TMP_InputField _nicknameInputField;
     [SerializeField] private TMP_InputField _passwordInputField;
     [SerializeField] private TMP_InputField _confirmPasswordInputField;
-    [SerializeField] private Button profileButton;
-    private void SaveSignUpDataToPlayerPrefs(SignUpData signUpData)
+
+    private DBManager _mongoDBManager;
+
+    void Start()
     {
-        PlayerPrefs.SetString("NickName", signUpData.nickname);
-        PlayerPrefs.SetString("ID", signUpData.id);
-        PlayerPrefs.SetString("Password", signUpData.password);
-        PlayerPrefs.Save();
+        _mongoDBManager = FindObjectOfType<DBManager>();
+        // DBManager가 제대로 연결되었는지 확인
+        if (_mongoDBManager == null)
+        {
+            Debug.LogError("DBManager가 하이어라키에 없습니다!");
+        }
     }
+
     public void OnClickConfirmButton()
     {
         var id= _idInputField.text;
@@ -37,48 +35,37 @@ public class SignUpPanelController : PanelController
             //TODO: 입력값이 비어있음을 알리는 팝업창 표시 
             return;
         }
+        if (string.IsNullOrEmpty(id))
+        {
+            //TODO: // ID입력하세요 팝업창
+            return;
+        }
+
+        if (!password.Equals(confirmPassword))
+        {
+            Debug.Log("비밀번호 일치X ");
+            return;
+        }
         
-        //TODO: 플레이어 정보 받아와서 패스워드 동일한지, 이미 존재하는 아이디인지 
-
-        if (password.Equals(confirmPassword))
+        //새로운 PlayerData 생성 
+        PlayerData newPlayer = new PlayerData
         {
-            SignUpData signUpData = new SignUpData
-            {
-                id = id,
-                nickname = nickname,
-                password = password
+            id = id,
+            nickname = nickname,
+            password = password,
+            level = 18,
+            levelPoint = 0,
+            coin = 1000,
+            win = 0,
+            lose = 0
+        };
+        
+        //MongoDB에 저장
+        _mongoDBManager.RegisterPlayer(newPlayer);
+        Debug.Log("회원가입 완료: "+newPlayer.nickname);
 
-            };
-            // signUpData.id = id;
-            // signUpData.nickname = nickname;
-            // signUpData.password = password;
-            SaveSignUpDataToPlayerPrefs(signUpData);
-            Debug.Log("회원가입 데이터 저장");
-            // Destroy(gameObject);
-            // GameManager.Instance.OpenLoginPanel();
-            //TODO: 회원가입 진행 
-        }
-        else
-        {
-            //GameManeger.Instance.OpenConfirmPanel("비밀번호가 서로 다릅니다.", () =>
-            // {
-            //   _passwordInputField.text = "";
-            //_confirmPasswordInputField.text = "";
-            //  });
-        }
-    }
-    public void UpdateProfileImage(Sprite newProfileImage)
-    {
-        // UserPanel의 프로필 이미지 갱신
-        profileButton.GetComponent<Image>().sprite = newProfileImage;
-            
     }
 
-    public void OnClickProfileButton()
-    {
-        GameManager.Instance.OpenProfilePanel();
-    }
-    
     public void OnClickBackButton()
     {
         Debug.Log("BackButton누름!");
