@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
     public class UIManager : Singleton<UIManager>
     {
         //플레이어 데이터 선언 !! 
-        PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
+      //  PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
     #region 찬영 UI 관련 
         private Canvas _canvas;
         [Header("찬영")]

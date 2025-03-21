@@ -228,6 +228,9 @@ MonoBehaviour:
   userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
   profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
   playerPrefab: {fileID: 7545674033775964532}
+  shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
+  rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
+  coinCount: 0
   messagePopupPrefab: {fileID: 1459309161923910732, guid: 7360fb4c423d81c4f9de1e65edb91920, type: 3}
   settingPopupPrefab: {fileID: 1459309161923910732, guid: 43e890aab796cbb44bced06052b56cbe, type: 3}
   giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}
