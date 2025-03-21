@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class MatchLoader : MonoBehaviour
+public class MatchLoader : Singleton<MatchLoader>
 {
     public List<MatchData> LoadMatches()
     {
@@ -20,5 +21,10 @@ public class MatchLoader : MonoBehaviour
         }
 
         return matches;
+    }
+
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
     }
 }

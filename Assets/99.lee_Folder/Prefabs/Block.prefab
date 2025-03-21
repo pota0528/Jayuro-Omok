@@ -225,7 +225,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7628712315550738627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af01a7b69267c7b4088823b559e4a933, type: 3}
+  m_Script: {fileID: 11500000, guid: b512b7c9106a79d4291aa115e0c239a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BlackSprite: {fileID: 21300000, guid: 5f35304d78bcba843b4acfad7a14f471, type: 3}
