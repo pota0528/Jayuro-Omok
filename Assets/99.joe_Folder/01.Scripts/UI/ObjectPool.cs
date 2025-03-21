@@ -3,9 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 //using DG.Tweening;
 
-namespace Joe_namespace
-{
-    public class ObjectPool : MonoBehaviour
+   public class ObjectPool : MonoBehaviour
     {
         [SerializeField] private GameObject Prefab;
 
@@ -77,4 +75,3 @@ namespace Joe_namespace
             _pool.Enqueue(returnObject);
         }
     }
-}

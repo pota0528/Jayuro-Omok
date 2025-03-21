@@ -5,9 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Joe_namespace
-{
-    public class RankingPanelController : PanelController
+  public class RankingPanelController : PanelController
     {
         [SerializeField] private GameObject rankingCellPrefab;  // 생성할 셀 프리팹
         [SerializeField] private Transform contentTransform;    // ScrollView의 Content (셀들의 부모)
@@ -180,4 +178,3 @@ namespace Joe_namespace
             Hide();
         }
     }
-}

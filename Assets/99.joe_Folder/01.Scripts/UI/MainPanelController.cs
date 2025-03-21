@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-namespace Joe_namespace
+public class MainPanelController : MonoBehaviour
 {
-    public class MainPanelController : MonoBehaviour
+    public void OnClickPlayButton()
     {
-        public void OnClickPlayButton()
-        {
-            GameManager.Instance.ChangeToGameScene();
-        }
+        UIManager.Instance.ChangeToGameScene();
+    }
         
         
-        public void OnClickShopPanelButton()
-        {
-            GameManager.Instance.OpenShopPanel();
-            Debug.Log("Shop Panel Opened");
-        }
-
-        public void OnClickRankingPanelButton()
-        {
-            GameManager.Instance.OpenRankingPanel();
-            Debug.Log("Ranking Panel Opened");
-        }
+    public void OnClickShopPanelButton()
+    {
+        UIManager.Instance.OpenShopPanel();
+        Debug.Log("Shop Panel Opened");
     }
 
+    public void OnClickRankingPanelButton()
+    {
+        UIManager.Instance.OpenRankingPanel();
+        Debug.Log("Ranking Panel Opened");
+    }
 }

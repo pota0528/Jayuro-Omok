@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Joe_namespace
-{
-    public class RankingCellPanel : MonoBehaviour
+
+ public class RankingCellPanel : MonoBehaviour
     {
         //셀 패널에 프사와 닉네임, 급수등 
         [SerializeField] private Image image;
@@ -51,4 +50,3 @@ namespace Joe_namespace
         //
         // }
     }
-}

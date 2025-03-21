@@ -3,8 +3,8 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 
-    public class UIManager : Singleton<UIManager>
-    {
+public class UIManager : Singleton<UIManager>
+{
     #region 찬영 UI 관련 
         private Canvas _canvas;
         
@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
         [SerializeField] private GameObject signUpPanel;
         [SerializeField] private GameObject userPanel;
         [SerializeField] private GameObject profilePanel;
+        
+        
         //추가: 옵션패널 
         
         //DB관련
@@ -21,6 +23,8 @@ using UnityEngine.SceneManagement;
         //프로필 이미지 인덱스를 관리하는 변수 
         private int currentIamgeIndex = 0; 
         
+        
+
         
         private void Start()
         {
@@ -103,7 +107,11 @@ using UnityEngine.SceneManagement;
             }
         }
 
-   
+
+
+        
+        
+        
 
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
@@ -112,6 +120,52 @@ using UnityEngine.SceneManagement;
     
     
 
+    #endregion
+    
+    
+    #region 장운 씬이동,패널연결
+    [Header("장운")]
+    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject rankingPanel;
+    [HideInInspector] public int coinCount;
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        coinCount = UserInformations.CoinCount;
+            
+    }
+    
+    
+    public void ChangeToGameScene()
+    {
+        SceneManager.LoadScene("Game_jk");
+    }
+        
+    public void ChangeToMainScene()
+    {
+        SceneManager.LoadScene("Main_jk");
+    }
+        
+    public void OpenShopPanel()
+    {
+        if (_canvas != null)
+        {
+            var shopPanelObject = Instantiate(shopPanel, _canvas.transform);
+            shopPanelObject.GetComponent<PanelController>().Show();
+            Debug.Log("상점 떳드아!");
+        }
+    }
+
+    public void OpenRankingPanel()
+    {
+        if (_canvas != null)
+        {
+            var rankingPanelObject = Instantiate(rankingPanel, _canvas.transform);
+            rankingPanelObject.GetComponent<PanelController>().Show();
+            Debug.Log("랭킹 떳드아!!!");
+        }
+    }
     #endregion
 
 }
