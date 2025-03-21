@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using lee_namespace;
 
-namespace lee_namespace
-{
-    public class MCTS
+public class MCTS
     {
         private MCTSNode root;
         private GameManager.PlayerType[,] initialBoard;
@@ -491,4 +488,3 @@ namespace lee_namespace
             return null;
         }
     }
-}

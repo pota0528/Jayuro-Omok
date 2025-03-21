@@ -4,9 +4,7 @@ using UnityEngine.EventSystems;
 using lee_namespace;
 using UnityEngine.Serialization;
 
-namespace lee_namespace
-{
-    [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Collider2D))]
     public class Block : MonoBehaviour
     {
@@ -71,4 +69,3 @@ namespace lee_namespace
             Debug.Log(_blockIndex);
         }
     }
-}

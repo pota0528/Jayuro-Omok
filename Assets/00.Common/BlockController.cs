@@ -1,9 +1,7 @@
 using UnityEngine;
 using lee_namespace;
 
-namespace lee_namespace
-{
-    public class BlockController : MonoBehaviour
+public class BlockController : MonoBehaviour
     {
         [SerializeField] private Block[] blocks;
 
@@ -75,4 +73,3 @@ namespace lee_namespace
             }
         }
     }
-}
