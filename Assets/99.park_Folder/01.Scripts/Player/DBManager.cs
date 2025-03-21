@@ -38,10 +38,15 @@ using UnityEngine.SceneManagement;
             {
                 playerCollection.InsertOne(playerData);
                 Debug.Log("유저 등록 완료: " + playerData.nickname);
+                
+                //회원가입 완료 메시지 팝업
+                UIManager.Instance.OpenMessagePopup(playerData.nickname+"님\n회원가입 되었습니다.");
             }
             else
             {
                 Debug.Log("이미 존재하는 ID 입니다. ");
+                //이미 존재 id 메시지 팝업
+                UIManager.Instance.OpenMessagePopup("이미 존재하는 ID 입니다.");
             }
         }
 
@@ -57,6 +62,7 @@ using UnityEngine.SceneManagement;
             {
                 Debug.Log("로그인 실패");
                 //TODO:아이디 틀렸을떄, 비밀번호 틀렸을 떄 
+                UIManager.Instance.OpenMessagePopup("로그인에 실패하였습니다.");
                 return null;
             }
         }

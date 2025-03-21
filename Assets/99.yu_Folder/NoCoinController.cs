@@ -20,7 +20,7 @@ public class NoCoinController : BaseUIController
             //TODO: 메인씬+상점패널로 이동
             //장운님이 만드신 GameManager.Instance.OpenShopPanel();호출
             Debug.Log("상점으로 이동");
-            UIManager.Instance.OpenGiveupPanel();
+            UIManager.Instance.OpenShopPanel();
         });
     }
 }
