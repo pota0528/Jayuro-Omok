@@ -1,0 +1,78 @@
+﻿using park_namespace;
+using TMPro;
+using UnityEngine;
+
+
+
+public class SignUpPanelController : PanelController
+{
+    [SerializeField] private TMP_InputField _idInputField;
+    [SerializeField] private TMP_InputField _nicknameInputField;
+    [SerializeField] private TMP_InputField _passwordInputField;
+    [SerializeField] private TMP_InputField _confirmPasswordInputField;
+
+    private DBManager _mongoDBManager;
+
+    void Start()
+    {
+        _mongoDBManager = FindObjectOfType<DBManager>();
+        // DBManager가 제대로 연결되었는지 확인
+        if (_mongoDBManager == null)
+        {
+            Debug.LogError("DBManager가 하이어라키에 없습니다!");
+        }
+    }
+
+    public void OnClickConfirmButton()
+    {
+        var id= _idInputField.text;
+        var nickname = _nicknameInputField.text;
+        var password = _passwordInputField.text;
+        var confirmPassword = _confirmPasswordInputField.text;
+        if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(nickname) ||
+            string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
+        {
+            //TODO: 입력값이 비어있음을 알리는 팝업창 표시 
+            return;
+        }
+        if (string.IsNullOrEmpty(id))
+        {
+            //TODO: // ID입력하세요 팝업창
+            return;
+        }
+
+        if (!password.Equals(confirmPassword))
+        {
+            Debug.Log("비밀번호 일치X ");
+            return;
+        }
+        
+        //새로운 PlayerData 생성 
+        PlayerData newPlayer = new PlayerData
+        {
+            id = id,
+            nickname = nickname,
+            password = password,
+            level = 18,
+            levelPoint = 0,
+            coin = 1000,
+            win = 0,
+            lose = 0
+        };
+        
+        //MongoDB에 저장
+        _mongoDBManager.RegisterPlayer(newPlayer);
+        Debug.Log("회원가입 완료: "+newPlayer.nickname);
+
+    }
+
+    public void OnClickBackButton()
+    {
+        Debug.Log("BackButton누름!");
+        Destroy(gameObject);
+        UIManager.Instance.OpenLoginPanel();
+        //TODO: 뒤로가기 누르면 로그인 패널이 나오게 하기 
+    }
+}
+
+
