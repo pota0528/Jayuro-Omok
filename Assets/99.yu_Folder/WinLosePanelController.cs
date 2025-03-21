@@ -5,9 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.tvOS;
 using UnityEngine.UI;
-using yu_namespace;
 
-public class WinLosePanelController : MessagePopupController
+namespace yu_namespace
+{
+    public class WinLosePanelController : MessagePopupController
 {
     [SerializeField] private GameObject gaugeBlockPrefab;
     [SerializeField] private GameObject[] plusGaugeBlocks;
@@ -154,3 +155,5 @@ public class WinLosePanelController : MessagePopupController
         Debug.Log("데이터 저장");
     }
 }
+}
+
