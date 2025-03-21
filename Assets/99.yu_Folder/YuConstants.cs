@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace yu_namespace
+public class YuConstants
 {
-    public class YuConstants
-    {
-        public static int level=5;
-        public static int levelPoint=4;
-        public static int coin = 299;
-        public static bool isWin = true;
-    }
+    public static int level = 5;
+    public static int levelPoint = 4;
+    public static int coin = 299;
+    public static bool isWin = true;
 }
+
   
 

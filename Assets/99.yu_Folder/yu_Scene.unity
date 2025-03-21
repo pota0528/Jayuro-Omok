@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 246407837}
   - component: {fileID: 246407836}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,9 +331,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 246407835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9424d427b1bb46749b3aa2c26c4c757c, type: 3}
+  m_Script: {fileID: 11500000, guid: ab550b56ec5d4274693448895e32420e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loginPanel: {fileID: 0}
+  signUpPanel: {fileID: 0}
+  userPanel: {fileID: 0}
+  profilePanel: {fileID: 0}
+  playerPrefab: {fileID: 0}
   messagePopupPrefab: {fileID: 1459309161923910732, guid: 7360fb4c423d81c4f9de1e65edb91920, type: 3}
   settingPopupPrefab: {fileID: 1459309161923910732, guid: 43e890aab796cbb44bced06052b56cbe, type: 3}
   giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}

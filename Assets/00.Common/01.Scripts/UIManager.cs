@@ -24,8 +24,8 @@ using UnityEngine.SceneManagement;
         
         private void Start()
         {
-            OpenLoginPanel();
-            mongoDBManager = FindObjectOfType<DBManager>();
+            //OpenLoginPanel();
+            //mongoDBManager = FindObjectOfType<DBManager>();
         }
 
         public void OpenLoginPanel()
@@ -110,6 +110,111 @@ using UnityEngine.SceneManagement;
             _canvas = GameObject.FindObjectOfType<Canvas>();
         }
     
+    
+
+    #endregion
+
+    #region 자현 UI 관련
+
+    [SerializeField] private GameObject messagePopupPrefab;
+    [SerializeField] private GameObject settingPopupPrefab;
+    [SerializeField] private GameObject giveupPanelPrefab;
+    [SerializeField] private GameObject noCoinPanelPrefab;
+    [SerializeField] private GameObject winLosePanelPrefab;
+
+    [SerializeField] private RectTransform parent;
+        
+        //메시지팝업 오픈
+        public void OpenMessagePopup(string msg)
+        {
+            
+            var messagePopup = Instantiate(messagePopupPrefab, parent);
+            messagePopup.GetComponent<MessagePopupController>().Show(msg);
+            
+        }
+
+        //설정팝업 오픈
+        public void OpenSettingPopup()
+        {
+            var settingPopup = Instantiate(settingPopupPrefab, parent);
+            settingPopup.GetComponent<BaseUIController>().Show();
+        }
+        
+        //옵션 패널 오픈
+        public void OpenGiveupPanel()
+        {
+            var giveupPanel = Instantiate(giveupPanelPrefab, parent);
+            giveupPanel.GetComponent<BaseUIController>().Show();
+
+        }
+        
+        //노코인 패널 오픈
+        public void OpenNoCoinPanel()
+        {
+            var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
+            noCoinPanel.GetComponent<BaseUIController>().Show();
+            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(YuConstants.coin);//찬영님이 주시는 데이터 형태로
+        }
+
+        public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
+        {
+            //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
+            //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+            //_blockGontroller.OnBlockClickedDelegate=null;
+            
+            var winLosePanel = Instantiate(winLosePanelPrefab, parent);
+            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
+            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(YuConstants.level);//안에 들어가는 수는 level
+            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.levelPoint);
+                
+            if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
+            {
+                var ResultPanel= Instantiate(messagePopupPrefab, parent);
+                if (YuConstants.levelPoint > 0)
+                {
+                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ YuConstants.level);
+                    YuConstants.levelPoint = 0;
+                    Debug.Log(YuConstants.levelPoint);
+                }
+                else if (YuConstants.levelPoint < 0)
+                {
+                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+YuConstants.level);
+                    YuConstants.levelPoint = 0;
+                    Debug.Log(YuConstants.levelPoint);
+                }
+                
+            }
+            
+        }
+        
+        //패널 사용하는 방법
+        public void TestShowMessagePopupButton()
+        {
+            OpenMessagePopup("로그인이 되었습니다.");
+        }
+
+        public void TestShowSettingPopupButton()
+        {
+            OpenSettingPopup();
+        }
+
+        public void TestGiveupPanelButton()
+        {
+            OpenGiveupPanel();
+        }
+
+        public void TestNoCoinPanelButton()
+        {
+            OpenNoCoinPanel();
+        }
+
+    #endregion
+
+
+
+
+    #region 데이터처리
+
     
 
     #endregion
