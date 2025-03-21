@@ -10,7 +10,6 @@ public class ReplayController : MonoBehaviour
     private int currentStep = 0; // 현재 진행 단계
     private List<Item> logItems = new List<Item>(); // 로그 아이템 리스트
     
-    // 매치 로드
     public void LoadMatch(MatchData match)
     {
         currentMatch = match;
@@ -21,9 +20,7 @@ public class ReplayController : MonoBehaviour
         logScrollView.LoadData(logItems); // 빈 로그 표시
         replayPanel.SetActive(true); // 패널 활성화
     }
-
     
-    // 처음으로 버튼
     public void FirstMove()
     {
         currentStep = 0; // 처음 단계로 설정
@@ -32,7 +29,6 @@ public class ReplayController : MonoBehaviour
         logScrollView.LoadData(logItems); // 빈 로그 표시
     }
     
-    // 끝으로 버튼
     public void LastMove()
     {
         blockController.ResetBoard(); // 보드 초기화
@@ -44,17 +40,13 @@ public class ReplayController : MonoBehaviour
             string logText = $" {i + 1}: 행 {move.row}, 열 {move.col}, {move.color}";
             logItems.Add(new Item { subtitle = logText });
         }
-
         currentStep = currentMatch.moves.Count; // 마지막 단계로 설정
         logScrollView.LoadData(logItems); // 로그 업데이트
     }
     
-    
-    // 다음 이동 버튼
     public void NextMove()
     {
         if (currentMatch == null || currentStep >= currentMatch.moves.Count) return;
-
         Move move = currentMatch.moves[currentStep];
         blockController.PlaceStone(move.row, move.col, move.color == "흑돌" ? 1 : 2);
         string logText = $" {currentStep + 1}: 행 {move.row}, 열 {move.col}, {move.color}";
@@ -63,11 +55,9 @@ public class ReplayController : MonoBehaviour
         currentStep++;
     }
 
-    // 이전 이동 버튼 (선택 사항)
     public void PreviousMove()
     {
         if (currentStep <= 0) return;
-
         currentStep--;
         blockController.ResetBoard(); // 보드 리셋
         logItems.RemoveAt(logItems.Count - 1); // 마지막 로그 제거

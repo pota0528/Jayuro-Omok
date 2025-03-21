@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class MatchSaver : MonoBehaviour
+public class MatchSaver : Singleton<MatchSaver>
 {
     public void SaveMatch(string nickname, List<Move> moves)
     {
@@ -19,6 +20,11 @@ public class MatchSaver : MonoBehaviour
         Directory.CreateDirectory(Path.GetDirectoryName(path));
         File.WriteAllText(path, json);
         Debug.Log($"매치 저장완료 : {path}");
+    }
+
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
     }
 }
 
