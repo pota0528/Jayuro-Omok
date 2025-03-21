@@ -56,11 +56,13 @@ using UnityEngine.UI;
 
         public void OnClickRanckingButton()
         {
+            UIManager.Instance.OpenRankingPanel();
             Debug.Log("랭킹 보기");
         }
 
         public void OnClickShopButton()
         {
+            UIManager.Instance.OpenShopPanel();
             Debug.Log("상점 보기");
         }
 

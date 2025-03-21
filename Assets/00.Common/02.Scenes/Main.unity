@@ -228,6 +228,15 @@ MonoBehaviour:
   userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
   profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
   playerPrefab: {fileID: 0}
+  shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
+  rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
+  coinCount: 0
+  messagePopupPrefab: {fileID: 0}
+  settingPopupPrefab: {fileID: 0}
+  giveupPanelPrefab: {fileID: 0}
+  noCoinPanelPrefab: {fileID: 0}
+  winLosePanelPrefab: {fileID: 0}
+  parent: {fileID: 0}
 --- !u!1 &1311660850
 GameObject:
   m_ObjectHideFlags: 0
