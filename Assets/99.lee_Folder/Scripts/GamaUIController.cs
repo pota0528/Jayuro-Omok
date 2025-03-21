@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace lee_namespace
-{
-    public class GameUIController : MonoBehaviour
+public class GameUIController : MonoBehaviour
     {
         [SerializeField] private Image[] playerAImage;
         [SerializeField] private Image[] playerBImage;
@@ -101,4 +96,3 @@ namespace lee_namespace
         //     });
         // }
     }
-}
