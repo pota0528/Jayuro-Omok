@@ -28,9 +28,14 @@ using UnityEngine.Rendering;
                 Debug.Log("아이디,비밀번호를 입력하지X");
                 return;
             }
-         
+            if (dbManager == null) // dbManager가 null인 경우 처리
+            {
+                Debug.LogError("DBManager가 초기화되지 않았습니다");
+                return;
+            }
+
             //DBManager.Login 호출
-            PlayerData player = dbManager.Login(id, password);
+            var (player, message) = dbManager.Login(id, password);
 
             if (player != null)
             {
