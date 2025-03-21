@@ -3,8 +3,6 @@ using UnityEngine;
 using DG.Tweening;
 
 
-namespace park_namespace
-{
     //캔버스 그룹이 꼭 있어야한다.
     [RequireComponent(typeof(CanvasGroup))]
     public class PanelController : MonoBehaviour
@@ -52,5 +50,5 @@ namespace park_namespace
      
         }
     }
-}
+
 

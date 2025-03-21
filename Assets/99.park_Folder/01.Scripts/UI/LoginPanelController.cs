@@ -1,21 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using park_namespace;
 using TMPro;
 using UnityEngine;
-
-namespace park_namespace
-{
-    public struct LoginData
-    {
-        public string id;
-        public string password;
-    }
+using UnityEngine.Rendering;
 
     public class LoginPanelController : MonoBehaviour
     {
         [SerializeField] private TMP_InputField _idInputField;
         [SerializeField] private TMP_InputField _passwordInputField;
+
+        private  DBManager dbManager;
+
+        private void Start()
+        {
+            dbManager = FindObjectOfType<DBManager>();
+        }
 
         public void OnClickLogInButton()
         {
@@ -24,39 +25,32 @@ namespace park_namespace
             string password = _passwordInputField.text;
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
             {
+                Debug.Log("아이디,비밀번호를 입력하지X");
                 return;
             }
+         
+            //DBManager.Login 호출
+            PlayerData player = dbManager.Login(id, password);
 
-            var loginData = new LoginData();
-            loginData.id = id;
-            loginData.password = password;
-
-            if (PlayerPrefs.GetString("ID") == id)
+            if (player != null)
             {
-                if (PlayerPrefs.GetString("Password") == password)
-                {
-                    Debug.Log("로그인 성공");
-                    //TODO: 로그인 진심 구현 
-                    GameManager.Instance.OpenUserPanel();
-                }
-                else
-                {
-                    Debug.Log("비밀번호가 틀렸습니다.");
-                }
+                Debug.Log("로그인 성공"+player.nickname);
+                //로그인한 유저 데이터를 UserSessionManager에 저장
+                UserSessionManager.Instance.SetPlayerData(player);
+                UIManager.Instance.OpenUserPanel();
             }
-     
-      
-
-
-        
-        
+            else
+            {
+                Debug.Log("로그인 실패");
+            }
+            
         }
 
         public void OnClickSignUpButton()
         {
             Destroy(gameObject);
-            GameManager.Instance.OpenSignUpPanel();
+            UIManager.Instance.OpenSignUpPanel();
         }
     }
-}
 
+  
