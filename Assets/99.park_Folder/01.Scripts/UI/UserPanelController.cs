@@ -66,7 +66,7 @@ using UnityEngine.UI;
 
         public void OnClickSettingBUtton()
         {
-            Debug.Log("설정");
+            UIManager.Instance.OpenSettingPopup();
         }
 
         public void OnClickProfileButton()
