@@ -21,7 +21,7 @@ public class MatchListController : MonoBehaviour
         MatchLoader loader = FindObjectOfType<MatchLoader>();
         if (loader != null)
         {
-            matches = loader.LoadMatches();
+            matches = loader.LoadMatches(); //기존 저장된 MatchData형식들을 불러온다.
         }
         else
         {
@@ -32,13 +32,17 @@ public class MatchListController : MonoBehaviour
     private void DisplayMatches()
     {
         List<Item> items = new List<Item>();
-        for (int i = 0; i < matches.Count; i++)
+        for (int i = 0; i < matches.Count; i++) //담은 데이터 갯수만큼 기보 셀을 추가하겠군
         {
             int index = i;
             items.Add(new Item
             {
                 subtitle = matches[i].title + "_" + matches[i].date, // 닉네임 + 날짜 표시
-                onClick = () => MatchSelected?.Invoke(matches[index]) // 클릭 시 이벤트 발생
+                onClick = () =>
+                {
+                    MatchSelected?.Invoke(matches[index]);
+                }
+                // 클릭 시 이벤트 발생
             });
         }
 

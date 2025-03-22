@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 
 [System.Serializable]
-public class Move
+public struct Move
 {
     public int row; // 행
     public int col; // 열
@@ -10,7 +10,7 @@ public class Move
 }
 
 [System.Serializable]
-public class MatchData
+public class MatchData //json으로 저장될 것들은 struct이 아니라 class가 좋다고 함, null을 가질 수 없어서 오류 발생
 {
     public string title; // 유저 닉네임
     public string date; // 저장 날짜
