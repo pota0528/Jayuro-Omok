@@ -339,11 +339,15 @@ MonoBehaviour:
   userPanel: {fileID: 0}
   profilePanel: {fileID: 0}
   playerPrefab: {fileID: 0}
+  shopPanel: {fileID: 0}
+  rankingPanel: {fileID: 0}
+  coinCount: 0
   messagePopupPrefab: {fileID: 1459309161923910732, guid: 7360fb4c423d81c4f9de1e65edb91920, type: 3}
   settingPopupPrefab: {fileID: 1459309161923910732, guid: 43e890aab796cbb44bced06052b56cbe, type: 3}
   giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}
   noCoinPanelPrefab: {fileID: 1459309161923910732, guid: 32be1f9ba38b6d94fba27c97519b4207, type: 3}
   winLosePanelPrefab: {fileID: 1459309161923910732, guid: af9e702d77130f54e8c6cc1dd6463540, type: 3}
+  startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
   parent: {fileID: 1738323831}
 --- !u!4 &246407837
 Transform:
@@ -644,7 +648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &506501228
 RectTransform:
   m_ObjectHideFlags: 0
