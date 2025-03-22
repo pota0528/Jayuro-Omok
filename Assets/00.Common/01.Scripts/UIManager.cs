@@ -1,154 +1,147 @@
-
+using System;
+using TMPro;
 using UnityEngine;
-
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.UI;
 
-    public class UIManager : Singleton<UIManager>
+public class UIManager : Singleton<UIManager>
+{
+    //플레이어 데이터 선언 !! 
+    //  PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
+
+    #region 찬영 UI 관련
+
+    private Canvas _canvas;
+    [Header("찬영")] [SerializeField] private GameObject loginPanel;
+    [SerializeField] private GameObject signUpPanel;
+    [SerializeField] private GameObject userPanel;
+    [SerializeField] private GameObject profilePanel;
+
+
+    //추가: 옵션패널 
+
+    //DB관련
+    public GameObject playerPrefab;
+    private DBManager mongoDBManager;
+
+    //프로필 이미지 인덱스를 관리하는 변수 
+    private int currentIamgeIndex = 0;
+
+
+    private void Start()
     {
-        //플레이어 데이터 선언 !! 
-      //  PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
-    #region 찬영 UI 관련 
-        private Canvas _canvas;
-        [Header("찬영")]
-        [SerializeField] private GameObject loginPanel;
-        [SerializeField] private GameObject signUpPanel;
-        [SerializeField] private GameObject userPanel;
-        [SerializeField] private GameObject profilePanel;
-        
-        
-        //추가: 옵션패널 
-        
-        //DB관련
-        public GameObject playerPrefab;
-        private DBManager mongoDBManager;
-        
-        //프로필 이미지 인덱스를 관리하는 변수 
-        private int currentIamgeIndex = 0; 
-        
-        
+        //OpenLoginPanel();
+        //mongoDBManager = FindObjectOfType<DBManager>();
 
-        
-        private void Start()
+        OpenStartTitlePanel();//스타트 타이틀 패널 열기 -자현
+    }
+
+    public void OpenLoginPanel()
+    {
+        if (_canvas != null)
         {
-            OpenLoginPanel();
-            mongoDBManager = FindObjectOfType<DBManager>();
+            Debug.Log("로그인패널열기");
+            Instantiate(loginPanel, _canvas.transform);
         }
+    }
 
-        public void OpenLoginPanel()
+    public void OpenSignUpPanel()
+    {
+        if (_canvas != null)
         {
-            
-            if (_canvas != null)
+            Instantiate(signUpPanel, _canvas.transform);
+        }
+    }
+
+    public void OpenUserPanel()
+    {
+        if (_canvas != null)
+        {
+            Instantiate(userPanel, _canvas.transform);
+        }
+    }
+
+    public void OpenProfilePanel()
+    {
+        if (_canvas != null)
+        {
+            Instantiate(profilePanel, _canvas.transform);
+        }
+    }
+
+    //이미지 인덱스 설정
+    public void SetProfileImageIndex(int index)
+    {
+        currentIamgeIndex = index;
+    }
+
+    //현재 이미지 인덱스를 가져오는 메서드
+    public int GetProfileImageIndex()
+    {
+        return currentIamgeIndex;
+    }
+
+    // 이미지 업데이트
+    public void UpdateUserProfileImage(Sprite newProfileImage)
+    {
+        UserPanelController userPanelController = FindObjectOfType<UserPanelController>();
+        if (userPanelController != null)
+        {
+            userPanelController.UpdateProfileImage(newProfileImage);
+        }
+    }
+
+
+    public void LoginPlayer(string id, string password)
+    {
+        var (playerData, message) = mongoDBManager.Login(id, password);
+
+        if (playerData != null)
+        {
+            GameObject playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
+
+            if (playerObject != null)
             {
-                Debug.Log("로그인패널열기");
-              Instantiate(loginPanel, _canvas.transform);
-               
+                playerScript.SetPlayerData(playerData);
             }
         }
-
-        public void OpenSignUpPanel()
-        {
-          
-            if (_canvas != null)
-            {
-             Instantiate(signUpPanel, _canvas.transform);
-               
-            }
-        }
-
-        public void OpenUserPanel()
-        {
-            if (_canvas != null)
-            {
-                Instantiate(userPanel, _canvas.transform);
-            }
-        }
-
-        public void OpenProfilePanel()
-        {
-            if (_canvas != null)
-            {
-                Instantiate(profilePanel, _canvas.transform);
-            }
-            
-        }
-        //이미지 인덱스 설정
-        public void SetProfileImageIndex(int index)
-        {
-            currentIamgeIndex = index;
-        }
-        
-        //현재 이미지 인덱스를 가져오는 메서드
-        public int GetProfileImageIndex()
-        {
-            return currentIamgeIndex;
-        }
-        // 이미지 업데이트
-        public void UpdateUserProfileImage(Sprite newProfileImage)
-        {
-            UserPanelController userPanelController = FindObjectOfType<UserPanelController>();
-            if (userPanelController != null)
-            {
-                userPanelController.UpdateProfileImage(newProfileImage);
-            }
-        }
+    }
 
 
-        public void LoginPlayer(string id, string password)
-        {
-            var (playerData,message) = mongoDBManager.Login(id, password);
-
-            if (playerData != null)
-            {
-                GameObject playerObject = Instantiate (playerPrefab,Vector3.zero,Quaternion.identity);
-                PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
-
-                if (playerObject != null)
-                {
-                    playerScript.SetPlayerData(playerData);
-                }
-            }
-        }
-
-
-
-        
-        
-        
-
-        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            _canvas = GameObject.FindObjectOfType<Canvas>();
-        }
-    
-    
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _canvas = GameObject.FindObjectOfType<Canvas>();
+    }
 
     #endregion
-    
-    
+
+
     #region 장운 씬이동,패널연결
-    [Header("장운")]
-    [SerializeField] private GameObject shopPanel;
+
+    [Header("장운")] [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject rankingPanel;
     [HideInInspector] public int coinCount;
-    
+
     protected override void Awake()
     {
         base.Awake();
         coinCount = UserInformations.CoinCount;
-            
+        
     }
-    
-    
+
+
     public void ChangeToGameScene()
     {
         SceneManager.LoadScene("Game_jk");
     }
-        
+
     public void ChangeToMainScene()
     {
         SceneManager.LoadScene("Main_jk");
     }
-        
+
     public void OpenShopPanel()
     {
         if (_canvas != null)
@@ -168,111 +161,111 @@ using UnityEngine.SceneManagement;
             Debug.Log("랭킹 떳드아!!!");
         }
     }
+
     #endregion
 
     #region 자현 UI 관련
-  [Header("자현")]
-    [SerializeField] private GameObject messagePopupPrefab;
+
+    [Header("자현")] [SerializeField] private GameObject messagePopupPrefab;
     [SerializeField] private GameObject settingPopupPrefab;
     [SerializeField] private GameObject giveupPanelPrefab;
     [SerializeField] private GameObject noCoinPanelPrefab;
     [SerializeField] private GameObject winLosePanelPrefab;
+    [SerializeField] private GameObject startTitlePanelPrefab;
 
     [SerializeField] private RectTransform parent;
-        
-        //메시지팝업 오픈
-        public void OpenMessagePopup(string msg)
-        {
-            
-            var messagePopup = Instantiate(messagePopupPrefab, parent);
-            messagePopup.GetComponent<MessagePopupController>().Show(msg);
-            
-        }
+    
+    //스타트 타이틀 패널
+    public void OpenStartTitlePanel()
+    {
+        var startTitlePanel = Instantiate(startTitlePanelPrefab, parent);
+    }
 
-        //설정팝업 오픈
-        public void OpenSettingPopup()
-        {
-            var settingPopup = Instantiate(settingPopupPrefab, parent);
-            settingPopup.GetComponent<BaseUIController>().Show();
-        }
-        
-        //옵션 패널 오픈
-        public void OpenGiveupPanel()
-        {
-            var giveupPanel = Instantiate(giveupPanelPrefab, parent);
-            giveupPanel.GetComponent<BaseUIController>().Show();
+    //메시지팝업 오픈
+    public void OpenMessagePopup(string msg)
+    {
+        var messagePopup = Instantiate(messagePopupPrefab, parent);
+        messagePopup.GetComponent<MessagePopupController>().Show(msg);
+    }
 
-        }
-        
-        //노코인 패널 오픈
-        public void OpenNoCoinPanel()
-        {
-            var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
-            noCoinPanel.GetComponent<BaseUIController>().Show();
-            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(YuConstants.coin);//찬영님이 주시는 데이터 형태로
-        }
+    //설정팝업 오픈
+    public void OpenSettingPopup()
+    {
+        var settingPopup = Instantiate(settingPopupPrefab, parent);
+        settingPopup.GetComponent<BaseUIController>().Show();
+    }
 
-        public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
+    //옵션 패널 오픈
+    public void OpenGiveupPanel()
+    {
+        var giveupPanel = Instantiate(giveupPanelPrefab, parent);
+        giveupPanel.GetComponent<BaseUIController>().Show();
+    }
+
+    //노코인 패널 오픈
+    public void OpenNoCoinPanel()
+    {
+        var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
+        noCoinPanel.GetComponent<BaseUIController>().Show();
+        noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(YuConstants.coin); //찬영님이 주시는 데이터 형태로
+    }
+
+    public void OpenWinLosePanel() //GameResult형의 gameResult (GameResult gameResult)
+    {
+        //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
+        //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+        //_blockGontroller.OnBlockClickedDelegate=null;
+
+        var winLosePanel = Instantiate(winLosePanelPrefab, parent);
+        winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
+        int currentLevelCount =
+            winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(YuConstants.level); //안에 들어가는 수는 level
+        bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>()
+            .SetResultPanel(currentLevelCount, YuConstants.levelPoint);
+
+        if (resultPanel == false) //승급,강등 = false | 게이지 바 패널 = true
         {
-            //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
-            //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-            //_blockGontroller.OnBlockClickedDelegate=null;
-            
-            var winLosePanel = Instantiate(winLosePanelPrefab, parent);
-            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
-            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(YuConstants.level);//안에 들어가는 수는 level
-            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.levelPoint);
-                
-            if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
+            var ResultPanel = Instantiate(messagePopupPrefab, parent);
+            if (YuConstants.levelPoint > 0)
             {
-                var ResultPanel= Instantiate(messagePopupPrefab, parent);
-                if (YuConstants.levelPoint > 0)
-                {
-                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ YuConstants.level);
-                    YuConstants.levelPoint = 0;
-                    Debug.Log(YuConstants.levelPoint);
-                }
-                else if (YuConstants.levelPoint < 0)
-                {
-                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+YuConstants.level);
-                    YuConstants.levelPoint = 0;
-                    Debug.Log(YuConstants.levelPoint);
-                }
-                
+                ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : " + YuConstants.level);
+                YuConstants.levelPoint = 0;
+                Debug.Log(YuConstants.levelPoint);
             }
-            
+            else if (YuConstants.levelPoint < 0)
+            {
+                ResultPanel.GetComponent<MessagePopupController>().Show("강등되셨습니다.\n급수 : " + YuConstants.level);
+                YuConstants.levelPoint = 0;
+                Debug.Log(YuConstants.levelPoint);
+            }
         }
-        
-        //패널 사용하는 방법
-        public void TestShowMessagePopupButton()
-        {
-            OpenMessagePopup("로그인이 되었습니다.");
-        }
+    }
 
-        public void TestShowSettingPopupButton()
-        {
-            OpenSettingPopup();
-        }
+    //패널 사용하는 방법
+    public void TestShowMessagePopupButton()
+    {
+        OpenMessagePopup("로그인이 되었습니다.");
+    }
 
-        public void TestGiveupPanelButton()
-        {
-            OpenGiveupPanel();
-        }
+    public void TestShowSettingPopupButton()
+    {
+        OpenSettingPopup();
+    }
 
-        public void TestNoCoinPanelButton()
-        {
-            OpenNoCoinPanel();
-        }
+    public void TestGiveupPanelButton()
+    {
+        OpenGiveupPanel();
+    }
+
+    public void TestNoCoinPanelButton()
+    {
+        OpenNoCoinPanel();
+    }
 
     #endregion
-
-
 
 
     #region 데이터처리
 
-    
-
     #endregion
-
 }
