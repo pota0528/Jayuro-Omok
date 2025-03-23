@@ -28,10 +28,10 @@ public class ForbiddenRuleChecker
         return _forbiddenCollection;
     }
 
-    #region Àå¸ñ °Ë»çÇÒ ¶§ ¾²ÀÌ´Â ÇÔ¼ö
+    #region ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ô¼ï¿½
     /// <summary>
-    /// ÃÖ±Ù¿¡ ³õÀº Èæµ¹À» ±âÁØÀ¸·Î ¾ç¹æÇâÀ¸·Î 4Ä­À» µ¹¸é¼­ ºó °ø¹é(±Ý¼öÀÇ °¡´É¼ºÀÌ ÀÖ´Â ÁÂÇ¥)À» ´ã´Â ÇÔ¼öÀÌ´Ù.
-    /// ¸¸¾à ¼øÈ¸ÇÒ ¶§ ¹éµ¹ÀÌ º¸ÀÌ¸é ¹Ý´ë ¹æÇâÀ¸·Î µ¹°Å³ª, ¼øÈ¸¸¦ ¸ØÃá´Ù.
+    /// ï¿½Ö±Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½é¼­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ý¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ç¥)ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½Ì´ï¿½.
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ ï¿½éµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½, ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
     /// </summary>
     /// <returns></returns>
     private List<(int, int)> FindEmptySpotsInRow()
@@ -40,7 +40,7 @@ public class ForbiddenRuleChecker
         int row = _currentMoveIndex.Item1;
         int col = _currentMoveIndex.Item2;
 
-        int currentCol = col + 1; // ¿À¸¥ÂÊ Å½»ö
+        int currentCol = col + 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
 
         while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
         {
@@ -55,7 +55,7 @@ public class ForbiddenRuleChecker
             ++currentCol;
         }
 
-        currentCol = col - 1; // ¿ÞÂÊ Å½»ö
+        currentCol = col - 1; // ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
 
         while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
         {
@@ -70,7 +70,7 @@ public class ForbiddenRuleChecker
             --currentCol;
         }
 
-        //¾Æ·¡ÂÊ Å½»ö
+        //ï¿½Æ·ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
         int currentRow = row + 1;
 
         while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
@@ -87,7 +87,7 @@ public class ForbiddenRuleChecker
             ++currentRow;
         }
 
-        // À§ÂÊ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
         currentRow = row - 1;
 
         while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
@@ -103,7 +103,7 @@ public class ForbiddenRuleChecker
             --currentRow;
         }
 
-        // ¿À¸¥ÂÊ ¾Æ·¡ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ Å½ï¿½ï¿½
 
         currentRow = row + 1;
         currentCol = col + 1;
@@ -123,7 +123,7 @@ public class ForbiddenRuleChecker
             ++currentCol;
         }
 
-        // ¿ÞÂÊ À§ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å½ï¿½ï¿½
 
         currentRow = row - 1;
         currentCol = col - 1;
@@ -143,9 +143,9 @@ public class ForbiddenRuleChecker
         }
 
 
-        //¢×¢Ö Å½»ö ±¸Çö
+        //ï¿½×¢ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ¿ÞÂÊ ¾Æ·¡ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ Å½ï¿½ï¿½
         currentRow = row + 1;
         currentCol = col - 1;
 
@@ -164,7 +164,7 @@ public class ForbiddenRuleChecker
             --currentCol;
         }
 
-        // ¿À¸¥ÂÊ À§ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å½ï¿½ï¿½
         currentRow = row - 1;
         currentCol = col + 1;
 
@@ -186,21 +186,21 @@ public class ForbiddenRuleChecker
     }
 
     /// <summary>
-    /// ±Ý¼öÀÇ °¡´É¼ºÀÌ ÀÖ´Â °ø¹éÀ» ¾ç¹æÇâÀ¸·Î 4Ä­ µ¹¸é¼­ Èæµ¹ÀÌ 5°³ ÀÌ»óÀÎÁö, Áï ±Ý¼ö°¡ µÇ´Â Á¶°ÇÀÎÁö °Ë»çÇÏ´Â ÇÔ¼öÀÌ´Ù.
-    /// ¸¸¾à ¼øÈ¸ÇÒ ¶§ ¹éµ¹ÀÌ ¹Ý´ë ¹æÇâÀ¸·Î µ¹°Å³ª, ¼øÈ¸¸¦ ¸ØÃá´Ù.
+    /// ï¿½Ý¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4Ä­ ï¿½ï¿½ï¿½é¼­ ï¿½æµ¹ï¿½ï¿½ 5ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½Ý¼ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ï¿½Ì´ï¿½.
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ ï¿½éµ¹ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½, ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
     /// </summary>
     /// <returns></returns>
     private void SetOverlineForbidden(List<(int, int)> emptyList)
     {
-        for (int i = 0; i < emptyList.Count; i++) //ÁÂ¿ì °Ë»ç
+        for (int i = 0; i < emptyList.Count; i++) //ï¿½Â¿ï¿½ ï¿½Ë»ï¿½
         {
-            // ¿À¸¥ÂÊ °Ë»ç
-            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            int row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 0;
 
-            for (int j = col; j <= 14 && j < col + 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; j <= 14 && j < col + 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -212,11 +212,11 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ¿ÞÂÊ °Ë»ç
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 1;
 
-            for (int j = col; 0 <= j && j > col - 4; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j > col - 4; --j) // + ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -234,15 +234,15 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) //»óÇÏ °Ë»ç
+        for (int i = 0; i < emptyList.Count; i++) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
         {
-            // À§ÂÊ °Ë»ç
-            int row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            int row = emptyList[i].Item1 + 1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             int col = emptyList[i].Item2;
 
             int blockIndex = 0;
 
-            for (int j = row; j <= 14 && j < row + 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = row; j <= 14 && j < row + 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -254,11 +254,11 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ¾Æ·¡ÂÊ °Ë»ç
-            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            row = emptyList[i].Item1 - 1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2;
 
-            for (int j = row; 0 <= j && j > row - 4; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = row; 0 <= j && j > row - 4; --j) // + ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -276,16 +276,16 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // ¢Ø¢Ù
+        for (int i = 0; i < emptyList.Count; i++) // ï¿½Ø¢ï¿½
         {
-            // ¢Ù ºÎÅÍ °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½! // TODO : Ã¼Å© È®ï¿½ï¿½
 
-            int row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            int row = emptyList[i].Item1 + 1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ - 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 0; //1,2,3,4
 
-            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = 0; j < 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (row + j > 14 || col + j > 14)
                 {
@@ -302,12 +302,12 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ¢Ø °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
+            // ï¿½ï¿½ ï¿½Ë»ï¿½! // TODO : Ã¼Å© È®ï¿½ï¿½
 
-            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1 - 1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ - 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 1;
 
-            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = 0; j < 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 if (row - j < 0 || col - j < 0)
                 {
@@ -330,17 +330,17 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // ¢×¢Ö
+        for (int i = 0; i < emptyList.Count; i++) // ï¿½×¢ï¿½
         {
-            // ¢×(¿ÞÂÊ ¾Æ·¡) °Ë»ç
-            int row = emptyList[i].Item1 + 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï +1
+            // ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½) ï¿½Ë»ï¿½
+            int row = emptyList[i].Item1 + 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´ï¿½ +1
             int col = emptyList[i].Item2 - 1;
 
             int blockIndex = 0; // 1,2,3,4
 
-            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
+            for (int j = 0; j < 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
             {
-                if (row + j > 14 || col - j < 0) // ¿ÞÂÊ ¾Æ·¡ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
+                if (row + j > 14 || col - j < 0) // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ë»ï¿½
                 {
                     break;
                 }
@@ -355,13 +355,13 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ¢Ö(¿À¸¥ÂÊ À§) °Ë»ç
-            row = emptyList[i].Item1 - 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï -1
+            // ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) ï¿½Ë»ï¿½
+            row = emptyList[i].Item1 - 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï´ï¿½ -1
             col = emptyList[i].Item2 + 1;
 
-            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
+            for (int j = 0; j < 4; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
             {
-                if (row - j < 0 || col + j > 14) // ¿À¸¥ÂÊ À§ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
+                if (row - j < 0 || col + j > 14) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ë»ï¿½
                 {
                     break;
                 }
@@ -390,7 +390,7 @@ public class ForbiddenRuleChecker
         int row = _currentMoveIndex.Item1;
         int col = _currentMoveIndex.Item2;
 
-        int currentCol = col + 1; // ¿À¸¥ÂÊ Å½»ö
+        int currentCol = col + 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
 
         while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
         {
@@ -406,7 +406,7 @@ public class ForbiddenRuleChecker
             ++currentCol;
         }
 
-        currentCol = col - 1; // ¿ÞÂÊ Å½»ö
+        currentCol = col - 1; // ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
 
         while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
         {
@@ -421,7 +421,7 @@ public class ForbiddenRuleChecker
             --currentCol;
         }
 
-        //¾Æ·¡ÂÊ Å½»ö
+        //ï¿½Æ·ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
         int currentRow = row + 1;
 
         while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
@@ -438,7 +438,7 @@ public class ForbiddenRuleChecker
             ++currentRow;
         }
 
-        // À§ÂÊ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½
         currentRow = row - 1;
 
         while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
@@ -454,7 +454,7 @@ public class ForbiddenRuleChecker
             --currentRow;
         }
 
-        // ¿À¸¥ÂÊ ¾Æ·¡ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ Å½ï¿½ï¿½
 
         currentRow = row + 1;
         currentCol = col + 1;
@@ -474,7 +474,7 @@ public class ForbiddenRuleChecker
             ++currentCol;
         }
 
-        // ¿ÞÂÊ À§ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å½ï¿½ï¿½
 
         currentRow = row - 1;
         currentCol = col - 1;
@@ -494,9 +494,9 @@ public class ForbiddenRuleChecker
         }
 
 
-        //¢×¢Ö Å½»ö ±¸Çö
+        //ï¿½×¢ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ¿ÞÂÊ ¾Æ·¡ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ Å½ï¿½ï¿½
         currentRow = row + 1;
         currentCol = col - 1;
 
@@ -515,7 +515,7 @@ public class ForbiddenRuleChecker
             --currentCol;
         }
 
-        // ¿À¸¥ÂÊ À§ Å½»ö
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å½ï¿½ï¿½
         currentRow = row - 1;
         currentCol = col + 1;
 
@@ -538,247 +538,219 @@ public class ForbiddenRuleChecker
 
     private void Set4X4Forbidden(List<(int, int)> emptyList)
     {
-        //¼­·Î ´Ù¸¥ ¹æÇâÀ¸·Î 4x4 ±Ý¼öÀÏ ¶§
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4x4 ï¿½Ý¼ï¿½ï¿½ï¿½ ï¿½ï¿½
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURNING_COUNT = 5; //ÇÑ ÁÙ ´ç ÃÖ´ë °ø¹é 3Ä­±îÁö Á¦ÇÑ
+            const int MAX_TURNING_COUNT = 5;
             const int MAX_VOID_COUNT = 3;
+            const int MAX_BLOCK_COUNT = 4;
 
             int tempForbiddenCount = 0;
 
-            // ¿À¸¥ÂÊ °Ë»ç
-            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ê°€ë¡œ ê²€ì‚¬
+            int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
-
             int blockIndex = 1;
-            int turningCount = 0; //°ø¹é ¸Â´ê¶ß¸®´Â °÷±îÁö ÇÕÃÄ¼­ turningCount¸¦ °è»êÇØ¾ßÇÑ´Ù. ÇöÀç °ø¹é ÁÂÇ¥±îÁö ÇÕÃÄ¼­ turningCount°¡ Æ÷ÇÔµÊ
+            int turningCount = 0;
             int voidCount = 0;
+            bool blockedRight = false;
+            bool blockedLeft = false;
 
-            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (_board[row, j] == PlayerType.PlayerA)
-                {
+                if (_board[row, j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
+                else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedRight = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            // ¿ÞÂÊ °Ë»ç
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 1;
             voidCount = 0;
 
-            for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j)
             {
-                if (_board[row, j] == PlayerType.PlayerA)
-                {
+                if (_board[row, j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
+                else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedLeft = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            if (blockIndex == 4)
+            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
             {
                 ++tempForbiddenCount;
             }
 
-            // À§ÂÊ °Ë»ç
-            row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ì„¸ë¡œ ê²€ì‚¬
+            row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2;
-
             blockIndex = 1;
             turningCount = 0;
             voidCount = 0;
+            blockedRight = false;
+            blockedLeft = false;
 
-            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (_board[j, col] == PlayerType.PlayerA)
-                {
+                if (_board[j, col] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[j, col] == PlayerType.PlayerB)
+                else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedRight = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            // ¾Æ·¡ÂÊ °Ë»ç
-            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2;
             voidCount = 0;
 
-            for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j)
             {
-                if (_board[j, col] == PlayerType.PlayerA)
-                {
+                if (_board[j, col] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[j, col] == PlayerType.PlayerB)
+                else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedLeft = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            if (blockIndex == 4)
+            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
             {
                 ++tempForbiddenCount;
             }
 
-            // ¢Ù ºÎÅÍ °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
-            row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ëŒ€ê° â†˜ ê²€ì‚¬
+            row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 + 1;
-
-            blockIndex = 1; //1,2,3,4
+            blockIndex = 1;
             turningCount = 0;
             voidCount = 0;
+            blockedRight = false;
+            blockedLeft = false;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (row + j > 14 || col + j > 14)
-                {
-                    break;
-                }
+                if (row + j > 14 || col + j > 14) { blockedRight = true; break; }
 
-                if (_board[row + j, col + j] == PlayerType.PlayerA)
-                {
+                if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row + j, col + j] == PlayerType.PlayerB)
+                else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedRight = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            // ¢Ø °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
-
-            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 - 1;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (row - j < 0 || col - j < 0)
-                {
-                    break;
-                }
+                if (row - j < 0 || col - j < 0) { blockedLeft = true; break; }
 
-                if (_board[row - j, col - j] == PlayerType.PlayerA)
-                {
+                if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row - j, col - j] == PlayerType.PlayerB)
+                else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedLeft = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            if (blockIndex == 4)
+            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
             {
                 ++tempForbiddenCount;
             }
 
-            // ¢×(¿ÞÂÊ ¾Æ·¡) °Ë»ç
-            row = emptyList[i].Item1 + 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï +1
+            // ëŒ€ê° â†™ ê²€ì‚¬
+            row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 - 1;
-
-            blockIndex = 1; // 1,2,3,4
+            blockIndex = 1;
             turningCount = 0;
             voidCount = 0;
+            blockedRight = false;
+            blockedLeft = false;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (row + j > 14 || col - j < 0) // ¿ÞÂÊ ¾Æ·¡ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
-                {
-                    break;
-                }
+                if (row + j > 14 || col - j < 0) { blockedRight = true; break; }
 
-                if (_board[row + j, col - j] == PlayerType.PlayerA)
-                {
+                if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row + j, col - j] == PlayerType.PlayerB)
+                else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedRight = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            // ¢Ö(¿À¸¥ÂÊ À§) °Ë»ç
-            row = emptyList[i].Item1 - 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï -1
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
-                if (row - j < 0 || col + j > 14) // ¿À¸¥ÂÊ À§ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
-                {
-                    break;
-                }
+                if (row - j < 0 || col + j > 14) { blockedLeft = true; break; }
 
-                if (_board[row - j, col + j] == PlayerType.PlayerA)
-                {
+                if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
-                }
-                else if (_board[row - j, col + j] == PlayerType.PlayerB)
+                else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    ++turningCount;
+                    blockedLeft = true;
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else
                 {
                     ++voidCount;
                     ++turningCount;
                 }
             }
 
-            if (blockIndex == 4)
+            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
             {
                 ++tempForbiddenCount;
             }
@@ -788,19 +760,19 @@ public class ForbiddenRuleChecker
                 _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
-
+        
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURN_COUNT = 5; //ÇÑÂÊ ¹æÇâÀÇ °ø¹é
+            const int MAX_TURN_COUNT = 5; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             int tempForbiddenCount = 0;
-            // ¿À¸¥ÂÊ °Ë»ç
-            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+            int row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             int col = emptyList[i].Item2;
 
             int turnCount = 0;
             string tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 ++turnCount;
 
@@ -824,16 +796,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// ÇÑ Ä­ ¶ç¿î 4
+                    break;// ï¿½ï¿½ Ä­ ï¿½ï¿½ï¿½ 4
             }
 
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 1;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 ++turnCount;
 
@@ -857,16 +829,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// ÇÑ Ä­ ¶ç¿î 4
+                    break;// ï¿½ï¿½ Ä­ ï¿½ï¿½ï¿½ 4
             }
 
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 2;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 ++turnCount;
 
@@ -890,16 +862,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// ÇÑ Ä­ ¶ç¿î 4
+                    break;// ï¿½ï¿½ Ä­ ï¿½ï¿½ï¿½ 4
             }
 
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 3;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 ++turnCount;
 
@@ -923,16 +895,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// ÇÑ Ä­ ¶ç¿î 4
+                    break;// ï¿½ï¿½ Ä­ ï¿½ï¿½ï¿½ 4
             }
 
-            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
+            row = emptyList[i].Item1; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ + 1ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½Ñ´ï¿½.
             col = emptyList[i].Item2 - 4;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ï¿½ï¿½ï¿½ï¿½ jï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½, 15ï¿½ï¿½ï¿½ï¿½ ï¿½Û°Å³ï¿½ ï¿½ï¿½ï¿½Æ¾ï¿½ï¿½Ñ´ï¿½.
             {
                 ++turnCount;
 
@@ -956,7 +928,7 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// ÇÑ Ä­ ¶ç¿î 4
+                    break;// ï¿½ï¿½ Ä­ ï¿½ï¿½ï¿½ 4
             }
 
             if (tempForbiddenCount > 1)
