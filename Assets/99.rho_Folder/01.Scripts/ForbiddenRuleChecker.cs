@@ -1,177 +1,46 @@
-using rho_namespace;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+using static GameManager;
 
-public class GameManager : Singleton<GameManager>
+public class ForbiddenRuleChecker
 {
-    [SerializeField] private BlockController _blockController;
-    [SerializeField] private GameUIController _gameUIController;
-    private Canvas _canvas;
+    private GameManager.PlayerType[,] _board;
+    private int _lineCount;
+    private (int, int) _currentMoveIndex;
+    private List<(int, int)> _forbiddenCollection = new();
 
-    public enum PlayerType { None, PlayerA, PlayerB, PlayerX }
-    private PlayerType[,] _board;
-
-    private enum TurnType { None, PlayerA, PlayerB }
-    private TurnType currentTurnType = TurnType.None;
-    private enum GameResult { None, Win, Lose, Draw }
-    private int moveIndex = 0;
-    private (int, int) currentMoveindex = (-1, -1);
-    private Block currentBlackBlock;
-    private const int LINE_COUNT = 15;
-    private List<(int, int)> forbiddenCollecition = new List<(int, int)>();
-    void Start()
+    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, int lineCount, (int, int) currentMoveIndex)
     {
-        StartGame();
+        _board = board;
+        _lineCount = lineCount;
+        _currentMoveIndex = currentMoveIndex;
     }
 
-    private void StartGame()
+    public List<(int, int)> GetForbiddenSpots()
     {
-        // _board ì´ˆê¸°í™”
-        _board = new PlayerType[LINE_COUNT, LINE_COUNT];
+        _forbiddenCollection.Clear();
 
-        // ë¸”ë¡ ì´ˆê¸°í™”
-        _blockController.InitBlocks();
+        var overlineEmpty = FindEmptySpotsInRow();
+        SetOverlineForbidden(overlineEmpty);
 
-        // Game UI ì´ˆê¸°í™”
-        _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
-        _board[7, 7] = PlayerType.PlayerA;
-        currentMoveindex = (7, 7);
-        _blockController.PlaceMarker(Block.MarkerType.Black, LINE_COUNT / 2, LINE_COUNT / 2, moveIndex);
-        SetTurn(TurnType.PlayerB);
+        var fourFourEmpty = FindEmpty4X4();
+        Set4X4Forbidden(fourFourEmpty);
+
+        return _forbiddenCollection;
     }
 
-    private void EndGame(GameResult gameResult)
-    {
-        // ê²Œì„ì˜¤ë²„ í‘œì‹œ
-        _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-        _blockController.OnBlockClickedDelegate = null;
-
-        switch (gameResult)
-        {
-            case GameResult.Win:
-                Debug.Log("Player A win");
-                break;
-            case GameResult.Lose:
-                Debug.Log("Player B win");
-                break;
-            case GameResult.Draw:
-                Debug.Log("Draw");
-                break;
-        }
-    }
-
-    private bool SetNewBoardValue(PlayerType playerType, int row, int col)
-    {
-        if (currentTurnType == TurnType.PlayerA) //Aí„´ì¼ë•ŒëŠ” TurnType.PlayerA, TurnType.PlayerBì¼ ê²½ìš° return
-        {
-            if (_board[row, col] != PlayerType.None)
-            {
-                return false;
-            }
-        }
-        if (currentTurnType == TurnType.PlayerB) //Aí„´ì¼ë•ŒëŠ” != PlayerType.Noneì´ë©´ return false;
-        {
-            if (_board[row, col] == PlayerType.PlayerA || _board[row, col] == PlayerType.PlayerB)
-            {
-                return false;
-            }
-        }
-
-        //if (_board[row, col] != PlayerType.None) return false;
-
-        if (playerType == PlayerType.PlayerA)
-        {
-            _board[row, col] = playerType;
-            _blockController.PlaceMarker(Block.MarkerType.Black, row, col, moveIndex);
-            return true;
-        }
-        else if (playerType == PlayerType.PlayerB)
-        {
-            _board[row, col] = playerType;
-            _blockController.PlaceMarker(Block.MarkerType.White, row, col, moveIndex);
-            return true;
-        }
-        return false;
-    }
-
-    private void SetTurn(TurnType turnType)
-    {
-        switch (turnType)
-        {
-            case TurnType.PlayerA:
-                currentTurnType = TurnType.PlayerA;
-                _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
-                //ìµœê·¼ì— ë†“ì¸ í‘ëŒì„ ê¸°ì¤€ìœ¼ë¡œ, ê°€ë¡œ ê²€ì‚¬
-                var checker = new ForbiddenRuleChecker(_board, LINE_COUNT, currentMoveindex);
-                forbiddenCollecition = checker.GetForbiddenSpots();
-                SetForbiddenMark(forbiddenCollecition);
-                _blockController.OnBlockClickedDelegate = (row, col) =>
-                {
-                    ++moveIndex;
-                    currentMoveindex = (row, col);
-                    if (SetNewBoardValue(PlayerType.PlayerA, row, col))
-                    {
-                        var gameResult = CheckGameResult();
-                        if (gameResult == GameResult.None)
-                        {
-                            SetTurn(TurnType.PlayerB);
-                        }
-                        else
-                            EndGame(gameResult);
-                    }
-                    else
-                    {
-                        // TODO: ì´ë¯¸ ìˆëŠ” ê³³ì„ í„°ì¹˜í–ˆì„ ë•Œ ì²˜ë¦¬
-                    }
-                };
-                break;
-            case TurnType.PlayerB:
-                currentTurnType = TurnType.PlayerB;
-                _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
-                _blockController.OnBlockClickedDelegate = (row, col) =>
-                {
-                    ++moveIndex;
-                    if (SetNewBoardValue(PlayerType.PlayerB, row, col))
-                    {
-                        Debug.Log("í•˜í•˜!");
-                        var gameResult = CheckGameResult();
-                        if (gameResult == GameResult.None)
-                        {
-                            SetTurn(TurnType.PlayerA); //ê·¸ëŸ¬ë¯€ë¡œ SetTurn í•˜ë©´ì„œ ë­”ê°€ ì˜¤ë¥˜ê°€ ë‚˜ëŠ”ê±°ì¼ìˆ˜ë„?
-                        }
-                        else //ê²Œì„ì´ ëë‚˜ë©´ ê¸ˆìˆ˜ ìë¦¬ë¥¼ í„°ì¹˜ì•ˆí•´ë„ ì•ˆ ë©ˆì¶˜ë‹¤.
-                        {
-                            EndGame(gameResult);
-                        }
-                    }
-                    else
-                    {
-                        // TODO: ì´ë¯¸ ìˆëŠ” ê³³ì„ í„°ì¹˜í–ˆì„ ë•Œ ì²˜ë¦¬
-                    }
-                };
-
-                break;
-        }
-    }
-
-    #region ì¥ëª© ê²€ì‚¬í•  ë•Œ ì“°ì´ëŠ” í•¨ìˆ˜
+    #region Àå¸ñ °Ë»çÇÒ ¶§ ¾²ÀÌ´Â ÇÔ¼ö
     /// <summary>
-    /// ìµœê·¼ì— ë†“ì€ í‘ëŒì„ ê¸°ì¤€ìœ¼ë¡œ ì–‘ë°©í–¥ìœ¼ë¡œ 4ì¹¸ì„ ëŒë©´ì„œ ë¹ˆ ê³µë°±(ê¸ˆìˆ˜ì˜ ê°€ëŠ¥ì„±ì´ ìˆëŠ” ì¢Œí‘œ)ì„ ë‹´ëŠ” í•¨ìˆ˜ì´ë‹¤.
-    /// ë§Œì•½ ìˆœíšŒí•  ë•Œ ë°±ëŒì´ ë³´ì´ë©´ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ëŒê±°ë‚˜, ìˆœíšŒë¥¼ ë©ˆì¶˜ë‹¤.
+    /// ÃÖ±Ù¿¡ ³õÀº Èæµ¹À» ±âÁØÀ¸·Î ¾ç¹æÇâÀ¸·Î 4Ä­À» µ¹¸é¼­ ºó °ø¹é(±İ¼öÀÇ °¡´É¼ºÀÌ ÀÖ´Â ÁÂÇ¥)À» ´ã´Â ÇÔ¼öÀÌ´Ù.
+    /// ¸¸¾à ¼øÈ¸ÇÒ ¶§ ¹éµ¹ÀÌ º¸ÀÌ¸é ¹İ´ë ¹æÇâÀ¸·Î µ¹°Å³ª, ¼øÈ¸¸¦ ¸ØÃá´Ù.
     /// </summary>
     /// <returns></returns>
     private List<(int, int)> FindEmptySpotsInRow()
     {
         List<(int, int)> emptyList = new List<(int, int)>();
-        int row = currentMoveindex.Item1;
-        int col = currentMoveindex.Item2;
+        int row = _currentMoveIndex.Item1;
+        int col = _currentMoveIndex.Item2;
 
-        int currentCol = col + 1; // ì˜¤ë¥¸ìª½ íƒìƒ‰
+        int currentCol = col + 1; // ¿À¸¥ÂÊ Å½»ö
 
         while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
         {
@@ -186,7 +55,7 @@ public class GameManager : Singleton<GameManager>
             ++currentCol;
         }
 
-        currentCol = col - 1; // ì™¼ìª½ íƒìƒ‰
+        currentCol = col - 1; // ¿ŞÂÊ Å½»ö
 
         while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
         {
@@ -201,7 +70,7 @@ public class GameManager : Singleton<GameManager>
             --currentCol;
         }
 
-        //ì•„ë˜ìª½ íƒìƒ‰
+        //¾Æ·¡ÂÊ Å½»ö
         int currentRow = row + 1;
 
         while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
@@ -218,7 +87,7 @@ public class GameManager : Singleton<GameManager>
             ++currentRow;
         }
 
-        // ìœ„ìª½ íƒìƒ‰
+        // À§ÂÊ Å½»ö
         currentRow = row - 1;
 
         while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
@@ -234,7 +103,7 @@ public class GameManager : Singleton<GameManager>
             --currentRow;
         }
 
-        // ì˜¤ë¥¸ìª½ ì•„ë˜ íƒìƒ‰
+        // ¿À¸¥ÂÊ ¾Æ·¡ Å½»ö
 
         currentRow = row + 1;
         currentCol = col + 1;
@@ -254,7 +123,7 @@ public class GameManager : Singleton<GameManager>
             ++currentCol;
         }
 
-        // ì™¼ìª½ ìœ„ íƒìƒ‰
+        // ¿ŞÂÊ À§ Å½»ö
 
         currentRow = row - 1;
         currentCol = col - 1;
@@ -274,9 +143,9 @@ public class GameManager : Singleton<GameManager>
         }
 
 
-        //â†™â†— íƒìƒ‰ êµ¬í˜„
+        //¢×¢Ö Å½»ö ±¸Çö
 
-        // ì™¼ìª½ ì•„ë˜ íƒìƒ‰
+        // ¿ŞÂÊ ¾Æ·¡ Å½»ö
         currentRow = row + 1;
         currentCol = col - 1;
 
@@ -295,7 +164,7 @@ public class GameManager : Singleton<GameManager>
             --currentCol;
         }
 
-        // ì˜¤ë¥¸ìª½ ìœ„ íƒìƒ‰
+        // ¿À¸¥ÂÊ À§ Å½»ö
         currentRow = row - 1;
         currentCol = col + 1;
 
@@ -317,21 +186,21 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// ê¸ˆìˆ˜ì˜ ê°€ëŠ¥ì„±ì´ ìˆëŠ” ê³µë°±ì„ ì–‘ë°©í–¥ìœ¼ë¡œ 4ì¹¸ ëŒë©´ì„œ í‘ëŒì´ 5ê°œ ì´ìƒì¸ì§€, ì¦‰ ê¸ˆìˆ˜ê°€ ë˜ëŠ” ì¡°ê±´ì¸ì§€ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜ì´ë‹¤.
-    /// ë§Œì•½ ìˆœíšŒí•  ë•Œ ë°±ëŒì´ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ëŒê±°ë‚˜, ìˆœíšŒë¥¼ ë©ˆì¶˜ë‹¤.
+    /// ±İ¼öÀÇ °¡´É¼ºÀÌ ÀÖ´Â °ø¹éÀ» ¾ç¹æÇâÀ¸·Î 4Ä­ µ¹¸é¼­ Èæµ¹ÀÌ 5°³ ÀÌ»óÀÎÁö, Áï ±İ¼ö°¡ µÇ´Â Á¶°ÇÀÎÁö °Ë»çÇÏ´Â ÇÔ¼öÀÌ´Ù.
+    /// ¸¸¾à ¼øÈ¸ÇÒ ¶§ ¹éµ¹ÀÌ ¹İ´ë ¹æÇâÀ¸·Î µ¹°Å³ª, ¼øÈ¸¸¦ ¸ØÃá´Ù.
     /// </summary>
     /// <returns></returns>
     private void SetOverlineForbidden(List<(int, int)> emptyList)
     {
-        for (int i = 0; i < emptyList.Count; i++) //ì¢Œìš° ê²€ì‚¬
+        for (int i = 0; i < emptyList.Count; i++) //ÁÂ¿ì °Ë»ç
         {
-            // ì˜¤ë¥¸ìª½ ê²€ì‚¬
-            int row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¿À¸¥ÂÊ °Ë»ç
+            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 0;
 
-            for (int j = col; j <= 14 && j < col + 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; j <= 14 && j < col + 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -343,11 +212,11 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // ì™¼ìª½ ê²€ì‚¬
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¿ŞÂÊ °Ë»ç
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 1;
 
-            for (int j = col; 0 <= j && j > col - 4; --j) // + ì¡°ê±´ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j > col - 4; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -361,19 +230,19 @@ public class GameManager : Singleton<GameManager>
 
             if (blockIndex >= 5)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) //ìƒí•˜ ê²€ì‚¬
+        for (int i = 0; i < emptyList.Count; i++) //»óÇÏ °Ë»ç
         {
-            // ìœ„ìª½ ê²€ì‚¬
-            int row = emptyList[i].Item1 + 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // À§ÂÊ °Ë»ç
+            int row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             int col = emptyList[i].Item2;
 
             int blockIndex = 0;
 
-            for (int j = row; j <= 14 && j < row + 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = row; j <= 14 && j < row + 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -385,11 +254,11 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // ì•„ë˜ìª½ ê²€ì‚¬
-            row = emptyList[i].Item1 - 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¾Æ·¡ÂÊ °Ë»ç
+            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2;
 
-            for (int j = row; 0 <= j && j > row - 4; --j) // + ì¡°ê±´ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = row; 0 <= j && j > row - 4; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -403,20 +272,20 @@ public class GameManager : Singleton<GameManager>
 
             if (blockIndex >= 5)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // â†–â†˜
+        for (int i = 0; i < emptyList.Count; i++) // ¢Ø¢Ù
         {
-            // â†˜ ë¶€í„° ê²€ì‚¬! // TODO : ì²´í¬ í™•ì¸
+            // ¢Ù ºÎÅÍ °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
 
-            int row = emptyList[i].Item1 + 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ - 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            int row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 0; //1,2,3,4
 
-            for (int j = 0; j < 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (row + j > 14 || col + j > 14)
                 {
@@ -433,12 +302,12 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // â†– ê²€ì‚¬! // TODO : ì²´í¬ í™•ì¸
+            // ¢Ø °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
 
-            row = emptyList[i].Item1 - 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ - 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 1;
 
-            for (int j = 0; j < 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (row - j < 0 || col - j < 0)
                 {
@@ -457,21 +326,21 @@ public class GameManager : Singleton<GameManager>
 
             if (blockIndex >= 5)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // â†™â†—
+        for (int i = 0; i < emptyList.Count; i++) // ¢×¢Ö
         {
-            // â†™(ì™¼ìª½ ì•„ë˜) ê²€ì‚¬
-            int row = emptyList[i].Item1 + 1; // ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°í•´ì•¼ í•˜ë‹ˆ +1
+            // ¢×(¿ŞÂÊ ¾Æ·¡) °Ë»ç
+            int row = emptyList[i].Item1 + 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï +1
             int col = emptyList[i].Item2 - 1;
 
             int blockIndex = 0; // 1,2,3,4
 
-            for (int j = 0; j < 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼ í•œë‹¤.
+            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
             {
-                if (row + j > 14 || col - j < 0) // ì™¼ìª½ ì•„ë˜ ë°©í–¥ ë²”ìœ„ ì´ˆê³¼ ê²€ì‚¬
+                if (row + j > 14 || col - j < 0) // ¿ŞÂÊ ¾Æ·¡ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
                 {
                     break;
                 }
@@ -486,13 +355,13 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // â†—(ì˜¤ë¥¸ìª½ ìœ„) ê²€ì‚¬
-            row = emptyList[i].Item1 - 1; // ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°í•´ì•¼ í•˜ë‹ˆ -1
+            // ¢Ö(¿À¸¥ÂÊ À§) °Ë»ç
+            row = emptyList[i].Item1 - 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï -1
             col = emptyList[i].Item2 + 1;
 
-            for (int j = 0; j < 4; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼ í•œë‹¤.
+            for (int j = 0; j < 4; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
             {
-                if (row - j < 0 || col + j > 14) // ì˜¤ë¥¸ìª½ ìœ„ ë°©í–¥ ë²”ìœ„ ì´ˆê³¼ ê²€ì‚¬
+                if (row - j < 0 || col + j > 14) // ¿À¸¥ÂÊ À§ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
                 {
                     break;
                 }
@@ -509,7 +378,7 @@ public class GameManager : Singleton<GameManager>
 
             if (blockIndex >= 5)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
     }
@@ -518,10 +387,10 @@ public class GameManager : Singleton<GameManager>
     private List<(int, int)> FindEmpty4X4()
     {
         List<(int, int)> emptyList = new List<(int, int)>();
-        int row = currentMoveindex.Item1;
-        int col = currentMoveindex.Item2;
+        int row = _currentMoveIndex.Item1;
+        int col = _currentMoveIndex.Item2;
 
-        int currentCol = col + 1; // ì˜¤ë¥¸ìª½ íƒìƒ‰
+        int currentCol = col + 1; // ¿À¸¥ÂÊ Å½»ö
 
         while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
         {
@@ -537,7 +406,7 @@ public class GameManager : Singleton<GameManager>
             ++currentCol;
         }
 
-        currentCol = col - 1; // ì™¼ìª½ íƒìƒ‰
+        currentCol = col - 1; // ¿ŞÂÊ Å½»ö
 
         while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
         {
@@ -552,7 +421,7 @@ public class GameManager : Singleton<GameManager>
             --currentCol;
         }
 
-        //ì•„ë˜ìª½ íƒìƒ‰
+        //¾Æ·¡ÂÊ Å½»ö
         int currentRow = row + 1;
 
         while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
@@ -569,7 +438,7 @@ public class GameManager : Singleton<GameManager>
             ++currentRow;
         }
 
-        // ìœ„ìª½ íƒìƒ‰
+        // À§ÂÊ Å½»ö
         currentRow = row - 1;
 
         while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
@@ -585,7 +454,7 @@ public class GameManager : Singleton<GameManager>
             --currentRow;
         }
 
-        // ì˜¤ë¥¸ìª½ ì•„ë˜ íƒìƒ‰
+        // ¿À¸¥ÂÊ ¾Æ·¡ Å½»ö
 
         currentRow = row + 1;
         currentCol = col + 1;
@@ -605,7 +474,7 @@ public class GameManager : Singleton<GameManager>
             ++currentCol;
         }
 
-        // ì™¼ìª½ ìœ„ íƒìƒ‰
+        // ¿ŞÂÊ À§ Å½»ö
 
         currentRow = row - 1;
         currentCol = col - 1;
@@ -625,9 +494,9 @@ public class GameManager : Singleton<GameManager>
         }
 
 
-        //â†™â†— íƒìƒ‰ êµ¬í˜„
+        //¢×¢Ö Å½»ö ±¸Çö
 
-        // ì™¼ìª½ ì•„ë˜ íƒìƒ‰
+        // ¿ŞÂÊ ¾Æ·¡ Å½»ö
         currentRow = row + 1;
         currentCol = col - 1;
 
@@ -646,7 +515,7 @@ public class GameManager : Singleton<GameManager>
             --currentCol;
         }
 
-        // ì˜¤ë¥¸ìª½ ìœ„ íƒìƒ‰
+        // ¿À¸¥ÂÊ À§ Å½»ö
         currentRow = row - 1;
         currentCol = col + 1;
 
@@ -669,23 +538,23 @@ public class GameManager : Singleton<GameManager>
 
     private void Set4X4Forbidden(List<(int, int)> emptyList)
     {
-        //ì„œë¡œ ë‹¤ë¥¸ ë°©í–¥ìœ¼ë¡œ 4x4 ê¸ˆìˆ˜ì¼ ë•Œ
+        //¼­·Î ´Ù¸¥ ¹æÇâÀ¸·Î 4x4 ±İ¼öÀÏ ¶§
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURNING_COUNT = 5; //í•œ ì¤„ ë‹¹ ìµœëŒ€ ê³µë°± 3ì¹¸ê¹Œì§€ ì œí•œ
+            const int MAX_TURNING_COUNT = 5; //ÇÑ ÁÙ ´ç ÃÖ´ë °ø¹é 3Ä­±îÁö Á¦ÇÑ
             const int MAX_VOID_COUNT = 3;
 
             int tempForbiddenCount = 0;
 
-            // ì˜¤ë¥¸ìª½ ê²€ì‚¬
-            int row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¿À¸¥ÂÊ °Ë»ç
+            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 1;
-            int turningCount = 0; //ê³µë°± ë§ë‹¿ëœ¨ë¦¬ëŠ” ê³³ê¹Œì§€ í•©ì³ì„œ turningCountë¥¼ ê³„ì‚°í•´ì•¼í•œë‹¤. í˜„ì¬ ê³µë°± ì¢Œí‘œê¹Œì§€ í•©ì³ì„œ turningCountê°€ í¬í•¨ë¨
+            int turningCount = 0; //°ø¹é ¸Â´ê¶ß¸®´Â °÷±îÁö ÇÕÃÄ¼­ turningCount¸¦ °è»êÇØ¾ßÇÑ´Ù. ÇöÀç °ø¹é ÁÂÇ¥±îÁö ÇÕÃÄ¼­ turningCount°¡ Æ÷ÇÔµÊ
             int voidCount = 0;
 
-            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -703,12 +572,12 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // ì™¼ìª½ ê²€ì‚¬
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¿ŞÂÊ °Ë»ç
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 1;
             voidCount = 0;
 
-            for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + ì¡°ê±´ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -731,15 +600,15 @@ public class GameManager : Singleton<GameManager>
                 ++tempForbiddenCount;
             }
 
-            // ìœ„ìª½ ê²€ì‚¬
-            row = emptyList[i].Item1 + 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // À§ÂÊ °Ë»ç
+            row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2;
 
             blockIndex = 1;
             turningCount = 0;
             voidCount = 0;
 
-            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -757,12 +626,12 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // ì•„ë˜ìª½ ê²€ì‚¬
-            row = emptyList[i].Item1 - 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¾Æ·¡ÂÊ °Ë»ç
+            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2;
             voidCount = 0;
 
-            for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + ì¡°ê±´ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j) // + Á¶°Ç 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -785,15 +654,15 @@ public class GameManager : Singleton<GameManager>
                 ++tempForbiddenCount;
             }
 
-            // â†˜ ë¶€í„° ê²€ì‚¬! // TODO : ì²´í¬ í™•ì¸
-            row = emptyList[i].Item1 + 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ - 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¢Ù ºÎÅÍ °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
+            row = emptyList[i].Item1 + 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 + 1;
 
             blockIndex = 1; //1,2,3,4
             turningCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (row + j > 14 || col + j > 14)
                 {
@@ -816,13 +685,13 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // â†– ê²€ì‚¬! // TODO : ì²´í¬ í™•ì¸
+            // ¢Ø °Ë»ç! // TODO : Ã¼Å© È®ÀÎ
 
-            row = emptyList[i].Item1 - 1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ - 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1 - 1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï - 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 1;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 if (row - j < 0 || col - j < 0)
                 {
@@ -850,17 +719,17 @@ public class GameManager : Singleton<GameManager>
                 ++tempForbiddenCount;
             }
 
-            // â†™(ì™¼ìª½ ì•„ë˜) ê²€ì‚¬
-            row = emptyList[i].Item1 + 1; // ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°í•´ì•¼ í•˜ë‹ˆ +1
+            // ¢×(¿ŞÂÊ ¾Æ·¡) °Ë»ç
+            row = emptyList[i].Item1 + 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï +1
             col = emptyList[i].Item2 - 1;
 
             blockIndex = 1; // 1,2,3,4
             turningCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼ í•œë‹¤.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
             {
-                if (row + j > 14 || col - j < 0) // ì™¼ìª½ ì•„ë˜ ë°©í–¥ ë²”ìœ„ ì´ˆê³¼ ê²€ì‚¬
+                if (row + j > 14 || col - j < 0) // ¿ŞÂÊ ¾Æ·¡ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
                 {
                     break;
                 }
@@ -881,14 +750,14 @@ public class GameManager : Singleton<GameManager>
                 }
             }
 
-            // â†—(ì˜¤ë¥¸ìª½ ìœ„) ê²€ì‚¬
-            row = emptyList[i].Item1 - 1; // ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°í•´ì•¼ í•˜ë‹ˆ -1
+            // ¢Ö(¿À¸¥ÂÊ À§) °Ë»ç
+            row = emptyList[i].Item1 - 1; // °ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÇØ¾ß ÇÏ´Ï -1
             col = emptyList[i].Item2 + 1;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼ í•œë‹¤.
+            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ß ÇÑ´Ù.
             {
-                if (row - j < 0 || col + j > 14) // ì˜¤ë¥¸ìª½ ìœ„ ë°©í–¥ ë²”ìœ„ ì´ˆê³¼ ê²€ì‚¬
+                if (row - j < 0 || col + j > 14) // ¿À¸¥ÂÊ À§ ¹æÇâ ¹üÀ§ ÃÊ°ú °Ë»ç
                 {
                     break;
                 }
@@ -916,22 +785,22 @@ public class GameManager : Singleton<GameManager>
 
             if (tempForbiddenCount >= 2)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURN_COUNT = 5; //í•œìª½ ë°©í–¥ì˜ ê³µë°±
+            const int MAX_TURN_COUNT = 5; //ÇÑÂÊ ¹æÇâÀÇ °ø¹é
             int tempForbiddenCount = 0;
-            // ì˜¤ë¥¸ìª½ ê²€ì‚¬
-            int row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            // ¿À¸¥ÂÊ °Ë»ç
+            int row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             int col = emptyList[i].Item2;
 
             int turnCount = 0;
             string tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 ++turnCount;
 
@@ -955,16 +824,16 @@ public class GameManager : Singleton<GameManager>
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// í•œ ì¹¸ ë„ìš´ 4
+                    break;// ÇÑ Ä­ ¶ç¿î 4
             }
 
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 1;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 ++turnCount;
 
@@ -988,16 +857,16 @@ public class GameManager : Singleton<GameManager>
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// í•œ ì¹¸ ë„ìš´ 4
+                    break;// ÇÑ Ä­ ¶ç¿î 4
             }
 
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 2;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 ++turnCount;
 
@@ -1021,16 +890,16 @@ public class GameManager : Singleton<GameManager>
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// í•œ ì¹¸ ë„ìš´ 4
+                    break;// ÇÑ Ä­ ¶ç¿î 4
             }
 
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 3;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 ++turnCount;
 
@@ -1054,16 +923,16 @@ public class GameManager : Singleton<GameManager>
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// í•œ ì¹¸ ë„ìš´ 4
+                    break;// ÇÑ Ä­ ¶ç¿î 4
             }
 
-            row = emptyList[i].Item1; //ê³µë°±ì˜ ê·¸ ë‹¤ìŒ ìë¦¬ë¶€í„° ê³„ì‚°ì„ í•´ì•¼í•˜ë‹ˆ + 1ì´ ë˜ì–´ì•¼í•œë‹¤.
+            row = emptyList[i].Item1; //°ø¹éÀÇ ±× ´ÙÀ½ ÀÚ¸®ºÎÅÍ °è»êÀ» ÇØ¾ßÇÏ´Ï + 1ÀÌ µÇ¾î¾ßÇÑ´Ù.
             col = emptyList[i].Item2 - 4;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ì¡°ê±´ jê°€ 0ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ê³ , 15ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì•„ì•¼í•œë‹¤.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + Á¶°Ç j°¡ 0º¸´Ù Å©°Å³ª °°°í, 15º¸´Ù ÀÛ°Å³ª °°¾Æ¾ßÇÑ´Ù.
             {
                 ++turnCount;
 
@@ -1087,113 +956,13 @@ public class GameManager : Singleton<GameManager>
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// í•œ ì¹¸ ë„ìš´ 4
+                    break;// ÇÑ Ä­ ¶ç¿î 4
             }
 
             if (tempForbiddenCount > 1)
             {
-                forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
-    }
-    private void SetForbiddenMark(List<(int, int)> forbiddenList)
-    {
-        for (int i = 0; i < forbiddenList.Count; i++)
-        {
-            _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
-            _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
-        }
-    }
-    //ê¸ˆìˆ˜ ë§ˆí¬ í‘œì‹œí•˜ëŠ” í•¨ìˆ˜
-    /// <summary>
-    /// ê²Œì„ ê²°ê³¼ í™•ì¸ í•¨ìˆ˜
-    /// </summary>
-    /// <returns>í”Œë ˆì´ì–´ ê¸°ì¤€ ê²Œì„ ê²°ê³¼</returns>
-    private GameResult CheckGameResult()
-    {
-        if (CheckGameWin(PlayerType.PlayerA)) { return GameResult.Win; }
-        if (CheckGameWin(PlayerType.PlayerB)) { return GameResult.Lose; }
-        //if (MinimaxAIController.IsAllBlocksPlaced(_board)) { return GameResult.Draw; }
-
-        return GameResult.None;
-    }
-
-    //ê²Œì„ì˜ ìŠ¹íŒ¨ë¥¼ íŒë‹¨í•˜ëŠ” í•¨ìˆ˜
-    private bool CheckGameWin(PlayerType playerType)
-    {
-        // ê°€ë¡œë¡œ ë§ˆì»¤ê°€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
-        for (var row = 0; row < _board.GetLength(0); row++)
-        {
-            for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
-            {
-                if (_board[row, col] == playerType && _board[row, col + 1] == playerType &&
-                    _board[row, col + 2] == playerType && _board[row, col + 3] == playerType &&
-                    _board[row, col + 4] == playerType)
-                {
-                    Debug.Log("ê²Œì„ ë!");
-                    return true;
-                }
-            }
-        }
-
-        // ì„¸ë¡œë¡œ ë§ˆì»¤ê°€ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
-        for (var col = 0; col < _board.GetLength(0); col++)
-        {
-            for (var row = 0; row < _board.GetLength(1) - 5 + 1; row++)
-            {
-                if (_board[row, col] == playerType && _board[row + 1, col] == playerType &&
-                    _board[row + 2, col] == playerType && _board[row + 3, col] == playerType &&
-                    _board[row + 4, col] == playerType)
-                {
-                    Debug.Log("ê²Œì„ ë!");
-                    return true;
-                }
-            }
-        }
-
-        // \ ëŒ€ê°ì„  ë§ˆì»¤ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
-        for (var row = 0; row < _board.GetLength(0) - 5 + 1; row++)
-        {
-            for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
-            {
-                if (_board[row, col] == playerType && _board[row + 1, col + 1] == playerType &&
-                    _board[row + 2, col + 2] == playerType && _board[row + 3, col + 3] == playerType &&
-                    _board[row + 4, col + 4] == playerType)
-                {
-                    Debug.Log("ê²Œì„ ë!");
-                    return true;
-                }
-            }
-        }
-
-        // / ëŒ€ê°ì„  ë§ˆì»¤ ì¼ì¹˜í•˜ëŠ”ì§€ í™•ì¸
-        for (var row = 0; row < _board.GetLength(0) - 5 + 1; row++)
-        {
-            for (var col = 0; col < _board.GetLength(1) - 5 + 1; col++)
-            {
-                if (_board[row, col + 4] == playerType && _board[row + 1, col + 3] == playerType &&
-                    _board[row + 2, col + 2] == playerType && _board[row + 3, col + 1] == playerType &&
-                    _board[row + 4, col] == playerType)
-                {
-                    Debug.Log("ê²Œì„ ë!");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // if (scene.name == "Game")
-        // {
-        //     _blockController = GameObject.FindObjectOfType<BlockController>();
-        //     _gameUIController = GameObject.FindObjectOfType<GameUIController>();
-        //
-        //     // ê²Œì„ ì‹œì‘
-        //     StartGame();
-        // }
-        //
-        // _canvas = GameObject.FindObjectOfType<Canvas>();
     }
 }
