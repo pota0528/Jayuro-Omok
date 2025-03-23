@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -919,233 +920,174 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        //서로 다른 방향으로 4X4 금수일 때
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURN_COUNT = 7; //한쪽 방향의 공백
-            const int MAX_VOID_COUNT = 2; //한쪽 방향의 공백
+            const int MAX_TURN_COUNT = 5; //한쪽 방향의 공백
             int tempForbiddenCount = 0;
-
             // 오른쪽 검사
             int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
             int col = emptyList[i].Item2;
 
-            int blockIndex = 1;
             int turnCount = 0;
-            int voidCount = 0;
+            string tempPattern = "";
 
             for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
                 ++turnCount;
 
-                if (_board[row, j] == PlayerType.PlayerA)
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
                 {
-                    ++blockIndex;
+                    tempPattern += "A";
                 }
                 else if (_board[row, j] == PlayerType.PlayerB)
                 {
-                    break;
+                    return;
                 }
-                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                else if (_board[row, j] == PlayerType.None)
                 {
-                    ++voidCount;
-
-                    if (voidCount == 1)
-                    {
-                        ++blockIndex;
-                        
-                    }
-                    else if (voidCount == MAX_VOID_COUNT)
-                    {
-                        break;
-                    }
+                    tempPattern += ".";
                 }
             }
 
-            if (blockIndex == 5)
+            switch (tempPattern)
             {
-                ++tempForbiddenCount;
-            }
-            else if (blockIndex > 5)
-            {
-                continue;
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// 한 칸 띄운 4
             }
 
             row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
             col = emptyList[i].Item2 - 1;
 
-            blockIndex = 1;
             turnCount = 0;
-            voidCount = 0;
+            tempPattern = "";
 
             for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
                 ++turnCount;
 
-                if (_board[row, j] == PlayerType.PlayerA)
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
                 {
-                    ++blockIndex;
+                    tempPattern += "A";
                 }
                 else if (_board[row, j] == PlayerType.PlayerB)
                 {
-                    break;
+                    return;
                 }
-                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                else if (_board[row, j] == PlayerType.None)
                 {
-                    ++voidCount;
-
-                    if (voidCount == 1)
-                    {
-                        ++blockIndex;
-
-                    }
-                    else if (voidCount == MAX_VOID_COUNT)
-                    {
-                        break;
-                    }
+                    tempPattern += ".";
                 }
             }
 
-            if (blockIndex == 5)
+            switch (tempPattern)
             {
-                ++tempForbiddenCount;
-            }
-            else if (blockIndex > 5)
-            {
-                continue;
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// 한 칸 띄운 4
             }
 
             row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
             col = emptyList[i].Item2 - 2;
 
-            blockIndex = 1;
             turnCount = 0;
-            voidCount = 0;
+            tempPattern = "";
 
-            ///공백을 최대 2개까지 해야하는데, 3개 이상이 되어도 안멈추고 있음
             for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
                 ++turnCount;
 
-                if (_board[row, j] == PlayerType.PlayerA)
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
                 {
-                    ++blockIndex;
+                    tempPattern += "A";
                 }
                 else if (_board[row, j] == PlayerType.PlayerB)
                 {
-                    break;
+                    return;
                 }
-                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                else if (_board[row, j] == PlayerType.None)
                 {
-                    ++voidCount;
-
-                    if (voidCount == 1)
-                    {
-                        ++blockIndex;
-
-                    }
-                    else if (voidCount == MAX_VOID_COUNT)
-                    {
-                        break;
-                    }
+                    tempPattern += ".";
                 }
             }
 
-            if (blockIndex == 5)
+            switch (tempPattern)
             {
-                ++tempForbiddenCount;
-            }
-            else if (blockIndex > 5)
-            {
-                continue;
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// 한 칸 띄운 4
             }
 
             row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
             col = emptyList[i].Item2 - 3;
 
-            blockIndex = 1;
             turnCount = 0;
-            voidCount = 0;
+            tempPattern = "";
 
             for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
                 ++turnCount;
 
-                if (_board[row, j] == PlayerType.PlayerA)
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
                 {
-                    ++blockIndex;
+                    tempPattern += "A";
                 }
                 else if (_board[row, j] == PlayerType.PlayerB)
                 {
-                    break;
+                    return;
                 }
-                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                else if (_board[row, j] == PlayerType.None)
                 {
-                    ++voidCount;
-
-                    if (voidCount == 1)
-                    {
-                        ++blockIndex;
-
-                    }
-                    else if (voidCount == MAX_VOID_COUNT)
-                    {
-                        break;
-                    }
+                    tempPattern += ".";
                 }
             }
 
-            if (blockIndex == 5)
+            switch (tempPattern)
             {
-                ++tempForbiddenCount;
-            }
-            else if (blockIndex > 5)
-            {
-                continue;
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// 한 칸 띄운 4
             }
 
             row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
             col = emptyList[i].Item2 - 4;
 
-            blockIndex = 1;
             turnCount = 0;
-            voidCount = 0;
+            tempPattern = "";
 
             for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
                 ++turnCount;
 
-                if (_board[row, j] == PlayerType.PlayerA)
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
                 {
-                    ++blockIndex;
+                    tempPattern += "A";
                 }
                 else if (_board[row, j] == PlayerType.PlayerB)
                 {
-                    break;
+                    return;
                 }
-                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                else if (_board[row, j] == PlayerType.None)
                 {
-                    ++voidCount;
-
-                    if (voidCount == 1)
-                    {
-                        ++blockIndex;
-
-                    }
-                    else if (voidCount == MAX_VOID_COUNT)
-                    {
-                        break;
-                    }
+                    tempPattern += ".";
                 }
             }
 
-            if (blockIndex == 5)
+            switch (tempPattern)
             {
-                ++tempForbiddenCount;
-            }
-            else if (blockIndex > 5)
-            {
-                continue;
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// 한 칸 띄운 4
             }
 
             if (tempForbiddenCount > 1)
@@ -1154,15 +1096,15 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
-
-        private void SetForbiddenMark(List<(int, int)> forbiddenList)
+    private void SetForbiddenMark(List<(int, int)> forbiddenList)
     {
         for (int i = 0; i < forbiddenList.Count; i++)
         {
             _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
             _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
         }
-    } //금수 마크 표시하는 함수
+    }
+    //금수 마크 표시하는 함수
     /// <summary>
     /// 게임 결과 확인 함수
     /// </summary>
