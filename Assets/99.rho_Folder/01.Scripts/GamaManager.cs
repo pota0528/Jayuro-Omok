@@ -668,12 +668,13 @@ public class GameManager : Singleton<GameManager>
 
     private void Set4X4Forbidden(List<(int, int)> emptyList)
     {
+        //서로 다른 방향으로 4x4 금수일 때
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_TURNING_COUNT = 5; //한 줄 당 최대 공백 3칸까지 제한
             const int MAX_VOID_COUNT = 3;
 
-             int tempForbiddenCount = 0;
+            int tempForbiddenCount = 0;
 
             // 오른쪽 검사
             int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
@@ -918,24 +919,25 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        //서로 다른 방향으로 4X4금수일 때
-
-        for (int i = 0; i < emptyList.Count; i++) // 같은 줄로 4x4 금수일 때
+        //서로 다른 방향으로 4X4 금수일 때
+        for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_VOID_COUNT = 3; //한쪽 방향의 공백
-
+            const int MAX_TURN_COUNT = 7; //한쪽 방향의 공백
+            const int MAX_VOID_COUNT = 2; //한쪽 방향의 공백
             int tempForbiddenCount = 0;
 
-            #region 한쪽 방향으로 검사
             // 오른쪽 검사
             int row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
-            int col = emptyList[i].Item2 + 1;
+            int col = emptyList[i].Item2;
 
             int blockIndex = 1;
+            int turnCount = 0;
             int voidCount = 0;
 
-            for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_VOID_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
             {
+                ++turnCount;
+
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
                     ++blockIndex;
@@ -944,49 +946,216 @@ public class GameManager : Singleton<GameManager>
                 {
                     break;
                 }
-                else if (_board[row, j] == PlayerType.None)
+                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
                 {
                     ++voidCount;
+
+                    if (voidCount == 1)
+                    {
+                        ++blockIndex;
+                        
+                    }
+                    else if (voidCount == MAX_VOID_COUNT)
+                    {
+                        break;
+                    }
                 }
             }
 
-            ++blockIndex;
-            // 왼쪽 검사
-            row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
-            col = emptyList[i].Item2 - 1;
-            voidCount = 0;
-
-            for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_VOID_COUNT; --j) // + 조건 0보다 크거나 같고, 15보다 작거나 같아야한다.
-            {
-                if (_board[row, j] == PlayerType.PlayerA)
-                {
-                    ++blockIndex;
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    break;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    ++voidCount;
-                }
-            }
-
-            #endregion
-
-            if (blockIndex == 8)
+            if (blockIndex == 5)
             {
                 ++tempForbiddenCount;
             }
+            else if (blockIndex > 5)
+            {
+                continue;
+            }
 
-            if (tempForbiddenCount >= 1)
+            row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+            col = emptyList[i].Item2 - 1;
+
+            blockIndex = 1;
+            turnCount = 0;
+            voidCount = 0;
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                {
+                    ++voidCount;
+
+                    if (voidCount == 1)
+                    {
+                        ++blockIndex;
+
+                    }
+                    else if (voidCount == MAX_VOID_COUNT)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (blockIndex == 5)
+            {
+                ++tempForbiddenCount;
+            }
+            else if (blockIndex > 5)
+            {
+                continue;
+            }
+
+            row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+            col = emptyList[i].Item2 - 2;
+
+            blockIndex = 1;
+            turnCount = 0;
+            voidCount = 0;
+
+            ///공백을 최대 2개까지 해야하는데, 3개 이상이 되어도 안멈추고 있음
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                {
+                    ++voidCount;
+
+                    if (voidCount == 1)
+                    {
+                        ++blockIndex;
+
+                    }
+                    else if (voidCount == MAX_VOID_COUNT)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (blockIndex == 5)
+            {
+                ++tempForbiddenCount;
+            }
+            else if (blockIndex > 5)
+            {
+                continue;
+            }
+
+            row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+            col = emptyList[i].Item2 - 3;
+
+            blockIndex = 1;
+            turnCount = 0;
+            voidCount = 0;
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                {
+                    ++voidCount;
+
+                    if (voidCount == 1)
+                    {
+                        ++blockIndex;
+
+                    }
+                    else if (voidCount == MAX_VOID_COUNT)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (blockIndex == 5)
+            {
+                ++tempForbiddenCount;
+            }
+            else if (blockIndex > 5)
+            {
+                continue;
+            }
+
+            row = emptyList[i].Item1; //공백의 그 다음 자리부터 계산을 해야하니 + 1이 되어야한다.
+            col = emptyList[i].Item2 - 4;
+
+            blockIndex = 1;
+            turnCount = 0;
+            voidCount = 0;
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + 조건 j가 0보다 크거나 같고, 15보다 작거나 같아야한다.
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    break;
+                }
+                else if (_board[row, j] == PlayerType.None && j != emptyList[i].Item2)
+                {
+                    ++voidCount;
+
+                    if (voidCount == 1)
+                    {
+                        ++blockIndex;
+
+                    }
+                    else if (voidCount == MAX_VOID_COUNT)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (blockIndex == 5)
+            {
+                ++tempForbiddenCount;
+            }
+            else if (blockIndex > 5)
+            {
+                continue;
+            }
+
+            if (tempForbiddenCount > 1)
             {
                 forbiddenCollecition.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
     }
 
-    private void SetForbiddenMark(List<(int, int)> forbiddenList)
+        private void SetForbiddenMark(List<(int, int)> forbiddenList)
     {
         for (int i = 0; i < forbiddenList.Count; i++)
         {
