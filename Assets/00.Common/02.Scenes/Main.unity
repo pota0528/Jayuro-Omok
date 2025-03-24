@@ -418,7 +418,15 @@ MonoBehaviour:
   signUpPanel: {fileID: 464624426721254015, guid: 10ee7e95067c93a40839bba7a03eb8e9, type: 3}
   userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
   profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
-  profileSprites: []
+  profileSprites:
+  - {fileID: 338169853, guid: 3dc9bb44c71e8644bb4530ab5b7c37b0, type: 3}
+  - {fileID: -1487053864, guid: b883b1341f10cc04086553cf64c65077, type: 3}
+  - {fileID: 1771755933, guid: 3c03aa6ac4bd996488ac1b88f84a3afd, type: 3}
+  - {fileID: 170770173, guid: cad3a96baedf20a4ebef4105eeb6aa2d, type: 3}
+  - {fileID: 1244174229, guid: a2f919ca82dbac945b93a6a65779e95d, type: 3}
+  - {fileID: 1884918714, guid: dea815a5ed8b0c84db56c5469766ab19, type: 3}
+  - {fileID: 285771510, guid: 6f4924057adf7774eb56effaf4de2436, type: 3}
+  - {fileID: 1297143470, guid: 905b16f8f489efd4489f310855a5729b, type: 3}
   playerPrefab: {fileID: 0}
   shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
   rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
@@ -428,8 +436,6 @@ MonoBehaviour:
   giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}
   noCoinPanelPrefab: {fileID: 1459309161923910732, guid: 32be1f9ba38b6d94fba27c97519b4207, type: 3}
   winLosePanelPrefab: {fileID: 1459309161923910732, guid: af9e702d77130f54e8c6cc1dd6463540, type: 3}
-  startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
-  mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
   parent: {fileID: 1311660854}
 --- !u!1 &1311660850
 GameObject:
