@@ -156,8 +156,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 3dc9bb44c71e8644bb4530ab5b7c37b0, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1207,8 +1207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 180}
+  m_AnchoredPosition: {x: -10, y: 10}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7995387552704850677
 CanvasRenderer:
@@ -2584,6 +2584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8477717a22a191842a61cebd5e39889d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleText: {fileID: 0}
   panelRectTransform: {fileID: 2497018803689886241}
   profileButtons:
   - {fileID: 6570935028512568777}
@@ -2594,12 +2595,3 @@ MonoBehaviour:
   - {fileID: 2888809942300622001}
   - {fileID: 7104348701420927022}
   - {fileID: 7045592103474006161}
-  profileSprites:
-  - {fileID: 21300000, guid: 688a40ea4e1ef7241bf44f86ad02a4e0, type: 3}
-  - {fileID: 21300000, guid: 79f6ad072bf16b44daaa5bb197b08615, type: 3}
-  - {fileID: 21300000, guid: 691085d8201050b4b82d1eb6114bfb4a, type: 3}
-  - {fileID: 21300000, guid: 6a76698add5b7a046bd8a64c9bea997a, type: 3}
-  - {fileID: 21300000, guid: 7702b01202d564a41a351bd5f30ec46a, type: 3}
-  - {fileID: 21300000, guid: 30aa87e03ac97794289efc4cb4036ead, type: 3}
-  - {fileID: 21300000, guid: 47c9ac8dad363e04cb444044154f4b79, type: 3}
-  - {fileID: 21300000, guid: b26b915fb2ea33d4fa1d6c6265c09947, type: 3}
