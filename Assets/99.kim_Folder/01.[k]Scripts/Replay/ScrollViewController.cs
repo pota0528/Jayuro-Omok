@@ -57,6 +57,7 @@ public class ScrollViewController : MonoBehaviour
 
             if (item.onClick != null)
             {
+                button.gameObject.SetActive(true);
                 button.onClick.AddListener(() => item.onClick());
             }
         }
