@@ -228,14 +228,14 @@ MonoBehaviour:
   userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
   profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
   profileSprites:
-  - {fileID: 21300000, guid: 688a40ea4e1ef7241bf44f86ad02a4e0, type: 3}
-  - {fileID: 21300000, guid: 79f6ad072bf16b44daaa5bb197b08615, type: 3}
-  - {fileID: 21300000, guid: 691085d8201050b4b82d1eb6114bfb4a, type: 3}
-  - {fileID: 21300000, guid: 6a76698add5b7a046bd8a64c9bea997a, type: 3}
-  - {fileID: 21300000, guid: 7702b01202d564a41a351bd5f30ec46a, type: 3}
-  - {fileID: 21300000, guid: 30aa87e03ac97794289efc4cb4036ead, type: 3}
-  - {fileID: 21300000, guid: 47c9ac8dad363e04cb444044154f4b79, type: 3}
-  - {fileID: 21300000, guid: b26b915fb2ea33d4fa1d6c6265c09947, type: 3}
+  - {fileID: 1884918714, guid: dea815a5ed8b0c84db56c5469766ab19, type: 3}
+  - {fileID: 18686066, guid: 17a5205ef0212364ca1db2170d552921, type: 3}
+  - {fileID: 285771510, guid: 6f4924057adf7774eb56effaf4de2436, type: 3}
+  - {fileID: 1297143470, guid: 905b16f8f489efd4489f310855a5729b, type: 3}
+  - {fileID: 1244174229, guid: a2f919ca82dbac945b93a6a65779e95d, type: 3}
+  - {fileID: 170770173, guid: cad3a96baedf20a4ebef4105eeb6aa2d, type: 3}
+  - {fileID: 1771755933, guid: 3c03aa6ac4bd996488ac1b88f84a3afd, type: 3}
+  - {fileID: -1487053864, guid: b883b1341f10cc04086553cf64c65077, type: 3}
   playerPrefab: {fileID: 7545674033775964532}
   shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
   rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
