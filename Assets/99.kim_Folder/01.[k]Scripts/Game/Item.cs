@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,5 +6,5 @@ using UnityEngine;
 public class Item 
 { 
     public string subtitle;
-    public System.Action onClick;
+    public Action onClick;
 }
