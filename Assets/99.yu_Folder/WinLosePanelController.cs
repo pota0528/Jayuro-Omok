@@ -5,9 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.tvOS;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class WinLosePanelController : MessagePopupController
 {
+    [Header("subPanel")]
     [SerializeField] private GameObject gaugeBlockPrefab;
     [SerializeField] private GameObject[] plusGaugeBlocks;
     [SerializeField] private GameObject[] minusGaugeBlocks;
@@ -17,6 +19,8 @@ public class WinLosePanelController : MessagePopupController
     [SerializeField] private TextMeshProUGUI maxText;
     [SerializeField] private TextMeshProUGUI minText;
     [SerializeField] private TextMeshProUGUI coinText;
+
+    
 
     private int levelCount;
 
@@ -82,6 +86,7 @@ public class WinLosePanelController : MessagePopupController
             {
                 GetComponent<MessagePopupController>().Show("게임에서 패배하였습니다.\n1승급 포인트를 잃었습니다.");
                 levelPointResultText.text = (levelPoint + currentLevelCount) + "게임을 패배하면\n강등됩니다.";
+                
             }
 
             plusGaugeBlocks = new GameObject[currentLevelCount];
@@ -155,4 +160,6 @@ public class WinLosePanelController : MessagePopupController
         //todo: 데이터 저장(코인, 급수, 승점포인트)
         Debug.Log("데이터 저장");
     }
+
+    
 }

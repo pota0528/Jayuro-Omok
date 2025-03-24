@@ -384,6 +384,9 @@ MonoBehaviour:
   maxText: {fileID: 4832609375933298629}
   minText: {fileID: 6409311695650134182}
   coinText: {fileID: 1740986223723229601}
+  mainResultText: {fileID: 0}
+  mainWinImage: {fileID: 0}
+  mainLoseImage: {fileID: 0}
 --- !u!1 &2727050376068100914
 GameObject:
   m_ObjectHideFlags: 0
