@@ -31,6 +31,8 @@ using UnityEngine.SceneManagement;
         private void Start()
         {
            OpenLoginPanel();
+           OpenStartTitlePanel();
+          
             //playeData=UserSessionManager.Instance.GetPlayerData();
             mongoDBManager = FindObjectOfType<DBManager>();
            
