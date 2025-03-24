@@ -436,6 +436,8 @@ MonoBehaviour:
   giveupPanelPrefab: {fileID: 1459309161923910732, guid: 78bb1518eab7d0a489d7800c76c4ef3c, type: 3}
   noCoinPanelPrefab: {fileID: 1459309161923910732, guid: 32be1f9ba38b6d94fba27c97519b4207, type: 3}
   winLosePanelPrefab: {fileID: 1459309161923910732, guid: af9e702d77130f54e8c6cc1dd6463540, type: 3}
+  startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
+  mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
   parent: {fileID: 1311660854}
 --- !u!1 &1311660850
 GameObject:
