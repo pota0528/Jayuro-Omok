@@ -76,7 +76,7 @@ using UnityEngine.SceneManagement;
         }
 
         //데이터 업데이트
-        public void UpdatePlayerData(PlayerData playerData)
+        public void UpdatePlayerData(PlayerData playerData,bool updateImageOnly=false)
         {
             if (playerCollection == null)
             {
@@ -85,30 +85,41 @@ using UnityEngine.SceneManagement;
             }
             //유저 아이디로 해당 유저 찾기 (id 기준으로 찾고있음)   (조건, 데이터) 
             var filter = Builders<PlayerData>.Filter.Eq(p => p.id, playerData.id);
-            
-            //업데이트할 내용 설정
-            var update = Builders<PlayerData>.Update
-                .Set(p => p.coin, playerData.coin)
-                .Set(p => p.level, playerData.level)
-                .Set(p => p.levelPoint, playerData.levelPoint)
-                .Set(p => p.win, playerData.win)
-                .Set(p => p.lose, playerData.lose)
-                .Set(p => p.imageIndex, playerData.imageIndex);
-            
-            //필터에 맞는 유저 데이터 업데이터
-            var result = playerCollection.UpdateOne(filter, update);
-
-            if (result.MatchedCount > 0)
+            UpdateDefinition<PlayerData> update;
+            //프로필 이미지 인덱스만 업데이트 
+            if (updateImageOnly)
             {
-                Debug.Log(playerData.nickname+" 의 데이터 업데이트 완료.");
+                update = Builders<PlayerData>.Update.Set(p => p.imageIndex, playerData.imageIndex);
             }
+            //업데이트할 내용 설정
             else
             {
-                Debug.Log("유저 데이터 업데이트 실패");
+                update = Builders<PlayerData>.Update
+                    .Set(p => p.coin, playerData.coin)
+                    .Set(p => p.level, playerData.level)
+                    .Set(p => p.levelPoint, playerData.levelPoint)
+                    .Set(p => p.win, playerData.win)
+                    .Set(p => p.lose, playerData.lose)
+                    .Set(p => p.imageIndex, playerData.imageIndex);
             }
 
 
+            //필터에 맞는 유저 데이터 업데이터
+                var result = playerCollection.UpdateOne(filter, update);
+
+                if (result.MatchedCount > 0)
+                {
+                    Debug.Log(playerData.nickname + " 의 데이터 업데이트 완료.");
+                }
+                else
+                {
+                    Debug.Log("유저 데이터 업데이트 실패");
+                }
+
+
+            
         }
+  
 
       
 
