@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ReplayUIController : MonoBehaviour
 {
+    [SerializeField] private ReplayBlockController replayBlockController; // 리플레이용 오목판
     [SerializeField] private Button replayButton; // 기보보기 버튼
     [SerializeField] private Button exitButton; // ReplayPanel에서 나가기 버튼
     [SerializeField] private ReplayController replayController; // Replay 로직 관리
@@ -21,11 +22,13 @@ public class ReplayUIController : MonoBehaviour
         {
             matchListPanel.SetActive(true);
             replayPanel.SetActive(false); // ReplayPanel은 비활성화
+            replayButton.gameObject.SetActive(false); // 기보 확인을 누르면 기보 확인 버튼은 사라짐. (버그 방지)
         });
         
         // ReplayPanel의 나가기 버튼을 누르면 MatchListPanel로 다시 돌아감.
         exitButton.onClick.AddListener(() =>
         {
+            replayBlockController.ResetBoard();
             replayPanel.SetActive(false);
             matchListPanel.SetActive(true);
         });
