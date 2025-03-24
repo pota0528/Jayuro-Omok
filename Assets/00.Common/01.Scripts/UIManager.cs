@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
     public class UIManager : Singleton<UIManager>
     {
-        //플레이어 데이터 선언 !! 
-      //  PlayerData playeData =UserSessionManager.Instance.GetPlayerData();
+        
     #region 찬영 UI 관련 
         private Canvas _canvas;
         [Header("찬영")]
@@ -21,6 +20,7 @@ using UnityEngine.SceneManagement;
         //DB관련
         public GameObject playerPrefab;
         private DBManager mongoDBManager;
+        private PlayerData playeData;
         
         //프로필 이미지 인덱스를 관리하는 변수 
         private int currentIamgeIndex = 0; 
@@ -31,6 +31,7 @@ using UnityEngine.SceneManagement;
         private void Start()
         {
             OpenLoginPanel();
+            playeData=UserSessionManager.Instance.GetPlayerData();
             mongoDBManager = FindObjectOfType<DBManager>();
         }
 
