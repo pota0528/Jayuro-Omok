@@ -37,7 +37,7 @@ using UnityEngine.Rendering;
                 Debug.Log("로그인 성공"+player.nickname);
                 //로그인한 유저 데이터를 UserSessionManager에 저장
                 UserSessionManager.Instance.SetPlayerData(player);
-                GameManager.Instance.OpenUserPanel();
+                UIManager.Instance.OpenUserPanel();
             }
             else
             {
@@ -49,7 +49,7 @@ using UnityEngine.Rendering;
         public void OnClickSignUpButton()
         {
             Destroy(gameObject);
-            GameManager.Instance.OpenSignUpPanel();
+            UIManager.Instance.OpenSignUpPanel();
         }
     }
 

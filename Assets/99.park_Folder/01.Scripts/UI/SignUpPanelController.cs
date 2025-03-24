@@ -70,7 +70,7 @@ public class SignUpPanelController : PanelController
     {
         Debug.Log("BackButton누름!");
         Destroy(gameObject);
-        GameManager.Instance.OpenLoginPanel();
+        UIManager.Instance.OpenLoginPanel();
         //TODO: 뒤로가기 누르면 로그인 패널이 나오게 하기 
     }
 }

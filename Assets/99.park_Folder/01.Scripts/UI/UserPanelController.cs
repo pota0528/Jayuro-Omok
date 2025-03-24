@@ -71,7 +71,7 @@ using UnityEngine.UI;
 
         public void OnClickProfileButton()
         {
-            GameManager.Instance.OpenProfilePanel();
+            UIManager.Instance.OpenProfilePanel();
         }
     }
 
