@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
         [SerializeField] private GameObject signUpPanel;
         [SerializeField] private GameObject userPanel;
         [SerializeField] private GameObject profilePanel;
-        
+        [SerializeField] private Sprite[] profileSprites;
         
         //추가: 옵션패널 
         
@@ -87,9 +87,29 @@ using UnityEngine.SceneManagement;
         public void UpdateUserProfileImage(Sprite newProfileImage)
         {
             UserPanelController userPanelController = FindObjectOfType<UserPanelController>();
+            SignUpPanelController signUpPanelController = FindObjectOfType<SignUpPanelController>();
             if (userPanelController != null)
             {
                 userPanelController.UpdateProfileImage(newProfileImage);
+            }
+
+            if (signUpPanelController != null)
+            {
+                signUpPanelController.UpdateProfileImage(newProfileImage);
+            }
+           
+        }
+
+        public Sprite GetProfileImage(int index)
+        {
+            if (index >= 0 && index < profileSprites.Length)
+            {
+                return profileSprites[index];
+            }
+            else
+            {
+                Debug.Log("유효하지않은");
+                return null;
             }
         }
 
@@ -210,7 +230,7 @@ using UnityEngine.SceneManagement;
         {
             var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
             noCoinPanel.GetComponent<BaseUIController>().Show();
-            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(YuConstants.coin);//찬영님이 주시는 데이터 형태로
+            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(playeData.coin);//찬영님이 주시는 데이터 형태로
         }
 
         public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
@@ -220,22 +240,22 @@ using UnityEngine.SceneManagement;
             //_blockGontroller.OnBlockClickedDelegate=null;
             
             var winLosePanel = Instantiate(winLosePanelPrefab, parent);
-            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
-            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(YuConstants.level);//안에 들어가는 수는 level
-            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.levelPoint);
+            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playeData.coin);
+            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playeData.level);//안에 들어가는 수는 level
+            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, playeData.level);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
                 var ResultPanel= Instantiate(messagePopupPrefab, parent);
                 if (YuConstants.levelPoint > 0)
                 {
-                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ YuConstants.level);
+                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playeData.level);
                     YuConstants.levelPoint = 0;
                     Debug.Log(YuConstants.levelPoint);
                 }
                 else if (YuConstants.levelPoint < 0)
                 {
-                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+YuConstants.level);
+                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playeData.level);
                     YuConstants.levelPoint = 0;
                     Debug.Log(YuConstants.levelPoint);
                 }

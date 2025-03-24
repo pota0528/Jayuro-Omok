@@ -1,7 +1,7 @@
 ﻿using park_namespace;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class SignUpPanelController : PanelController
@@ -11,6 +11,7 @@ public class SignUpPanelController : PanelController
     [SerializeField] private TMP_InputField _passwordInputField;
     [SerializeField] private TMP_InputField _confirmPasswordInputField;
 
+    [SerializeField] private Button profileButton;
     private DBManager _mongoDBManager;
 
     void Start()
@@ -29,6 +30,7 @@ public class SignUpPanelController : PanelController
         var nickname = _nicknameInputField.text;
         var password = _passwordInputField.text;
         var confirmPassword = _confirmPasswordInputField.text;
+        int selectedImageIndex = UIManager.Instance.GetProfileImageIndex(); //사용자가 선택한 이미지 
         if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(nickname) ||
             string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
         {
@@ -57,13 +59,26 @@ public class SignUpPanelController : PanelController
             levelPoint = 0,
             coin = 1000,
             win = 0,
-            lose = 0
+            lose = 0,
+            imageIndex =selectedImageIndex
         };
         
         //MongoDB에 저장
         _mongoDBManager.RegisterPlayer(newPlayer);
         Debug.Log("회원가입 완료: "+newPlayer.nickname);
 
+    }
+    public void UpdateProfileImage(Sprite newProfileImage)
+    {
+        // UserPanel의 프로필 이미지 갱신
+        profileButton.GetComponent<Image>().sprite = newProfileImage;
+            
+    }
+
+    public void OnClickProfileButton()
+    {
+      
+        UIManager.Instance.OpenProfilePanel();
     }
 
     public void OnClickBackButton()

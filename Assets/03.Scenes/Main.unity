@@ -227,6 +227,15 @@ MonoBehaviour:
   signUpPanel: {fileID: 464624426721254015, guid: 10ee7e95067c93a40839bba7a03eb8e9, type: 3}
   userPanel: {fileID: 464624426721254015, guid: 81c34993679dcf34bba8887be0634c8a, type: 3}
   profilePanel: {fileID: 9041719760361966172, guid: 912b4b445ebd53248ae81359ec718d4d, type: 3}
+  profileSprites:
+  - {fileID: 21300000, guid: 688a40ea4e1ef7241bf44f86ad02a4e0, type: 3}
+  - {fileID: 21300000, guid: 79f6ad072bf16b44daaa5bb197b08615, type: 3}
+  - {fileID: 21300000, guid: 691085d8201050b4b82d1eb6114bfb4a, type: 3}
+  - {fileID: 21300000, guid: 6a76698add5b7a046bd8a64c9bea997a, type: 3}
+  - {fileID: 21300000, guid: 7702b01202d564a41a351bd5f30ec46a, type: 3}
+  - {fileID: 21300000, guid: 30aa87e03ac97794289efc4cb4036ead, type: 3}
+  - {fileID: 21300000, guid: 47c9ac8dad363e04cb444044154f4b79, type: 3}
+  - {fileID: 21300000, guid: b26b915fb2ea33d4fa1d6c6265c09947, type: 3}
   playerPrefab: {fileID: 7545674033775964532}
   shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
   rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
