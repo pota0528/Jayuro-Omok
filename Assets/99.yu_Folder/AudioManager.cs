@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] private AudioSource BgmAudioSource;
+    public AudioSource BgmAudioSource;
     [SerializeField] private AudioSource SfxAudioSource;
     [SerializeField] private AudioMixer audioMixer;
 
@@ -20,6 +20,11 @@ public class AudioManager : Singleton<AudioManager>
         BgmAudioSource.Play();
     }
 
+    public void OnPauseBGM()
+    {
+        BgmAudioSource.Pause();
+    }
+
     private void Start()
     {
         // 저장된 볼륨 값을 불러옴
@@ -27,6 +32,8 @@ public class AudioManager : Singleton<AudioManager>
         SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
         float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
         SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
+        OnPlayBGM();
+        Debug.Log(BgmAudioSource.isPlaying);
     }
 
     public void SetBGMVolume(float volume)

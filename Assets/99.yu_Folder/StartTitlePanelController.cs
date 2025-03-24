@@ -18,6 +18,9 @@ public class StartTitlePanelController : BaseUIController
     [SerializeField] private Transform Second;
     [SerializeField] private TextMeshProUGUI companyText;
     private Animator anim;
+    [SerializeField] private Sprite soundOffSprite;
+    [SerializeField] private Sprite soundOnSprite;
+    [SerializeField] private Button soundButton;
 
     private delegate void ClockTimeDelegate();
     private ClockTimeDelegate clockDelegate;
@@ -32,6 +35,20 @@ public class StartTitlePanelController : BaseUIController
     {
         
         TitleSetting();
+    }
+
+    public void OnPauseBGM()
+    {
+        if (AudioManager.Instance.BgmAudioSource.isPlaying)
+        {
+            AudioManager.Instance.BgmAudioSource.Pause();
+            soundButton.GetComponent<Image>().sprite = soundOffSprite;
+        }
+        else
+        {
+            AudioManager.Instance.BgmAudioSource.UnPause();
+            soundButton.GetComponent<Image>().sprite = soundOnSprite;
+        }
     }
     
     private void Update()
@@ -58,19 +75,24 @@ public class StartTitlePanelController : BaseUIController
                 .Join(titleOmokText.transform.DORotate(new Vector3(0, 0, 360), 3f, RotateMode.FastBeyond360))
                 .OnComplete(() =>
                 {
-                    titleWatchText.transform.DOScale(new Vector3(1, 1, 1), 2f).OnComplete(() =>
+                    titleWatchText.transform.DOScale(Vector3.one, 2f).OnComplete(() =>
                     {
-                        anim.SetTrigger("OnClock");
+                        Sequence sequence2 = DOTween.Sequence();
+                        sequence2.Join(titleWatchText.transform.DOScale(new Vector3(1.3f,1.3f,1.3f), 0.3f))
+                            .Join(titleWatchText.DOFade(0.5f, 0.3f)).OnComplete(() =>
+                            {
+                                Sequence sequence3 = DOTween.Sequence();
+                                sequence3.Join(titleWatchText.transform.DOScale(Vector3.one, 0.3f))
+                                    .Join(titleWatchText.DOFade(1f, 0.3f));
+                                anim.SetTrigger("OnClock");
+                                clockDelegate += ClockStart;
+
+                            });
 
                     });
-                    DOVirtual.DelayedCall(1.5f, () =>
+                    DOVirtual.DelayedCall(4f, () =>
                     {
-                        clockDelegate += ClockStart;
-
-                    });
-                    DOVirtual.DelayedCall(1.5f, () =>
-                    {
-                        companyText.DOFade(1, 3f);
+                        companyText.DOFade(1, 2f);
                     });
 
                 });
