@@ -36,7 +36,7 @@ using Debug = UnityEngine.Debug;
             if (index >= 0 && index < profileSprites.Length)
             {
                 //이미지 인덱스를 GameManager에 저장
-               //GameManager.Instance.UpdateUserProfileImage(profileSprites[index]);
+                UIManager.Instance.UpdateUserProfileImage(profileSprites[index]);
             }
         }
         //profileSprite반황 매서드

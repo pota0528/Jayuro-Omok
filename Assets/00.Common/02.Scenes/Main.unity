@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1095279519}
   - component: {fileID: 1095279520}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1095279517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad822939793356345a9a098dcd8e34d2, type: 3}
+  m_Script: {fileID: 11500000, guid: ab550b56ec5d4274693448895e32420e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loginPanel: {fileID: 1348692783323088093, guid: acb5f345790dbbe4889acef0ca6a00c0, type: 3}
