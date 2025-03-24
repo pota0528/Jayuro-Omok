@@ -4,14 +4,13 @@ using static GameManager;
 public class ForbiddenRuleChecker
 {
     private GameManager.PlayerType[,] _board;
-    private int _lineCount;
+    private int _lineCount = 15;
     private (int, int) _currentMoveIndex;
     private List<(int, int)> _forbiddenCollection = new();
 
-    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, int lineCount, (int, int) currentMoveIndex)
+    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, (int, int) currentMoveIndex)
     {
         _board = board;
-        _lineCount = lineCount;
         _currentMoveIndex = currentMoveIndex;
     }
 
