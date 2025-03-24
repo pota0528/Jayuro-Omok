@@ -198,9 +198,16 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject giveupPanelPrefab;
     [SerializeField] private GameObject noCoinPanelPrefab;
     [SerializeField] private GameObject winLosePanelPrefab;
+    [SerializeField] private GameObject startTitlePanelPrefab;
+    [SerializeField] private GameObject mainWinLosePanelPrefab;
 
     [SerializeField] private RectTransform parent;
         
+    //스타트 타이틀 패널
+    public void OpenStartTitlePanel()
+    {
+        var startTitlePanel = Instantiate(startTitlePanelPrefab, parent);
+    }
         //메시지팝업 오픈
         public void OpenMessagePopup(string msg)
         {
@@ -260,6 +267,12 @@ using UnityEngine.SceneManagement;
                     Debug.Log(YuConstants.levelPoint);
                 }
                 
+            }
+            
+            if (!YuConstants.isWin)
+            {
+                var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, parent);
+                mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainLosePanelOpen();
             }
             
         }
