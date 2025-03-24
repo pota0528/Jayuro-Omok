@@ -30,9 +30,16 @@ using UnityEngine.SceneManagement;
         
         private void Start()
         {
-            OpenLoginPanel();
-            playeData=UserSessionManager.Instance.GetPlayerData();
+           OpenLoginPanel();
+            //playeData=UserSessionManager.Instance.GetPlayerData();
             mongoDBManager = FindObjectOfType<DBManager>();
+           
+        }
+//로그인 후 Player데이터 설정 
+        public void SetPlayerData(PlayerData playerData)
+        {
+            this.playeData = playerData;
+            Debug.Log(playerData.nickname);
         }
 
         public void OpenLoginPanel()
