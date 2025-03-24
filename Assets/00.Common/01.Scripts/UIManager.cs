@@ -172,6 +172,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject noCoinPanelPrefab;
     [SerializeField] private GameObject winLosePanelPrefab;
     [SerializeField] private GameObject startTitlePanelPrefab;
+    [SerializeField] private GameObject mainWinLosePanelPrefab;
 
     [SerializeField] private RectTransform parent;
     
@@ -215,7 +216,8 @@ public class UIManager : Singleton<UIManager>
         //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
         //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         //_blockGontroller.OnBlockClickedDelegate=null;
-
+        
+        
         var winLosePanel = Instantiate(winLosePanelPrefab, parent);
         winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(YuConstants.coin);
         int currentLevelCount =
@@ -238,6 +240,11 @@ public class UIManager : Singleton<UIManager>
                 YuConstants.levelPoint = 0;
                 Debug.Log(YuConstants.levelPoint);
             }
+        }
+        if (!YuConstants.isWin)
+        {
+            var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, parent);
+            mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainLosePanelOpen();
         }
     }
 
