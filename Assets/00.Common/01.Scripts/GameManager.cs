@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,35 +6,36 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private BlockController _blockController;
+    [SerializeField] private GameUIController _gameUIController;
+    [SerializeField] private Button confirmButton;
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject signUpPanel;
     [SerializeField] private GameObject userPanel;
     [SerializeField] private GameObject profilePanel;
-    [SerializeField] private BlockController _blockController;
-    [SerializeField] private GameUIController _gameUIController;
-    [SerializeField] private Button confirmButton;
-
+    // UI 패널 프리팹 (인스펙터에서 설정)
+    
     public enum PlayerType { None, PlayerA, PlayerB }
+    private PlayerType[,] _board;
     private enum TurnType { PlayerA, PlayerB }
-    private enum GameResult { None, Win, Lose, Draw }
-
-    private PlayerType[,] _board; // 게임 상태 저장
     private TurnType currentTurn;
-    private Canvas _canvas;
+    private enum GameResult { None, Win, Lose, Draw }
+    private List<Move> moves = new List<Move>();
+    private (int, int) currentMoveIndex;
+    private List<(int, int)> forbiddenCollection = new List<(int, int)>();
     private DBManager mongoDBManager;
-    private int currentImageIndex = 0;
-    private List<Move> moves = new List<Move>(); // 매치 기록용 리스트 추가
+    // 캔버스 참조
+    private Canvas _canvas;
+    
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
+        SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 구독
+    }
     
     private void Start()
     {
         StartGame();
-    }
-
-    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        _canvas = GameObject.FindObjectOfType<Canvas>();
-        OpenLoginPanel();
-        mongoDBManager = FindObjectOfType<DBManager>();
     }
 
     private void StartGame()
@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
         _blockController.InitBlocks();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
         SetTurn(TurnType.PlayerA);
-        moves.Clear(); // 새 게임 시작 시 moves 초기화
+        moves.Clear();
     }
 
     private void EndGame(GameResult gameResult)
@@ -56,11 +56,11 @@ public class GameManager : Singleton<GameManager>
         {
             case GameResult.Win:
                 Debug.Log("PlayerA win");
-                SaveMatch("PlayerA"); // 매치 저장 (nickname은 예시)
+                SaveMatch("PlayerA");
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
-                SaveMatch("AI"); // 매치 저장 (nickname은 예시)
+                SaveMatch("AI");
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
@@ -72,11 +72,9 @@ public class GameManager : Singleton<GameManager>
     {
         if (_board[row, col] != PlayerType.None) return false;
         _board[row, col] = playerType;
-        _blockController.PlaceMarker(playerType == PlayerType.PlayerA ? Block.MarkerType.Black : Block.MarkerType.White, row, col);
-
-        // moves에 기록 추가
-        string color = playerType == PlayerType.PlayerA ? "흑돌" : "백돌";
-        moves.Add(new Move { row = row, col = col, color = color });
+        Block.MarkerType markerType = playerType == PlayerType.PlayerA ? Block.MarkerType.Black : Block.MarkerType.White;
+        _blockController.PlaceMarker(markerType, row, col);
+        moves.Add(new Move { row = row, col = col, color = playerType == PlayerType.PlayerA ? "흑돌" : "백돌" });
         return true;
     }
 
@@ -88,6 +86,9 @@ public class GameManager : Singleton<GameManager>
             case TurnType.PlayerA:
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = OnBlockClicked;
+                var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
+                forbiddenCollection = checker.GetForbiddenSpots();
+                SetForbiddenMarks(forbiddenCollection);
                 break;
             case TurnType.PlayerB:
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
@@ -99,7 +100,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnBlockClicked(int row, int col)
     {
-        if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None)
+        if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None && !forbiddenCollection.Contains((row, col)))
         {
             _gameUIController.UpdateSelectedPosition(row, col);
             _blockController.SetPreviewMarker(row, col, true);
@@ -111,6 +112,7 @@ public class GameManager : Singleton<GameManager>
         var (row, col) = _gameUIController.GetSelectedPosition();
         if (currentTurn == TurnType.PlayerA && row != -1 && col != -1 && SetNewBoardValue(PlayerType.PlayerA, row, col))
         {
+            currentMoveIndex = (row, col);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerB);
@@ -127,6 +129,7 @@ public class GameManager : Singleton<GameManager>
 
         if (SetNewBoardValue(PlayerType.PlayerB, row, col))
         {
+            currentMoveIndex = (row, col);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerA);
@@ -156,7 +159,6 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
-
         for (int col = 0; col < size; col++)
         {
             for (int row = 0; row < size - 4; row++)
@@ -167,7 +169,6 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
-
         for (int row = 0; row < size - 4; row++)
         {
             for (int col = 0; col < size - 4; col++)
@@ -178,7 +179,6 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
-
         for (int row = 0; row < size - 4; row++)
         {
             for (int col = 4; col < size; col++)
@@ -189,13 +189,12 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
-
         return false;
     }
 
-    private List<(int row, int col)> GetPossibleMoves(PlayerType[,] board)
+    private List<(int, int)> GetPossibleMoves(PlayerType[,] board)
     {
-        List<(int row, int col)> possibleMoves = new List<(int row, int col)>();
+        List<(int, int)> possibleMoves = new List<(int, int)>();
         for (int r = 0; r < 15; r++)
         {
             for (int c = 0; c < 15; c++)
@@ -207,7 +206,14 @@ public class GameManager : Singleton<GameManager>
         return possibleMoves;
     }
 
-    // 매치 저장 메서드 추가
+    private void SetForbiddenMarks(List<(int, int)> forbiddenList)
+    {
+        foreach (var (row, col) in forbiddenList)
+        {
+            _blockController.PlaceMarker(Block.MarkerType.Forbidden, row, col);
+        }
+    }
+
     private void SaveMatch(string nickname)
     {
         MatchSaver saver = FindObjectOfType<MatchSaver>();
@@ -220,8 +226,15 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError("MatchSaver 컴포넌트가 없습니다.");
         }
     }
+    
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _canvas = GameObject.FindObjectOfType<Canvas>();
+        OpenLoginPanel();
+        mongoDBManager = FindObjectOfType<DBManager>();
+    }
 
-    // UI 관련 메서드
+    // UI 패널 열기 메서드들
     public void OpenLoginPanel()
     {
         if (_canvas != null)
