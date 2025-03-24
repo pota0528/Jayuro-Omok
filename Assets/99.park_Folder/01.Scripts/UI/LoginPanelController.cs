@@ -44,13 +44,13 @@ using UnityEngine.Rendering;
                 UserSessionManager.Instance.SetPlayerData(player);
                 // 로그인한 유저 데이터를 UIManager에 저장
                 UIManager.Instance.SetPlayerData(player);
-               
                 UIManager.Instance.OpenUserPanel();
             }
             else
             {
                 Debug.Log("로그인 실패");
             }
+            Destroy(gameObject);
             
         }
 
