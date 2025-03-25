@@ -69,4 +69,10 @@ public class Timer : MonoBehaviour
         headCapImage[1].gameObject.SetActive(false);
         _isPaused = true;
     }
+
+    public void ChangeTurnResetTimer()
+    {
+        InitTimer();
+        StartTimer();
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -13,11 +14,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject signUpPanel;
     [SerializeField] private GameObject userPanel;
     [SerializeField] private GameObject profilePanel;
+    [SerializeField] private Timer _timer;
+    
     // UI 패널 프리팹 (인스펙터에서 설정)
     
     public enum PlayerType { None, PlayerA, PlayerB }
     private PlayerType[,] _board;
-    private enum TurnType { PlayerA, PlayerB }
+    public enum TurnType { PlayerA, PlayerB }
     private TurnType currentTurn;
     private enum GameResult { None, Win, Lose, Draw }
     private List<Move> moves = new List<Move>();
@@ -36,6 +39,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         StartGame();
+        _timer.InitTimer();
     }
 
     private void StartGame()
@@ -49,6 +53,7 @@ public class GameManager : Singleton<GameManager>
 
     private void EndGame(GameResult gameResult)
     {
+        _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
 
@@ -81,19 +86,31 @@ public class GameManager : Singleton<GameManager>
     private void SetTurn(TurnType turnType)
     {
         currentTurn = turnType;
+        _timer.StartTimer();
         switch (turnType)
         {
             case TurnType.PlayerA:
+                _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = OnBlockClicked;
                 var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
                 forbiddenCollection = checker.GetForbiddenSpots();
                 SetForbiddenMarks(forbiddenCollection);
+                _timer.OnTimeout = () =>
+                {
+                   
+                    SetTurn(TurnType.PlayerB);
+                };
                 break;
             case TurnType.PlayerB:
+                _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                 _blockController.OnBlockClickedDelegate = null;
                 StartCoroutine(AIMove());
+                _timer.OnTimeout = () =>
+                {
+                    SetTurn(TurnType.PlayerA);
+                };
                 break;
         }
     }
