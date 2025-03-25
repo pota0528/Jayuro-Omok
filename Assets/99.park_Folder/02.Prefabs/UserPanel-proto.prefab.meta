@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 22d41ff5e5cba6d4e88bddbd50cb4cec
+=======
+guid: c1ed41e3e3dfc284791b545f88c5885f
+>>>>>>> parent of 93b74af (Merge branch 'main' into ZJGK-10-상점패널-구현)
 PrefabImporter:
   externalObjects: {}
   userData: 
