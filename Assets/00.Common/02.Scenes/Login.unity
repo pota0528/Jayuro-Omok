@@ -438,7 +438,7 @@ MonoBehaviour:
   winLosePanelPrefab: {fileID: 1459309161923910732, guid: af9e702d77130f54e8c6cc1dd6463540, type: 3}
   startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
   mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
-  parent: {fileID: 1311660854}
+  UpDownResultPanelPrefab: {fileID: 1459309161923910732, guid: b003742a4ddffc743997f5c4895b46f7, type: 3}
 --- !u!1 &1311660850
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,8 +7,8 @@ using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private BlockController _blockController;
-    [SerializeField] private GameUIController _gameUIController;
+    public BlockController _blockController;//자현 추가
+    public GameUIController _gameUIController;//자현 추가
 
     [SerializeField] private Button confirmButton;
     [SerializeField] private Timer _timer;
