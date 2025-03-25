@@ -27,7 +27,7 @@ using UnityEngine.UI;
             if (playerData != null)
             {
                 userNameText.text = playerData.level+"급 "+playerData.nickname;
-                cointText.text = "코인: " +playerData.coin.ToString(); 
+                cointText.text = "코인: " + playerData.coin.ToString(); 
                 //GameManager에서 저장된 이미지 인덱스를 가져와서 프로필 이미지 갱신 
                 //저장된 프로필 이미지 인덱스를 적용
                 Sprite profileImage =UIManager.Instance.GetProfileImage(playerData.imageIndex);

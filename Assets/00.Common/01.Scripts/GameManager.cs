@@ -78,13 +78,14 @@ public class GameManager : Singleton<GameManager>
         _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
-
+        
         string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
         
         switch (gameResult)
         {
             case GameResult.Win:
                 Debug.Log($"{nickname} win");
+                SaveMatch(nickname);
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
@@ -157,7 +158,8 @@ public class GameManager : Singleton<GameManager>
             {
                 //EndGame(gameResult);
                 UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
-                
+                string nickname = playerData.nickname; // 유저 닉네임 가져오기
+                SaveMatch(nickname); // 플레이어 이름으로 저장
             }
                 
         }
