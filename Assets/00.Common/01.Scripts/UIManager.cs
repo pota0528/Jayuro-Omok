@@ -20,7 +20,7 @@ using UnityEngine.SceneManagement;
         //DB관련
         public GameObject playerPrefab;
         private DBManager mongoDBManager;
-        private PlayerData playeData;
+        private PlayerData playerData;
         
         //프로필 이미지 인덱스를 관리하는 변수 
         private int currentIamgeIndex = 0; 
@@ -41,7 +41,7 @@ using UnityEngine.SceneManagement;
 //로그인 후 Player데이터 설정 
         public void SetPlayerData(PlayerData playerData)
         {
-            this.playeData = playerData;
+            this.playerData = playerData;
             Debug.Log(playerData.nickname);
         }
 
@@ -257,7 +257,7 @@ using UnityEngine.SceneManagement;
         {
             var noCoinPanel = Instantiate(noCoinPanelPrefab, parent);
             noCoinPanel.GetComponent<BaseUIController>().Show();
-            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(playeData.coin);//찬영님이 주시는 데이터 형태로
+            noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(playerData.coin);//찬영님이 주시는 데이터 형태로
         }
 
         public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
@@ -267,22 +267,22 @@ using UnityEngine.SceneManagement;
             //_blockGontroller.OnBlockClickedDelegate=null;
             
             var winLosePanel = Instantiate(winLosePanelPrefab, parent);
-            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playeData.coin);
-            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playeData.level);//안에 들어가는 수는 level
+            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
+            int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playerData.level);//안에 들어가는 수는 level
             bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.isWin);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
                 var ResultPanel= Instantiate(messagePopupPrefab, parent);
-                if (playeData.levelPoint > 0)
+                if (playerData.levelPoint > 0)
                 {
-                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playeData.level);
-                    playeData.levelPoint = 0;
+                    ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playerData.level);
+                    playerData.levelPoint = 0;
                 }
-                else if (playeData.levelPoint < 0)
+                else if (playerData.levelPoint < 0)
                 {
-                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playeData.level);
-                    playeData.levelPoint = 0;
+                    ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playerData.level);
+                    playerData.levelPoint = 0;
                 }
                 
             }
