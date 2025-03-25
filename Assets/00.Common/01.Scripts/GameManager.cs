@@ -48,7 +48,8 @@ public class GameManager : Singleton<GameManager>
 
     // 캔버스 참조
     private Canvas _canvas;
-
+    private PlayerData playerData;
+    
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
@@ -57,6 +58,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        playerData = UserSessionManager.Instance.GetPlayerData();
+        _gameUIController.DisplayUserInfo(playerData.nickname, playerData.level.ToString(), playerData.imageIndex);
         StartGame();
         _timer.InitTimer();
     }
@@ -142,6 +145,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnClickedPlaceConfirmButton()
     {
+        AudioManager.Instance.OnPutStone();
         var (row, col) = _gameUIController.GetSelectedPosition();
         if (currentTurn == TurnType.PlayerA && row != -1 && col != -1 && SetNewBoardValue(PlayerType.PlayerA, row, col))
         {
