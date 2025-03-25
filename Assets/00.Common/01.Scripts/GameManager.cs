@@ -140,6 +140,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnClickedPlaceConfirmButton()
     {
+        AudioManager.Instance.OnPutStone();
         var (row, col) = _gameUIController.GetSelectedPosition();
         if (currentTurn == TurnType.PlayerA && row != -1 && col != -1 && SetNewBoardValue(PlayerType.PlayerA, row, col))
         {
