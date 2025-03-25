@@ -215,6 +215,7 @@ using UnityEngine.SceneManagement;
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
     {
+        
         var startTitlePanel = Instantiate(startTitlePanelPrefab, parent);
     }
         //메시지팝업 오픈
@@ -258,64 +259,41 @@ using UnityEngine.SceneManagement;
             var winLosePanel = Instantiate(winLosePanelPrefab, parent);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playeData.coin);
             int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playeData.level);//안에 들어가는 수는 level
-            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, playeData.level);
+            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.isWin);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
                 var ResultPanel= Instantiate(messagePopupPrefab, parent);
-                if (YuConstants.levelPoint > 0)
+                if (playeData.levelPoint > 0)
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playeData.level);
-                    YuConstants.levelPoint = 0;
-                    Debug.Log(YuConstants.levelPoint);
+                    playeData.levelPoint = 0;
                 }
-                else if (YuConstants.levelPoint < 0)
+                else if (playeData.levelPoint < 0)
                 {
                     ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playeData.level);
-                    YuConstants.levelPoint = 0;
-                    Debug.Log(YuConstants.levelPoint);
+                    playeData.levelPoint = 0;
                 }
                 
             }
             
-            if (!YuConstants.isWin)
+            if (YuConstants.isWin==false)
             {
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, parent);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainLosePanelOpen();
             }
+            else
+            {
+                var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, parent);
+                mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
+            }
+
             
+
         }
         
-        //패널 사용하는 방법
-        public void TestShowMessagePopupButton()
-        {
-            OpenMessagePopup("로그인이 되었습니다.");
-        }
-
-        public void TestShowSettingPopupButton()
-        {
-            OpenSettingPopup();
-        }
-
-        public void TestGiveupPanelButton()
-        {
-            OpenGiveupPanel();
-        }
-
-        public void TestNoCoinPanelButton()
-        {
-            OpenNoCoinPanel();
-        }
 
     #endregion
-
-
-
-
-    #region 데이터처리
-
     
-
-    #endregion
 
 }

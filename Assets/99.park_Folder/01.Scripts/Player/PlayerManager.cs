@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
     public class PlayerManager : Singleton<PlayerManager>
     {
-       
         public string nickname;
         public string id;
         public string password;
@@ -35,6 +34,8 @@ using UnityEngine.SceneManagement;
         {
           
         }
+        
+        
     }
 
 

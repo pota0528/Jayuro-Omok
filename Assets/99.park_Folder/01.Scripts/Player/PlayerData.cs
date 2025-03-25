@@ -29,4 +29,7 @@ using System.Collections.Generic;
     {
         //기보 정보 
     }
+
+    
+
     
