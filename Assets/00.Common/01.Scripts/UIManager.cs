@@ -259,18 +259,21 @@ using UnityEngine.SceneManagement;
         }
 
         public void OpenWinLosePanel(GameManager.GameResult gameResult)//GameResult형의 gameResult (GameResult gameResult)
-        {
-            // GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-            // GameManager.Instance._blockController.OnBlockClickedDelegate=null;
+        { 
+            GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+            GameManager.Instance._blockController.OnBlockClickedDelegate=null;
             
             var winLosePanel = Instantiate(winLosePanelPrefab, _canvas.transform);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
+            winLosePanel.GetComponent<WinLosePanelController>().ShowResultPanel();
             int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playerData.level);//안에 들어가는 수는 level
             bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, gameResult);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
                 var ResultPanel= Instantiate(UpDownResultPanelPrefab, _canvas.transform);
+                ResultPanel.GetComponent<MessagePopupController>().ShowResultPanel();
+                
                 if (playerData.levelPoint > 0)
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playerData.level);

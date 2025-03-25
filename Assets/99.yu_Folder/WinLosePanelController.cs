@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class WinLosePanelController : MessagePopupController
 {
-    [Header("subPanel")]
+    [Header("Panel")]
     [SerializeField] private GameObject gaugeBlockPrefab;
     [SerializeField] private GameObject[] plusGaugeBlocks;
     [SerializeField] private GameObject[] minusGaugeBlocks;
@@ -20,7 +20,7 @@ public class WinLosePanelController : MessagePopupController
     [SerializeField] private TextMeshProUGUI maxText;
     [SerializeField] private TextMeshProUGUI minText;
     [SerializeField] private TextMeshProUGUI coinText;
-
+    
     private int levelCount;
 
     private PlayerData playerData;
@@ -28,6 +28,8 @@ public class WinLosePanelController : MessagePopupController
     private void Awake()
     {
         playerData = UserSessionManager.Instance.GetPlayerData();
+
+        winLosePanelObject.SetActive(false);
     }
 
 
@@ -35,6 +37,8 @@ public class WinLosePanelController : MessagePopupController
     {
         coinText.text = coin.ToString();
     }
+
+    
 
     public int GetLevelCount(int level)
     {
@@ -112,7 +116,6 @@ public class WinLosePanelController : MessagePopupController
             }
             else
             {
-                playerData.levelPoint--;
                 GetComponent<MessagePopupController>().Show("게임에서 패배하였습니다.\n1승급 포인트를 잃었습니다.");
                 levelPointResultText.text = (playerData.levelPoint + currentLevelCount) + "게임을 패배하면\n강등됩니다.";
             
@@ -171,19 +174,18 @@ public class WinLosePanelController : MessagePopupController
     {
         Hide(() =>
         {
-            //TODO: 메인씬+상점패널로 이동
-            //게임씬 이동
-            SceneManager.LoadScene("Game");
             //todo: 코인 -100차감
             if (playerData.coin < 100)
             {
                 UIManager.Instance.OpenNoCoinPanel();
+                Debug.Log("노코인패널");
             }
             else
             {
                 playerData.coin -= 100;
+                SceneManager.LoadScene("Game");
             }
-
+            
         });
     }
 
