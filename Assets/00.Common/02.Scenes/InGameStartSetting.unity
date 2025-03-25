@@ -1224,8 +1224,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1642,8 +1642,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2078,10 +2078,7 @@ MonoBehaviour:
   _blockController: {fileID: 1671336801930602600}
   _gameUIController: {fileID: 1845519651}
   confirmButton: {fileID: 6828135431746714881}
-  loginPanel: {fileID: 0}
-  signUpPanel: {fileID: 0}
-  userPanel: {fileID: 0}
-  profilePanel: {fileID: 0}
+  _timer: {fileID: 621719457}
 --- !u!114 &1845519651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29179,8 +29176,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -31214,8 +31211,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Click
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

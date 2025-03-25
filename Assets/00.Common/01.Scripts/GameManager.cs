@@ -3,34 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private BlockController _blockController;
     [SerializeField] private GameUIController _gameUIController;
+
     [SerializeField] private Button confirmButton;
-   
-    public enum PlayerType { None, PlayerA, PlayerB }
+    [SerializeField] private Timer _timer;
+
+        // UI 패널 프리팹 (인스펙터에서 설정)
+
+    public enum PlayerType
+    {
+        None,
+        PlayerA,
+        PlayerB
+    }
+
     private PlayerType[,] _board;
-    private enum TurnType { PlayerA, PlayerB }
+
+    public enum TurnType
+    {
+        PlayerA,
+        PlayerB
+    }
+
     private TurnType currentTurn;
-    private enum GameResult { None, Win, Lose, Draw }
+
+    private enum GameResult
+    {
+        None,
+        Win,
+        Lose,
+        Draw
+    }
+
     private List<Move> moves = new List<Move>();
     private (int, int) currentMoveIndex;
     private List<(int, int)> forbiddenCollection = new List<(int, int)>();
+
     private DBManager mongoDBManager;
+
     // 캔버스 참조
     private Canvas _canvas;
-    
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
         SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 구독
     }
-    
+
     private void Start()
     {
         StartGame();
+        _timer.InitTimer();
     }
 
     private void StartGame()
@@ -44,6 +72,7 @@ public class GameManager : Singleton<GameManager>
 
     private void EndGame(GameResult gameResult)
     {
+        _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
 
@@ -67,7 +96,8 @@ public class GameManager : Singleton<GameManager>
     {
         if (_board[row, col] != PlayerType.None) return false;
         _board[row, col] = playerType;
-        Block.MarkerType markerType = playerType == PlayerType.PlayerA ? Block.MarkerType.Black : Block.MarkerType.White;
+        Block.MarkerType markerType =
+            playerType == PlayerType.PlayerA ? Block.MarkerType.Black : Block.MarkerType.White;
         _blockController.PlaceMarker(markerType, row, col);
         moves.Add(new Move { row = row, col = col, color = playerType == PlayerType.PlayerA ? "흑돌" : "백돌" });
         return true;
@@ -76,26 +106,32 @@ public class GameManager : Singleton<GameManager>
     private void SetTurn(TurnType turnType)
     {
         currentTurn = turnType;
+//        _timer.StartTimer();
         switch (turnType)
         {
             case TurnType.PlayerA:
+                _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = OnBlockClicked;
                 var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
                 forbiddenCollection = checker.GetForbiddenSpots();
                 SetForbiddenMarks(forbiddenCollection);
+                _timer.OnTimeout = () => { SetTurn(TurnType.PlayerB); };
                 break;
             case TurnType.PlayerB:
+                _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                 _blockController.OnBlockClickedDelegate = null;
                 StartCoroutine(AIMove());
+                _timer.OnTimeout = () => { SetTurn(TurnType.PlayerA); };
                 break;
         }
     }
 
     private void OnBlockClicked(int row, int col)
     {
-        if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None && !forbiddenCollection.Contains((row, col)))
+        if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None &&
+            !forbiddenCollection.Contains((row, col)))
         {
             _gameUIController.UpdateSelectedPosition(row, col);
             _blockController.SetPreviewMarker(row, col, true);
@@ -154,6 +190,7 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
+
         for (int col = 0; col < size; col++)
         {
             for (int row = 0; row < size - 4; row++)
@@ -164,6 +201,7 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
+
         for (int row = 0; row < size - 4; row++)
         {
             for (int col = 0; col < size - 4; col++)
@@ -174,6 +212,7 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
+
         for (int row = 0; row < size - 4; row++)
         {
             for (int col = 4; col < size; col++)
@@ -184,6 +223,7 @@ public class GameManager : Singleton<GameManager>
                     return true;
             }
         }
+
         return false;
     }
 
@@ -198,6 +238,7 @@ public class GameManager : Singleton<GameManager>
                     possibleMoves.Add((r, c));
             }
         }
+
         return possibleMoves;
     }
 
@@ -221,10 +262,8 @@ public class GameManager : Singleton<GameManager>
             Debug.LogError("MatchSaver 컴포넌트가 없습니다.");
         }
     }
-    
+
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-       
     }
-
-   }
+}
