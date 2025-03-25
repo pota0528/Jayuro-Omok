@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
                 currentTurnType = TurnType.PlayerA;
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 //최근에 놓인 흑돌을 기준으로, 가로 검사
-                var checker = new ForbiddenRuleChecker(_board, LINE_COUNT, currentMoveindex);
+                var checker = new ForbiddenRuleChecker(_board, currentMoveindex);
                 forbiddenCollecition = checker.GetForbiddenSpots();
                 SetForbiddenMark(forbiddenCollecition);
                 _blockController.OnBlockClickedDelegate = (row, col) =>
