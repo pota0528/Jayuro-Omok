@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private TurnType currentTurn;
 
-    private enum GameResult
+    public enum GameResult//자현 추가, private > public 으로 변경
     {
         None,
         Win,
@@ -151,7 +151,11 @@ public class GameManager : Singleton<GameManager>
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerB);
             else
-                EndGame(gameResult);
+            {
+                //EndGame(gameResult);
+                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+            }
+                
         }
     }
 
@@ -168,7 +172,11 @@ public class GameManager : Singleton<GameManager>
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerA);
             else
-                EndGame(gameResult);
+            {
+                //EndGame(gameResult);
+                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+            }
+                
         }
     }
 
