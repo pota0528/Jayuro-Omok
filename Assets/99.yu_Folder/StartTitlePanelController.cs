@@ -113,9 +113,12 @@ public class StartTitlePanelController : BaseUIController
         Minute.localRotation = Quaternion.Euler(0, 0, -minuteAngle);
         Hour.localRotation = Quaternion.Euler(0, 0, -hourAngle);
     }
-
+    
     private void OnDestroy()
     {
         clockDelegate-=ClockStart;
+        DOTween.KillAll();
     }
+    
+    
 }

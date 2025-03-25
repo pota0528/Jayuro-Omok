@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6370c67a4260be4c9f7bd1b0e2b27c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replayButton: {fileID: 0}
+  replayBlockController: {fileID: 0}
+  exitListButton: {fileID: 0}
   exitButton: {fileID: 0}
   replayController: {fileID: 0}
   matchListController: {fileID: 0}
