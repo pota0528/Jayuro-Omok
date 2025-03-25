@@ -6,15 +6,16 @@ public class Timer : MonoBehaviour
 {
     [SerializeField] private Image[] headCapImage;
     [SerializeField] private TMP_Text[] timeText;
-    
+
     public float CurrentTime { get; private set; }
     private bool _isPaused;
-    
+
     public delegate void GoyaTimerDelegate();
+
     public GoyaTimerDelegate OnTimeout;
 
     private float totalTime = 30f;
-    
+
     private void Awake()
     {
         _isPaused = false;
@@ -29,18 +30,18 @@ public class Timer : MonoBehaviour
             {
                 //headCapImage.gameObject.SetActive(false);
                 _isPaused = true;
-                
+
                 OnTimeout?.Invoke();
             }
             else
             {
                 float fillAmount = (totalTime - CurrentTime) / totalTime;
-                headCapImage[0].transform.localRotation = 
+                headCapImage[0].transform.localRotation =
                     Quaternion.Euler(new Vector3(0, 0, fillAmount * -90));
-                
-                headCapImage[1].transform.localRotation = 
+
+                headCapImage[1].transform.localRotation =
                     Quaternion.Euler(new Vector3(0, 0, fillAmount * -90));
-                
+
                 var timeTextTime = totalTime - CurrentTime;
                 timeText[0].text = timeTextTime.ToString("F0");
                 timeText[1].text = timeTextTime.ToString("F0");

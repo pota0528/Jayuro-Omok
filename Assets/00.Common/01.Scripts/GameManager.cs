@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Button confirmButton;
     [SerializeField] private Timer _timer;
 
-        // UI 패널 프리팹 (인스펙터에서 설정)
+    // UI 패널 프리팹 (인스펙터에서 설정)
 
     public enum PlayerType
     {
@@ -106,7 +106,7 @@ public class GameManager : Singleton<GameManager>
     private void SetTurn(TurnType turnType)
     {
         currentTurn = turnType;
-//        _timer.StartTimer();
+        _timer.StartTimer();
         switch (turnType)
         {
             case TurnType.PlayerA:
