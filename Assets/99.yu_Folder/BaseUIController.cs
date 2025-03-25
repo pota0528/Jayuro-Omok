@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(CanvasGroup))]
@@ -38,8 +39,7 @@ public class BaseUIController : MonoBehaviour
         Hide(() =>
         {
             //TODO: 메인씬+프로필패널로 이동
-            //SceneManager.LoadScene("");
-            Debug.Log("메인씬으로 이동");
+            SceneManager.LoadScene("Main");
         });
     }
 }

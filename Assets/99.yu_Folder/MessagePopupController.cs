@@ -15,6 +15,8 @@ public class MessagePopupController : BaseUIController
         base.Show();
         messageText.text = message;
     }
+
+   
 }
     
 

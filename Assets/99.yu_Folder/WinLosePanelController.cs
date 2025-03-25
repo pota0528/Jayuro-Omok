@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.tvOS;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class WinLosePanelController : MessagePopupController
 {
@@ -23,6 +24,13 @@ public class WinLosePanelController : MessagePopupController
     
 
     private int levelCount;
+
+    private PlayerData playerData;
+
+    private void Awake()
+    {
+        playerData = UserSessionManager.Instance.GetPlayerData();
+    }
 
 
     public void ShowCoinText(int coin) //찬영님이 주시는 데이터 형태로 넣기
@@ -48,69 +56,96 @@ public class WinLosePanelController : MessagePopupController
         return levelCount;
     }
 
-    public bool SetResultPanel(int currentLevelCount, int levelPoint)
+    public bool SetResultPanel(int currentLevelCount, bool isWin)
     {
-        if (currentLevelCount + levelPoint <= 0)
+        if (isWin)
         {
-            //TODO: 강등패널 띄우기
-            if (YuConstants.level <= 18 && YuConstants.level >= 1)
+            playerData.levelPoint++;
+            if (currentLevelCount - Mathf.Abs(playerData.levelPoint) <= 0)
             {
-                YuConstants.level++; //급수가 클수록 레벨이 낮음
+                //Todo: 승급패널 띄우기
+                if (playerData.level <= 18 && playerData.level >= 1)
+                {
+                    playerData.level--; //급수가 클수록 레벨이 낮음
+                }
+                Destroy(gameObject);
+                UserSessionManager.Instance.SetPlayerData(playerData);
+                DBManager.Instance.UpdatePlayerData(playerData);
+                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+                return false;
             }
-
-            Destroy(gameObject);
-            return false;
-        }
-        else if (currentLevelCount - Mathf.Abs(levelPoint) <= 0)
-        {
-            //Todo: 승급패널 띄우기
-            if (YuConstants.level <= 18 && YuConstants.level >= 1)
-            {
-                YuConstants.level--; //급수가 클수록 레벨이 낮음
-            }
-
-            ;
-            Destroy(gameObject);
-            return false;
-        }
-        else
-        {
-            if (YuConstants.isWin) //if(GameLogic.GameResult.Win)
+            else
             {
                 GetComponent<MessagePopupController>().Show("게임에서 승리하였습니다.\n1승급 포인트를 받았습니다.");
                 levelPointResultText.text =
-                    currentLevelCount * 2 - (levelPoint + currentLevelCount) + "게임을 승리하면\n승급됩니다.";
-            }
-
-            else //else if(GameLogic.GameResult.Lose)
-            {
-                GetComponent<MessagePopupController>().Show("게임에서 패배하였습니다.\n1승급 포인트를 잃었습니다.");
-                levelPointResultText.text = (levelPoint + currentLevelCount) + "게임을 패배하면\n강등됩니다.";
+                    currentLevelCount * 2 - (playerData.levelPoint + currentLevelCount) + "게임을 승리하면\n승급됩니다.";
                 
+                plusGaugeBlocks = new GameObject[currentLevelCount];
+                minusGaugeBlocks = new GameObject[currentLevelCount];
+                minText.text = "-" + Mathf.Abs(currentLevelCount);
+                maxText.text = "+" + Mathf.Abs(currentLevelCount);
+                
+                InitGaugeBlocks(currentLevelCount); //게이지바 초기화
+                ColorGaugeBlocks(); //게이지바 색칠하기
+                
+                UserSessionManager.Instance.SetPlayerData(playerData);
+                DBManager.Instance.UpdatePlayerData(playerData);
+                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+                return true;
             }
+        }
+        
+        if (!isWin)
+        {
+            playerData.levelPoint--;
+            if (currentLevelCount-Mathf.Abs(playerData.levelPoint) <= 0)
+            {
+                //todo: 강등패널띄우기
+                if (playerData.level <= 18 && playerData.level >= 1)//[데이터 처리]-level
+                {
+                    playerData.level++; //급수가 클수록 레벨이 낮음, [데이터 처리]-level
+                }
+                Destroy(gameObject);
+                UserSessionManager.Instance.SetPlayerData(playerData);
+                DBManager.Instance.UpdatePlayerData(playerData);
+                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+                return false;
+            }
+            else
+            {
+                playerData.levelPoint--;
+                GetComponent<MessagePopupController>().Show("게임에서 패배하였습니다.\n1승급 포인트를 잃었습니다.");
+                levelPointResultText.text = (playerData.levelPoint + currentLevelCount) + "게임을 패배하면\n강등됩니다.";
+            
+                plusGaugeBlocks = new GameObject[currentLevelCount];
+                minusGaugeBlocks = new GameObject[currentLevelCount];
+                minText.text = "-" + Mathf.Abs(currentLevelCount);
+                maxText.text = "+" + Mathf.Abs(currentLevelCount);
+                
+                UserSessionManager.Instance.SetPlayerData(playerData);
+                DBManager.Instance.UpdatePlayerData(playerData);
+                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+            
+                InitGaugeBlocks(currentLevelCount); //게이지바 초기화
+                ColorGaugeBlocks(); //게이지바 색칠하기
 
-            plusGaugeBlocks = new GameObject[currentLevelCount];
-            minusGaugeBlocks = new GameObject[currentLevelCount];
-            minText.text = "-" + Mathf.Abs(currentLevelCount);
-            maxText.text = "+" + Mathf.Abs(currentLevelCount);
-
-            InitGaugeBlocks(); //게이지바 초기화
-            ColorGaugeBlocks(); //게이지바 색칠하기
+                return true;
+            }
         }
 
         return true;
     }
 
-    private void InitGaugeBlocks() //게이지바 초기화
+    private void InitGaugeBlocks(int currentLevelCount) //게이지바 초기화
     {
-        for (int i = 0; i < levelCount; i++)
+        for (int i = 0; i < currentLevelCount; i++)
         {
             GameObject plusGaugeBlockObject = Instantiate(gaugeBlockPrefab, plusGaugeBlocksGroup);
             plusGaugeBlockObject.GetComponent<Image>().color = new Color32(217, 217, 217, 255);
             plusGaugeBlocks[i] = plusGaugeBlockObject;
         }
 
-        for (int i = levelCount - 1; i >= 0; i--)
+        for (int i = currentLevelCount - 1; i >= 0; i--)
         {
             GameObject minusGaugeBlockObject = Instantiate(gaugeBlockPrefab, minusGaugeBlocksGroup);
             minusGaugeBlockObject.GetComponent<Image>().color = new Color32(217, 217, 217, 255);
@@ -121,13 +156,13 @@ public class WinLosePanelController : MessagePopupController
     private void ColorGaugeBlocks() //게이지바 색칠하기
     {
         //승점포인트 색칠하기
-        for (int i = 0; i < Mathf.Abs(YuConstants.levelPoint); i++)
+        for (int i = 0; i < Mathf.Abs(playerData.levelPoint); i++)
         {
-            if (YuConstants.levelPoint > 0)
+            if (playerData.levelPoint > 0)
             {
                 plusGaugeBlocks[i].GetComponent<Image>().color = Color.black;
             }
-            else if (YuConstants.levelPoint < 0)
+            else if (playerData.levelPoint < 0)
             {
                 minusGaugeBlocks[i].GetComponent<Image>().color = Color.black;
             }
@@ -142,23 +177,28 @@ public class WinLosePanelController : MessagePopupController
             //게임씬 이동
             Debug.Log("게임씬으로 이동");
             //todo: 코인 -100차감
-            if (YuConstants.coin < 100)
+            if (playerData.coin < 100)
             {
                 UIManager.Instance.OpenNoCoinPanel();
             }
             else
             {
-                YuConstants.coin -= 100;
+                playerData.coin -= 100;
             }
 
-            Debug.Log(YuConstants.coin + "얼마냐면");
         });
     }
 
+    public void WinLosePanelConfirmButton()
+    {
+        base.OnClickExitButton();
+    }
+    
     private void OnDestroy()
     {
         //todo: 데이터 저장(코인, 급수, 승점포인트)
-        Debug.Log("데이터 저장");
+        UserSessionManager.Instance.SetPlayerData(playerData);
+        DBManager.Instance.UpdatePlayerData(playerData);
     }
 
     
