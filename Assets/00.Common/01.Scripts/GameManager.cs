@@ -9,12 +9,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private BlockController _blockController;
     [SerializeField] private GameUIController _gameUIController;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private GameObject loginPanel;
-    [SerializeField] private GameObject signUpPanel;
-    [SerializeField] private GameObject userPanel;
-    [SerializeField] private GameObject profilePanel;
-    // UI 패널 프리팹 (인스펙터에서 설정)
-    
+   
     public enum PlayerType { None, PlayerA, PlayerB }
     private PlayerType[,] _board;
     private enum TurnType { PlayerA, PlayerB }
@@ -229,33 +224,7 @@ public class GameManager : Singleton<GameManager>
     
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        _canvas = GameObject.FindObjectOfType<Canvas>();
-        OpenLoginPanel();
-        mongoDBManager = FindObjectOfType<DBManager>();
+       
     }
 
-    // UI 패널 열기 메서드들
-    public void OpenLoginPanel()
-    {
-        if (_canvas != null)
-            Instantiate(loginPanel, _canvas.transform);
-    }
-
-    public void OpenSignUpPanel()
-    {
-        if (_canvas != null)
-            Instantiate(signUpPanel, _canvas.transform);
-    }
-
-    public void OpenUserPanel()
-    {
-        if (_canvas != null)
-            Instantiate(userPanel, _canvas.transform);
-    }
-
-    public void OpenProfilePanel()
-    {
-        if (_canvas != null)
-            Instantiate(profilePanel, _canvas.transform);
-    }
-}
+   }
