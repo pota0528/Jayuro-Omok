@@ -31,7 +31,7 @@ using UnityEngine.UI;
 
         private void Start()
         {
-            SetTitleText("RANKING"); // 패널 타이틀 설정
+            SetTitleText("장원급제"); // 패널 타이틀 설정
             ReloadData(); // 데이터 로드 및 초기 화면 설정
         }
 
