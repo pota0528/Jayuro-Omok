@@ -588,7 +588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: 0}
+  m_AnchoredPosition: {x: 46, y: 0}
   m_SizeDelta: {x: 1300, y: 1000}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8473118157002074852
@@ -618,7 +618,6 @@ MonoBehaviour:
   - {fileID: 2311796961726100581}
   - {fileID: 7050987635692796873}
   gameOverButton: {fileID: 0}
-  StopTouchPanel: {fileID: 0}
 --- !u!1 &3461430704165547388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1385,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: lee_namespace.GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnClickedPlaceConfirmButton
         m_Mode: 1
         m_Arguments:

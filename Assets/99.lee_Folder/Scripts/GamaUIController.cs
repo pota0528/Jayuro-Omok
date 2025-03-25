@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
     {
-        [SerializeField] private Image[] playerAImage;
-        [SerializeField] private Image[] playerBImage;
+        [SerializeField] private Image playerAImage;
+        [SerializeField] private Image playerBImage;
         [SerializeField] private Button gameOverButton;
-        [SerializeField] private Image StopTouchPanel;
 
         public enum GameUIMode
         {
@@ -26,26 +25,18 @@ public class GameUIController : MonoBehaviour
             switch (mode)
             {
                 case GameUIMode.Init:
-                    StopTouchPanel.enabled = false;
-                    playerAImage[0].color = new Color32(221, 221, 221, 255);
-                    playerBImage[0].color = new Color32(221, 221, 221, 255);
-                    playerAImage[0].color = new Color32(221, 221, 221, 255);
-                    playerBImage[0].color = new Color32(221, 221, 221, 255);
+                    playerAImage.color = new Color32(221, 221, 221, 255);
+                    playerBImage.color = new Color32(221, 221, 221, 255);
                     break;
                 case GameUIMode.TurnA:
-                    playerAImage[0].color = new Color32(105, 255, 132, 255);
-                    playerBImage[0].color = new Color32(221, 221, 221, 255);
-                    playerAImage[1].color = new Color32(105, 255, 132, 255);
-                    playerBImage[1].color = new Color32(221, 221, 221, 255);
+                    playerAImage.color = new Color32(105, 255, 132, 255);
+                    playerBImage.color = new Color32(221, 221, 221, 255);
                     break;
                 case GameUIMode.TurnB:
-                    playerAImage[0].color = new Color32(221, 221, 221, 255);
-                    playerBImage[0].color = new Color32(105, 255, 132, 255);
-                    playerAImage[1].color = new Color32(221, 221, 221, 255);
-                    playerBImage[1].color = new Color32(105, 255, 132, 255);
+                    playerAImage.color = new Color32(221, 221, 221, 255);
+                    playerBImage.color = new Color32(105, 255, 132, 255);
                     break;
                 case GameUIMode.GameOver:
-                    StopTouchPanel.enabled = true;
                     //playerAImage[0].gameObject.SetActive(false);
                     //playerBImage[0].gameObject.SetActive(false);
                     //playerAImage[1].gameObject.SetActive(false);
