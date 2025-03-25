@@ -9,7 +9,7 @@ using Debug = UnityEngine.Debug;
     {
         //TODO: 버튼 클릭하면 그 이미지 정보를 저장하기 
         [SerializeField] private Button[] profileButtons; //버튼
-        [SerializeField] public Sprite[] profileSprites; //프로필 이미지를 담을 배열 
+        
 
         private void Start()
         {
@@ -26,24 +26,31 @@ using Debug = UnityEngine.Debug;
         {
             for (int i = 0; i < profileButtons.Length; i++)
             {
-                profileButtons[i].GetComponent<Image>().sprite = profileSprites[i];
+                Sprite profileImage= UIManager.Instance.GetProfileImage(i);
+                profileButtons[i].GetComponent<Image>().sprite =profileImage;
             }
         }
 
         //버튼 클릭 시 프로필 이미지 변경 
         public void OnProfileButtonClicked(int index)
         {
-            if (index >= 0 && index < profileSprites.Length)
-            {
+            if (index >= 0)
+            { 
+                //선택한 인덱스를 UIManager에 저장
+                UIManager.Instance.SetProfileImageIndex(index);
                 //이미지 인덱스를 GameManager에 저장
-                UIManager.Instance.UpdateUserProfileImage(profileSprites[index]);
+                 Sprite selectedSprite =UIManager.Instance.GetProfileImage(index);
+                 UIManager.Instance.UpdateUserProfileImage(selectedSprite);
+                //UiserSessionManager에 프로필 인덱스를 저장
+                var playerData = UserSessionManager.Instance.GetPlayerData();
+                if (playerData != null)
+                {
+                    playerData.imageIndex = index;
+                    DBManager.Instance.UpdatePlayerData(playerData,updateImageOnly:true);
+                }
             }
         }
-        //profileSprite반황 매서드
-        public Sprite[] GetProfileSprites()
-        {
-            return profileSprites;
-        }
+   
 
         
         public void OnClickConfirmButton()

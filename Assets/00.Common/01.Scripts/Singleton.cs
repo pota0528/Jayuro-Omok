@@ -28,7 +28,7 @@
         
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_instance == null)
             {
@@ -44,7 +44,10 @@
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        protected abstract void OnSceneLoaded(Scene scene, LoadSceneMode mode);
+        protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            
+        }
    
     }
 
