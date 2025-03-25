@@ -10,6 +10,7 @@ public class ObjectPool : MonoBehaviour
 
     private Queue<GameObject> _pool;
 
+    
     private static ObjectPool _instance;
 
     public static ObjectPool Instance
