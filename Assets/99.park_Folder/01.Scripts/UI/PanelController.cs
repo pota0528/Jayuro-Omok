@@ -1,13 +1,14 @@
 
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
-
-    //캔버스 그룹이 꼭 있어야한다.
+//캔버스 그룹이 꼭 있어야한다.
     [RequireComponent(typeof(CanvasGroup))]
     public class PanelController : MonoBehaviour
     {
-  
+        [SerializeField] private TextMeshProUGUI titleText;
+
 //팝업창 
         [SerializeField] private RectTransform panelRectTransform;
         //배경   
@@ -15,11 +16,17 @@ using DG.Tweening;
 
         public delegate void PanelControllerHideDelegate();
     
-        private void Awake()
+        protected virtual void Awake()
         {
             _backgroundcanvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public void SetTitleText(string title)
+        {
+            titleText.text = title;
+        }
+        
+        
         /// <summary>
         /// panel 표시 함수 
         /// </summary>
