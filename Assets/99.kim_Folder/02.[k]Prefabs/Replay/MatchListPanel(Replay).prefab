@@ -103,7 +103,7 @@ RectTransform:
   m_GameObject: {fileID: 4340877063781509701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9032975688202154409}
@@ -143,8 +143,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB4A4\uB85C\uAC00\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+  m_sharedMaterial: {fileID: 6493573238112623700, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -275,10 +275,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0B4 \uAE30\uBCF4\uBCF4\uAE30"
+  m_text: "\uAE30\uBCF4 \uB9AC\uC2A4\uD2B8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+  m_sharedMaterial: {fileID: 6493573238112623700, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 4679236466664205669}
   - component: {fileID: 2468447510415889694}
   - component: {fileID: 220102546785615042}
+  - component: {fileID: 3062566148902389487}
   m_Layer: 5
   m_Name: MatchListPanel(Replay)
   m_TagString: Untagged
@@ -527,6 +528,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollView: {fileID: 5533980732713228415}
+--- !u!114 &3062566148902389487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427093945622671745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c0dfd9b795537e04e8ba56a3c830c27d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8450782021205468379
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 03408e9704b3dee45a0ad5990c326047, type: 3}
     - target: {fileID: 3828567883408868301, guid: b5ccbaf711740a04e996748f20faf481, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7246100388909279557, guid: b5ccbaf711740a04e996748f20faf481, type: 3}
       propertyPath: m_Pivot.y
@@ -732,7 +763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7246100388909279557, guid: b5ccbaf711740a04e996748f20faf481, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1500
+      value: 650
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 27502382348773812, guid: b5ccbaf711740a04e996748f20faf481, type: 3}

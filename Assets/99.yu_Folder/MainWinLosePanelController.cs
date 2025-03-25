@@ -41,5 +41,9 @@ public class MainWinLosePanelController : MonoBehaviour
             mainWinText.DOFade(1f, 1f);
         });
     }
-    
+
+    private void OnDestroy()
+    {
+        transform.DOKill();
+    }
 }
