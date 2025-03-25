@@ -50,7 +50,7 @@ using UnityEngine.SceneManagement;
             if (_canvas != null)
             {
                 Debug.Log("로그인패널열기");
-              Instantiate(loginPanel, _canvas.transform);
+              Instantiate(loginPanel, parent);//수정
                
             }
         }
@@ -165,6 +165,7 @@ using UnityEngine.SceneManagement;
     {
         base.Awake();
         coinCount = UserInformations.CoinCount;
+    
             
     }
     
