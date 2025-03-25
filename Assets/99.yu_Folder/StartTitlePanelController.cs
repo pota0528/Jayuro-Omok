@@ -117,5 +117,6 @@ public class StartTitlePanelController : BaseUIController
     private void OnDestroy()
     {
         clockDelegate-=ClockStart;
+        transform.DOKill();
     }
 }
