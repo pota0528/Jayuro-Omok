@@ -54,11 +54,12 @@ public class WinLosePanelController : MessagePopupController
         return levelCount;
     }
 
-    public bool SetResultPanel(int currentLevelCount, bool isWin)
+    public bool SetResultPanel(int currentLevelCount, GameManager.GameResult gameResult)
     {
-        if (isWin)
+        if (gameResult == GameManager.GameResult.Win)
         {
             playerData.levelPoint++;
+            playerData.win++;
             if (currentLevelCount - Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //Todo: 승급패널 띄우기
@@ -93,9 +94,10 @@ public class WinLosePanelController : MessagePopupController
             }
         }
         
-        if (!isWin)
+        if (gameResult == GameManager.GameResult.Lose)
         {
             playerData.levelPoint--;
+            playerData.lose++;
             if (currentLevelCount-Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //todo: 강등패널띄우기
@@ -173,7 +175,7 @@ public class WinLosePanelController : MessagePopupController
         {
             //TODO: 메인씬+상점패널로 이동
             //게임씬 이동
-            Debug.Log("게임씬으로 이동");
+            SceneManager.LoadScene("Game");
             //todo: 코인 -100차감
             if (playerData.coin < 100)
             {
@@ -197,7 +199,7 @@ public class WinLosePanelController : MessagePopupController
         //todo: 데이터 저장(코인, 급수, 승점포인트)
         UserSessionManager.Instance.SetPlayerData(playerData);
         DBManager.Instance.UpdatePlayerData(playerData);
-        UserPanelController.Instance.UpdataUI();
+        DOTween.KillAll();
         
     }
 

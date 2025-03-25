@@ -257,7 +257,7 @@ using UnityEngine.SceneManagement;
             noCoinPanel.GetComponent<NoCoinController>().ShowCoinText(playerData.coin);//찬영님이 주시는 데이터 형태로
         }
 
-        public void OpenWinLosePanel()//GameResult형의 gameResult (GameResult gameResult)
+        public void OpenWinLosePanel(GameManager.GameResult gameResult)//GameResult형의 gameResult (GameResult gameResult)
         {
             //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
             //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
@@ -266,7 +266,7 @@ using UnityEngine.SceneManagement;
             var winLosePanel = Instantiate(winLosePanelPrefab, _canvas.transform);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
             int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playerData.level);//안에 들어가는 수는 level
-            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, YuConstants.isWin);
+            bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, gameResult);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
@@ -284,7 +284,7 @@ using UnityEngine.SceneManagement;
                 
             }
             
-            if (YuConstants.isWin==false)
+            if (gameResult==GameManager.GameResult.Lose)
             {
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, _canvas.transform);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainLosePanelOpen();

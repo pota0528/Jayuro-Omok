@@ -21,7 +21,6 @@ public class ReplayBlockController : MonoBehaviour
                                                        //Transform값은 1차원 배열이라 1차원배열로 우선 index값 받아와야함
                 GameObject cell = Instantiate(omokCellPrefab, omokPositionList[blockLine]);
                 // 위치 계산 및 설정 (Transform 사용)
-                cell.transform.localScale = Vector3.one;
 
                 // Block 컴포넌트 가져오기
                 Block omokBlock = cell.GetComponent<Block>();
@@ -33,7 +32,8 @@ public class ReplayBlockController : MonoBehaviour
 
                 // Block 초기화 (기보 화면이므로 클릭 이벤트는 필요 없음)
                 omokBlock.InitMarker(row * OMOK_LINE + col, null);
-
+                cell.transform.localScale = Vector3.one;
+                
                 // 배열에 저장
                 blocks[row, col] = omokBlock;
             }

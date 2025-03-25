@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private TurnType currentTurn;
 
-    private enum GameResult
+    public enum GameResult//자현 추가, private > public 으로 변경
     {
         None,
         Win,
@@ -48,7 +48,8 @@ public class GameManager : Singleton<GameManager>
 
     // 캔버스 참조
     private Canvas _canvas;
-
+    private PlayerData playerData;
+    
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
@@ -57,6 +58,8 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        playerData = UserSessionManager.Instance.GetPlayerData();
+        _gameUIController.DisplayUserInfo(playerData.nickname, playerData.level.ToString(), playerData.imageIndex);
         StartGame();
         _timer.InitTimer();
     }
@@ -75,19 +78,22 @@ public class GameManager : Singleton<GameManager>
         _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
-
+        
+        string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
+        
         switch (gameResult)
         {
             case GameResult.Win:
-                Debug.Log("PlayerA win");
-                SaveMatch("PlayerA");
+                Debug.Log($"{nickname} win");
+                SaveMatch(nickname);
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
-                SaveMatch("AI");
+                SaveMatch("AI"); // AI가 이기면 AI로 저장
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
+                SaveMatch(nickname + "Draw"); // 무승부 시 유저 닉네임으로 매치 저장
                 break;
         }
     }
@@ -140,6 +146,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnClickedPlaceConfirmButton()
     {
+        AudioManager.Instance.OnPutStone();
         var (row, col) = _gameUIController.GetSelectedPosition();
         if (currentTurn == TurnType.PlayerA && row != -1 && col != -1 && SetNewBoardValue(PlayerType.PlayerA, row, col))
         {
@@ -148,7 +155,13 @@ public class GameManager : Singleton<GameManager>
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerB);
             else
-                EndGame(gameResult);
+            {
+                //EndGame(gameResult);
+                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+                string nickname = playerData.nickname; // 유저 닉네임 가져오기
+                SaveMatch(nickname); // 플레이어 이름으로 저장
+            }
+                
         }
     }
 
@@ -165,7 +178,11 @@ public class GameManager : Singleton<GameManager>
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerA);
             else
-                EndGame(gameResult);
+            {
+                //EndGame(gameResult);
+                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+            }
+                
         }
     }
 
