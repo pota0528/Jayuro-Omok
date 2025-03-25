@@ -452,10 +452,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4532724693613919230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecdabd5d4160c6e4d983a848bc803956, type: 3}
+  m_Script: {fileID: 11500000, guid: b42612d4ef4dc91469fe6e721dad4996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 797655088413926577, guid: 9b13263047c118c40a7218477e514e30, type: 3}
+  prefab: {fileID: 797655088413926577, guid: 9b13263047c118c40a7218477e514e30, type: 3}
+  poolSize: 0
   parent: {fileID: 455246835586962282}
 --- !u!1 &4561540710020657620
 GameObject:
@@ -565,9 +566,9 @@ MonoBehaviour:
   rankingCellPrefab: {fileID: 797655088413926577, guid: 9b13263047c118c40a7218477e514e30, type: 3}
   contentTransform: {fileID: 455246835586962282}
   ScrollView: {fileID: 2525506085564611888}
-  rankingCellColCount: 1
   cellHeight: 150
   spacingY: 10
+  _maxRankingCount: 50
 --- !u!1 &4725289248052996255
 GameObject:
   m_ObjectHideFlags: 0
