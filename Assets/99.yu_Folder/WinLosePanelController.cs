@@ -21,8 +21,6 @@ public class WinLosePanelController : MessagePopupController
     [SerializeField] private TextMeshProUGUI minText;
     [SerializeField] private TextMeshProUGUI coinText;
 
-    
-
     private int levelCount;
 
     private PlayerData playerData;
@@ -199,6 +197,8 @@ public class WinLosePanelController : MessagePopupController
         //todo: 데이터 저장(코인, 급수, 승점포인트)
         UserSessionManager.Instance.SetPlayerData(playerData);
         DBManager.Instance.UpdatePlayerData(playerData);
+        UserPanelController.Instance.UpdataUI();
+        
     }
 
     
