@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-    public class UserPanelController : MonoBehaviour
+    public class UserPanelController : Singleton<UserPanelController>
     {
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text cointText;
