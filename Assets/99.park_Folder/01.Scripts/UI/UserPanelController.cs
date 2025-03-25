@@ -81,6 +81,11 @@ using UnityEngine.UI;
         {
             UIManager.Instance.OpenProfilePanel();
         }
+        
+        public string GetPlayerNickname()
+        {
+            return playerData?.nickname ?? "Unknown"; // playerData가 null일 경우 기본값으로 반환
+        }
     }
 
 

@@ -76,18 +76,21 @@ public class GameManager : Singleton<GameManager>
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
 
+        string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
+        
         switch (gameResult)
         {
             case GameResult.Win:
-                Debug.Log("PlayerA win");
-                SaveMatch("PlayerA");
+                Debug.Log($"{nickname} win");
+                SaveMatch(nickname); // 유저 닉네임으로 매치 저장
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
-                SaveMatch("AI");
+                SaveMatch("AI"); // AI가 이기면 AI로 저장
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
+                SaveMatch(nickname + "Draw"); // 무승부 시 유저 닉네임으로 매치 저장
                 break;
         }
     }
