@@ -170,15 +170,30 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject rankingPanel;
     [HideInInspector] public int coinCount;
     
+    private UserPanelController userPanelController;
+    
     protected override void Awake()
     {
         base.Awake();
-        coinCount = UserInformations.CoinCount;
-    
-            
+        //coinCount = UserInformations.CoinCount;
+        //coinCount = playerData.coin;
+
+
     }
-    
-    
+
+    public void UpdateCoin(int amount)
+    {
+        if (playerData != null)
+        {
+            playerData.coin += amount;
+            DBManager.Instance.UpdatePlayerData(playerData);
+            
+            UserSessionManager.Instance.SetPlayerData(playerData);
+            SetPlayerData(playerData);
+            //userPanelController.SetComponent<UserPanelController>().UpdataUI(playerData);
+            UserPanelController.Instance.UpdataUI();
+        }
+    }
     public void ChangeToGameScene()
     {
         SceneManager.LoadScene("Game_jk");

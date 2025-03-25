@@ -10,11 +10,13 @@ public class CoinPanelController : MonoBehaviour
     [SerializeField] private TMP_Text _coinCountText;
 
     private int _coinCount;
+    private PlayerData _playerData;
 
 
     private void Start()
     {
-        InitCoinCount(UIManager.Instance.coinCount);
+        _playerData = UserSessionManager.Instance.GetPlayerData();
+        InitCoinCount(_playerData.coin);
     }
 
     public void InitCoinCount(int coinCount)
