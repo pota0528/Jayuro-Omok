@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
         [SerializeField] private GameObject userPanel;
         [SerializeField] private GameObject profilePanel;
         [SerializeField] private Sprite[] profileSprites;
-        
+         
         //추가: 옵션패널 
         
         //DB관련
@@ -30,6 +30,7 @@ using UnityEngine.SceneManagement;
         
         private void Start()
         {
+            _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
            OpenLoginPanel();
            OpenStartTitlePanel();
           
@@ -148,6 +149,14 @@ using UnityEngine.SceneManagement;
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             _canvas = GameObject.FindObjectOfType<Canvas>();
+            if (_canvas == null)
+            {
+                Debug.LogError("Canvas 객체를 찾을 수 없습니다.");
+            }
+            else
+            {
+                Debug.Log(_canvas);
+            }
         }
     
     
