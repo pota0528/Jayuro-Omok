@@ -299,9 +299,6 @@ using UnityEngine.SceneManagement;
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, _canvas.transform);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
-            
-            
-            
         }
         
 

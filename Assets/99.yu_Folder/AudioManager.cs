@@ -8,6 +8,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     public AudioSource BgmAudioSource;
     [SerializeField] private AudioSource SfxAudioSource;
+    [SerializeField] private AudioSource SfxSelectorAudioSource;
     [SerializeField] private AudioMixer audioMixer;
 
     public void OnPutStone() // 바둑알 놓을 때
@@ -20,6 +21,11 @@ public class AudioManager : Singleton<AudioManager>
         BgmAudioSource.Play();
     }
 
+    public void OnPutSelector()
+    {
+        SfxSelectorAudioSource.Play();
+    }
+
     public void OnPauseBGM()
     {
         BgmAudioSource.Pause();
@@ -30,8 +36,10 @@ public class AudioManager : Singleton<AudioManager>
         // 저장된 볼륨 값을 불러옴
         float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.75f);
         SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
+        
         float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
         SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
+        
         OnPlayBGM();
         Debug.Log(BgmAudioSource.isPlaying);
     }
@@ -50,9 +58,21 @@ public class AudioManager : Singleton<AudioManager>
     {
         // BGM 볼륨 설정
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
 
         // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
         PlayerPrefs.SetFloat("SFXParam", volume);
+        PlayerPrefs.SetFloat("SFXSelectorParam", volume);
+        PlayerPrefs.Save();
+    }
+    
+    public void SetSFXSelectorVolume(float volume)
+    {
+        // BGM 볼륨 설정
+        audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
+
+        // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
+        PlayerPrefs.SetFloat("SFXSelectorParam", volume);
         PlayerPrefs.Save();
     }
 
