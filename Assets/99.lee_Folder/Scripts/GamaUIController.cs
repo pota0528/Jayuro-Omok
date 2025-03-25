@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,9 @@ public class GameUIController : MonoBehaviour
         [SerializeField] private Image playerAImage;
         [SerializeField] private Image playerBImage;
         [SerializeField] private Button gameOverButton;
+        [SerializeField] private TextMeshProUGUI userNicknameWithRank;
+        [SerializeField] private Image userProfile;
+        [SerializeField] private Sprite[] spriteList;
 
         public enum GameUIMode
         {
@@ -19,6 +23,13 @@ public class GameUIController : MonoBehaviour
         private const float EnableAlpha = 1f;
         private int selectedRow = -1;
         private int selectedCol = -1;
+
+        public void DisplayUserInfo(string nickname, string rank, int imageIndex)
+        {
+            string infoStr = rank + "급 " + nickname;
+            userNicknameWithRank.text = infoStr;
+            userProfile.sprite = spriteList[imageIndex];
+        }
         
         public void SetGameUIMode(GameUIMode mode)
         {

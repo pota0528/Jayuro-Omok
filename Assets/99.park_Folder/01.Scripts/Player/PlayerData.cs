@@ -21,8 +21,6 @@ using System.Collections.Generic;
         
         public int imageIndex { get; set; }
       //  public List<GameRecord> gameRecords { get; set; } = new List<GameRecord>(); 기보 
-        
-    
     }
     
     public class GameRecord
