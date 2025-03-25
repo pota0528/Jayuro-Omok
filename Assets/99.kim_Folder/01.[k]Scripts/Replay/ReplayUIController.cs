@@ -25,8 +25,7 @@ public class ReplayUIController : MonoBehaviour
         // 기보 매치 리스트에서 뒤로가기를 누르면 Main Scene으로 다시 돌아감.
         exitListButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("Login");
-            UIManager.Instance.OpenUserPanel();
+            UIManager.Instance.ChangeToLoginScene();
         });
         
         // ReplayPanel의 나가기 버튼을 누르면 MatchListPanel로 다시 돌아감.

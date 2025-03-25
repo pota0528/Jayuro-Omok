@@ -71,7 +71,6 @@ using UnityEngine.SceneManagement;
             }
 
             // 아이디와 비밀번호가 일치하면 로그인 성공
-            Debug.Log("로그인 성공 닉네임: " + player.nickname);
             return (player, "로그인 성공");
         }
 

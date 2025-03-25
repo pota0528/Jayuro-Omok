@@ -56,7 +56,7 @@ using UnityEngine.UI;
 
         public void OnClickReplayButton()
         {
-            SceneManager.LoadScene("ReplayScene");
+            UIManager.Instance.ChangeToReplayScene();
             Debug.Log("기보 보기");
         }
 

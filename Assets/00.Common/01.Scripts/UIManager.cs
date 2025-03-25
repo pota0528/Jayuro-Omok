@@ -14,8 +14,16 @@ using UnityEngine.SceneManagement;
         [SerializeField] private GameObject userPanel;
         [SerializeField] private GameObject profilePanel;
         [SerializeField] private Sprite[] profileSprites;
-         
-        //추가: 옵션패널 
+        
+        //실제 생성된 패널을 추적할 수 있도록 인스턴스 변수를 추가 
+        private GameObject loginPanelInstance;
+        private GameObject userPanelInstance;
+        private GameObject startTitlePanelInstance;
+        private GameObject signUpPanelInstance;
+        
+        private bool isStartTitlePanelActive = false;
+        private bool isUserPanelActive=false;
+        
         
         //DB관련
         public GameObject playerPrefab;
@@ -26,33 +34,52 @@ using UnityEngine.SceneManagement;
         private int currentIamgeIndex = 0; 
         
         
-
         
         private void Start()
         {
-            _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-           OpenLoginPanel();
-           OpenStartTitlePanel();
-          
-            //playeData=UserSessionManager.Instance.GetPlayerData();
-            mongoDBManager = FindObjectOfType<DBManager>();
+            _canvas = GameObject.Find("Canvas")?.GetComponent<Canvas>();
+            if (_canvas == null)
+            {
+                Debug.Log("캔버스 없음 ");
+            }
+            
+            // 패널 생성 및 초기화
+            loginPanelInstance = Instantiate(loginPanel, _canvas.transform);
+            userPanelInstance = Instantiate(userPanel, _canvas.transform);
+            startTitlePanelInstance =Instantiate(startTitlePanelPrefab, _canvas.transform);
+            signUpPanelInstance = Instantiate(signUpPanel, _canvas.transform);
+            
+            //처음에 비활성화
+            loginPanelInstance.SetActive(false);
+            userPanelInstance.SetActive(false);
+            startTitlePanelInstance.SetActive(false);
+            signUpPanelInstance.SetActive(false);
+            
+
+            //초기 패널 열기
+            OpenLoginPanel();
+            OpenStartTitlePanel2();
+           mongoDBManager = FindObjectOfType<DBManager>();
+           
+           // 씬 로드 이벤트 등록
+           SceneManager.sceneLoaded += OnSceneLoaded;
            
         }
 //로그인 후 Player데이터 설정 
         public void SetPlayerData(PlayerData playerData)
         {
             this.playerData = playerData;
-            Debug.Log(playerData.nickname);
         }
 
         public void OpenLoginPanel()
         {
-            
-            if (_canvas != null)
+            if (_canvas != null && loginPanelInstance != null)
             {
+                // 씬 로드 이벤트 등록
+                loginPanelInstance.SetActive(true);
+                userPanelInstance.SetActive(false); // 로그인 시 UserPanel 비활성화
+                startTitlePanelInstance.SetActive(false);
                 Debug.Log("로그인패널열기");
-              Instantiate(loginPanel, _canvas.transform);//수정
-               
             }
         }
 
@@ -61,16 +88,21 @@ using UnityEngine.SceneManagement;
           
             if (_canvas != null)
             {
-             Instantiate(signUpPanel, _canvas.transform);
+             signUpPanelInstance.SetActive(true);
                
             }
         }
 
         public void OpenUserPanel()
         {
-            if (_canvas != null)
+            if (_canvas != null && userPanelInstance != null)
             {
-                Instantiate(userPanel, _canvas.transform);
+                loginPanelInstance.SetActive(false); // 로그인 패널 닫기
+                userPanelInstance.SetActive(true);
+              //  startTitlePanelInstance.SetActive(true); // StartTitle도 함께 표시
+                isUserPanelActive = true;
+                isStartTitlePanelActive = true;
+                Debug.Log("유저 패널 열기");
             }
         }
 
@@ -81,6 +113,14 @@ using UnityEngine.SceneManagement;
                 Instantiate(profilePanel, _canvas.transform);
             }
             
+        }
+        public void OpenStartTitlePanel2()
+        {
+            if (_canvas != null && startTitlePanelInstance != null)
+            {
+                startTitlePanelInstance.SetActive(true);
+                isStartTitlePanelActive = true; // 상태 저장
+            }
         }
         //이미지 인덱스 설정
         public void SetProfileImageIndex(int index)
@@ -122,43 +162,72 @@ using UnityEngine.SceneManagement;
                 return null;
             }
         }
+        
+
+        
 
 
-        public void LoginPlayer(string id, string password)
+        //현재 활성화된 Panel저장
+        private void SavePanelState()
         {
-            var (playerData,message) = mongoDBManager.Login(id, password);
-
-            if (playerData != null)
+            if (_canvas != null)
             {
-                GameObject playerObject = Instantiate (playerPrefab,Vector3.zero,Quaternion.identity);
-                PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
-
-                if (playerObject != null)
-                {
-                    playerScript.SetPlayerData(playerData);
-                }
+                isStartTitlePanelActive = startTitlePanelInstance != null && startTitlePanelInstance.activeSelf;
+                isUserPanelActive = userPanelInstance != null && userPanelInstance.activeSelf;
             }
         }
-
-
-
-        
-        
-        
-
-        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            _canvas = GameObject.FindObjectOfType<Canvas>();
+        //저장된 Panel복원
+        private void RestorePanelState()
+        {   
             if (_canvas == null)
             {
-                Debug.LogError("Canvas 객체를 찾을 수 없습니다.");
+                _canvas = GameObject.Find("Canvas")?.GetComponent<Canvas>();
+                if (_canvas == null) return;
             }
-            else
-            {
-                Debug.Log(_canvas);
-            }
+
+            // 패널을 새 캔버스에 붙이기
+            loginPanelInstance.transform.SetParent(_canvas.transform, false);
+            userPanelInstance.transform.SetParent(_canvas.transform, false);
+            startTitlePanelInstance.transform.SetParent(_canvas.transform, false);
+
+            // 상태 복원
+            loginPanelInstance.SetActive(false); // 기본적으로 비활성화
+            userPanelInstance.SetActive(isUserPanelActive);
+            startTitlePanelInstance.SetActive(isStartTitlePanelActive);
         }
-    
+        
+        //Replay씬으로 이동할때 상태
+        public void ChangeToReplayScene()
+        {
+           SavePanelState();    
+            SceneManager.LoadScene("ReplayScene");
+        }
+        //Game씬으로 이동
+        public void ChangeToGameScene2()
+        {
+            SavePanelState();
+            SceneManager.LoadScene("Game");
+        }
+        
+        //Login 씬으로 돌아올때 패널 상태 복원
+        public void ChangeToLoginScene()
+        {
+            SavePanelState();
+            SceneManager.LoadScene("Login");
+        }
+        
+        protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == "Login")
+            {
+                RestorePanelState();
+            }
+            
+        }
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // 메모리 누수 방지
+        }
     
 
     #endregion
@@ -173,6 +242,8 @@ using UnityEngine.SceneManagement;
     protected override void Awake()
     {
         base.Awake();
+        
+        DontDestroyOnLoad(this.gameObject);
         coinCount = UserInformations.CoinCount;
     
             
