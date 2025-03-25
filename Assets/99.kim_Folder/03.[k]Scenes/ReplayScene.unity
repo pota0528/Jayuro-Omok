@@ -13361,6 +13361,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1772887751}
     m_Modifications:
+    - target: {fileID: 2842177598571712967, guid: 0d96c293f3e651e47ac877a5fcdcb510, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+    - target: {fileID: 2842177598571712967, guid: 0d96c293f3e651e47ac877a5fcdcb510, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4679236466664205669, guid: 0d96c293f3e651e47ac877a5fcdcb510, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -23712,8 +23720,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAE30\uBCF4 \uD655\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
-  m_sharedMaterial: {fileID: 2310887602868615129, guid: 7c1621477ba9ab14c9833112fd33dbe0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+  m_sharedMaterial: {fileID: 6493573238112623700, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using park_namespace;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -49,11 +50,13 @@ using UnityEngine.UI;
 
     public void OnClickStartButton()
         {
+            SceneManager.LoadScene("Game");
             Debug.Log("게임 시작");
         }
 
         public void OnClickReplayButton()
         {
+            SceneManager.LoadScene("ReplayScene");
             Debug.Log("기보 보기");
         }
 
