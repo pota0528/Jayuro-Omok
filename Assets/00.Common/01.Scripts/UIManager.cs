@@ -275,11 +275,13 @@ using UnityEngine.SceneManagement;
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playerData.level);
                     playerData.levelPoint = 0;
+                    SetPlayerData(playerData);
                 }
                 else if (playerData.levelPoint < 0)
                 {
                     ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playerData.level);
                     playerData.levelPoint = 0;
+                    SetPlayerData(playerData);
                 }
                 
             }

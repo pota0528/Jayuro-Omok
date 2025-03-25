@@ -103,7 +103,6 @@ public class WinLosePanelController : MessagePopupController
                 if (playerData.level < 18)//[데이터 처리]-level
                 {
                     playerData.level++; //급수가 클수록 레벨이 낮음, [데이터 처리]-level
-                    Debug.Log(playerData.level+"제발,,,");
                 }
                 Destroy(gameObject);
                 UserSessionManager.Instance.SetPlayerData(playerData);
