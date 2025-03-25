@@ -82,7 +82,6 @@ public class GameManager : Singleton<GameManager>
         {
             case GameResult.Win:
                 Debug.Log($"{nickname} win");
-                SaveMatch(nickname); // 유저 닉네임으로 매치 저장
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
@@ -154,6 +153,7 @@ public class GameManager : Singleton<GameManager>
             {
                 //EndGame(gameResult);
                 UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+                
             }
                 
         }
