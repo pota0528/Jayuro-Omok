@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/01.Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/99.joe_Folder/03.Scenes/Main_jk.unity
-    guid: fb47bbaeb77e0ea488744ece91f644b0
+    path: Assets/00.Common/02.Scenes/Login.unity
+    guid: 306e9bc0beb9e1743ba2afebc2bc0e33
   - enabled: 1
-    path: Assets/99.joe_Folder/03.Scenes/Game_jk.unity
-    guid: caec34309fa14824cb0f1a5f9962ad37
+    path: Assets/00.Common/02.Scenes/Game.unity
+    guid: e6e556bdb07360c46a6badcfa87d1773
+  - enabled: 1
+    path: Assets/99.kim_Folder/03.[k]Scenes/ReplayScene.unity
+    guid: 3af884e7b05fba845812df68dd3e3c18
   m_configObjects: {}
