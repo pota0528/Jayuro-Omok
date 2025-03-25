@@ -39,7 +39,7 @@ public class BaseUIController : MonoBehaviour
         Hide(() =>
         {
             //TODO: 메인씬+프로필패널로 이동
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Login");
         });
     }
 }

@@ -212,7 +212,7 @@ public class MCTS
             // 플레이어의 흑돌 3개 4개 막기
             int opponentCount = CountConsecutive(tempBoard, row, col, GameManager.PlayerType.PlayerA);
             if (opponentCount == 4) score += 500; // 4개 연속 막기
-            else if (opponentCount == 3) score += 1000; // 3개 연속 막기
+            else if (opponentCount == 3) score += 10; // 3개 연속 막기, 자현추가>1000를 10로 수정
 
             // 흑돌 주변에 두기
             if (IsNearOpponent(tempBoard, row, col, GameManager.PlayerType.PlayerA))
