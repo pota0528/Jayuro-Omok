@@ -64,6 +64,8 @@ public class WinLosePanelController : MessagePopupController
         {
             playerData.levelPoint++;
             playerData.win++;
+            UserSessionManager.Instance.SetPlayerData(playerData);
+            DBManager.Instance.UpdatePlayerData(playerData);
             if (currentLevelCount - Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //Todo: 승급패널 띄우기
@@ -101,6 +103,8 @@ public class WinLosePanelController : MessagePopupController
         {
             playerData.levelPoint--;
             playerData.lose++;
+            UserSessionManager.Instance.SetPlayerData(playerData);
+            DBManager.Instance.UpdatePlayerData(playerData);
             if (currentLevelCount-Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //todo: 강등패널띄우기
