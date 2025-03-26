@@ -96,28 +96,6 @@ public class GameManager : Singleton<GameManager>
         SetTurn(TurnType.PlayerA);
         moves.Clear();
     }
-    
-    private void EndGame(GameResult gameResult)
-    {
-        _timer.PauseTimer();
-        _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-        _blockController.OnBlockClickedDelegate = null;
-
-        switch (gameResult)
-        {
-            case GameResult.Win:
-                Debug.Log("PlayerA win");
-                SaveMatch("PlayerA");
-                break;
-            case GameResult.Lose:
-                Debug.Log("AI win");
-                SaveMatch("AI");
-                break;
-            case GameResult.Draw:
-                Debug.Log("Draw");
-                break;
-        }
-    }
 
     private bool SetNewBoardValue(PlayerType playerType, int row, int col)
     {
@@ -183,6 +161,7 @@ public class GameManager : Singleton<GameManager>
                 _timer.PauseTimer();
                 _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
                 _blockController.OnBlockClickedDelegate = null;
+                SaveMatch(playerData.nickname);
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
@@ -206,6 +185,7 @@ public class GameManager : Singleton<GameManager>
                 _timer.PauseTimer();
                 _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
                 _blockController.OnBlockClickedDelegate = null;
+                SaveMatch(playerData.nickname);
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
