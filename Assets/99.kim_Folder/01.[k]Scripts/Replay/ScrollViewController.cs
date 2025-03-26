@@ -13,6 +13,7 @@ public class ScrollViewController : MonoBehaviour
     public void LoadData(List<Item> items)
     {
         _items = items;
+        Debug.Log($"전달된 아이템 수: {_items.Count}");
         ReloadData();
     }
 
@@ -37,6 +38,7 @@ public class ScrollViewController : MonoBehaviour
         }
 
         // 새 셀 생성
+        int cellCount = 0; // 셀 개수 추적
         foreach (var item in _items)
         {
             GameObject cell = Instantiate(cellPrefab, content);
@@ -60,6 +62,8 @@ public class ScrollViewController : MonoBehaviour
                 button.gameObject.SetActive(true);
                 button.onClick.AddListener(() => item.onClick());
             }
+            cellCount++; // 셀 생성 할 때마다 카운트 증가시키기
         }
+        Debug.Log($"생성된 셀 수 : {cellCount}");
     }
 }

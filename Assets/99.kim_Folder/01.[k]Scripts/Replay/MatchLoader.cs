@@ -7,15 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class MatchLoader : Singleton<MatchLoader>
 {
-    public int matchDataCount { get; private set; } = 0;
+    public int matchDataCount { get; set; } = 0;
 
     void Start()
     {
         string matchesDirectory = Path.Combine(Application.persistentDataPath, "matches"); //유저의 PC나 모바일 등에서 앱 데이터를 저장할 수 있는 안전한 경로
-        if (!Directory.Exists(matchesDirectory)) return;
-
-        string[] files = Directory.GetFiles(matchesDirectory, "*.json");
-        matchDataCount = files.Length;
+        if (!Directory.Exists(matchesDirectory))
+        {
+            string[] files = Directory.GetFiles(matchesDirectory, "*.json");
+            matchDataCount = files.Length; // 기존 파일 수로 초기화 시키기
+        }
+        else
+        {
+            matchDataCount = 0;
+        }
     }
     
     public List<MatchData> LoadMatches(string nickname)

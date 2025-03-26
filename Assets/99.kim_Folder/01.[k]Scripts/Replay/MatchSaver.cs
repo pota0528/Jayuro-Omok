@@ -11,7 +11,7 @@ public class MatchSaver : Singleton<MatchSaver>
         MatchData data = new MatchData
         {
             title = nickname,
-            date = DateTime.Now.ToString("yyyy-MM-dd"), //현재 날짜와 시간
+            date = DateTime.Now.ToString("dd" + "일 " + "HH" + "시 " + "mm" + "분"), //현재 날짜와 시간
             moves = moves
         };
 
@@ -28,6 +28,9 @@ public class MatchSaver : Singleton<MatchSaver>
         //만약 "matches" 폴더가 없으면 자동으로 만들어줌
         File.WriteAllText(path, json); //json 문자열을 실제 파일로 저장하는 코드
         Debug.Log($"매치 저장완료 : {path}");
+        
+        // 저장 후에 matchDataCount 증가시키기
+        MatchLoader.Instance.matchDataCount++;
     }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
