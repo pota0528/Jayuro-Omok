@@ -26,25 +26,68 @@ using TMPro;
         }
 
 
-        public void SetRankingCellSelf(string nickname, int level)
+        /// <summary>
+        /// 랭킹 셀에 유저 정보 세팅
+        /// </summary>
+        public void SetRankingCellData(PlayerData player, int rankingIndex)
         {
-            nicknameText.text = nickname;
-            levelText.text = level.ToString();
-            //kdText.text = kd.ToString();
-            
-        }
-        
-        public void SetRankingCell(int rankingIndex)
-        {
-            _rankingIndex = rankingIndex;
+            nicknameText.text = player.nickname;
+            levelText.text = $"Lv.{player.level}";
 
+            int win = player.win;
+            int lose = player.lose;
+            int total = win + lose;
+            float winRate = total > 0 ? (float)win / total : 0f;
+            int score = player.score;
+
+            kdText.text = $"승:{win} 패:{lose} ";
+
+            _rankingIndex = rankingIndex;
             foreach (var rankingIndexText in rankingIndexTexts)
             {
-                var IndexText = _rankingIndex + 1;
-                rankingIndexText.text = IndexText.ToString();
+                rankingIndexText.text = (_rankingIndex + 1).ToString();
             }
-            
+
+            // 기존 UIManager의 profileSprites 사용
+            Sprite profileSprite = UIManager.Instance.GetProfileImage(player.imageIndex);
+
+            if (profileSprite != null)
+            {
+                profileImage.sprite = profileSprite;
+                profileImage.enabled = true;
+            }
+            else
+            {
+                profileImage.sprite = null;
+                profileImage.enabled = false;
+            }
         }
+
+        
+        
+        
+        
+        
+        
+        // public void SetRankingCellSelf(string nickname, int level)
+        // {
+        //     nicknameText.text = nickname;
+        //     levelText.text = level.ToString();
+        //     //kdText.text = kd.ToString();
+        //     
+        // }
+        //
+        // public void SetRankingCell(int rankingIndex)
+        // {
+        //     _rankingIndex = rankingIndex;
+        //
+        //     foreach (var rankingIndexText in rankingIndexTexts)
+        //     {
+        //         var IndexText = _rankingIndex + 1;
+        //         rankingIndexText.text = IndexText.ToString();
+        //     }
+        //     
+        // }
         
         
 

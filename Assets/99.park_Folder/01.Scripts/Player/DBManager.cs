@@ -100,6 +100,7 @@ using UnityEngine.SceneManagement;
                     .Set(p => p.levelPoint, playerData.levelPoint)
                     .Set(p => p.win, playerData.win)
                     .Set(p => p.lose, playerData.lose)
+                    .Set(p => p.score, playerData.score) // 여기!
                     .Set(p => p.imageIndex, playerData.imageIndex);
             }
 
@@ -121,21 +122,21 @@ using UnityEngine.SceneManagement;
         }
   
 
-        // public List<PlayerData> GetTopPlayersByScore(int topN = 50)
-        // {
-        //     if (playerCollection == null)
-        //     {
-        //         Debug.LogError("DB 연결 안됨.");
-        //         return new List<PlayerData>();
-        //     }
-        //
-        //     var sort = Builders<PlayerData>.Sort.Descending(p => p.score);
-        //     var topPlayers = playerCollection.Find(_ => true)
-        //         .Sort(sort)
-        //         .Limit(topN)
-        //         .ToList();
-        //     return topPlayers;
-        // }
+        public List<PlayerData> GetTopPlayersByScore(int topN = 50)
+        {
+            if (playerCollection == null)
+            {
+                Debug.LogError("DB 연결 안됨.");
+                return new List<PlayerData>();
+            }
+        
+            var sort = Builders<PlayerData>.Sort.Descending(p => p.score);
+            var topPlayers = playerCollection.Find(_ => true)
+                .Sort(sort)
+                .Limit(topN)
+                .ToList();
+            return topPlayers;
+        }
 
       
 

@@ -23,6 +23,9 @@ using UnityEngine.UI;
         private int _bufferRows = 2;                            // 위아래 여유 셀 개수 (화면 밖에서도 추가 생성)
         
         private PlayerData playerData;
+        
+        private List<PlayerData> _topPlayers; // 유저s 정보 리스트
+
 
         protected override void Awake()
         {
@@ -70,30 +73,38 @@ using UnityEngine.UI;
         /// </summary>
         private RankingCellPanel CreateRankingCellPanel(int index)
         {
-            playerData = UserSessionManager.Instance.GetPlayerData();
-            Debug.Log(playerData.nickname);
-            Debug.Log(playerData.level);
-            Debug.Log(playerData.coin);
-            Debug.Log(playerData.win);
-            Debug.Log(playerData.lose);
-            Debug.Log(playerData.imageIndex);
-   
-            
-            
-            
+            PlayerData playerData;
+
+            // 유저 데이터가 있는 경우 정상 데이터로, 없으면 더미 데이터 생성
+            if (_topPlayers != null && index < _topPlayers.Count)
+            {
+                playerData = _topPlayers[index];
+            }
+            else
+            {
+                playerData = new PlayerData
+                {
+                    nickname = "순위 없음",
+                    level = 0,
+                    win = 0,
+                    lose = 0,
+                    score = 0,
+                    imageIndex = -1 // 기본 이미지 또는 비어 있음 처리
+                };
+            }
+
             var rankingCellPanelObject = ObjectPool.Instance.GetObject();
             var rankingCellPanel = rankingCellPanelObject.GetComponent<RankingCellPanel>();
 
-            rankingCellPanel.SetRankingCellSelf(playerData.nickname, playerData.level);
-            rankingCellPanel.SetRankingCell(index); // 셀에 랭킹 정보 적용
-            rankingCellPanel.transform.SetParent(contentTransform, false); // Content 하위에 배치
+            rankingCellPanel.SetRankingCellData(playerData, index);
+            rankingCellPanel.transform.SetParent(contentTransform, false);
 
-            // 위치 계산 후 적용
             float yPosition = -(cellHeight + spacingY) * index;
             rankingCellPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, yPosition);
 
             return rankingCellPanel;
         }
+
 
         /// <summary>
         /// Content 크기를 전체 데이터 개수에 맞춰 조정
@@ -110,6 +121,10 @@ using UnityEngine.UI;
         /// </summary>
         private void ReloadData()
         {
+            // 유저s 정보 리스트 받아오기
+            _topPlayers = DBManager.Instance.GetTopPlayersByScore(_maxRankingCount);
+
+            
             AdjustContentSize(); // Content 크기 조정
             _visibleCells = new List<(int index, RankingCellPanel rankingCell)>(); // 현재 보이는 셀 리스트 초기화
 
