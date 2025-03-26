@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
-    public BlockController _blockController;//자현 추가
-    public GameUIController _gameUIController;//자현 추가
-
+    [SerializeField] private BlockController _blockController;
+    [SerializeField] private GameUIController _gameUIController;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Timer _timer;
+
 
     // UI 패널 프리팹 (인스펙터에서 설정)
 
@@ -32,7 +33,7 @@ public class GameManager : Singleton<GameManager>
 
     private TurnType currentTurn;
 
-    public enum GameResult//자현 추가, private > public 으로 변경
+    public enum GameResult //자현 추가, private > public 으로 변경
     {
         None,
         Win,
@@ -45,10 +46,11 @@ public class GameManager : Singleton<GameManager>
     private List<(int, int)> forbiddenCollection = new List<(int, int)>();
 
     private DBManager mongoDBManager;
-
+    private MCTS _mcts;
     // 캔버스 참조
     private Canvas _canvas;
     private PlayerData playerData;
+    private Block[] _blocks;
     
     private void Awake()
     {
@@ -60,42 +62,40 @@ public class GameManager : Singleton<GameManager>
     {
         playerData = UserSessionManager.Instance.GetPlayerData();
         _gameUIController.DisplayUserInfo(playerData.nickname, playerData.level.ToString(), playerData.imageIndex);
+        _gameUIController.DisplayAIInfo();
         StartGame();
         _timer.InitTimer();
     }
 
     private void StartGame()
     {
+        BeforeSetting();
+        MCTS.Instance.UpdateBoard(_board); // 초기 보드 설정
+        
+        if (playerData.level >= 12 && playerData.level <= 18) // 12 ~ 18 까지임
+        {
+            Debug.Log("하수 진입");
+            MCTS.Instance.SetBeginnerMode();
+        }
+        else if (playerData.level >= 5 && playerData.level < 12) // 5 ~ 11 까지임
+        {
+            Debug.Log("중수 진입");
+            MCTS.Instance.SetIntermediateMode();
+        }
+        else if (playerData.level < 5) // 1 ~ 4 까지임
+        {
+            Debug.Log("고수 진입");
+            MCTS.Instance.SetProMode();
+        }
+    }
+
+    private void BeforeSetting()
+    {
         _board = new PlayerType[15, 15];
         _blockController.InitBlocks();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
         SetTurn(TurnType.PlayerA);
         moves.Clear();
-    }
-
-    private void EndGame(GameResult gameResult)
-    {
-        _timer.PauseTimer();
-        _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-        _blockController.OnBlockClickedDelegate = null;
-        
-        string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
-        
-        switch (gameResult)
-        {
-            case GameResult.Win:
-                Debug.Log($"{nickname} win");
-                SaveMatch(nickname);
-                break;
-            case GameResult.Lose:
-                Debug.Log("AI win");
-                SaveMatch("AI"); // AI가 이기면 AI로 저장
-                break;
-            case GameResult.Draw:
-                Debug.Log("Draw");
-                SaveMatch(nickname + "Draw"); // 무승부 시 유저 닉네임으로 매치 저장
-                break;
-        }
     }
 
     private bool SetNewBoardValue(PlayerType playerType, int row, int col)
@@ -109,7 +109,7 @@ public class GameManager : Singleton<GameManager>
         return true;
     }
 
-    private void SetTurn(TurnType turnType)
+    private async void SetTurn(TurnType turnType)
     {
         currentTurn = turnType;
         _timer.StartTimer();
@@ -122,18 +122,42 @@ public class GameManager : Singleton<GameManager>
                 var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
                 forbiddenCollection = checker.GetForbiddenSpots();
                 SetForbiddenMarks(forbiddenCollection);
+                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA);
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerB); };
                 break;
             case TurnType.PlayerB:
                 _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                 _blockController.OnBlockClickedDelegate = null;
-                StartCoroutine(AIMove());
+                await AIMoveAsync(); // 비동기 AI 연산 호출
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerA); };
                 break;
         }
     }
 
+    private async Task AIMoveAsync()
+    {
+        // AI 연산을 별도 스레드에서 실행
+        MCTS.Instance.UpdateBoard(_board);
+        var (row, col) = await Task.Run(() => MCTS.Instance.GetBestMove(50));
+        await Task.Delay(500); // 1초 대기 (메인 스레드에서 실행)
+
+        if (SetNewBoardValue(PlayerType.PlayerB, row, col))
+        {
+            currentMoveIndex = (row, col);
+            var gameResult = CheckGameResult();
+            if (gameResult == GameResult.None)
+                SetTurn(TurnType.PlayerA);
+            else
+            {
+                _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions();
+                _blockController.OnBlockClickedDelegate = null;
+                SaveMatch("AI");
+                UIManager.Instance.OpenWinLosePanel(gameResult);
+            }
+        }
+    }
     private void OnBlockClicked(int row, int col)
     {
         if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None &&
@@ -153,38 +177,41 @@ public class GameManager : Singleton<GameManager>
             currentMoveIndex = (row, col);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
-                SetTurn(TurnType.PlayerB);
+                SetTurn(TurnType.PlayerB); // AI 턴으로 전환
             else
             {
-                //EndGame(gameResult);
-                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
-                string nickname = playerData.nickname; // 유저 닉네임 가져오기
-                SaveMatch(nickname); // 플레이어 이름으로 저장
+                _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions();
+                _blockController.OnBlockClickedDelegate = null;
+                SaveMatch(playerData.nickname);
+                UIManager.Instance.OpenWinLosePanel(gameResult);
             }
-                
         }
     }
 
-    private IEnumerator AIMove()
-    {
-        MCTS mcts = new MCTS(_board);
-        var (row, col) = mcts.GetBestMove(500);
-        yield return new WaitForSeconds(1f);
-
-        if (SetNewBoardValue(PlayerType.PlayerB, row, col))
-        {
-            currentMoveIndex = (row, col);
-            var gameResult = CheckGameResult();
-            if (gameResult == GameResult.None)
-                SetTurn(TurnType.PlayerA);
-            else
-            {
-                //EndGame(gameResult);
-                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
-            }
-                
-        }
-    }
+    // private IEnumerator AIMove()
+    // {
+    //     MCTS.Instance.UpdateBoard(_board);
+    //     var (row, col) = MCTS.Instance.GetBestMove(50);
+    //     yield return new WaitForSeconds(1f);
+    //
+    //     if (SetNewBoardValue(PlayerType.PlayerB, row, col))
+    //     {
+    //         currentMoveIndex = (row, col);
+    //         var gameResult = CheckGameResult();
+    //         if (gameResult == GameResult.None)
+    //             SetTurn(TurnType.PlayerA);
+    //         else
+    //         {
+    //             //EndGame(gameResult);
+    //             _timer.PauseTimer();
+    //             _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
+    //             _blockController.OnBlockClickedDelegate = null;
+    //             SaveMatch(playerData.nickname);
+    //             UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
+    //         }
+    //     }
+    // }
 
     private GameResult CheckGameResult()
     {
@@ -289,8 +316,9 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.OpenSettingPopup();
     }
 
-    public void OnClickGiveUpButton()
+    public void OnClickGiveupButton()
     {
         UIManager.Instance.OpenGiveupPanel();
     }
+        
 }

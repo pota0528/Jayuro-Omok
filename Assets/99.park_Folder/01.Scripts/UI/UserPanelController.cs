@@ -50,8 +50,17 @@ using UnityEngine.UI;
 
     public void OnClickStartButton()
         {
-            SceneManager.LoadScene("Game");
-            Debug.Log("게임 시작");
+            if (playerData.coin < 100)
+            {
+                UIManager.Instance.OpenNoCoinPanel();
+                Debug.Log("노코인패널");
+            }
+            else
+            {
+                playerData.coin -= 100;
+                SceneManager.LoadScene("Game");
+                Debug.Log("게임 시작");
+            }
         }
 
         public void OnClickReplayButton()

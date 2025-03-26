@@ -64,6 +64,8 @@ public class WinLosePanelController : MessagePopupController
         {
             playerData.levelPoint++;
             playerData.win++;
+            UserSessionManager.Instance.SetPlayerData(playerData);
+            DBManager.Instance.UpdatePlayerData(playerData);
             if (currentLevelCount - Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //Todo: 승급패널 띄우기
@@ -101,6 +103,8 @@ public class WinLosePanelController : MessagePopupController
         {
             playerData.levelPoint--;
             playerData.lose++;
+            UserSessionManager.Instance.SetPlayerData(playerData);
+            DBManager.Instance.UpdatePlayerData(playerData);
             if (currentLevelCount-Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //todo: 강등패널띄우기
@@ -172,7 +176,16 @@ public class WinLosePanelController : MessagePopupController
 
     public void OnClickRetryMatchButton()
     {
-        Hide(() =>
+        if (playerData.coin >= 100)
+        {
+            Hide(() =>
+            {
+                playerData.coin -= 100;
+                SceneManager.LoadScene("Game");
+            });
+        }
+
+        else
         {
             //todo: 코인 -100차감
             if (playerData.coin < 100)
@@ -180,13 +193,8 @@ public class WinLosePanelController : MessagePopupController
                 UIManager.Instance.OpenNoCoinPanel();
                 Debug.Log("노코인패널");
             }
-            else
-            {
-                playerData.coin -= 100;
-                SceneManager.LoadScene("Game");
-            }
-            
-        });
+        }
+        
     }
 
     public void WinLosePanelConfirmButton()

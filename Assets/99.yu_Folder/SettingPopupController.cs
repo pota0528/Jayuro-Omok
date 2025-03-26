@@ -22,6 +22,7 @@ public class SettingPopupController : BaseUIController
         // 슬라이더 값 변경 시 볼륨 업데이트
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+        
 
         // 초기 볼륨 설정
         AudioManager.Instance.SetBGMVolume(bgmSlider.value);

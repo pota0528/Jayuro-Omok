@@ -45,4 +45,9 @@ public class ReplayUIController : MonoBehaviour
             replayPanel.SetActive(true); // ReplayPanel은 활성화
         };
     }
+
+    public void OnClickSettingButton()
+    {
+        UIManager.Instance.OpenSettingPopup();
+    }
 }

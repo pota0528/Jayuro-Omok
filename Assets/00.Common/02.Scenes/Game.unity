@@ -122,6 +122,290 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &23672278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23672279}
+  - component: {fileID: 23672281}
+  - component: {fileID: 23672280}
+  m_Layer: 5
+  m_Name: Player_Profile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &23672279
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23672278}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 527565830}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 190, y: 190}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &23672280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23672278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &23672281
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23672278}
+  m_CullTransparentMesh: 1
+--- !u!1 &86205642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 86205643}
+  - component: {fileID: 86205645}
+  - component: {fileID: 86205644}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &86205643
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86205642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2118972444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -142}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &86205644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86205642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 18X XXX
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+  m_sharedMaterial: {fileID: 6493573238112623700, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &86205645
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86205642}
+  m_CullTransparentMesh: 1
+--- !u!1 &188566620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 188566621}
+  - component: {fileID: 188566623}
+  - component: {fileID: 188566622}
+  m_Layer: 5
+  m_Name: Player_Turn_Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &188566621
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188566620}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846244169}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000126482, y: -0.000003217705}
+  m_SizeDelta: {x: 130, y: 130}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &188566622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188566620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 98a154e55f0e4724ea4df09697c65947, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &188566623
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188566620}
+  m_CullTransparentMesh: 1
 --- !u!1 &236924743
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +451,7 @@ GameObject:
   - component: {fileID: 379912828}
   - component: {fileID: 379912827}
   m_Layer: 5
-  m_Name: PlayerA (1)
+  m_Name: PlayerUser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,82 +516,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379912825}
-  m_CullTransparentMesh: 1
---- !u!1 &460384029
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 460384030}
-  - component: {fileID: 460384032}
-  - component: {fileID: 460384031}
-  m_Layer: 5
-  m_Name: Player_MarkUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &460384030
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460384029}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.18096, y: 0.18096, z: 0.18096}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2068341542}
-  m_Father: {fileID: 637049025}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73.1, y: 73.9}
-  m_SizeDelta: {x: 210, y: 210}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &460384031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460384029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &460384032
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 460384029}
   m_CullTransparentMesh: 1
 --- !u!1 &485844450
 GameObject:
@@ -469,7 +677,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1789658930}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OnClickGiveUpButton
+        m_MethodName: OnClickGiveupButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -654,6 +862,96 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &527565829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527565830}
+  - component: {fileID: 527565833}
+  - component: {fileID: 527565832}
+  - component: {fileID: 527565831}
+  m_Layer: 5
+  m_Name: Player_Profile_Mask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &527565830
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527565829}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 23672279}
+  m_Father: {fileID: 2118972444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 190, y: 190}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &527565831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527565829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!114 &527565832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527565829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &527565833
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527565829}
+  m_CullTransparentMesh: 1
 --- !u!1 &621719451
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,84 +1063,6 @@ MonoBehaviour:
   timeText:
   - {fileID: 970487504}
   - {fileID: 1693054654}
---- !u!1 &637049024
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 637049025}
-  - component: {fileID: 637049027}
-  - component: {fileID: 637049026}
-  m_Layer: 5
-  m_Name: PlayerA
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &637049025
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637049024}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1979040375119983022}
-  - {fileID: 460384030}
-  - {fileID: 1965493073}
-  m_Father: {fileID: 3479275975513034352}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 318.70007}
-  m_SizeDelta: {x: 210, y: 210}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &637049026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637049024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &637049027
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637049024}
-  m_CullTransparentMesh: 1
 --- !u!1001 &642828492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1118,6 +1338,82 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &846244168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846244169}
+  - component: {fileID: 846244171}
+  - component: {fileID: 846244170}
+  m_Layer: 5
+  m_Name: Player_MarkUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &846244169
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846244168}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.18096, y: 0.18096, z: 0.18096}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 188566621}
+  m_Father: {fileID: 2118972444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 73.1, y: 73.9}
+  m_SizeDelta: {x: 210, y: 210}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &846244170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846244168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &846244171
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846244168}
+  m_CullTransparentMesh: 1
 --- !u!1 &970487502
 GameObject:
   m_ObjectHideFlags: 0
@@ -2193,11 +2489,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d08f6229889bf4aba6bbeadd9baa42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAImage: {fileID: 2068341543}
-  playerBImage: {fileID: 1307955865}
+  userPlayerTurnPoint: {fileID: 1307955865}
+  playerAITurnPoint: {fileID: 188566622}
   gameOverButton: {fileID: 0}
   userNicknameWithRank: {fileID: 1075183741}
+  aiNicknameWithRank: {fileID: 86205644}
   userProfile: {fileID: 694464103}
+  aiProfile: {fileID: 23672280}
   spriteList:
   - {fileID: 338169853, guid: 3dc9bb44c71e8644bb4530ab5b7c37b0, type: 3}
   - {fileID: -1487053864, guid: b883b1341f10cc04086553cf64c65077, type: 3}
@@ -2207,140 +2505,6 @@ MonoBehaviour:
   - {fileID: 1884918714, guid: dea815a5ed8b0c84db56c5469766ab19, type: 3}
   - {fileID: -1356406495, guid: 6f4924057adf7774eb56effaf4de2436, type: 3}
   - {fileID: 1297143470, guid: 905b16f8f489efd4489f310855a5729b, type: 3}
---- !u!1 &1965493072
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1965493073}
-  - component: {fileID: 1965493075}
-  - component: {fileID: 1965493074}
-  m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1965493073
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965493072}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 637049025}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -142}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1965493074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965493072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 18X XXX
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
-  m_sharedMaterial: {fileID: 6493573238112623700, guid: d589149b2f1c30947bfa8c77732369c7, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1965493075
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965493072}
-  m_CullTransparentMesh: 1
 --- !u!1 &2002724806
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,81 +2580,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002724806}
-  m_CullTransparentMesh: 1
---- !u!1 &2068341541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2068341542}
-  - component: {fileID: 2068341544}
-  - component: {fileID: 2068341543}
-  m_Layer: 5
-  m_Name: Player_Turn_Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2068341542
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068341541}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 460384030}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000126482, y: -0.000003217705}
-  m_SizeDelta: {x: 130, y: 130}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2068341543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068341541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.48113197, g: 1, b: 0.7829119, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 98a154e55f0e4724ea4df09697c65947, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2068341544
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068341541}
   m_CullTransparentMesh: 1
 --- !u!1 &2070546147
 GameObject:
@@ -2580,6 +2669,84 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070546147}
+  m_CullTransparentMesh: 1
+--- !u!1 &2118972443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2118972444}
+  - component: {fileID: 2118972446}
+  - component: {fileID: 2118972445}
+  m_Layer: 5
+  m_Name: PlayerAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2118972444
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118972443}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 527565830}
+  - {fileID: 846244169}
+  - {fileID: 86205643}
+  m_Father: {fileID: 3479275975513034352}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 319}
+  m_SizeDelta: {x: 210, y: 210}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2118972445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118972443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.899371, g: 0.899371, b: 0.899371, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2118972446
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118972443}
   m_CullTransparentMesh: 1
 --- !u!61 &2666105433381568
 BoxCollider2D:
@@ -2840,6 +3007,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5657659663264032173}
   previewSpriteRenderer: {fileID: 5657659663264032173}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &80230315460720970
 Transform:
   m_ObjectHideFlags: 0
@@ -3418,6 +3587,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5614542554832850890}
   previewSpriteRenderer: {fileID: 5614542554832850890}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &178635942915657712
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3497,6 +3668,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5566873454336764732}
   previewSpriteRenderer: {fileID: 5566873454336764732}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &207624968181395433
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,6 +3959,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5533321132891067444}
   previewSpriteRenderer: {fileID: 5533321132891067444}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &242524561412563024
 Transform:
   m_ObjectHideFlags: 0
@@ -4062,6 +4237,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5444376118268503826}
   previewSpriteRenderer: {fileID: 5444376118268503826}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &297718207428665884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4080,6 +4257,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5457406007301565818}
   previewSpriteRenderer: {fileID: 5457406007301565818}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &302175081693641520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4179,6 +4358,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5459589259236957776}
   previewSpriteRenderer: {fileID: 5459589259236957776}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &314190615858340088
 Transform:
   m_ObjectHideFlags: 0
@@ -4601,6 +4782,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5432325562711423706}
   previewSpriteRenderer: {fileID: 5432325562711423706}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &360173978652479360
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4671,6 +4854,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5380199160484213217}
   previewSpriteRenderer: {fileID: 5380199160484213217}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &376707649369761365
 Transform:
   m_ObjectHideFlags: 0
@@ -4704,6 +4889,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5393764901993762556}
   previewSpriteRenderer: {fileID: 5393764901993762556}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &382307954719832881
 Transform:
   m_ObjectHideFlags: 0
@@ -4907,6 +5094,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5318832533489799217}
   previewSpriteRenderer: {fileID: 5318832533489799217}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &457931166004430005
 GameObject:
   m_ObjectHideFlags: 0
@@ -5247,6 +5436,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5206122318009753553}
   previewSpriteRenderer: {fileID: 5206122318009753553}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &550832721032510126
 GameObject:
   m_ObjectHideFlags: 0
@@ -5845,6 +6036,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5125731922950943771}
   previewSpriteRenderer: {fileID: 5125731922950943771}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &633229694756461784
 Transform:
   m_ObjectHideFlags: 0
@@ -5894,6 +6087,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5138087073806754829}
   previewSpriteRenderer: {fileID: 5138087073806754829}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &639427141159043934
 GameObject:
   m_ObjectHideFlags: 0
@@ -6276,6 +6471,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5054376309189382981}
   previewSpriteRenderer: {fileID: 5054376309189382981}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &701808551507396151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6472,6 +6669,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5034798981075030995}
   previewSpriteRenderer: {fileID: 5034798981075030995}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &743402749135563314
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6557,6 +6756,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5030000676473939632}
   previewSpriteRenderer: {fileID: 5030000676473939632}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &744768099467663195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6662,6 +6863,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5036178665676936217}
   previewSpriteRenderer: {fileID: 5036178665676936217}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &756545361169967542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6680,6 +6883,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5035839155435218640}
   previewSpriteRenderer: {fileID: 5035839155435218640}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &757210904558881252
 GameObject:
   m_ObjectHideFlags: 0
@@ -6817,6 +7022,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4995287545114143822}
   previewSpriteRenderer: {fileID: 4995287545114143822}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &784284194774309911
 Transform:
   m_ObjectHideFlags: 0
@@ -7437,6 +7644,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4831074152949305384}
   previewSpriteRenderer: {fileID: 4831074152949305384}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &907225669684358175
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8100,6 +8309,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4775077580607777977}
   previewSpriteRenderer: {fileID: 4775077580607777977}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1002775147373035759
 GameObject:
   m_ObjectHideFlags: 0
@@ -8137,6 +8348,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4789139459077939283}
   previewSpriteRenderer: {fileID: 4789139459077939283}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1010950803073077180
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8451,6 +8664,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4696027368417841970}
   previewSpriteRenderer: {fileID: 4696027368417841970}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1074262663823393245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8779,6 +8994,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4675716717074637312}
   previewSpriteRenderer: {fileID: 4675716717074637312}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1123279831483808795
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9197,6 +9414,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6869490284756742335}
   previewSpriteRenderer: {fileID: 6869490284756742335}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1210804005141596196
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9443,6 +9662,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6835151940545871070}
   previewSpriteRenderer: {fileID: 6835151940545871070}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &1248966923556567538
 Transform:
   m_ObjectHideFlags: 0
@@ -9688,6 +9909,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6790757114881359297}
   previewSpriteRenderer: {fileID: 6790757114881359297}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1274233708898504603
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9854,6 +10077,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6802788814072657462}
   previewSpriteRenderer: {fileID: 6802788814072657462}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1300977288424983087
 GameObject:
   m_ObjectHideFlags: 0
@@ -9925,6 +10150,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6772405720965559013}
   previewSpriteRenderer: {fileID: 6772405720965559013}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &1329257290820736911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9943,6 +10170,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6768721734272981225}
   previewSpriteRenderer: {fileID: 6768721734272981225}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1338781096252260881
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10142,6 +10371,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6733022968052268119}
   previewSpriteRenderer: {fileID: 6733022968052268119}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &1367083726538191336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10160,6 +10391,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6730057482497949326}
   previewSpriteRenderer: {fileID: 6730057482497949326}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1370901281432029961
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10327,6 +10560,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6689253310305146753}
   previewSpriteRenderer: {fileID: 6689253310305146753}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1392275413008784705
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10390,6 +10625,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6693846295434116024}
   previewSpriteRenderer: {fileID: 6693846295434116024}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1405443929981265570
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10535,6 +10772,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6649042242801356344}
   previewSpriteRenderer: {fileID: 6649042242801356344}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1450706824470307842
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10832,6 +11071,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6570125995862129399}
   previewSpriteRenderer: {fileID: 6570125995862129399}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &1493355142006864187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11157,6 +11398,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6553716664692497267}
   previewSpriteRenderer: {fileID: 6553716664692497267}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &1558718471904835859
 Transform:
   m_ObjectHideFlags: 0
@@ -12228,6 +12471,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6321513899349529763}
   previewSpriteRenderer: {fileID: 6321513899349529763}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1744627309127681430
 GameObject:
   m_ObjectHideFlags: 0
@@ -12460,6 +12705,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6289134697252275758}
   previewSpriteRenderer: {fileID: 6289134697252275758}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1792785230097302240
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12676,6 +12923,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6258983839176041616}
   previewSpriteRenderer: {fileID: 6258983839176041616}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1822606665752796352
 GameObject:
   m_ObjectHideFlags: 0
@@ -13030,6 +13279,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6167401754396988267}
   previewSpriteRenderer: {fileID: 6167401754396988267}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &1877439534017040268
 Transform:
   m_ObjectHideFlags: 0
@@ -13220,6 +13471,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6191398120083415752}
   previewSpriteRenderer: {fileID: 6191398120083415752}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &1909117354351828096
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13428,6 +13681,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6102363106882847485}
   previewSpriteRenderer: {fileID: 6102363106882847485}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &1962878258618924053
 Transform:
   m_ObjectHideFlags: 0
@@ -13462,6 +13717,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6113869449231916667}
   previewSpriteRenderer: {fileID: 6113869449231916667}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &1966355544388903281
 Transform:
   m_ObjectHideFlags: 0
@@ -13513,25 +13770,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6118380616198815698}
   previewSpriteRenderer: {fileID: 6118380616198815698}
---- !u!224 &1979040375119983022
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276793159072597671}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 637049025}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 190}
-  m_Pivot: {x: 0.5, y: 0.5}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1982749180104529871
 GameObject:
   m_ObjectHideFlags: 0
@@ -13567,6 +13807,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6054090066164315122}
   previewSpriteRenderer: {fileID: 6054090066164315122}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &1990952196823289594
 GameObject:
   m_ObjectHideFlags: 0
@@ -14183,6 +14425,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5929141251349871370}
   previewSpriteRenderer: {fileID: 5929141251349871370}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2156767727720053586
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14253,6 +14497,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5939778391332116061}
   previewSpriteRenderer: {fileID: 5939778391332116061}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2159275168351730306
 GameObject:
   m_ObjectHideFlags: 0
@@ -14290,6 +14536,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5937370829232741298}
   previewSpriteRenderer: {fileID: 5937370829232741298}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2170810415811976128
 Transform:
   m_ObjectHideFlags: 0
@@ -14339,6 +14587,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5886309920888818804}
   previewSpriteRenderer: {fileID: 5886309920888818804}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!223 &2184317550897442317
 Canvas:
   m_ObjectHideFlags: 0
@@ -14456,6 +14706,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5891888350357704976}
   previewSpriteRenderer: {fileID: 5891888350357704976}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2188882620778378326
 GameObject:
   m_ObjectHideFlags: 0
@@ -14630,6 +14882,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5855286790631482145}
   previewSpriteRenderer: {fileID: 5855286790631482145}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &2226560958122899154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14648,6 +14902,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5871420256623425972}
   previewSpriteRenderer: {fileID: 5871420256623425972}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2234987216578759987
 Transform:
   m_ObjectHideFlags: 0
@@ -14828,6 +15084,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5824896496667691737}
   previewSpriteRenderer: {fileID: 5824896496667691737}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2255830290602636401
 Transform:
   m_ObjectHideFlags: 0
@@ -14984,32 +15242,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &2276793159072597671
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1979040375119983022}
-  - component: {fileID: 2281445692359665975}
-  - component: {fileID: 3639715432264549767}
-  m_Layer: 5
-  m_Name: Player_Profile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!222 &2281445692359665975
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276793159072597671}
-  m_CullTransparentMesh: 1
 --- !u!212 &2281865822379357220
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15248,6 +15480,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 5784067040507397149}
   previewSpriteRenderer: {fileID: 5784067040507397149}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2294672238680794990
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15569,6 +15803,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8068997528734609123}
   previewSpriteRenderer: {fileID: 8068997528734609123}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2348577756764200134
 Transform:
   m_ObjectHideFlags: 0
@@ -15602,6 +15838,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8016176303000652942}
   previewSpriteRenderer: {fileID: 8016176303000652942}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2363183124230330720
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15736,6 +15974,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7962535401848140021}
   previewSpriteRenderer: {fileID: 7962535401848140021}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &2386625670183244007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15754,6 +15994,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7963441243619368833}
   previewSpriteRenderer: {fileID: 7963441243619368833}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2397961215063131415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16259,6 +16501,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7854282421691158763}
   previewSpriteRenderer: {fileID: 7854282421691158763}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2495239361137681682
 GameObject:
   m_ObjectHideFlags: 0
@@ -16430,6 +16674,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7885550122600377942}
   previewSpriteRenderer: {fileID: 7885550122600377942}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2520030946313658396
 Transform:
   m_ObjectHideFlags: 0
@@ -16660,6 +16906,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7838243313264186932}
   previewSpriteRenderer: {fileID: 7838243313264186932}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2547886571477549064
 Transform:
   m_ObjectHideFlags: 0
@@ -16901,6 +17149,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7807330823915530804}
   previewSpriteRenderer: {fileID: 7807330823915530804}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2586236187902843905
 Transform:
   m_ObjectHideFlags: 0
@@ -17282,6 +17532,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7723243645830422002}
   previewSpriteRenderer: {fileID: 7723243645830422002}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2645481541970815622
 GameObject:
   m_ObjectHideFlags: 0
@@ -17384,6 +17636,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7738728440039285080}
   previewSpriteRenderer: {fileID: 7738728440039285080}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2676379718522520316
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17525,6 +17779,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7704633246839538045}
   previewSpriteRenderer: {fileID: 7704633246839538045}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2699629043170795138
 Transform:
   m_ObjectHideFlags: 0
@@ -17912,6 +18168,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7613069203862071931}
   previewSpriteRenderer: {fileID: 7613069203862071931}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2756818078556579050
 GameObject:
   m_ObjectHideFlags: 0
@@ -18086,6 +18344,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7634514469224086579}
   previewSpriteRenderer: {fileID: 7634514469224086579}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &2775431976965385666
 GameObject:
   m_ObjectHideFlags: 0
@@ -18199,6 +18459,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7599994687908959451}
   previewSpriteRenderer: {fileID: 7599994687908959451}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2804768086899251148
 Transform:
   m_ObjectHideFlags: 0
@@ -18766,6 +19028,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7515304140635469847}
   previewSpriteRenderer: {fileID: 7515304140635469847}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &2874086842185866807
 Transform:
   m_ObjectHideFlags: 0
@@ -19137,6 +19401,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7436058204745267734}
   previewSpriteRenderer: {fileID: 7436058204745267734}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &2935748323339848752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19515,6 +19781,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7410464312689142229}
   previewSpriteRenderer: {fileID: 7410464312689142229}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &2975861784088600973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19664,6 +19932,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7361258651176837098}
   previewSpriteRenderer: {fileID: 7361258651176837098}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3005453383822817534
 GameObject:
   m_ObjectHideFlags: 0
@@ -20085,6 +20355,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7336825885667310563}
   previewSpriteRenderer: {fileID: 7336825885667310563}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &3066161160172489348
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20215,6 +20487,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7288270952450264630}
   previewSpriteRenderer: {fileID: 7288270952450264630}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!224 &3078310594422607646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20272,6 +20546,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7249953434606949874}
   previewSpriteRenderer: {fileID: 7249953434606949874}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &3100159686090414134
 Transform:
   m_ObjectHideFlags: 0
@@ -20402,6 +20678,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7251850220125683758}
   previewSpriteRenderer: {fileID: 7251850220125683758}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3117910041330694990
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20665,6 +20943,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7218407170471479640}
   previewSpriteRenderer: {fileID: 7218407170471479640}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3150124274215048219
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21150,6 +21430,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7168273343233014557}
   previewSpriteRenderer: {fileID: 7168273343233014557}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3237119487319445810
 GameObject:
   m_ObjectHideFlags: 0
@@ -21187,6 +21469,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7115492755159425393}
   previewSpriteRenderer: {fileID: 7115492755159425393}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &3254474821885950246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21369,6 +21653,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 7067297549799421402}
   previewSpriteRenderer: {fileID: 7067297549799421402}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3292742286454190356
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21984,6 +22270,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 6956892746705578938}
   previewSpriteRenderer: {fileID: 6956892746705578938}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3393768872746931698
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22351,6 +22639,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 9191830333850595863}
   previewSpriteRenderer: {fileID: 9191830333850595863}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &3465247300872978387
 Transform:
   m_ObjectHideFlags: 0
@@ -22584,7 +22874,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 637049025}
+  - {fileID: 2118972444}
   - {fileID: 379912826}
   - {fileID: 4753365789915654018}
   - {fileID: 1357397212}
@@ -22810,6 +23100,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 9173545847222995286}
   previewSpriteRenderer: {fileID: 9173545847222995286}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &3533011362931312393
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23143,6 +23435,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 9134282273673019925}
   previewSpriteRenderer: {fileID: 9134282273673019925}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3565472381676785704
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23340,6 +23634,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 9091223602414926064}
   previewSpriteRenderer: {fileID: 9091223602414926064}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3589389725425228214
 GameObject:
   m_ObjectHideFlags: 0
@@ -23632,36 +23928,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3639715432264549767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2276793159072597671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f4fa4cf08b84c184598188d965915b8e, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!4 &3648614497999812043
 Transform:
   m_ObjectHideFlags: 0
@@ -23863,6 +24129,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 9029258293305539952}
   previewSpriteRenderer: {fileID: 9029258293305539952}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &3667540608459124431
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24386,6 +24654,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8917026551037621737}
   previewSpriteRenderer: {fileID: 8917026551037621737}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &3769136420909970036
 Transform:
   m_ObjectHideFlags: 0
@@ -24673,6 +24943,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8862008509882330618}
   previewSpriteRenderer: {fileID: 8862008509882330618}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3855068631759943906
 GameObject:
   m_ObjectHideFlags: 0
@@ -25155,6 +25427,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8780482429024463158}
   previewSpriteRenderer: {fileID: 8780482429024463158}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3934650981672905578
 GameObject:
   m_ObjectHideFlags: 0
@@ -25242,6 +25516,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8733477513916105745}
   previewSpriteRenderer: {fileID: 8733477513916105745}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3947467653145662541
 GameObject:
   m_ObjectHideFlags: 0
@@ -25279,6 +25555,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8742817846561643117}
   previewSpriteRenderer: {fileID: 8742817846561643117}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &3961003019844698318
 GameObject:
   m_ObjectHideFlags: 0
@@ -25368,6 +25646,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8687427703765661898}
   previewSpriteRenderer: {fileID: 8687427703765661898}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &3972044797088921840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25843,6 +26123,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8615769592974456533}
   previewSpriteRenderer: {fileID: 8615769592974456533}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4041708795379615582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25861,6 +26143,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8613737115174684728}
   previewSpriteRenderer: {fileID: 8613737115174684728}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4041942252685801279
 GameObject:
   m_ObjectHideFlags: 0
@@ -25896,6 +26180,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8610935369078608348}
   previewSpriteRenderer: {fileID: 8610935369078608348}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4048423652742096329
 GameObject:
   m_ObjectHideFlags: 0
@@ -26051,6 +26337,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8635891412165828765}
   previewSpriteRenderer: {fileID: 8635891412165828765}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4056845638592488783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26069,6 +26357,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8633931986737343017}
   previewSpriteRenderer: {fileID: 8633931986737343017}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4056902070866131989
 Transform:
   m_ObjectHideFlags: 0
@@ -26414,6 +26704,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8605853525852911136}
   previewSpriteRenderer: {fileID: 8605853525852911136}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4112199635571046334
 GameObject:
   m_ObjectHideFlags: 0
@@ -26618,6 +26910,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8506158890907885763}
   previewSpriteRenderer: {fileID: 8506158890907885763}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4151872341154797673
 GameObject:
   m_ObjectHideFlags: 0
@@ -26705,6 +26999,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8515415294850687910}
   previewSpriteRenderer: {fileID: 8515415294850687910}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4157967718789634386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26723,6 +27019,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8514404073469253172}
   previewSpriteRenderer: {fileID: 8514404073469253172}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4163179818584232778
 Transform:
   m_ObjectHideFlags: 0
@@ -26841,6 +27139,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8535157990451350077}
   previewSpriteRenderer: {fileID: 8535157990451350077}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &4178840584251860754
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26979,6 +27279,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8468963081058155399}
   previewSpriteRenderer: {fileID: 8468963081058155399}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4198254867463424132
 GameObject:
   m_ObjectHideFlags: 0
@@ -27276,6 +27578,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8458855249447209761}
   previewSpriteRenderer: {fileID: 8458855249447209761}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4252348333654845689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27465,6 +27769,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8367082504915826407}
   previewSpriteRenderer: {fileID: 8367082504915826407}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4288864676915943345
 GameObject:
   m_ObjectHideFlags: 0
@@ -27568,6 +27874,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8384941910517036804}
   previewSpriteRenderer: {fileID: 8384941910517036804}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &4314150495389410312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27699,6 +28007,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8386537221489269945}
   previewSpriteRenderer: {fileID: 8386537221489269945}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4340699143378491371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27717,6 +28027,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8331780428534093965}
   previewSpriteRenderer: {fileID: 8331780428534093965}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4341896276589128409
 GameObject:
   m_ObjectHideFlags: 0
@@ -27754,6 +28066,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8349230610965511777}
   previewSpriteRenderer: {fileID: 8349230610965511777}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4343895176246926098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27772,6 +28086,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8346772498884482164}
   previewSpriteRenderer: {fileID: 8346772498884482164}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4351201890594390916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27842,6 +28158,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8357170554021918861}
   previewSpriteRenderer: {fileID: 8357170554021918861}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4356934536911987309
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28106,6 +28424,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8307805625735652139}
   previewSpriteRenderer: {fileID: 8307805625735652139}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4386666225979529263
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28255,6 +28575,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8264926867819064019}
   previewSpriteRenderer: {fileID: 8264926867819064019}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4417934453552616510
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28507,6 +28829,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8238797935663523204}
   previewSpriteRenderer: {fileID: 8238797935663523204}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &4456055648128516897
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28601,6 +28925,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8243420775744257517}
   previewSpriteRenderer: {fileID: 8243420775744257517}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4468592558225173010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -28790,6 +29116,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8148415173965183884}
   previewSpriteRenderer: {fileID: 8148415173965183884}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4508118598180030086
 Transform:
   m_ObjectHideFlags: 0
@@ -28824,6 +29152,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8144121182930612337}
   previewSpriteRenderer: {fileID: 8144121182930612337}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &4517628110588006049
 GameObject:
   m_ObjectHideFlags: 0
@@ -28929,6 +29259,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8178474208710148504}
   previewSpriteRenderer: {fileID: 8178474208710148504}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4534882814902627544
 Transform:
   m_ObjectHideFlags: 0
@@ -29279,6 +29611,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 8078484803923237232}
   previewSpriteRenderer: {fileID: 8078484803923237232}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &4578735628916621268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29546,6 +29880,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1125546945939313109}
   previewSpriteRenderer: {fileID: 1125546945939313109}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4614516872317276697
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29773,6 +30109,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1102183748350065015}
   previewSpriteRenderer: {fileID: 1102183748350065015}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4672526858811533114
 Transform:
   m_ObjectHideFlags: 0
@@ -29859,6 +30197,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1050277554610074870}
   previewSpriteRenderer: {fileID: 1050277554610074870}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &4696027368417841970
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -30302,6 +30642,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 945562869367907719}
   previewSpriteRenderer: {fileID: 945562869367907719}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4798198477529620255
 Transform:
   m_ObjectHideFlags: 0
@@ -30650,6 +30992,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 855495567235847880}
   previewSpriteRenderer: {fileID: 855495567235847880}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &4920087897524216325
 Transform:
   m_ObjectHideFlags: 0
@@ -31210,6 +31554,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 744768099467663195}
   previewSpriteRenderer: {fileID: 744768099467663195}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &5030000676473939632
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31749,6 +32095,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 699049965106801407}
   previewSpriteRenderer: {fileID: 699049965106801407}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &5062679241650378336
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32108,6 +32456,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 623444687477034572}
   previewSpriteRenderer: {fileID: 623444687477034572}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &5138087073806754829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32230,6 +32580,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 584189048152125310}
   previewSpriteRenderer: {fileID: 584189048152125310}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &5154253782936244162
 GameObject:
   m_ObjectHideFlags: 0
@@ -32665,6 +33017,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 508985621594849400}
   previewSpriteRenderer: {fileID: 508985621594849400}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &5228598811239196743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32683,6 +33037,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 509639110487992097}
   previewSpriteRenderer: {fileID: 509639110487992097}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5230470793955878629
 Transform:
   m_ObjectHideFlags: 0
@@ -33933,6 +34289,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 327945342281178314}
   previewSpriteRenderer: {fileID: 327945342281178314}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5419461385785553311
 Transform:
   m_ObjectHideFlags: 0
@@ -33966,6 +34324,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 334654721357280965}
   previewSpriteRenderer: {fileID: 334654721357280965}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &5421139939759278571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33984,6 +34344,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 335217958382044813}
   previewSpriteRenderer: {fileID: 335217958382044813}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5423963539130151416
 Transform:
   m_ObjectHideFlags: 0
@@ -34078,6 +34440,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 360173978652479360}
   previewSpriteRenderer: {fileID: 360173978652479360}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &5432161656632405235
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34489,6 +34853,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 317293777907248650}
   previewSpriteRenderer: {fileID: 317293777907248650}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &5478013544748244785
 GameObject:
   m_ObjectHideFlags: 0
@@ -34577,6 +34943,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 264308916807215908}
   previewSpriteRenderer: {fileID: 264308916807215908}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5492361336050044469
 Transform:
   m_ObjectHideFlags: 0
@@ -34959,6 +35327,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 151866429102446212}
   previewSpriteRenderer: {fileID: 151866429102446212}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &5587369235318639163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34977,6 +35347,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 150727994143688029}
   previewSpriteRenderer: {fileID: 150727994143688029}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &5588424126850149934
 GameObject:
   m_ObjectHideFlags: 0
@@ -35123,6 +35495,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 168063684726789439}
   previewSpriteRenderer: {fileID: 168063684726789439}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &5606483307625787456
 GameObject:
   m_ObjectHideFlags: 0
@@ -35534,6 +35908,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 128021485570623081}
   previewSpriteRenderer: {fileID: 128021485570623081}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5646749544770588236
 Transform:
   m_ObjectHideFlags: 0
@@ -36355,6 +36731,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2287759725552819134}
   previewSpriteRenderer: {fileID: 2287759725552819134}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5777243964738727084
 Transform:
   m_ObjectHideFlags: 0
@@ -36507,6 +36885,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2292262022516120537}
   previewSpriteRenderer: {fileID: 2292262022516120537}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &5790105434596332556
 Transform:
   m_ObjectHideFlags: 0
@@ -37596,6 +37976,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2156767727720053586}
   previewSpriteRenderer: {fileID: 2156767727720053586}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &5942181014126605022
 GameObject:
   m_ObjectHideFlags: 0
@@ -37806,6 +38188,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2066306219115808994}
   previewSpriteRenderer: {fileID: 2066306219115808994}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &5996302845532827931
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38457,6 +38841,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1934088201506563181}
   previewSpriteRenderer: {fileID: 1934088201506563181}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &6146526113464773704
 Transform:
   m_ObjectHideFlags: 0
@@ -38594,6 +38980,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1889103395753775840}
   previewSpriteRenderer: {fileID: 1889103395753775840}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &6175776651729202060
 GameObject:
   m_ObjectHideFlags: 0
@@ -38699,6 +39087,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1864422208055105470}
   previewSpriteRenderer: {fileID: 1864422208055105470}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &6223839385551164966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38717,6 +39107,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1856230760057772352}
   previewSpriteRenderer: {fileID: 1856230760057772352}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &6225744368505193426
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39075,6 +39467,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1832358861047454663}
   previewSpriteRenderer: {fileID: 1832358861047454663}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &6278310062380794117
 Transform:
   m_ObjectHideFlags: 0
@@ -39108,6 +39502,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1779700009985287188}
   previewSpriteRenderer: {fileID: 1779700009985287188}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &6287843736521611481
 GameObject:
   m_ObjectHideFlags: 0
@@ -39230,6 +39626,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1731263677499725075}
   previewSpriteRenderer: {fileID: 1731263677499725075}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &6313961521724602828
 GameObject:
   m_ObjectHideFlags: 0
@@ -39603,6 +40001,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1707098032044606705}
   previewSpriteRenderer: {fileID: 1707098032044606705}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &6357822971121247511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40306,6 +40706,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1522311279950063442}
   previewSpriteRenderer: {fileID: 1522311279950063442}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &6544290103254841133
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40720,6 +41122,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1508240016208745643}
   previewSpriteRenderer: {fileID: 1508240016208745643}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &6592706412880039917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40738,6 +41142,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1504434775151001739}
   previewSpriteRenderer: {fileID: 1504434775151001739}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &6600511328795253159
 GameObject:
   m_ObjectHideFlags: 0
@@ -40820,6 +41226,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1450706824470307842}
   previewSpriteRenderer: {fileID: 1450706824470307842}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &6611764139694609238
 Transform:
   m_ObjectHideFlags: 0
@@ -41188,6 +41596,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1378644634286809766}
   previewSpriteRenderer: {fileID: 1378644634286809766}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &6689253310305146753
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -41362,6 +41772,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1340554563182227161}
   previewSpriteRenderer: {fileID: 1340554563182227161}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &6717554313285353694
 Transform:
   m_ObjectHideFlags: 0
@@ -41760,6 +42172,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1274233708898504603}
   previewSpriteRenderer: {fileID: 1274233708898504603}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &6790757114881359297
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42314,6 +42728,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1258422607127593692}
   previewSpriteRenderer: {fileID: 1258422607127593692}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &6843495140474403645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42482,6 +42898,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1212587123815842779}
   previewSpriteRenderer: {fileID: 1212587123815842779}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &6868146848124405570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42500,6 +42918,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1210804005141596196}
   previewSpriteRenderer: {fileID: 1210804005141596196}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &6869490284756742335
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42585,6 +43005,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 1161007007082542747}
   previewSpriteRenderer: {fileID: 1161007007082542747}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &6893057473438910389
 GameObject:
   m_ObjectHideFlags: 0
@@ -43395,6 +43817,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3258756544837215172}
   previewSpriteRenderer: {fileID: 3258756544837215172}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &7113184248610141760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43413,6 +43837,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3254474821885950246}
   previewSpriteRenderer: {fileID: 3254474821885950246}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7115492755159425393
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -44179,6 +44605,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3189786151603165039}
   previewSpriteRenderer: {fileID: 3189786151603165039}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7194948776814964859
 GameObject:
   m_ObjectHideFlags: 0
@@ -44231,6 +44659,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3205528818969531873}
   previewSpriteRenderer: {fileID: 3205528818969531873}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &7206911941564759378
 Transform:
   m_ObjectHideFlags: 0
@@ -44420,6 +44850,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3115986556441067900}
   previewSpriteRenderer: {fileID: 3115986556441067900}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7251850220125683758
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -44834,6 +45266,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3031707555067335827}
   previewSpriteRenderer: {fileID: 3031707555067335827}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &7323738808947495882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44852,6 +45286,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3043880690362326188}
   previewSpriteRenderer: {fileID: 3043880690362326188}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7329746717611258668
 GameObject:
   m_ObjectHideFlags: 0
@@ -45008,6 +45444,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2992676726889530562}
   previewSpriteRenderer: {fileID: 2992676726889530562}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7361258651176837098
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -45168,6 +45606,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3009091391363597857}
   previewSpriteRenderer: {fileID: 3009091391363597857}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7379595461383329182
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -45272,6 +45712,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2962640071602142883}
   previewSpriteRenderer: {fileID: 2962640071602142883}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7389057713739355276
 GameObject:
   m_ObjectHideFlags: 0
@@ -46032,6 +46474,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2833107821487868547}
   previewSpriteRenderer: {fileID: 2833107821487868547}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &7554919789407577100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46050,6 +46494,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2829768536833682282}
   previewSpriteRenderer: {fileID: 2829768536833682282}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7556312548207480931
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -46620,6 +47066,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2759998751781624849}
   previewSpriteRenderer: {fileID: 2759998751781624849}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &7625923461338486172
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -47100,6 +47548,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2730757483742968507}
   previewSpriteRenderer: {fileID: 2730757483742968507}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &7677537044785359171
 Transform:
   m_ObjectHideFlags: 0
@@ -47150,6 +47600,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2676379718522520316}
   previewSpriteRenderer: {fileID: 2676379718522520316}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7694338407305588172
 GameObject:
   m_ObjectHideFlags: 0
@@ -47794,6 +48246,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2572620920073489275}
   previewSpriteRenderer: {fileID: 2572620920073489275}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7800066560950016590
 GameObject:
   m_ObjectHideFlags: 0
@@ -47971,6 +48425,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2524320631992316290}
   previewSpriteRenderer: {fileID: 2524320631992316290}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7829499660642842930
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -48245,6 +48701,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2555149413258183251}
   previewSpriteRenderer: {fileID: 2555149413258183251}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7851510316750062279
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -48635,6 +49093,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2508174352941060653}
   previewSpriteRenderer: {fileID: 2508174352941060653}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7878256542126957267
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -48774,6 +49234,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2457240700419368373}
   previewSpriteRenderer: {fileID: 2457240700419368373}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7906736804045002630
 GameObject:
   m_ObjectHideFlags: 0
@@ -48950,6 +49412,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2431059001251012052}
   previewSpriteRenderer: {fileID: 2431059001251012052}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &7944023965760908970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48968,6 +49432,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2424057335386677708}
   previewSpriteRenderer: {fileID: 2424057335386677708}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7945524456063017935
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -49055,6 +49521,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2441451322295703103}
   previewSpriteRenderer: {fileID: 2441451322295703103}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &7962535401848140021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -49293,6 +49761,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2397961215063131415}
   previewSpriteRenderer: {fileID: 2397961215063131415}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &7989279473940214371
 GameObject:
   m_ObjectHideFlags: 0
@@ -49522,6 +49992,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2363183124230330720}
   previewSpriteRenderer: {fileID: 2363183124230330720}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8024626791529091222
 GameObject:
   m_ObjectHideFlags: 0
@@ -49659,6 +50131,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2306339491032045858}
   previewSpriteRenderer: {fileID: 2306339491032045858}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &8046170993953518237
 Transform:
   m_ObjectHideFlags: 0
@@ -49693,6 +50167,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 2316161009281646615}
   previewSpriteRenderer: {fileID: 2316161009281646615}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &8055315273761901329
 Transform:
   m_ObjectHideFlags: 0
@@ -49944,6 +50420,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4590411504136402397}
   previewSpriteRenderer: {fileID: 4590411504136402397}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8086628242702902167
 GameObject:
   m_ObjectHideFlags: 0
@@ -50086,6 +50564,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4542820639494875503}
   previewSpriteRenderer: {fileID: 4542820639494875503}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!61 &8115670858310885473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50489,6 +50969,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4493790974296940433}
   previewSpriteRenderer: {fileID: 4493790974296940433}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &8199809659878926739
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -50575,6 +51057,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4500500947470841888}
   previewSpriteRenderer: {fileID: 4500500947470841888}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8209005773622204790
 GameObject:
   m_ObjectHideFlags: 0
@@ -51125,6 +51609,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4417934453552616510}
   previewSpriteRenderer: {fileID: 4417934453552616510}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &8274509001861960925
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -51405,6 +51891,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4386666225979529263}
   previewSpriteRenderer: {fileID: 4386666225979529263}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8323530138032924076
 GameObject:
   m_ObjectHideFlags: 0
@@ -51683,6 +52171,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4357826638981198608}
   previewSpriteRenderer: {fileID: 4357826638981198608}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8357014076951170898
 GameObject:
   m_ObjectHideFlags: 0
@@ -52123,6 +52613,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4269465927125279024}
   previewSpriteRenderer: {fileID: 4269465927125279024}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &8420920882747426317
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -52919,6 +53411,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4156934468166927688}
   previewSpriteRenderer: {fileID: 4156934468166927688}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8516178760149488112
 GameObject:
   m_ObjectHideFlags: 0
@@ -53224,6 +53718,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4075848905258307394}
   previewSpriteRenderer: {fileID: 4075848905258307394}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &8591112355416170842
 Transform:
   m_ObjectHideFlags: 0
@@ -53587,6 +54083,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4051948120419993259}
   previewSpriteRenderer: {fileID: 4051948120419993259}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8622125429118421525
 GameObject:
   m_ObjectHideFlags: 0
@@ -53932,6 +54430,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 4035076042770727148}
   previewSpriteRenderer: {fileID: 4035076042770727148}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8687034712040218309
 GameObject:
   m_ObjectHideFlags: 0
@@ -54019,6 +54519,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3967456760277623239}
   previewSpriteRenderer: {fileID: 3967456760277623239}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!222 &8688885927196705386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54125,6 +54627,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3987476504180139995}
   previewSpriteRenderer: {fileID: 3987476504180139995}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &8705017901720059214
 Transform:
   m_ObjectHideFlags: 0
@@ -54804,6 +55308,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3878825647641330190}
   previewSpriteRenderer: {fileID: 3878825647641330190}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8812020603077012077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54822,6 +55328,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3879775162872980747}
   previewSpriteRenderer: {fileID: 3879775162872980747}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8820718624680452196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54840,6 +55348,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3887820486888484610}
   previewSpriteRenderer: {fileID: 3887820486888484610}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8823412494340368941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54858,6 +55368,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3886080992517023051}
   previewSpriteRenderer: {fileID: 3886080992517023051}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8826517109788269958
 GameObject:
   m_ObjectHideFlags: 0
@@ -55051,6 +55563,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3799834325580445381}
   previewSpriteRenderer: {fileID: 3799834325580445381}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &8874112127732797963
 Transform:
   m_ObjectHideFlags: 0
@@ -55149,6 +55663,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3804636748435185891}
   previewSpriteRenderer: {fileID: 3804636748435185891}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8891965793947790573
 GameObject:
   m_ObjectHideFlags: 0
@@ -55428,6 +55944,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3737367294659782327}
   previewSpriteRenderer: {fileID: 3737367294659782327}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8957391777936571371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55446,6 +55964,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3734082936724567181}
   previewSpriteRenderer: {fileID: 3734082936724567181}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8976947073721819193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55464,6 +55984,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3677656618911313759}
   previewSpriteRenderer: {fileID: 3677656618911313759}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &8981570076325688506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55482,6 +56004,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3691226137177029596}
   previewSpriteRenderer: {fileID: 3691226137177029596}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8981687241483351548
 GameObject:
   m_ObjectHideFlags: 0
@@ -55555,6 +56079,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3700362176125406643}
   previewSpriteRenderer: {fileID: 3700362176125406643}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1 &8992499520528935648
 GameObject:
   m_ObjectHideFlags: 0
@@ -55672,6 +56198,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3661869898892487017}
   previewSpriteRenderer: {fileID: 3661869898892487017}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &9029258293305539952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -55825,6 +56353,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3617018306526457796}
   previewSpriteRenderer: {fileID: 3617018306526457796}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &9068991872577394618
 Transform:
   m_ObjectHideFlags: 0
@@ -56001,6 +56531,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3633185453201262947}
   previewSpriteRenderer: {fileID: 3633185453201262947}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!114 &9078971384236251598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56019,6 +56551,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3630975142885054120}
   previewSpriteRenderer: {fileID: 3630975142885054120}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &9080078999806797528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -56202,6 +56736,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3578946878991049322}
   previewSpriteRenderer: {fileID: 3578946878991049322}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &9097583753401634946
 Transform:
   m_ObjectHideFlags: 0
@@ -56518,6 +57054,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3533011362931312393}
   previewSpriteRenderer: {fileID: 3533011362931312393}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!4 &9129926122262460045
 Transform:
   m_ObjectHideFlags: 0
@@ -56743,6 +57281,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3498753793678907251}
   previewSpriteRenderer: {fileID: 3498753793678907251}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!212 &9173545847222995286
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -57048,6 +57588,8 @@ MonoBehaviour:
   PreSprite: {fileID: 21300000, guid: acbf3229b85ddac42891e011510c7a77, type: 3}
   markerSpriteRenderer: {fileID: 3486493832511288654}
   previewSpriteRenderer: {fileID: 3486493832511288654}
+  RecentMoveSprite: {fileID: 21300000, guid: 57d13f956767d4d4dba38a37faa23530, type: 3}
+  recentMoveSpriteRenderer: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

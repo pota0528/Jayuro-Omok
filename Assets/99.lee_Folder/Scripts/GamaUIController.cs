@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour
     {
-        [SerializeField] private Image playerAImage;
-        [SerializeField] private Image playerBImage;
+        [SerializeField] private Image userPlayerTurnPoint;
+        [SerializeField] private Image playerAITurnPoint;
         [SerializeField] private Button gameOverButton;
         [SerializeField] private TextMeshProUGUI userNicknameWithRank;
+        [SerializeField] private TextMeshProUGUI aiNicknameWithRank;
         [SerializeField] private Image userProfile;
+        [SerializeField] private Image aiProfile;
         [SerializeField] private Sprite[] spriteList;
 
         public enum GameUIMode
@@ -24,11 +26,33 @@ public class GameUIController : MonoBehaviour
         private int selectedRow = -1;
         private int selectedCol = -1;
 
+        private int rankNumber = 0;
+
+        private string[] aiNickNameList = new string[]
+        {
+            "예대전설 미드저니",
+            "영상장인 소라",
+            "맑눈광 잼민이",
+            "달려라 지피티",
+            "테무에서 온 알파고",
+            "지옥의 코파일럿",
+            "트위터키배 그록3",
+            "불타는 코파일럿"
+        };
+        
         public void DisplayUserInfo(string nickname, string rank, int imageIndex)
         {
+            rankNumber = int.Parse(rank);
             string infoStr = rank + "급 " + nickname;
             userNicknameWithRank.text = infoStr;
             userProfile.sprite = spriteList[imageIndex];
+        }
+
+        public void DisplayAIInfo()
+        {
+            int randomNumber = Random.Range(0, 8);
+            aiNicknameWithRank.text = rankNumber + "급 " + aiNickNameList[randomNumber];
+            aiProfile.sprite = spriteList[randomNumber];
         }
         
         public void SetGameUIMode(GameUIMode mode)
@@ -36,16 +60,16 @@ public class GameUIController : MonoBehaviour
             switch (mode)
             {
                 case GameUIMode.Init:
-                    playerAImage.color = new Color32(221, 221, 221, 255);
-                    playerBImage.color = new Color32(221, 221, 221, 255);
+                    userPlayerTurnPoint.color = new Color32(221, 221, 221, 255);
+                    playerAITurnPoint.color = new Color32(221, 221, 221, 255);
                     break;
                 case GameUIMode.TurnA:
-                    playerAImage.color = new Color32(105, 255, 132, 255);
-                    playerBImage.color = new Color32(221, 221, 221, 255);
+                    userPlayerTurnPoint.color = new Color32(105, 255, 132, 255);
+                    playerAITurnPoint.color = new Color32(221, 221, 221, 255);
                     break;
                 case GameUIMode.TurnB:
-                    playerAImage.color = new Color32(221, 221, 221, 255);
-                    playerBImage.color = new Color32(105, 255, 132, 255);
+                    userPlayerTurnPoint.color = new Color32(221, 221, 221, 255);
+                    playerAITurnPoint.color = new Color32(105, 255, 132, 255);
                     break;
                 case GameUIMode.GameOver:
                     //playerAImage[0].gameObject.SetActive(false);

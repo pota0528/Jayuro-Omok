@@ -23,7 +23,11 @@ public class AudioManager : Singleton<AudioManager>
 
     public void OnPutSelector()
     {
-        SfxSelectorAudioSource.Play();
+        if (!SfxSelectorAudioSource.isPlaying)
+        {
+            Debug.Log("소리재생");
+            SfxSelectorAudioSource.Play();
+        }
     }
 
     public void OnPauseBGM()
@@ -47,6 +51,10 @@ public class AudioManager : Singleton<AudioManager>
     public void SetBGMVolume(float volume)
     {
         // BGM 볼륨 설정
+        if (volume <= 0)
+        {
+            volume = 0.01f;
+        }
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
 
         // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
@@ -57,6 +65,10 @@ public class AudioManager : Singleton<AudioManager>
     public void SetSFXVolume(float volume)
     {
         // BGM 볼륨 설정
+        if (volume <= 0)
+        {
+            volume = 0.01f;
+        }
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
 
@@ -68,7 +80,11 @@ public class AudioManager : Singleton<AudioManager>
     
     public void SetSFXSelectorVolume(float volume)
     {
-        // BGM 볼륨 설정
+        // Selector 볼륨 설정
+        if (volume <= 0)
+        {
+            volume = 0.01f;
+        }
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
 
         // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
