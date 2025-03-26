@@ -16,12 +16,7 @@ public class MainWinLosePanelController : MonoBehaviour
 
     private void Awake()
     {
-        mainLoseText.DOFade(0f,0);
-        mainLoseImage.DOFade(0f,0);
-        mainLoseImage.DOFillAmount(0f, 0f);
         
-        mainWinText.DOFade(0f,0);
-        mainWinImage.DOFillAmount(0f,0f);
     }
 
     public void MainLosePanelOpen()

@@ -10,8 +10,6 @@ public class Block : MonoBehaviour
     public Sprite PreSprite;           // 미리보기 스프라이트
     public SpriteRenderer markerSpriteRenderer;  // 마커 표시용
     public SpriteRenderer previewSpriteRenderer; // 미리보기 표시용
-    
-    
 
     public enum MarkerType { None, Black, White, Forbidden }
     public MarkerType BlockType { get; private set; } = MarkerType.None;

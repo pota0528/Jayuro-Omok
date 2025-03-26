@@ -63,14 +63,14 @@ public class WinLosePanelController : MessagePopupController
             if (currentLevelCount - Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //Todo: 승급패널 띄우기
-                if (playerData.level <= 18 && playerData.level >= 1)
+                if (playerData.level>1)
                 {
                     playerData.level--; //급수가 클수록 레벨이 낮음
                 }
                 Destroy(gameObject);
                 UserSessionManager.Instance.SetPlayerData(playerData);
                 DBManager.Instance.UpdatePlayerData(playerData);
-                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+                Debug.Log(playerData.level+"지금 레벨");
                 return false;
             }
             else
@@ -89,7 +89,6 @@ public class WinLosePanelController : MessagePopupController
                 
                 UserSessionManager.Instance.SetPlayerData(playerData);
                 DBManager.Instance.UpdatePlayerData(playerData);
-                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
                 return true;
             }
         }
@@ -101,14 +100,14 @@ public class WinLosePanelController : MessagePopupController
             if (currentLevelCount-Mathf.Abs(playerData.levelPoint) <= 0)
             {
                 //todo: 강등패널띄우기
-                if (playerData.level <= 18 && playerData.level >= 1)//[데이터 처리]-level
+                if (playerData.level < 18)//[데이터 처리]-level
                 {
                     playerData.level++; //급수가 클수록 레벨이 낮음, [데이터 처리]-level
                 }
                 Destroy(gameObject);
                 UserSessionManager.Instance.SetPlayerData(playerData);
                 DBManager.Instance.UpdatePlayerData(playerData);
-                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
+                Debug.Log(playerData.level+"지금 레벨");
                 return false;
             }
             else
@@ -124,7 +123,6 @@ public class WinLosePanelController : MessagePopupController
                 
                 UserSessionManager.Instance.SetPlayerData(playerData);
                 DBManager.Instance.UpdatePlayerData(playerData);
-                Debug.Log(playerData.levelPoint+"finish 지금 레벨");
             
                 InitGaugeBlocks(currentLevelCount); //게이지바 초기화
                 ColorGaugeBlocks(); //게이지바 색칠하기
@@ -199,7 +197,7 @@ public class WinLosePanelController : MessagePopupController
         //todo: 데이터 저장(코인, 급수, 승점포인트)
         UserSessionManager.Instance.SetPlayerData(playerData);
         DBManager.Instance.UpdatePlayerData(playerData);
-        DOTween.KillAll();
+        transform.DOKill();
         
     }
 

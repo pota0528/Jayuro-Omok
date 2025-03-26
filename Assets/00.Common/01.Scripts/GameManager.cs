@@ -7,8 +7,9 @@ using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private BlockController _blockController;
-    [SerializeField] private GameUIController _gameUIController;
+    public BlockController _blockController;//자현 추가
+    public GameUIController _gameUIController;//자현 추가
+
     [SerializeField] private Button confirmButton;
     [SerializeField] private Timer _timer;
 
@@ -32,7 +33,7 @@ public class GameManager : Singleton<GameManager>
 
     private TurnType currentTurn;
 
-    public enum GameResult //자현 추가, private > public 으로 변경
+    public enum GameResult//자현 추가, private > public 으로 변경
     {
         None,
         Win,
@@ -95,64 +96,28 @@ public class GameManager : Singleton<GameManager>
         moves.Clear();
     }
 
-    // // 난이도 조절함수
-    // private void SelectMode(int consecutive, int four, int three, int defensefour, int defensethree, int around)
-    // {
-    //     _mcts.ConsecutiveFiveBlocks = consecutive;
-    //
-    //     _mcts.fourBlocks = four;
-    //     _mcts.threeBlocks = three;
-    //
-    //     _mcts.defenseFourBlocks = defensefour;
-    //     _mcts.defenseThreeBlocks = defensethree;
-    //
-    //     _mcts.placeAroundBlackBlock = around;
-    // }
-
-    // // 중수
-    // private void IntermediateMode()
-    // {
-    //     MCTS.Instance.ConsecutiveFiveBlocks = 400;
-    //
-    //     MCTS.Instance.FourBlocks = 700;
-    //     MCTS.Instance.ThreeBlocks = 600;
-    //
-    //     MCTS.Instance.DefenseFourBlocks = 300;
-    //     MCTS.Instance.DefenseThreeBlocks = 450;
-    //
-    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
-    // }
-    // // 고수
-    // private void ProMode()
-    // {
-    //     MCTS.Instance.ConsecutiveFiveBlocks = 2000;
-    //
-    //     MCTS.Instance.FourBlocks = 800;
-    //     MCTS.Instance.ThreeBlocks = 750;
-    //
-    //     MCTS.Instance.DefenseFourBlocks = 500;
-    //     MCTS.Instance.DefenseThreeBlocks = 1000;
-    //
-    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
-    // }
+    
     private void EndGame(GameResult gameResult)
     {
         _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
-
+        
+        string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
+        
         switch (gameResult)
         {
             case GameResult.Win:
-                Debug.Log("PlayerA win");
-                SaveMatch("PlayerA");
+                Debug.Log($"{nickname} win");
+                SaveMatch(nickname);
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
-                SaveMatch("AI");
+                SaveMatch("AI"); // AI가 이기면 AI로 저장
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
+                SaveMatch(nickname + "Draw"); // 무승부 시 유저 닉네임으로 매치 저장
                 break;
         }
     }
@@ -218,8 +183,11 @@ public class GameManager : Singleton<GameManager>
                 //EndGame(gameResult);
                 _timer.PauseTimer();
                 _blockController.OnBlockClickedDelegate = null;
-                UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
+                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+                string nickname = playerData.nickname; // 유저 닉네임 가져오기
+                SaveMatch(nickname); // 플레이어 이름으로 저장
             }
+                
         }
     }
 
@@ -241,6 +209,7 @@ public class GameManager : Singleton<GameManager>
                 //EndGame(gameResult);
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
+                
         }
     }
 

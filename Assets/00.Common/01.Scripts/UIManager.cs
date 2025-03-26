@@ -219,6 +219,7 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject winLosePanelPrefab;
     [SerializeField] private GameObject startTitlePanelPrefab;
     [SerializeField] private GameObject mainWinLosePanelPrefab;
+    [SerializeField] private GameObject UpDownResultPanelPrefab;
         
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
@@ -259,9 +260,8 @@ using UnityEngine.SceneManagement;
 
         public void OpenWinLosePanel(GameManager.GameResult gameResult)//GameResult형의 gameResult (GameResult gameResult)
         {
-            //todo: EndGame(GameResult gameResult) 메소드 일부 넣기 밑에 주석 코드 두줄 주석 해제하면 됨.
-            //_gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-            //_blockGontroller.OnBlockClickedDelegate=null;
+            // GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+            // GameManager.Instance._blockController.OnBlockClickedDelegate=null;
             
             var winLosePanel = Instantiate(winLosePanelPrefab, _canvas.transform);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
@@ -270,16 +270,18 @@ using UnityEngine.SceneManagement;
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
-                var ResultPanel= Instantiate(messagePopupPrefab, _canvas.transform);
+                var ResultPanel= Instantiate(UpDownResultPanelPrefab, _canvas.transform);
                 if (playerData.levelPoint > 0)
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playerData.level);
                     playerData.levelPoint = 0;
+                    SetPlayerData(playerData);
                 }
                 else if (playerData.levelPoint < 0)
                 {
                     ResultPanel.GetComponent <MessagePopupController>().Show("강등되셨습니다.\n급수 : "+playerData.level);
                     playerData.levelPoint = 0;
+                    SetPlayerData(playerData);
                 }
                 
             }
@@ -294,6 +296,8 @@ using UnityEngine.SceneManagement;
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, _canvas.transform);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
+            
+            
             
         }
         

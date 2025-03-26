@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3998666844585740257}
   - component: {fileID: 172495383834351904}
   m_Layer: 5
-  m_Name: ConfirmButton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7255945815955135187}
         m_TargetAssemblyTypeName: BaseUIController, Assembly-CSharp
-        m_MethodName: OnConfirmButtonClick
+        m_MethodName: OnClickExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7822252776234146166}
   - component: {fileID: 7255945815955135187}
   m_Layer: 5
-  m_Name: MessagePopup
+  m_Name: UpDownResultPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
