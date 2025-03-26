@@ -26,7 +26,7 @@ public class ReplayUIController : MonoBehaviour
         exitListButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Login");
-            UIManager.Instance.OpenUserPanel();
+           
         });
         
         // ReplayPanel의 나가기 버튼을 누르면 MatchListPanel로 다시 돌아감.
