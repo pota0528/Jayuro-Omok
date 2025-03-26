@@ -7,11 +7,11 @@ using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
-    public BlockController _blockController;//자현 추가
-    public GameUIController _gameUIController;//자현 추가
-
+    [SerializeField] private BlockController _blockController;
+    [SerializeField] private GameUIController _gameUIController;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Timer _timer;
+
 
     // UI 패널 프리팹 (인스펙터에서 설정)
 
@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private TurnType currentTurn;
 
-    public enum GameResult//자현 추가, private > public 으로 변경
+    public enum GameResult //자현 추가, private > public 으로 변경
     {
         None,
         Win,
@@ -45,11 +45,11 @@ public class GameManager : Singleton<GameManager>
     private List<(int, int)> forbiddenCollection = new List<(int, int)>();
 
     private DBManager mongoDBManager;
-
+    private MCTS _mcts;
     // 캔버스 참조
     private Canvas _canvas;
     private PlayerData playerData;
-    
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
@@ -66,6 +66,28 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGame()
     {
+        BeforeSetting();
+        MCTS.Instance.UpdateBoard(_board); // 초기 보드 설정
+        
+        if (playerData.level >= 12 && playerData.level <= 18) // 12 ~ 18 까지임
+        {
+            Debug.Log("하수 진입");
+            MCTS.Instance.SetBeginnerMode();
+        }
+        else if (playerData.level >= 5 && playerData.level < 12) // 5 ~ 11 까지임
+        {
+            Debug.Log("중수 진입");
+            MCTS.Instance.SetIntermediateMode();
+        }
+        else if (playerData.level < 5) // 1 ~ 4 까지임
+        {
+            Debug.Log("고수 진입");
+            MCTS.Instance.SetProMode();
+        }
+    }
+
+    private void BeforeSetting()
+    {
         _board = new PlayerType[15, 15];
         _blockController.InitBlocks();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
@@ -73,27 +95,64 @@ public class GameManager : Singleton<GameManager>
         moves.Clear();
     }
 
+    // // 난이도 조절함수
+    // private void SelectMode(int consecutive, int four, int three, int defensefour, int defensethree, int around)
+    // {
+    //     _mcts.ConsecutiveFiveBlocks = consecutive;
+    //
+    //     _mcts.fourBlocks = four;
+    //     _mcts.threeBlocks = three;
+    //
+    //     _mcts.defenseFourBlocks = defensefour;
+    //     _mcts.defenseThreeBlocks = defensethree;
+    //
+    //     _mcts.placeAroundBlackBlock = around;
+    // }
+
+    // // 중수
+    // private void IntermediateMode()
+    // {
+    //     MCTS.Instance.ConsecutiveFiveBlocks = 400;
+    //
+    //     MCTS.Instance.FourBlocks = 700;
+    //     MCTS.Instance.ThreeBlocks = 600;
+    //
+    //     MCTS.Instance.DefenseFourBlocks = 300;
+    //     MCTS.Instance.DefenseThreeBlocks = 450;
+    //
+    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
+    // }
+    // // 고수
+    // private void ProMode()
+    // {
+    //     MCTS.Instance.ConsecutiveFiveBlocks = 2000;
+    //
+    //     MCTS.Instance.FourBlocks = 800;
+    //     MCTS.Instance.ThreeBlocks = 750;
+    //
+    //     MCTS.Instance.DefenseFourBlocks = 500;
+    //     MCTS.Instance.DefenseThreeBlocks = 1000;
+    //
+    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
+    // }
     private void EndGame(GameResult gameResult)
     {
         _timer.PauseTimer();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
         _blockController.OnBlockClickedDelegate = null;
-        
-        string nickname = UserPanelController.Instance.GetPlayerNickname(); // 유저 닉네임 가져오기
-        
+
         switch (gameResult)
         {
             case GameResult.Win:
-                Debug.Log($"{nickname} win");
-                SaveMatch(nickname);
+                Debug.Log("PlayerA win");
+                SaveMatch("PlayerA");
                 break;
             case GameResult.Lose:
                 Debug.Log("AI win");
-                SaveMatch("AI"); // AI가 이기면 AI로 저장
+                SaveMatch("AI");
                 break;
             case GameResult.Draw:
                 Debug.Log("Draw");
-                SaveMatch(nickname + "Draw"); // 무승부 시 유저 닉네임으로 매치 저장
                 break;
         }
     }
@@ -157,18 +216,18 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 //EndGame(gameResult);
-                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
-                string nickname = playerData.nickname; // 유저 닉네임 가져오기
-                SaveMatch(nickname); // 플레이어 이름으로 저장
+                _timer.PauseTimer();
+                _blockController.OnBlockClickedDelegate = null;
+                UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
-                
         }
     }
 
     private IEnumerator AIMove()
     {
-        MCTS mcts = new MCTS(_board);
-        var (row, col) = mcts.GetBestMove(500);
+        //MCTS mcts = new MCTS(_board);
+        MCTS.Instance.UpdateBoard(_board); // 매 턴마다 보드 업데이트
+        var (row, col) = MCTS.Instance.GetBestMove(50);
         yield return new WaitForSeconds(1f);
 
         if (SetNewBoardValue(PlayerType.PlayerB, row, col))
@@ -180,9 +239,8 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 //EndGame(gameResult);
-                UIManager.Instance.OpenWinLosePanel(gameResult);//자현추가
+                UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
-                
         }
     }
 
@@ -282,15 +340,5 @@ public class GameManager : Singleton<GameManager>
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-    }
-
-    public void OnClickSettingButton()
-    {
-        UIManager.Instance.OpenSettingPopup();
-    }
-
-    public void OnClickGiveUpButton()
-    {
-        UIManager.Instance.OpenGiveupPanel();
     }
 }

@@ -6,6 +6,7 @@ public class BlockController : MonoBehaviour
     [SerializeField] private int gridSize = 15;
 
     public delegate void OnBlockClicked(int row, int col);
+
     public OnBlockClicked OnBlockClickedDelegate;
 
     private int lastPreviewRow = -1;
@@ -58,6 +59,22 @@ public class BlockController : MonoBehaviour
         }
     }
 
+    public void ClearAllPreviews()
+    {
+        for (int i = 0; i < blocks.Length; i++)
+        {
+            blocks[i].StopAllCoroutines();
+            if (blocks[i].markerSpriteRenderer != null)
+            {
+                blocks[i].markerSpriteRenderer.enabled = false;
+                blocks[i].markerSpriteRenderer.sprite = null;    
+            }
+
+            lastPreviewRow = -1;
+            lastPreviewCol = -1;
+        }
+    }
+
     public void ResetBoard()
     {
         for (int i = 0; i < blocks.Length; i++)
@@ -65,6 +82,7 @@ public class BlockController : MonoBehaviour
             blocks[i].SetMarker(Block.MarkerType.None);
             blocks[i].SetPreviewMarker(false);
         }
+
         lastPreviewRow = -1;
         lastPreviewCol = -1;
     }
