@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Threading.Tasks;
 using DG.Tweening;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private BlockController _blockController;
     [SerializeField] private GameUIController _gameUIController;
@@ -52,19 +52,13 @@ public class GameManager : Singleton<GameManager>
     private PlayerData playerData;
     private Block[] _blocks;
     
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
-        SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 이벤트 구독
-    }
-
     private void Start()
     {
         playerData = UserSessionManager.Instance.GetPlayerData();
         _gameUIController.DisplayUserInfo(playerData.nickname, playerData.level.ToString(), playerData.imageIndex);
         _gameUIController.DisplayAIInfo();
-        StartGame();
         _timer.InitTimer();
+        StartGame();
     }
 
     private void StartGame()
@@ -153,7 +147,7 @@ public class GameManager : Singleton<GameManager>
                 _timer.PauseTimer();
                 _blockController.DisableAllBlockInteractions();
                 _blockController.OnBlockClickedDelegate = null;
-                SaveMatch("AI");
+                SaveMatch(playerData.nickname);
                 UIManager.Instance.OpenWinLosePanel(gameResult);
             }
         }
@@ -305,10 +299,6 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.LogError("MatchSaver 컴포넌트가 없습니다.");
         }
-    }
-
-    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
     }
 
     public void OnClickSettingButton()
