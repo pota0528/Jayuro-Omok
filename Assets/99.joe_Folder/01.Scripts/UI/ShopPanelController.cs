@@ -6,10 +6,12 @@ using UnityEngine;
  public class ShopPanelController : PanelController
     {
         [SerializeField] private CoinPanelController coinPanelController;
-        
+        private PlayerData _playerData;
+        private UserPanelController userPanelController;
         private void Start()
         {
             SetTitleText("SHOP");
+            _playerData = UserSessionManager.Instance.GetPlayerData();
         }
 
         public void OnClickCloseButton()
@@ -19,13 +21,19 @@ using UnityEngine;
         
         public void OnClickShopItemButton(int index)
         {
+            int amount = 0;
             switch (index)
             {
+                
                 case 0:
-                    if (UIManager.Instance.coinCount >= 0)
+                    if (_playerData.coin >= 0)
                     {
+                        amount += 100;
+                        UIManager.Instance.UpdateCoin(amount);
+                        coinPanelController.InitCoinCount(_playerData.coin);
+                        //coinPanelController.InitCoinCount(UIManager.Instance.coinCount);
                         UIManager.Instance.coinCount += 100;
-                        coinPanelController.InitCoinCount(UIManager.Instance.coinCount);
+                        //userPanelController.GetComponent<UserPanelController>().UpdataUI();
                     }
                 
                     break;
