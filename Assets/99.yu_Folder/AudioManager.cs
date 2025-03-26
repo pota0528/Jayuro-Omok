@@ -53,7 +53,7 @@ public class AudioManager : Singleton<AudioManager>
         // BGM 볼륨 설정
         if (volume <= 0)
         {
-            volume = 0.0001f;
+            volume = 0.01f;
         }
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
 
@@ -67,7 +67,7 @@ public class AudioManager : Singleton<AudioManager>
         // BGM 볼륨 설정
         if (volume <= 0)
         {
-            volume = 0.0001f;
+            volume = 0.01f;
         }
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
@@ -83,7 +83,7 @@ public class AudioManager : Singleton<AudioManager>
         // Selector 볼륨 설정
         if (volume <= 0)
         {
-            volume = 0.0001f;
+            volume = 0.01f;
         }
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
 
