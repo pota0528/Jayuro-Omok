@@ -21,6 +21,7 @@ public class GiveupPanelController : BaseUIController
             SceneManager.LoadScene("Login");
             //todo: 승점포인트 -1처리하기
             playerData.levelPoint--;
+            playerData.lose++;
         });
     }
 
