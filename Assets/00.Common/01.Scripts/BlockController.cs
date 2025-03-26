@@ -12,7 +12,7 @@ public class BlockController : MonoBehaviour
     private int lastPreviewRow = -1;
     private int lastPreviewCol = -1;
 
-    public void InitBlocks()
+    public Block[] InitBlocks()
     {
         for (int i = 0; i < blocks.Length; i++)
         {
@@ -23,6 +23,8 @@ public class BlockController : MonoBehaviour
                 OnBlockClickedDelegate?.Invoke(clickedRow, clickedCol);
             });
         }
+
+        return blocks;
     }
 
     public void PlaceMarker(Block.MarkerType markerType, int row, int col)

@@ -59,9 +59,8 @@ using UnityEngine.UI;
             {
                 playerData.coin -= 100;
                 SceneManager.LoadScene("Game");
+                Debug.Log("게임 시작");
             }
-            SceneManager.LoadScene("Game");
-            Debug.Log("게임 시작");
         }
 
         public void OnClickReplayButton()

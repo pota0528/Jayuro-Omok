@@ -49,7 +49,8 @@ public class GameManager : Singleton<GameManager>
     // 캔버스 참조
     private Canvas _canvas;
     private PlayerData playerData;
-
+    private Block[] _blocks;
+    
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject); // GameManager가 씬 전환 시 파괴되지 않도록 설정
@@ -60,6 +61,7 @@ public class GameManager : Singleton<GameManager>
     {
         playerData = UserSessionManager.Instance.GetPlayerData();
         _gameUIController.DisplayUserInfo(playerData.nickname, playerData.level.ToString(), playerData.imageIndex);
+        _gameUIController.DisplayAIInfo();
         StartGame();
         _timer.InitTimer();
     }
@@ -89,7 +91,7 @@ public class GameManager : Singleton<GameManager>
     private void BeforeSetting()
     {
         _board = new PlayerType[15, 15];
-        _blockController.InitBlocks();
+        _blocks = _blockController.InitBlocks();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
         SetTurn(TurnType.PlayerA);
         moves.Clear();
@@ -218,6 +220,10 @@ public class GameManager : Singleton<GameManager>
                 //EndGame(gameResult);
                 _timer.PauseTimer();
                 _blockController.OnBlockClickedDelegate = null;
+                for (int i = 0; i < _blocks.Length; i++)
+                {
+                    _blocks[i].SetPreviewMarker(false);
+                }
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
@@ -239,6 +245,12 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 //EndGame(gameResult);
+                _timer.PauseTimer();
+                _blockController.OnBlockClickedDelegate = null;
+                for (int i = 0; i < _blocks.Length; i++)
+                {
+                    _blocks[i].SetPreviewMarker(false);
+                }
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
