@@ -8,10 +8,11 @@ using TMPro;
  public class RankingCellPanel : MonoBehaviour
     {
         //셀 패널에 프사와 닉네임, 급수등 
-        [SerializeField] private Image image;
-        [SerializeField] private TextMeshProUGUI titleText;
-        [SerializeField] private TextMeshProUGUI subtitleText;
-        [SerializeField] private TextMeshProUGUI[] RankingIndexText;
+        [SerializeField] private Image profileImage;
+        [SerializeField] private TextMeshProUGUI nicknameText;
+        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private TextMeshProUGUI kdText;
+        [SerializeField] private TextMeshProUGUI[] rankingIndexTexts;
 
         //public int Index { get; private set; }
         private RectTransform _rectTransform;
@@ -24,11 +25,20 @@ using TMPro;
             _rectTransform = GetComponent<RectTransform>();
         }
 
+
+        public void SetRankingCellSelf(string nickname, int level)
+        {
+            nicknameText.text = nickname;
+            levelText.text = level.ToString();
+            //kdText.text = kd.ToString();
+            
+        }
+        
         public void SetRankingCell(int rankingIndex)
         {
             _rankingIndex = rankingIndex;
 
-            foreach (var rankingIndexText in RankingIndexText)
+            foreach (var rankingIndexText in rankingIndexTexts)
             {
                 var IndexText = _rankingIndex + 1;
                 rankingIndexText.text = IndexText.ToString();

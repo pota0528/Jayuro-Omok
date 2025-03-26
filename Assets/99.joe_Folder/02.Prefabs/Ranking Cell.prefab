@@ -96,10 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e916753d1b9fc47aa312c7f4122459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 7155269357775368490}
-  titleText: {fileID: 4990834722610274336}
-  subtitleText: {fileID: 421917680762528776}
-  RankingIndexText:
+  profileImage: {fileID: 6628088724815238503}
+  nicknameText: {fileID: 4990834722610274336}
+  levelText: {fileID: 148655358511340386}
+  kdText: {fileID: 421917680762528776}
+  rankingIndexTexts:
   - {fileID: 2233399671838158395}
 --- !u!114 &6121128277059386337
 MonoBehaviour:
@@ -808,6 +809,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7732136137297521188}
     m_Modifications:
+    - target: {fileID: 5058420469388784064, guid: b9202fc319558e548819694e34274a07, type: 3}
+      propertyPath: m_Name
+      value: Profile Image
+      objectReference: {fileID: 0}
     - target: {fileID: 6777581399704453490, guid: b9202fc319558e548819694e34274a07, type: 3}
       propertyPath: m_Name
       value: ProfileButton
@@ -897,6 +902,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9202fc319558e548819694e34274a07, type: 3}
+--- !u!114 &6628088724815238503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4925571028327497515, guid: b9202fc319558e548819694e34274a07, type: 3}
+  m_PrefabInstance: {fileID: 2278987794674625100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7319362266060501844 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8805397504467605784, guid: b9202fc319558e548819694e34274a07, type: 3}

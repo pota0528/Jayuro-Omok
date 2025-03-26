@@ -21,6 +21,8 @@ using UnityEngine.UI;
         private float _previousScrollRectYValue = 1f;           // 이전 프레임에서의 스크롤 위치
         public int _maxRankingCount = 50;                       // 전체 랭킹 데이터 개수
         private int _bufferRows = 2;                            // 위아래 여유 셀 개수 (화면 밖에서도 추가 생성)
+        
+        private PlayerData playerData;
 
         protected override void Awake()
         {
@@ -68,9 +70,21 @@ using UnityEngine.UI;
         /// </summary>
         private RankingCellPanel CreateRankingCellPanel(int index)
         {
+            playerData = UserSessionManager.Instance.GetPlayerData();
+            Debug.Log(playerData.nickname);
+            Debug.Log(playerData.level);
+            Debug.Log(playerData.coin);
+            Debug.Log(playerData.win);
+            Debug.Log(playerData.lose);
+            Debug.Log(playerData.imageIndex);
+   
+            
+            
+            
             var rankingCellPanelObject = ObjectPool.Instance.GetObject();
             var rankingCellPanel = rankingCellPanelObject.GetComponent<RankingCellPanel>();
 
+            rankingCellPanel.SetRankingCellSelf(playerData.nickname, playerData.level);
             rankingCellPanel.SetRankingCell(index); // 셀에 랭킹 정보 적용
             rankingCellPanel.transform.SetParent(contentTransform, false); // Content 하위에 배치
 
