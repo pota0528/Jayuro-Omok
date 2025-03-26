@@ -23,7 +23,11 @@ public class AudioManager : Singleton<AudioManager>
 
     public void OnPutSelector()
     {
-        SfxSelectorAudioSource.Play();
+        if (!SfxSelectorAudioSource.isPlaying)
+        {
+            Debug.Log("소리재생");
+            SfxSelectorAudioSource.Play();
+        }
     }
 
     public void OnPauseBGM()

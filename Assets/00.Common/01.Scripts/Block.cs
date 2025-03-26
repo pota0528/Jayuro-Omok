@@ -63,6 +63,7 @@ public class Block : MonoBehaviour
     {
         if (show)
         {
+            AudioManager.Instance.OnPutSelector();
             previewSpriteRenderer.sprite = PreSprite;
             previewSpriteRenderer.material = new Material(Shader.Find("Custom/FillAmountShader"));
             previewSpriteRenderer.material.SetFloat("_FillAmount", 0f); // 초기화
@@ -83,6 +84,7 @@ public class Block : MonoBehaviour
             previewSpriteRenderer.material.SetFloat("_FillAmount", fillAmount);
             yield return null;
         }
+        
     }
 
     public void OnMouseUpAsButton()
