@@ -68,19 +68,18 @@ public class GameManager : Singleton<GameManager>
     private void StartGame()
     {
         BeforeSetting();
-        MCTS.Instance.UpdateBoard(_board); // 초기 보드 설정
-        
-        if (playerData.level >= 12 && playerData.level <= 18) // 12 ~ 18 까지임
+
+        if (playerData.level >= 12 && playerData.level <= 18)
         {
             Debug.Log("하수 진입");
             MCTS.Instance.SetBeginnerMode();
         }
-        else if (playerData.level >= 5 && playerData.level < 12) // 5 ~ 11 까지임
+        else if (playerData.level >= 5 && playerData.level < 12)
         {
             Debug.Log("중수 진입");
             MCTS.Instance.SetIntermediateMode();
         }
-        else if (playerData.level < 5) // 1 ~ 4 까지임
+        else if (playerData.level < 5)
         {
             Debug.Log("고수 진입");
             MCTS.Instance.SetProMode();
@@ -193,9 +192,8 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator AIMove()
     {
-        //MCTS mcts = new MCTS(_board);
-        MCTS.Instance.UpdateBoard(_board); // 매 턴마다 보드 업데이트
-        var (row, col) = MCTS.Instance.GetBestMove(50);
+        MCTS mcts = new MCTS(_board);
+        var (row, col) = mcts.GetBestMove(500);
         yield return new WaitForSeconds(1f);
 
         if (SetNewBoardValue(PlayerType.PlayerB, row, col))

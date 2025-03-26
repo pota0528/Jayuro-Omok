@@ -20,56 +20,49 @@ public class MCTS
     private GameManager.PlayerType[,] initialBoard;
     private const int BOARD_SIZE = 15;
     
-    private MCTS(GameManager.PlayerType[,] board)
+    public MCTS(GameManager.PlayerType[,] board)
     {
-        initialBoard = (GameManager.PlayerType[,])board.Clone();
+        initialBoard = (GameManager.PlayerType[,])board.Clone(); // 원본 Board 보호
         root = new MCTSNode(null, -1, -1, initialBoard, GameManager.PlayerType.PlayerB); // 첫 백돌
-    }
-    
-    // 보드 업데이트 해줘야함 new를 해줘서 새로운 인스터스 생성해줬기에 프로퍼티로 설정한 값 들어가지 않음. 
-    public void UpdateBoard(GameManager.PlayerType[,] board) 
-    {
-        initialBoard = (GameManager.PlayerType[,])board.Clone();
-        root = new MCTSNode(null, -1, -1, initialBoard, GameManager.PlayerType.PlayerB);
     }
 
     #region 난이도 조절상수
-    private int consecutiveFiveBlocks;
+    private int consecutiveFiveBlocks = 2000;
     public int ConsecutiveFiveBlocks 
     { 
         get => consecutiveFiveBlocks; 
         set => consecutiveFiveBlocks = value; 
     }
 
-    private int fourBlocks;
+    private int fourBlocks = 800;
     public int FourBlocks 
     { 
         get => fourBlocks; 
         set => fourBlocks = value; 
     }
 
-    private int threeBlocks;
+    private int threeBlocks = 750;
     public int ThreeBlocks 
     { 
         get => threeBlocks; 
         set => threeBlocks = value; 
     }
 
-    private int defenseFourBlocks;
+    private int defenseFourBlocks = 500;
     public int DefenseFourBlocks 
     { 
         get => defenseFourBlocks; 
         set => defenseFourBlocks = value; 
     }
 
-    private int defenseThreeBlocks;
+    private int defenseThreeBlocks = 10;
     public int DefenseThreeBlocks 
     { 
         get => defenseThreeBlocks; 
         set => defenseThreeBlocks = value; 
     }
 
-    private int placeAroundBlackBlock;
+    private int placeAroundBlackBlock = 500;
     public int PlaceAroundBlackBlock 
     { 
         get => placeAroundBlackBlock; 
@@ -77,44 +70,47 @@ public class MCTS
     }
     #endregion
 
-    #region 난이도 설정 메서드
+    #region 난이도 프리셋 메서드
     public void SetBeginnerMode()
     {
-        ConsecutiveFiveBlocks = 500; 
+        ConsecutiveFiveBlocks = 500;    // 낮은 공격 우선순위
         FourBlocks = 600;
         ThreeBlocks = 400;
-        DefenseFourBlocks = 100;
-        DefenseThreeBlocks = 80;
-        PlaceAroundBlackBlock = 700;
+        DefenseFourBlocks = 300;        // 낮은 방어 우선순위
+        DefenseThreeBlocks = 450;
+        PlaceAroundBlackBlock = 700;    // 흑돌 주변에 두는 것 강조
     }
 
     public void SetIntermediateMode()
     {
-        ConsecutiveFiveBlocks = 1000;
+        ConsecutiveFiveBlocks = 1000;   // 중간 공격 우선순위
         FourBlocks = 700;
         ThreeBlocks = 600;
-        DefenseFourBlocks = 400;
+        DefenseFourBlocks = 400;        // 중간 방어 우선순위
         DefenseThreeBlocks = 300;
         PlaceAroundBlackBlock = 600;
     }
 
     public void SetProMode()
     {
-        ConsecutiveFiveBlocks = 2000;
-        FourBlocks = 600;
-        ThreeBlocks = 550;
-        DefenseFourBlocks = 850;
-        DefenseThreeBlocks = 1000;
+        ConsecutiveFiveBlocks = 2000;   // 높은 공격 우선순위
+        FourBlocks = 800;
+        ThreeBlocks = 750;
+        DefenseFourBlocks = 900;        // 높은 방어 우선순위
+        DefenseThreeBlocks = 1050;       // 3개 방어는 낮게
         PlaceAroundBlackBlock = 500;
     }
     #endregion
+
     
+
     public (int row, int col) GetBestMove(int simulations)
     {
         var firstDefenseBlock = CheckFourSituation(initialBoard, GameManager.PlayerType.PlayerA);
 
         if (firstDefenseBlock.HasValue)
         {
+            Debug.Log($" 우선 막아야할 위치 :  ({firstDefenseBlock.Value.row}, {firstDefenseBlock.Value.col})");
             return firstDefenseBlock.Value;
         }
 
