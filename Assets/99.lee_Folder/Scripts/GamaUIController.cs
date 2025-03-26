@@ -50,7 +50,7 @@ public class GameUIController : MonoBehaviour
         public void DisplayAIInfo()
         {
             int randomNumber = Random.Range(0, 8);
-            aiNicknameWithRank.text = rankNumber + "급 " + aiNickNameList[randomNumber];
+            aiNicknameWithRank.text = rankNumber + "급 " + aiNickNameList[randomNumber - 1];
             aiProfile.sprite = spriteList[randomNumber];
         }
         
