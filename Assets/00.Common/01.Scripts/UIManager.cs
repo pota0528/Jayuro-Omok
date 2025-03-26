@@ -310,9 +310,6 @@ using UnityEngine.SceneManagement;
 
         public void OpenWinLosePanel(GameManager.GameResult gameResult)//GameResult형의 gameResult (GameResult gameResult)
         { 
-            GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-            GameManager.Instance._blockController.OnBlockClickedDelegate=null;
-            
             var winLosePanel = Instantiate(winLosePanelPrefab, _canvas.transform);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
             winLosePanel.GetComponent<WinLosePanelController>().ShowResultPanel();
