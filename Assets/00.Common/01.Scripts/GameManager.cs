@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
@@ -108,7 +109,7 @@ public class GameManager : Singleton<GameManager>
         return true;
     }
 
-    private void SetTurn(TurnType turnType)
+    private async void SetTurn(TurnType turnType)
     {
         currentTurn = turnType;
         _timer.StartTimer();
@@ -121,20 +122,42 @@ public class GameManager : Singleton<GameManager>
                 var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
                 forbiddenCollection = checker.GetForbiddenSpots();
                 SetForbiddenMarks(forbiddenCollection);
-                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA); // 턴 시작 시 표시
+                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA);
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerB); };
                 break;
             case TurnType.PlayerB:
                 _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                 _blockController.OnBlockClickedDelegate = null;
-                StartCoroutine(AIMove());
+                await AIMoveAsync(); // 비동기 AI 연산 호출
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerA); };
-                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerB); // 턴 시작 시 표시
                 break;
         }
     }
 
+    private async Task AIMoveAsync()
+    {
+        // AI 연산을 별도 스레드에서 실행
+        MCTS.Instance.UpdateBoard(_board);
+        var (row, col) = await Task.Run(() => MCTS.Instance.GetBestMove(50));
+        await Task.Delay(500); // 1초 대기 (메인 스레드에서 실행)
+
+        if (SetNewBoardValue(PlayerType.PlayerB, row, col))
+        {
+            currentMoveIndex = (row, col);
+            var gameResult = CheckGameResult();
+            if (gameResult == GameResult.None)
+                SetTurn(TurnType.PlayerA);
+            else
+            {
+                _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions();
+                _blockController.OnBlockClickedDelegate = null;
+                SaveMatch("AI");
+                UIManager.Instance.OpenWinLosePanel(gameResult);
+            }
+        }
+    }
     private void OnBlockClicked(int row, int col)
     {
         if (currentTurn == TurnType.PlayerA && _board[row, col] == PlayerType.None &&
@@ -154,42 +177,41 @@ public class GameManager : Singleton<GameManager>
             currentMoveIndex = (row, col);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
-                SetTurn(TurnType.PlayerB);
+                SetTurn(TurnType.PlayerB); // AI 턴으로 전환
             else
             {
-                //EndGame(gameResult);
                 _timer.PauseTimer();
-                _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
+                _blockController.DisableAllBlockInteractions();
                 _blockController.OnBlockClickedDelegate = null;
                 SaveMatch(playerData.nickname);
-                UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
+                UIManager.Instance.OpenWinLosePanel(gameResult);
             }
         }
     }
 
-    private IEnumerator AIMove()
-    {
-        MCTS.Instance.UpdateBoard(_board);
-        var (row, col) = MCTS.Instance.GetBestMove(50);
-        yield return new WaitForSeconds(1f);
-
-        if (SetNewBoardValue(PlayerType.PlayerB, row, col))
-        {
-            currentMoveIndex = (row, col);
-            var gameResult = CheckGameResult();
-            if (gameResult == GameResult.None)
-                SetTurn(TurnType.PlayerA);
-            else
-            {
-                //EndGame(gameResult);
-                _timer.PauseTimer();
-                _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
-                _blockController.OnBlockClickedDelegate = null;
-                SaveMatch(playerData.nickname);
-                UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
-            }
-        }
-    }
+    // private IEnumerator AIMove()
+    // {
+    //     MCTS.Instance.UpdateBoard(_board);
+    //     var (row, col) = MCTS.Instance.GetBestMove(50);
+    //     yield return new WaitForSeconds(1f);
+    //
+    //     if (SetNewBoardValue(PlayerType.PlayerB, row, col))
+    //     {
+    //         currentMoveIndex = (row, col);
+    //         var gameResult = CheckGameResult();
+    //         if (gameResult == GameResult.None)
+    //             SetTurn(TurnType.PlayerA);
+    //         else
+    //         {
+    //             //EndGame(gameResult);
+    //             _timer.PauseTimer();
+    //             _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
+    //             _blockController.OnBlockClickedDelegate = null;
+    //             SaveMatch(playerData.nickname);
+    //             UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
+    //         }
+    //     }
+    // }
 
     private GameResult CheckGameResult()
     {
