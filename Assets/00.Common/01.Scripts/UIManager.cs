@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
@@ -207,6 +208,7 @@ using UnityEngine.SceneManagement;
     
     private UserPanelController userPanelController;
     
+    
     protected override void Awake()
     {
         base.Awake();
@@ -226,7 +228,15 @@ using UnityEngine.SceneManagement;
             UserSessionManager.Instance.SetPlayerData(playerData);
             SetPlayerData(playerData);
             //userPanelController.SetComponent<UserPanelController>().UpdataUI(playerData);
-            UserPanelController.Instance.UpdataUI();
+
+            if (SceneManager.GetActiveScene().name == "Login")
+            {
+                UserPanelController.Instance.UpdataUI();
+            }
+            
+            
+            
+            
         }
     }
     public void ChangeToGameScene()
