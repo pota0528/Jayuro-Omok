@@ -11,7 +11,8 @@ public class Block : MonoBehaviour
     public SpriteRenderer markerSpriteRenderer;  // 마커 표시용
     public SpriteRenderer previewSpriteRenderer; // 미리보기 표시용
     
-    
+    public Sprite RecentMoveSprite;
+    public SpriteRenderer recentMoveSpriteRenderer;
 
     public enum MarkerType { None, Black, White, Forbidden }
     public MarkerType BlockType { get; private set; } = MarkerType.None;
@@ -27,6 +28,14 @@ public class Block : MonoBehaviour
         {
             previewSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         }
+        
+        // 자식 오브젝트로 추가 
+        GameObject recentMoveObj = new GameObject("RecentMoveMarker");
+        recentMoveObj.transform.SetParent(transform);
+        recentMoveObj.transform.localPosition = Vector3.zero;
+        recentMoveSpriteRenderer = recentMoveObj.AddComponent<SpriteRenderer>();
+        recentMoveSpriteRenderer.sprite = null;
+        recentMoveSpriteRenderer.sortingOrder = 40;
     }
 
     public void InitMarker(int blockIndex, OnBlockClicked onBlockClicked)
@@ -57,6 +66,7 @@ public class Block : MonoBehaviour
                 markerSpriteRenderer.sprite = null;
                 break;
         }
+        
     }
 
     public void SetPreviewMarker(bool show)
@@ -74,6 +84,12 @@ public class Block : MonoBehaviour
             previewSpriteRenderer.sprite = null;
         }
     }
+    
+    public void SetRecentMove(bool isRecent)
+    {
+        recentMoveSpriteRenderer.sprite = isRecent ? RecentMoveSprite : null;
+        recentMoveSpriteRenderer.enabled = isRecent;
+    }
 
     private IEnumerator FillPreviewCoroutine()
     {
@@ -84,7 +100,6 @@ public class Block : MonoBehaviour
             previewSpriteRenderer.material.SetFloat("_FillAmount", fillAmount);
             yield return null;
         }
-        
     }
 
     public void OnMouseUpAsButton()

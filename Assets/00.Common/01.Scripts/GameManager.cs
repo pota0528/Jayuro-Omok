@@ -91,52 +91,12 @@ public class GameManager : Singleton<GameManager>
     private void BeforeSetting()
     {
         _board = new PlayerType[15, 15];
-        _blocks = _blockController.InitBlocks();
+        _blockController.InitBlocks();
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
         SetTurn(TurnType.PlayerA);
         moves.Clear();
     }
-
-    // // 난이도 조절함수
-    // private void SelectMode(int consecutive, int four, int three, int defensefour, int defensethree, int around)
-    // {
-    //     _mcts.ConsecutiveFiveBlocks = consecutive;
-    //
-    //     _mcts.fourBlocks = four;
-    //     _mcts.threeBlocks = three;
-    //
-    //     _mcts.defenseFourBlocks = defensefour;
-    //     _mcts.defenseThreeBlocks = defensethree;
-    //
-    //     _mcts.placeAroundBlackBlock = around;
-    // }
-
-    // // 중수
-    // private void IntermediateMode()
-    // {
-    //     MCTS.Instance.ConsecutiveFiveBlocks = 400;
-    //
-    //     MCTS.Instance.FourBlocks = 700;
-    //     MCTS.Instance.ThreeBlocks = 600;
-    //
-    //     MCTS.Instance.DefenseFourBlocks = 300;
-    //     MCTS.Instance.DefenseThreeBlocks = 450;
-    //
-    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
-    // }
-    // // 고수
-    // private void ProMode()
-    // {
-    //     MCTS.Instance.ConsecutiveFiveBlocks = 2000;
-    //
-    //     MCTS.Instance.FourBlocks = 800;
-    //     MCTS.Instance.ThreeBlocks = 750;
-    //
-    //     MCTS.Instance.DefenseFourBlocks = 500;
-    //     MCTS.Instance.DefenseThreeBlocks = 1000;
-    //
-    //     MCTS.Instance.PlaceAroundBlackBlock = 500;
-    // }
+    
     private void EndGame(GameResult gameResult)
     {
         _timer.PauseTimer();
@@ -183,6 +143,7 @@ public class GameManager : Singleton<GameManager>
                 var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
                 forbiddenCollection = checker.GetForbiddenSpots();
                 SetForbiddenMarks(forbiddenCollection);
+                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA); // 턴 시작 시 표시
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerB); };
                 break;
             case TurnType.PlayerB:
@@ -191,6 +152,7 @@ public class GameManager : Singleton<GameManager>
                 _blockController.OnBlockClickedDelegate = null;
                 StartCoroutine(AIMove());
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerA); };
+                _blockController.UpdateRecentMoveDisplay(TurnType.PlayerB); // 턴 시작 시 표시
                 break;
         }
     }
@@ -219,11 +181,8 @@ public class GameManager : Singleton<GameManager>
             {
                 //EndGame(gameResult);
                 _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
                 _blockController.OnBlockClickedDelegate = null;
-                for (int i = 0; i < _blocks.Length; i++)
-                {
-                    _blocks[i].SetPreviewMarker(false);
-                }
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
@@ -231,8 +190,7 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator AIMove()
     {
-        //MCTS mcts = new MCTS(_board);
-        MCTS.Instance.UpdateBoard(_board); // 매 턴마다 보드 업데이트
+        MCTS.Instance.UpdateBoard(_board);
         var (row, col) = MCTS.Instance.GetBestMove(50);
         yield return new WaitForSeconds(1f);
 
@@ -246,11 +204,8 @@ public class GameManager : Singleton<GameManager>
             {
                 //EndGame(gameResult);
                 _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
                 _blockController.OnBlockClickedDelegate = null;
-                for (int i = 0; i < _blocks.Length; i++)
-                {
-                    _blocks[i].SetPreviewMarker(false);
-                }
                 UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
             }
         }
