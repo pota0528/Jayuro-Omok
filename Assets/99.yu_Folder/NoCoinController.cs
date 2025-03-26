@@ -20,6 +20,7 @@ public class NoCoinController : BaseUIController
         {
             //TODO: 메인씬+상점패널로 이동
             Debug.Log("상점으로 이동");
+            UIManager.Instance.OpenShopPanel();
         });
     }
     

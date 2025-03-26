@@ -25,14 +25,21 @@ using UnityEngine.SceneManagement;
         //프로필 이미지 인덱스를 관리하는 변수 
         private int currentIamgeIndex = 0; 
         
-        
+        //UserPanel에 대한 참조 추가
+        private GameObject userPanelInstance;
 
-        
+        private bool isUserPanelActive = false;
         private void Start()
         {
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
            OpenLoginPanel();
            OpenStartTitlePanel();
+           
+           if (_canvas != null && userPanel != null)
+           {
+               userPanelInstance = Instantiate(userPanel, _canvas.transform);
+               userPanelInstance.SetActive(false); // Initially inactive
+           }
           
             //playeData=UserSessionManager.Instance.GetPlayerData();
             mongoDBManager = FindObjectOfType<DBManager>();
@@ -47,12 +54,17 @@ using UnityEngine.SceneManagement;
 
         public void OpenLoginPanel()
         {
-            
             if (_canvas != null)
             {
+                // Deactivate the user panel if it's active
+                if (userPanelInstance != null)
+                {
+                    userPanelInstance.SetActive(false);
+                    isUserPanelActive = false; // Track that the user panel was deactivated
+                }
+
                 Debug.Log("로그인패널열기");
-              Instantiate(loginPanel, _canvas.transform);//수정
-               
+                Instantiate(loginPanel, _canvas.transform);
             }
         }
 
@@ -126,17 +138,33 @@ using UnityEngine.SceneManagement;
 
         public void LoginPlayer(string id, string password)
         {
-            var (playerData,message) = mongoDBManager.Login(id, password);
+            var (playerData, message) = mongoDBManager.Login(id, password);
 
             if (playerData != null)
             {
-                GameObject playerObject = Instantiate (playerPrefab,Vector3.zero,Quaternion.identity);
-                PlayerManager playerScript = playerObject.GetComponent<PlayerManager>();
+                // 플레이어 프리팹이 없으므로 직접 플레이어 객체를 생성합니다.
+                GameObject playerObject = new GameObject("Player");  // 새로운 플레이어 오브젝트 생성
+                PlayerManager playerScript = playerObject.AddComponent<PlayerManager>();  // PlayerManager 컴포넌트 추가
 
-                if (playerObject != null)
+                if (playerScript != null)
                 {
-                    playerScript.SetPlayerData(playerData);
+                    playerScript.SetPlayerData(playerData);  // 로그인된 플레이어 데이터 설정
                 }
+
+                // 로그인 성공 시 UserPanel을 활성화
+                if (userPanelInstance != null)
+                {
+                    userPanelInstance.SetActive(true);
+                    Debug.Log("UserPanel 활성화됨");
+                }
+                else
+                {
+                    Debug.LogError("UserPanel 인스턴스가 없습니다.");
+                }
+            }
+            else
+            {
+                Debug.LogError("로그인 실패: " + message);
             }
         }
 
@@ -156,6 +184,13 @@ using UnityEngine.SceneManagement;
             else
             {
                 Debug.Log(_canvas);
+            }
+            
+            if (scene.name == "Login")
+            {
+                
+                OpenUserPanel();
+                OpenStartTitlePanel();
             }
         }
     
@@ -274,18 +309,21 @@ using UnityEngine.SceneManagement;
         }
 
         public void OpenWinLosePanel(GameManager.GameResult gameResult)//GameResult형의 gameResult (GameResult gameResult)
-        {
-            // GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
-            // GameManager.Instance._blockController.OnBlockClickedDelegate=null;
+        { 
+            GameManager.Instance._gameUIController.SetGameUIMode(GameUIController.GameUIMode.GameOver);
+            GameManager.Instance._blockController.OnBlockClickedDelegate=null;
             
             var winLosePanel = Instantiate(winLosePanelPrefab, _canvas.transform);
             winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(playerData.coin);
+            winLosePanel.GetComponent<WinLosePanelController>().ShowResultPanel();
             int currentLevelCount = winLosePanel.GetComponent<WinLosePanelController>().GetLevelCount(playerData.level);//안에 들어가는 수는 level
             bool resultPanel = winLosePanel.GetComponent<WinLosePanelController>().SetResultPanel(currentLevelCount, gameResult);
                 
             if (resultPanel == false)//승급,강등 = false | 게이지 바 패널 = true
             {
                 var ResultPanel= Instantiate(UpDownResultPanelPrefab, _canvas.transform);
+                ResultPanel.GetComponent<MessagePopupController>().ShowResultPanel();
+                
                 if (playerData.levelPoint > 0)
                 {
                     ResultPanel.GetComponent<MessagePopupController>().Show("승급하셨습니다.\n급수 : "+ playerData.level);
@@ -311,9 +349,6 @@ using UnityEngine.SceneManagement;
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, _canvas.transform);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
-            
-            
-            
         }
         
 

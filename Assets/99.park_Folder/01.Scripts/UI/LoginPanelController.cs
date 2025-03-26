@@ -44,7 +44,7 @@ using UnityEngine.Rendering;
                 UserSessionManager.Instance.SetPlayerData(player);
                 // 로그인한 유저 데이터를 UIManager에 저장
                 UIManager.Instance.SetPlayerData(player);
-                UIManager.Instance.OpenUserPanel();
+                UIManager.Instance.LoginPlayer(id, password);
                 Destroy(gameObject);
             }
             else
