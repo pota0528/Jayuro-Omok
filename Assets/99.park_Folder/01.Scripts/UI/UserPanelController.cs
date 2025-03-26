@@ -14,7 +14,7 @@ using UnityEngine.UI;
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text cointText;
         [SerializeField] private Button profileButton;
-        [SerializeField] private CoinPanelController coinPanelController;
+        //[SerializeField] private CoinPanelController coinPanelController;
 
         public void Start()
         {
@@ -32,7 +32,7 @@ using UnityEngine.UI;
                 Debug.Log("업뎃!!" + playerData.coin);
                 userNameText.text = playerData.level+"급 "+playerData.nickname;
                 
-                coinPanelController.InitCoinCount(playerData.coin);
+                //coinPanelController.InitCoinCount(playerData.coin);
                 cointText.text = "코인: " + playerData.coin.ToString(); 
                 //GameManager에서 저장된 이미지 인덱스를 가져와서 프로필 이미지 갱신 
                 //저장된 프로필 이미지 인덱스를 적용
