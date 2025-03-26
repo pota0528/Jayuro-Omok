@@ -469,7 +469,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1789658930}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OnClickGiveUpButton
+        m_MethodName: OnClickGiveupButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2177,7 +2177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc8ac9174b51654f8f31827cd13fc9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _block: {fileID: -6651135084643448780, guid: 5722ee1af4f59d341b29767ebd179f2d, type: 3}
   _blockController: {fileID: 1671336801930602600}
   _gameUIController: {fileID: 1845519651}
   confirmButton: {fileID: 6828135431746714881}

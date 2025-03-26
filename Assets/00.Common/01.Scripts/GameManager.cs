@@ -341,4 +341,15 @@ public class GameManager : Singleton<GameManager>
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
     }
+
+    public void OnClickSettingButton()
+    {
+        UIManager.Instance.OpenSettingPopup();
+    }
+
+    public void OnClickGiveupButton()
+    {
+        UIManager.Instance.OpenGiveupPanel();
+    }
+        
 }
