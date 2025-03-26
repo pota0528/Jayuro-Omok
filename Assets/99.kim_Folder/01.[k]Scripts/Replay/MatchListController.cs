@@ -21,7 +21,8 @@ public class MatchListController : MonoBehaviour
         MatchLoader loader = FindObjectOfType<MatchLoader>();
         if (loader != null)
         {
-            matches = loader.LoadMatches(); //기존 저장된 MatchData형식들을 불러온다.
+            string nickname = UserSessionManager.Instance.GetPlayerData().nickname; // 현재 유저의 닉네임을 가져오기
+            matches = loader.LoadMatches(nickname); // 닉네임으로 필터링한 매치 데이터를 가져온다.
         }
         else
         {
