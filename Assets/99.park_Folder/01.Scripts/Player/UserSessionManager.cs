@@ -21,7 +21,12 @@ using UnityEngine.SceneManagement;
             return _playerData;
         }
 
-       
+        // public void DataGetSet(PlayerData playerData)
+        // {
+        //     SetPlayerData(playerData);
+        //     GetPlayerData();
+        // }
+        
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             
