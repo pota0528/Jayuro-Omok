@@ -32,11 +32,12 @@ public class GameUIController : MonoBehaviour
         {
             "예대전설 미드저니",
             "영상장인 소라",
-            "잼민이",
+            "맑눈광 잼민이",
+            "달려라 지피티",
             "테무에서 온 알파고",
             "지옥의 코파일럿",
             "트위터키배 그록3",
-            "불타는 코파일럿",
+            "불타는 코파일럿"
         };
         
         public void DisplayUserInfo(string nickname, string rank, int imageIndex)
@@ -50,7 +51,7 @@ public class GameUIController : MonoBehaviour
         public void DisplayAIInfo()
         {
             int randomNumber = Random.Range(0, 8);
-            aiNicknameWithRank.text = rankNumber + "급 " + aiNickNameList[randomNumber - 1];
+            aiNicknameWithRank.text = rankNumber + "급 " + aiNickNameList[randomNumber];
             aiProfile.sprite = spriteList[randomNumber];
         }
         
