@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using static GameManager;
 
 public class ForbiddenRuleChecker
@@ -766,9 +767,9 @@ public class ForbiddenRuleChecker
     {
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURNING_COUNT = 5;
-            const int MAX_VOID_COUNT = 4;
+            const int MAX_DIRECTION_TURN_COUNT = 3; //본인 제외하고 3번 돌아야함.
             const int MAX_BLOCK_COUNT = 3;
+            const int MAX_DIRECITON_VOID_COUNT = 2;
 
             int tempForbiddenCount = 0;
 
@@ -776,208 +777,269 @@ public class ForbiddenRuleChecker
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
             int blockIndex = 1;
-            int turningCount = 0;
+            int tempDirectionTurnCount = 0;
             int voidCount = 0;
-            bool blockedRight = false;
-            bool blockedLeft = false;
+            bool isBlocked = false;
 
-            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
+                ++tempDirectionTurnCount;
+
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                }
+                    
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
             row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 1;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = col; 0 <= j && j > col - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j)
+            for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; --j)
             {
+                ++tempDirectionTurnCount;
+
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                }
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
+            if (isBlocked)
+            {
+                continue;
+            }
+
+            if (blockIndex == MAX_BLOCK_COUNT)
             {
                 ++tempForbiddenCount;
+            }
+            else if(blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
             }
 
             // 세로 검사
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2;
             blockIndex = 1;
-            turningCount = 0;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
-            blockedRight = false;
-            blockedLeft = false;
+            isBlocked = false;
 
-            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
+                ++tempDirectionTurnCount;
+
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                }
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = row; 0 <= j && j > row - 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; --j)
+            for (int j = row; 0 <= j && j > row - 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; --j)
             {
+
+                ++tempDirectionTurnCount;
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
+            if (isBlocked)
+            {
+                continue;
+            }
+            if (blockIndex == MAX_BLOCK_COUNT)
             {
                 ++tempForbiddenCount;
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
             }
 
             // 대각 ↘ 검사
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 + 1;
             blockIndex = 1;
-            turningCount = 0;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
-            blockedRight = false;
-            blockedLeft = false;
+            isBlocked = false;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
-                if (row + j > 14 || col + j > 14) { blockedRight = true; break; }
+                if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                ++tempDirectionTurnCount;
 
                 if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 - 1;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
-                if (row - j < 0 || col - j < 0) { blockedLeft = true; break; }
+                if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                ++tempDirectionTurnCount;
 
                 if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
+            if (isBlocked)
+            {
+                continue;
+            }
+            if (blockIndex == MAX_BLOCK_COUNT)
             {
                 ++tempForbiddenCount;
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
             }
 
             // 대각 ↙ 검사
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 - 1;
             blockIndex = 1;
-            turningCount = 0;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
-            blockedRight = false;
-            blockedLeft = false;
+            isBlocked = false;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
-                if (row + j > 14 || col - j < 0) { blockedRight = true; break; }
+
+                if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                ++tempDirectionTurnCount;
 
                 if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
+            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
             {
-                if (row - j < 0 || col + j > 14) { blockedLeft = true; break; }
+                if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                ++tempDirectionTurnCount;
 
                 if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
+                    isBlocked = true;
                     break;
                 }
-                else
+                else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
-                    ++turningCount;
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !(blockedLeft && blockedRight))
+            if (isBlocked)
+            {
+                continue;
+            }
+            if (blockIndex == MAX_BLOCK_COUNT)
             {
                 ++tempForbiddenCount;
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
             }
 
             if (tempForbiddenCount >= 2)
