@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using static GameManager;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ForbiddenRuleChecker
 {
@@ -22,8 +23,7 @@ public class ForbiddenRuleChecker
         var lineEmpty = FindEmptyPositionList();
         SetOverlineForbidden(lineEmpty);
         Set4X4Forbidden(lineEmpty);
-        Set3X3Forbidden(lineEmpty);
-
+        List < (int, int) > tempForbiddenList = Set3X3Forbidden(lineEmpty);
         return _forbiddenCollection;
     }
 
@@ -763,8 +763,9 @@ public class ForbiddenRuleChecker
         }
     }
 
-    private void Set3X3Forbidden(List<(int, int)> emptyList)
+    private List<(int, int)> Set3X3Forbidden(List<(int, int)> emptyList)
     {
+        List<(int, int)> tempForbiddenList = new List<(int, int)> ();
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_DIRECTION_TURN_COUNT = 3; //본인 제외하고 3번 돌아야함.
@@ -1044,8 +1045,14 @@ public class ForbiddenRuleChecker
 
             if (tempForbiddenCount >= 2)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
+
+        return tempForbiddenList;
     }
+
+    
+
+
 }
