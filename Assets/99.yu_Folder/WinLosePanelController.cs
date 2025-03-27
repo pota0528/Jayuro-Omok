@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.tvOS;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
@@ -35,7 +31,7 @@ public class WinLosePanelController : MessagePopupController
 
     public void ShowCoinText(int coin) //찬영님이 주시는 데이터 형태로 넣기
     {
-        coinText.text = coin.ToString();
+        coinText.text = coin + " 냥";
     }
 
     

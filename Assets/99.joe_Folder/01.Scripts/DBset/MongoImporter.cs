@@ -21,7 +21,7 @@ public static class JsonUtilityWrapper
 
 public class MongoImporter
 {
-    [MenuItem("Tools/Import Players JSON to MongoDB")]
+    //[MenuItem("Tools/Import Players JSON to MongoDB")]
     public static void ImportJsonToMongoDB()
     {
         string filePath = Path.Combine(Application.dataPath, "players.json");

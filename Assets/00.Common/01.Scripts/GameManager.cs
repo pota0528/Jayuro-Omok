@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
                 _blockController.OnBlockClickedDelegate = null;
                 await AIMoveAsync(); // 비동기 AI 연산 호출
                 _timer.OnTimeout = () => { SetTurn(TurnType.PlayerA); };
+                AudioManager.Instance.OnPutStone();  // 백돌 놓는 효과음 추가
                 break;
         }
     }

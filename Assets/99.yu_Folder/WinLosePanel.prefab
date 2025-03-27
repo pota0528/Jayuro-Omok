@@ -413,6 +413,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 2771106334357390932}
   messageText: {fileID: 2200900784956379716}
+  winLosePanelObject: {fileID: 948179920310302904}
+  winLosePanelImage: {fileID: 502860250725164438}
+  bottomHandle: {fileID: 3577285524656126220}
   gaugeBlockPrefab: {fileID: 1272356394747554294, guid: 768175ec27525754c8e0a186e27a8ca3, type: 3}
   plusGaugeBlocks: []
   minusGaugeBlocks: []
@@ -422,9 +425,6 @@ MonoBehaviour:
   maxText: {fileID: 4832609375933298629}
   minText: {fileID: 6409311695650134182}
   coinText: {fileID: 1740986223723229601}
-  winLosePanelObject: {fileID: 948179920310302904}
-  winLosePanelImage: {fileID: 502860250725164438}
-  bottomHandle: {fileID: 3577285524656126220}
 --- !u!1 &2727050376068100914
 GameObject:
   m_ObjectHideFlags: 0

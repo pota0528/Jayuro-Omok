@@ -7,7 +7,7 @@ using UnityEngine;
 public static class UserInformations 
 {
     
-    [MenuItem("Window/PlayerPrefs Reset")]
+    //[MenuItem("Window/PlayerPrefs Reset")]
     private static void ResetPrefs()
     {
         PlayerPrefs.DeleteAll();
