@@ -16,6 +16,18 @@ public class ForbiddenRuleChecker
         _currentMoveIndex = currentMoveIndex;
     }
 
+    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList)
+    {
+        for (int i = 0; i < _forbiddenList.Count; i++)
+        {
+            _board[_forbiddenList[i].Item1, _forbiddenList[i].Item2] = GameManager.PlayerType.None;
+        }
+
+        Set3X3Forbidden(_forbiddenList);
+
+        return _forbiddenCollection;
+    }
+
     public List<(int, int)> GetForbiddenSpots()
     {
         _forbiddenCollection.Clear();
@@ -1000,7 +1012,6 @@ public class ForbiddenRuleChecker
                 {
                     break;
                 }
-
 
                 if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
                 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -106,8 +107,12 @@ public class GameManager : Singleton<GameManager>
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 //최근에 놓인 흑돌을 기준으로, 가로 검사
                 var checker = new ForbiddenRuleChecker(_board, currentMoveindex);
+                SetForbiddenMark(forbiddenCollecition, false);
+                forbiddenCollecition = checker.CheckForbiddenRelease(forbiddenCollecition);
+                SetForbiddenMark(forbiddenCollecition, true);
                 forbiddenCollecition = checker.GetForbiddenSpots();
-                SetForbiddenMark(forbiddenCollecition);
+                SetForbiddenMark(forbiddenCollecition, true);
+
                 _blockController.OnBlockClickedDelegate = (row, col) =>
                 {
                     ++moveIndex;
@@ -157,12 +162,23 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void SetForbiddenMark(List<(int, int)> forbiddenList)
+    private void SetForbiddenMark(List<(int, int)> forbiddenList, bool isForbidden)
     {
-        for (int i = 0; i < forbiddenList.Count; i++)
+        if(isForbidden)
         {
-            _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
-            _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
+            for (int i = 0; i < forbiddenList.Count; i++)
+            {
+                _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
+                _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < forbiddenList.Count; i++)
+            {
+                _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
+                _blockController.PlaceMarker(Block.MarkerType.None, forbiddenList[i].Item1, forbiddenList[i].Item2, moveIndex);
+            }
         }
     }
     //금수 마크 표시하는 함수
