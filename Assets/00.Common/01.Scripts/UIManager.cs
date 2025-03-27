@@ -209,6 +209,8 @@ using UnityEngine.SceneManagement;
     private UserPanelController userPanelController;
     
     
+    
+    
     protected override void Awake()
     {
         base.Awake();
@@ -256,6 +258,8 @@ using UnityEngine.SceneManagement;
             var shopPanelObject = Instantiate(shopPanel, _canvas.transform);
             shopPanelObject.GetComponent<PanelController>().Show();
             Debug.Log("상점 떳드아!");
+            
+            
         }
     }
 
@@ -276,10 +280,12 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject settingPopupPrefab;
     [SerializeField] private GameObject giveupPanelPrefab;
     [SerializeField] private GameObject noCoinPanelPrefab;
-    [SerializeField] private GameObject winLosePanelPrefab;
+    public GameObject winLosePanelPrefab;
     [SerializeField] private GameObject startTitlePanelPrefab;
     [SerializeField] private GameObject mainWinLosePanelPrefab;
     [SerializeField] private GameObject UpDownResultPanelPrefab;
+
+    public GameObject NoCoinNextWinLosePanel;
         
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
@@ -356,6 +362,8 @@ using UnityEngine.SceneManagement;
                 var mainWinLosePanel = Instantiate(mainWinLosePanelPrefab, _canvas.transform);
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
+            
+            NoCoinNextWinLosePanel = winLosePanel;
         }
         
 

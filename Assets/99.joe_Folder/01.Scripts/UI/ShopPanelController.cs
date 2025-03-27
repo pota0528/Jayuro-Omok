@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
- public class ShopPanelController : PanelController
+public class ShopPanelController : PanelController
     {
         [SerializeField] private CoinPanelController coinPanelController;
         private PlayerData _playerData;
         private UserPanelController userPanelController;
+        
         private void Start()
         {
             SetTitleText("전당포");
@@ -111,6 +113,17 @@ using UnityEngine;
                     break;
            
             }
+
+            if (SceneManager.GetActiveScene().name == "Game")//자현 추가
+            {
+                SetWinLosePanel(UIManager.Instance.NoCoinNextWinLosePanel);
+            }
+            
+        }
+        
+        public void SetWinLosePanel(GameObject winLosePanel)//자현 추가
+        {
+            winLosePanel.GetComponent<WinLosePanelController>().ShowCoinText(_playerData.coin);
         }
         
         
