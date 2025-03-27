@@ -282,8 +282,7 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject mainWinLosePanelPrefab;
     [SerializeField] private GameObject UpDownResultPanelPrefab;
 
-    public GameObject NoCoinNextWinLosePanel;
-    public int currentLevelCountData;
+    public GameObject winLosePanelObject;
         
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
@@ -361,8 +360,7 @@ using UnityEngine.SceneManagement;
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
             
-            NoCoinNextWinLosePanel = winLosePanel;
-            currentLevelCountData = currentLevelCount;
+            winLosePanelObject = winLosePanel;
         }
         
 
