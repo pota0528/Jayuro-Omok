@@ -29,6 +29,7 @@ public class StartTitlePanelController : BaseUIController
     private void Awake()
     {
         TitleInit();
+       
     }
 
     private void Start()
@@ -58,7 +59,9 @@ public class StartTitlePanelController : BaseUIController
     private void Update()
     {
         clockDelegate?.Invoke();
+        
     }
+    
     
     public void TitleInit()
     {

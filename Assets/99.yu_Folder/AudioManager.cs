@@ -8,14 +8,16 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource SfxAudioSource;
     [SerializeField] private AudioSource SfxSelectorAudioSource;
     [SerializeField] private AudioMixer audioMixer;
+    public AudioClip[] audioClip;
 
     public void OnPutStone() // 바둑알 놓을 때
     {
         SfxAudioSource.Play();
     }
 
-    public void OnPlayBGM() // 배경음
+    public void OnPlayBGM(int num) // 배경음
     {
+        BgmAudioSource.clip = audioClip[num];
         BgmAudioSource.Play();
     }
 
@@ -23,7 +25,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (!SfxSelectorAudioSource.isPlaying)
         {
-            Debug.Log("소리재생");
             SfxSelectorAudioSource.Play();
         }
     }
@@ -37,8 +38,7 @@ public class AudioManager : Singleton<AudioManager>
         float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
         SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
         
-        OnPlayBGM();
-        Debug.Log(BgmAudioSource.isPlaying);
+        OnPlayBGM(0);
     }
 
     public void SetBGMVolume(float volume)
@@ -60,13 +60,38 @@ public class AudioManager : Singleton<AudioManager>
             
             volume = 0.01f;
         }
+        
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
     }
     
+    private void PlaySceneBGM(string sceneName)
+    {
+        AudioClip newClip = null;
+
+        // 씬 이름에 따라 BGM 변경
+        if (sceneName == "Login")
+        {
+            newClip = audioClip[0];
+        }
+        else if (sceneName == "Game")
+        {
+            newClip = audioClip[1];
+        }
+            
+
+        if (newClip != null && BgmAudioSource.clip != newClip)
+        {
+            BgmAudioSource.clip = newClip;
+            BgmAudioSource.loop = true;
+            BgmAudioSource.Play();
+        }
+    }
+    
+    
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        PlaySceneBGM(scene.name);
     }
 }

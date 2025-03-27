@@ -324,8 +324,7 @@ MonoBehaviour:
   startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
   mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
   UpDownResultPanelPrefab: {fileID: 1459309161923910732, guid: b003742a4ddffc743997f5c4895b46f7, type: 3}
-  NoCoinNextWinLosePanel: {fileID: 0}
-  currentLevelCountData: 0
+  winLosePanelObject: {fileID: 0}
 --- !u!1 &1311660850
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4060038038210350022, guid: 7d2c831869b556344871b93e3ccbb2b1, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5340959327592442151, guid: 7d2c831869b556344871b93e3ccbb2b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -749,14 +752,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8699938972821283910, guid: 7d2c831869b556344871b93e3ccbb2b1, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8699938972821283910, guid: 7d2c831869b556344871b93e3ccbb2b1, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 5964059058652903169, guid: e7e266a4401f70c45a190da06136aa1f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
