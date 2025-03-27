@@ -10,10 +10,9 @@ public class ForbiddenRuleChecker
     private (int, int) _currentMoveIndex;
     private List<(int, int)> _forbiddenCollection = new();
 
-    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, (int, int) currentMoveIndex)
+    public ForbiddenRuleChecker(GameManager.PlayerType[,] board)
     {
         _board = board;
-        _currentMoveIndex = currentMoveIndex;
     }
 
     public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList)
@@ -28,10 +27,10 @@ public class ForbiddenRuleChecker
         return _forbiddenCollection;
     }
 
-    public List<(int, int)> GetForbiddenSpots()
+    public List<(int, int)> GetForbiddenSpots((int, int) currentMoveIndex)
     {
         _forbiddenCollection.Clear();
-
+        _currentMoveIndex = currentMoveIndex;
         var lineEmpty = FindEmptyPositionList();
         SetOverlineForbidden(lineEmpty);
         Set4X4Forbidden(lineEmpty);
@@ -778,6 +777,7 @@ public class ForbiddenRuleChecker
 
     private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
     {
+        Debug.Log(emptyList);
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_BLOCK_COUNT = 3;
