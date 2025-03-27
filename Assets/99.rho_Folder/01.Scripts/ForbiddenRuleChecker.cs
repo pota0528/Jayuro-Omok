@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 using static GameManager;
 
 public class ForbiddenRuleChecker
@@ -778,12 +779,14 @@ public class ForbiddenRuleChecker
             int blockIndex = 1;
             int voidCount = 0;
             bool isBlocked = false;
+            List<(int,int)> blackList = new List<(int, int)> ();
 
             for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
+                    blackList.Add((row, j));
                 }
 
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
@@ -807,6 +810,7 @@ public class ForbiddenRuleChecker
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
+                    blackList.Add((row, j));
                 }
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
@@ -826,7 +830,10 @@ public class ForbiddenRuleChecker
 
             if (blockIndex == MAX_BLOCK_COUNT)
             {
-                ++tempForbiddenCount;
+                if (!(Mathf.Abs(blackList[0].Item2 - blackList[1].Item2) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
+                {
+                    ++tempForbiddenCount;
+                }
             }
             else if (blockIndex > MAX_BLOCK_COUNT)
             {
@@ -839,6 +846,7 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            blackList.Clear();
 
             for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
@@ -846,6 +854,7 @@ public class ForbiddenRuleChecker
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
+                    blackList.Add((j, col));
                 }
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
@@ -866,7 +875,11 @@ public class ForbiddenRuleChecker
             {
 
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                    blackList.Add((j, col));
+                }
+                    
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -884,7 +897,10 @@ public class ForbiddenRuleChecker
             }
             if (blockIndex == MAX_BLOCK_COUNT)
             {
-                ++tempForbiddenCount;
+                if (!(Mathf.Abs(blackList[0].Item1 - blackList[1].Item1) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
+                {
+                    ++tempForbiddenCount;
+                }
             }
             else if (blockIndex > MAX_BLOCK_COUNT)
             {
@@ -897,6 +913,7 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            blackList.Clear();
 
             for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
@@ -905,9 +922,11 @@ public class ForbiddenRuleChecker
                     break;
                 }
 
-
                 if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                    blackList.Add((row + j, col + j));
+                }
                 else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -932,7 +951,10 @@ public class ForbiddenRuleChecker
 
 
                 if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                    blackList.Add((row - j, col - j));
+                }
                 else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -950,7 +972,13 @@ public class ForbiddenRuleChecker
             }
             if (blockIndex == MAX_BLOCK_COUNT)
             {
-                ++tempForbiddenCount;
+                int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
+                int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
+
+                if (deltaRow == deltaCol && deltaRow <= 3) // 대각선에 정확히 있고, 3칸 이내면 금수
+                {
+                    ++tempForbiddenCount;
+                }
             }
             else if (blockIndex > MAX_BLOCK_COUNT)
             {
@@ -963,6 +991,7 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            blackList.Clear();
 
             for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
@@ -974,7 +1003,10 @@ public class ForbiddenRuleChecker
 
 
                 if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                    blackList.Add((row + j, col - j));
+                }
                 else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -998,7 +1030,10 @@ public class ForbiddenRuleChecker
                 }
 
                 if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
+                {
                     ++blockIndex;
+                    blackList.Add((row - j, col + j));
+                }
                 else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -1016,7 +1051,13 @@ public class ForbiddenRuleChecker
             }
             if (blockIndex == MAX_BLOCK_COUNT)
             {
-                ++tempForbiddenCount;
+                int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
+                int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
+
+                if (deltaRow == deltaCol && deltaRow <= 3) // 대각선에 정확히 있고, 3칸 이내면 금수
+                {
+                    ++tempForbiddenCount;
+                }
             }
             else if (blockIndex > MAX_BLOCK_COUNT)
             {
