@@ -34,8 +34,11 @@ public class ForbiddenRuleChecker
 
         var lineEmpty = FindEmptyPositionList();
         SetOverlineForbidden(lineEmpty);
+        Debug.Log(lineEmpty.Count);
         Set4X4Forbidden(lineEmpty);
+        Debug.Log(lineEmpty.Count);
         Set3X3Forbidden(lineEmpty);
+        Debug.Log(lineEmpty.Count);
 
         return _forbiddenCollection;
     }
@@ -778,6 +781,7 @@ public class ForbiddenRuleChecker
 
     private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
     {
+        Debug.Log(emptyList);
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_BLOCK_COUNT = 3;
