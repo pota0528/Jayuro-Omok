@@ -195,8 +195,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5961812555827487899}
   m_HandleRect: {fileID: 4061232463000687814}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.74291265
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -518,6 +518,8 @@ MonoBehaviour:
   titleText: {fileID: 4218588198809864890}
   panelRectTransform: {fileID: 6396460759345811753}
   coinPanelController: {fileID: 7796270494380454890}
+  shopItemButtonPrefab: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+  shopItemContainer: {fileID: 5982344823452464061}
 --- !u!225 &8937518236428757291
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1223,6 +1225,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -1261,7 +1267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1269,15 +1275,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1309,11 +1315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 501.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -955
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1365,6 +1371,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -1403,7 +1413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1411,15 +1421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1451,11 +1461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -955
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1507,6 +1517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -1545,7 +1559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1553,15 +1567,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1593,11 +1607,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 501.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -515
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1862,6 +1876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -1900,7 +1918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1908,15 +1926,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1948,11 +1966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 501.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -295
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2004,6 +2022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2038,7 +2060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2046,15 +2068,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2086,11 +2108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 501.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2142,6 +2164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2180,7 +2206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2188,15 +2214,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2228,11 +2254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2284,6 +2310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2322,7 +2352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2330,15 +2360,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2370,11 +2400,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 501.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -735
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2426,6 +2456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2464,7 +2498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2472,15 +2506,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2512,11 +2546,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -735
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2568,6 +2602,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2606,7 +2644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2614,15 +2652,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2654,11 +2692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -295
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2710,6 +2748,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop Item Button (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5176377814223312084, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7115593932448115865, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 3
@@ -2748,7 +2790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2756,15 +2798,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2796,11 +2838,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1401.5
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -515
       objectReference: {fileID: 0}
     - target: {fileID: 8575427637548436524, guid: 94a0f4aa50b2aba43827629469bd05d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
