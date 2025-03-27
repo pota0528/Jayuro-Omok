@@ -18,13 +18,13 @@ public class StartTitlePanelController : BaseUIController
     [SerializeField] private Transform Second;
     [SerializeField] private TextMeshProUGUI companyText;
     private Animator anim;
-    [SerializeField] private Sprite soundOffSprite;
-    [SerializeField] private Sprite soundOnSprite;
-    [SerializeField] private Button soundButton;
+    public Sprite soundOffSprite;
+    public Sprite soundOnSprite;
+    public Button soundButton;
 
     private delegate void ClockTimeDelegate();
     private ClockTimeDelegate clockDelegate;
-
+    
 
     private void Awake()
     {
@@ -36,6 +36,9 @@ public class StartTitlePanelController : BaseUIController
         
         TitleSetting();
     }
+    
+    
+    
 
     public void OnPauseBGM()
     {
@@ -48,6 +51,7 @@ public class StartTitlePanelController : BaseUIController
         {
             AudioManager.Instance.BgmAudioSource.UnPause();
             soundButton.GetComponent<Image>().sprite = soundOnSprite;
+            
         }
     }
     

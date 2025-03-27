@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -30,11 +28,6 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void OnPauseBGM()
-    {
-        BgmAudioSource.Pause();
-    }
-
     private void Start()
     {
         // 저장된 볼륨 값을 불러옴
@@ -55,42 +48,22 @@ public class AudioManager : Singleton<AudioManager>
         {
             volume = 0.01f;
         }
+
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
 
-        // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
-        PlayerPrefs.SetFloat("BGMParam", volume);
-        PlayerPrefs.Save();
     }
 
     public void SetSFXVolume(float volume)
     {
-        // BGM 볼륨 설정
         if (volume <= 0)
         {
+            
             volume = 0.01f;
         }
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
-
-        // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
-        PlayerPrefs.SetFloat("SFXParam", volume);
-        PlayerPrefs.SetFloat("SFXSelectorParam", volume);
-        PlayerPrefs.Save();
     }
     
-    public void SetSFXSelectorVolume(float volume)
-    {
-        // Selector 볼륨 설정
-        if (volume <= 0)
-        {
-            volume = 0.01f;
-        }
-        audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
-
-        // PlayerPrefs에 볼륨 값 저장 (변경 시마다)
-        PlayerPrefs.SetFloat("SFXSelectorParam", volume);
-        PlayerPrefs.Save();
-    }
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

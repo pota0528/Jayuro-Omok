@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -9,8 +10,7 @@ public class SettingPopupController : BaseUIController
 {
     public Slider bgmSlider;
     public Slider sfxSlider;
-
-
+    
     private void Start()
     {
         //슬라이더 초기화
@@ -27,7 +27,10 @@ public class SettingPopupController : BaseUIController
         // 초기 볼륨 설정
         AudioManager.Instance.SetBGMVolume(bgmSlider.value);
         AudioManager.Instance.SetSFXVolume(sfxSlider.value);
+        
     }
+    
+    
 
     private void OnDestroy()
     {
