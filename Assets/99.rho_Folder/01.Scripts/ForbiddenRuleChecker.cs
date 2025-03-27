@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using static GameManager;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ForbiddenRuleChecker
 {
@@ -23,7 +22,8 @@ public class ForbiddenRuleChecker
         var lineEmpty = FindEmptyPositionList();
         SetOverlineForbidden(lineEmpty);
         Set4X4Forbidden(lineEmpty);
-        List < (int, int) > tempForbiddenList = Set3X3Forbidden(lineEmpty);
+        Set3X3Forbidden(lineEmpty);
+
         return _forbiddenCollection;
     }
 
@@ -586,7 +586,7 @@ public class ForbiddenRuleChecker
                 _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
-        
+
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_TURN_COUNT = 5;
@@ -763,12 +763,10 @@ public class ForbiddenRuleChecker
         }
     }
 
-    private List<(int, int)> Set3X3Forbidden(List<(int, int)> emptyList)
+    private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
     {
-        List<(int, int)> tempForbiddenList = new List<(int, int)> ();
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_DIRECTION_TURN_COUNT = 3; //본인 제외하고 3번 돌아야함.
             const int MAX_BLOCK_COUNT = 3;
             const int MAX_DIRECITON_VOID_COUNT = 2;
 
@@ -778,19 +776,16 @@ public class ForbiddenRuleChecker
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
             int blockIndex = 1;
-            int tempDirectionTurnCount = 0;
             int voidCount = 0;
             bool isBlocked = false;
 
-            for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
-                ++tempDirectionTurnCount;
-
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
                 }
-                    
+
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
                     isBlocked = true;
@@ -804,12 +799,10 @@ public class ForbiddenRuleChecker
 
             row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; --j)
+            for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
             {
-                ++tempDirectionTurnCount;
 
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
@@ -835,7 +828,7 @@ public class ForbiddenRuleChecker
             {
                 ++tempForbiddenCount;
             }
-            else if(blockIndex > MAX_BLOCK_COUNT)
+            else if (blockIndex > MAX_BLOCK_COUNT)
             {
                 break;
             }
@@ -844,13 +837,11 @@ public class ForbiddenRuleChecker
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2;
             blockIndex = 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
             isBlocked = false;
 
-            for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
-                ++tempDirectionTurnCount;
 
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                 {
@@ -869,13 +860,11 @@ public class ForbiddenRuleChecker
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = row; 0 <= j && j > row - 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; --j)
+            for (int j = row; 0 <= j && j > row - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
             {
 
-                ++tempDirectionTurnCount;
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
@@ -906,18 +895,16 @@ public class ForbiddenRuleChecker
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 + 1;
             blockIndex = 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
             isBlocked = false;
 
-            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
                 if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
                 {
                     break;
                 }
 
-                ++tempDirectionTurnCount;
 
                 if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -934,17 +921,15 @@ public class ForbiddenRuleChecker
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 - 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
                 if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
                 {
                     break;
                 }
 
-                ++tempDirectionTurnCount;
 
                 if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -976,11 +961,10 @@ public class ForbiddenRuleChecker
             row = emptyList[i].Item1 + 1;
             col = emptyList[i].Item2 - 1;
             blockIndex = 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
             isBlocked = false;
 
-            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
 
                 if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
@@ -988,7 +972,6 @@ public class ForbiddenRuleChecker
                     break;
                 }
 
-                ++tempDirectionTurnCount;
 
                 if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -1005,17 +988,14 @@ public class ForbiddenRuleChecker
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
-            tempDirectionTurnCount = 0;
             voidCount = 0;
 
-            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT && tempDirectionTurnCount < MAX_DIRECTION_TURN_COUNT; j++)
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
                 if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
                 {
                     break;
                 }
-
-                ++tempDirectionTurnCount;
 
                 if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -1045,14 +1025,8 @@ public class ForbiddenRuleChecker
 
             if (tempForbiddenCount >= 2)
             {
-                tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
-
-        return tempForbiddenList;
     }
-
-    
-
-
 }
