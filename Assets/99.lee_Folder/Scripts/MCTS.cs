@@ -80,29 +80,29 @@ public class MCTS
     #region 난이도 설정 메서드
     public void SetBeginnerMode()
     {
-        ConsecutiveFiveBlocks = 500; 
-        FourBlocks = 600;
-        ThreeBlocks = 400;
-        DefenseFourBlocks = 100;
-        DefenseThreeBlocks = 80;
-        PlaceAroundBlackBlock = 700;
+        ConsecutiveFiveBlocks = 1000;  // 5연속 (승리)
+        FourBlocks = 500;             // 4연속 (공격)
+        ThreeBlocks = 300;            // 3연속 (공격)
+        DefenseFourBlocks = 400;      // 상대 4연속 (방어)
+        DefenseThreeBlocks = 300;      // 상대 3연속 (방어)
+        PlaceAroundBlackBlock = 200;  // 흑돌 주변에 두기
     }
 
     public void SetIntermediateMode()
     {
         ConsecutiveFiveBlocks = 1000;
-        FourBlocks = 700;
-        ThreeBlocks = 600;
-        DefenseFourBlocks = 400;
-        DefenseThreeBlocks = 300;
-        PlaceAroundBlackBlock = 600;
+        FourBlocks = 600;
+        ThreeBlocks = 500;
+        DefenseFourBlocks = 300;
+        DefenseThreeBlocks = 700;
+        PlaceAroundBlackBlock = 500;
     }
 
     public void SetProMode()
     {
         ConsecutiveFiveBlocks = 2000;
-        FourBlocks = 600;
-        ThreeBlocks = 550;
+        FourBlocks = 700;
+        ThreeBlocks = 650;
         DefenseFourBlocks = 850;
         DefenseThreeBlocks = 1000;
         PlaceAroundBlackBlock = 500;
@@ -188,28 +188,31 @@ public class MCTS
     }
 
     private double Simulate(MCTSNode node)
+{
+    var board = (GameManager.PlayerType[,])node.boardState.Clone();
+    var currentPlayer = node.currentPlayer;
+    int movesMade = GetMovesMade(board);
+    int maxMoves = 50; // 최대 시뮬레이션 수 제한
+
+    while (!IsGameOver(board) && movesMade < maxMoves)
     {
-        var board = (GameManager.PlayerType[,])node.boardState.Clone();
-        var currentPlayer = node.currentPlayer;
-        int movesMade = GetMovesMade(board);
+        var possibleMoves = GetHeuristicMoves(board, currentPlayer, movesMade);
+        if (possibleMoves.Count == 0) return 0.5;
 
-        while (!IsGameOver(board))
-        {
-            var possibleMoves = GetHeuristicMoves(board, currentPlayer, movesMade);
-            if (possibleMoves.Count == 0) return 0.5;
+        var (row, col, _) = possibleMoves[0]; // 최고 점수 수 선택
+        board[row, col] = currentPlayer;
+        currentPlayer = currentPlayer == GameManager.PlayerType.PlayerA
+            ? GameManager.PlayerType.PlayerB
+            : GameManager.PlayerType.PlayerA;
+        movesMade++;
 
-            var (row, col, _) = possibleMoves[0]; // 최고 점수 수 선택
-            board[row, col] = currentPlayer;
-            currentPlayer = currentPlayer == GameManager.PlayerType.PlayerA
-                ? GameManager.PlayerType.PlayerB
-                : GameManager.PlayerType.PlayerA;
-            movesMade++;
-        }
-
+        // 빠른 종료 조건 추가
         if (HasFiveInARow(board, GameManager.PlayerType.PlayerB)) return 1;
         if (HasFiveInARow(board, GameManager.PlayerType.PlayerA)) return 0;
-        return 0.5;
     }
+
+    return 0.5; // 무승부로 간주
+}
 
     private void Backpropagate(MCTSNode node, double result)
     {
