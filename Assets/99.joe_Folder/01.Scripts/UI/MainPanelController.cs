@@ -7,7 +7,7 @@ public class MainPanelController : MonoBehaviour
 {
     public void OnClickPlayButton()
     {
-        UIManager.Instance.ChangeToGameScene();
+        //UIManager.Instance.ChangeToGameScene();
     }
         
         

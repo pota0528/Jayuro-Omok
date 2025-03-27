@@ -239,6 +239,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 0}
   shopPanel: {fileID: 1279933824744145587, guid: cd05573cd9ec7644982cfb2fbcee5b32, type: 3}
   rankingPanel: {fileID: 4561540710020657620, guid: a7c5955684bf3b545af6325e466de2ba, type: 3}
+  confirmPopupPrefab: {fileID: 5260955388944660641, guid: 87a334e9285475e48ba204133911c889, type: 3}
   coinCount: 0
   messagePopupPrefab: {fileID: 1459309161923910732, guid: 7360fb4c423d81c4f9de1e65edb91920, type: 3}
   settingPopupPrefab: {fileID: 1459309161923910732, guid: 43e890aab796cbb44bced06052b56cbe, type: 3}
@@ -248,6 +249,7 @@ MonoBehaviour:
   startTitlePanelPrefab: {fileID: 8272083933614300683, guid: 0bfa89aebda48684aaab3c6b280fff60, type: 3}
   mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
   UpDownResultPanelPrefab: {fileID: 1459309161923910732, guid: b003742a4ddffc743997f5c4895b46f7, type: 3}
+  NoCoinNextWinLosePanel: {fileID: 0}
 --- !u!1 &1311660850
 GameObject:
   m_ObjectHideFlags: 0

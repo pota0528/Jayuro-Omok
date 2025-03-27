@@ -204,52 +204,51 @@ using UnityEngine.SceneManagement;
     [Header("장운")]
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject rankingPanel;
+    [SerializeField] private ShopConfirmPopup confirmPopupPrefab;
     [HideInInspector] public int coinCount;
     
     private UserPanelController userPanelController;
+
     
-    
-    
-    
-    protected override void Awake()
+    /// <summary>
+    /// 확인 팝업 호출 (외부에서 호출 가능)
+    /// </summary>
+    public void ShowConfirmPopup(string message, Action onConfirm)
     {
-        base.Awake();
-        //coinCount = UserInformations.CoinCount;
-        //coinCount = playerData.coin;
-
-
+        if (_canvas != null && confirmPopupPrefab != null)
+        {
+            var popup = Instantiate(confirmPopupPrefab, _canvas.transform);
+            popup.Show(message, onConfirm);
+        }
+        else
+        {
+            Debug.LogWarning("ConfirmPopup 프리팹이 연결되지 않았거나 캔버스 없음.");
+        }
     }
-
     public void UpdateCoin(int amount)
     {
         if (playerData != null)
         {
             playerData.coin += amount;
             DBManager.Instance.UpdatePlayerData(playerData);
-            
             UserSessionManager.Instance.SetPlayerData(playerData);
             SetPlayerData(playerData);
-            //userPanelController.SetComponent<UserPanelController>().UpdataUI(playerData);
 
             if (SceneManager.GetActiveScene().name == "Login")
             {
                 UserPanelController.Instance.UpdataUI();
             }
-            
-            
-            
-            
         }
     }
-    public void ChangeToGameScene()
-    {
-        SceneManager.LoadScene("Game_jk");
-    }
-        
-    public void ChangeToMainScene()
-    {
-        SceneManager.LoadScene("Main_jk");
-    }
+    // public void ChangeToGameScene()
+    // {
+    //     SceneManager.LoadScene("Game_jk");
+    // }
+    //     
+    // public void ChangeToMainScene()
+    // {
+    //     SceneManager.LoadScene("Main_jk");
+    // }
         
     public void OpenShopPanel()
     {
@@ -258,8 +257,6 @@ using UnityEngine.SceneManagement;
             var shopPanelObject = Instantiate(shopPanel, _canvas.transform);
             shopPanelObject.GetComponent<PanelController>().Show();
             Debug.Log("상점 떳드아!");
-            
-            
         }
     }
 
