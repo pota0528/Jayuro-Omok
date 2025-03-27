@@ -10,7 +10,7 @@ using UnityEngine;
         private UserPanelController userPanelController;
         private void Start()
         {
-            SetTitleText("SHOP");
+            SetTitleText("전당포");
             _playerData = UserSessionManager.Instance.GetPlayerData();
         }
 
@@ -31,17 +31,17 @@ using UnityEngine;
                         amount += 100;
                         UIManager.Instance.UpdateCoin(amount);
                         coinPanelController.InitCoinCount(_playerData.coin);
-                        //coinPanelController.InitCoinCount(UIManager.Instance.coinCount);
-                        UIManager.Instance.coinCount += 100;
-                        //userPanelController.GetComponent<UserPanelController>().UpdataUI();
+                        
                     }
                 
                     break;
                 case 1:
-                    if (UIManager.Instance.coinCount >= 0)
+                    if (_playerData.coin >= 0)
                     {
-                        UIManager.Instance.coinCount += 200;
-                        coinPanelController.InitCoinCount(UIManager.Instance.coinCount);
+                        amount -= 100;
+                        UIManager.Instance.UpdateCoin(amount);
+                        coinPanelController.InitCoinCount(_playerData.coin);
+                        
                     }
                     
                     break;
