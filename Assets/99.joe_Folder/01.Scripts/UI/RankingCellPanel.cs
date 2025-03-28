@@ -37,7 +37,7 @@ using TMPro;
             int win = player.win;
             int lose = player.lose;
             int total = win + lose;
-            float winRate = total > 0 ? (float)win / total : 0f;
+            //float winRate = total > 0 ? (float)win / total : 0f;
             //int score = player.score;
 
             kdText.text = $"승:{win} 패:{lose} ";
@@ -66,12 +66,12 @@ using TMPro;
         }
 
         
-        private int CalculateScore(PlayerData player)
-        {
-            return (19 - player.level) * 1000
-                   + player.levelPoint * 100
-                   + player.win * 10;
-        }
+        // private int CalculateScore(PlayerData player)
+        // {
+        //     return (19 - player.level) * 1000
+        //            + player.levelPoint * 100
+        //            + player.win * 10;
+        // }
         
         
         
