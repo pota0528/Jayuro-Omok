@@ -43,7 +43,7 @@ public class ShopPanelController : PanelController
             TMP_Text text = buttonObj.GetComponentInChildren<TMP_Text>();
             if (text != null)
             {
-                text.text = $"{coinAmounts[i]} 코인";
+                text.text = $"{coinAmounts[i]} 냥";
             }
 
             // 버튼 이벤트 연결

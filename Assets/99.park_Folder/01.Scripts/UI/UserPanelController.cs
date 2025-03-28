@@ -31,7 +31,7 @@ using UnityEngine.UI;
             if (playerData != null)
             {
                 userNameText.text = playerData.level+"급 "+playerData.nickname;
-                cointText.text = "코인: " + playerData.coin.ToString(); 
+                cointText.text = playerData.coin.ToString() + " 냥";
                 levelPointText.text = "승점 포인트: "+playerData.levelPoint;//자현추가
                 //GameManager에서 저장된 이미지 인덱스를 가져와서 프로필 이미지 갱신 
                 //저장된 프로필 이미지 인덱스를 적용
