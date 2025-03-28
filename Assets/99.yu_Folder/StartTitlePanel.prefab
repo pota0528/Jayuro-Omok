@@ -122,7 +122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2930549266330739006}
         m_TargetAssemblyTypeName: StartTitlePanelController, Assembly-CSharp
-        m_MethodName: OnPauseBGM
+        m_MethodName: BGMCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1420,7 +1420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e4c12a54c9bd6429d7c70f3c2b3d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectTransform: {fileID: 6104429348996229055}
   subText: {fileID: 3899854662055037251}
   titleOmokText: {fileID: 1885617361355887106}
   titleWatchText: {fileID: 37448193043285248}
