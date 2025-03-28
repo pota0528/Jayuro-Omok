@@ -1,39 +1,45 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 using static GameManager;
 
 public class ForbiddenRuleChecker
 {
     private GameManager.PlayerType[,] _board;
-    private int _lineCount = 15;
+    private const int OMOL_LINE_LENGTH = 15;
     private (int, int) _currentMoveIndex;
     private List<(int, int)> _forbiddenCollection = new();
 
-    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, (int, int) currentMoveIndex)
+    public ForbiddenRuleChecker(GameManager.PlayerType[,] board)
     {
         _board = board;
-        _currentMoveIndex = currentMoveIndex;
     }
 
-    public List<(int, int)> GetForbiddenSpots()
+    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList)
     {
-        _forbiddenCollection.Clear();
+        for (int i = 0; i < _forbiddenList.Count; i++)
+        {
+            _board[_forbiddenList[i].Item1, _forbiddenList[i].Item2] = GameManager.PlayerType.None;
+        }
 
-        var overlineEmpty = FindEmptySpotsInRow();
-        SetOverlineForbidden(overlineEmpty);
-
-        var fourFourEmpty = FindEmpty4X4();
-        Set4X4Forbidden(fourFourEmpty);
+        Set3X3Forbidden(_forbiddenList);
 
         return _forbiddenCollection;
     }
 
-    #region ��� �˻��� �� ���̴� �Լ�
-    /// <summary>
-    /// �ֱٿ� ���� �浹�� �������� ��������� 4ĭ�� ���鼭 �� ����(�ݼ��� ���ɼ��� �ִ� ��ǥ)�� ��� �Լ��̴�.
-    /// ���� ��ȸ�� �� �鵹�� ���̸� �ݴ� �������� ���ų�, ��ȸ�� �����.
-    /// </summary>
-    /// <returns></returns>
-    private List<(int, int)> FindEmptySpotsInRow()
+    public List<(int, int)> GetForbiddenSpots((int, int) currentMoveIndex)
+    {
+        _forbiddenCollection.Clear();
+        _currentMoveIndex = currentMoveIndex;
+        var lineEmpty = FindEmptyPositionList();
+        SetOverlineForbidden(lineEmpty);
+        Set4X4Forbidden(lineEmpty);
+        Set3X3Forbidden(lineEmpty);
+
+        return _forbiddenCollection;
+    }
+
+    private List<(int, int)> FindEmptyPositionList()
     {
         List<(int, int)> emptyList = new List<(int, int)>();
         int row = _currentMoveIndex.Item1;
@@ -184,22 +190,16 @@ public class ForbiddenRuleChecker
         return emptyList;
     }
 
-    /// <summary>
-    /// �ݼ��� ���ɼ��� �ִ� ������ ��������� 4ĭ ���鼭 �浹�� 5�� �̻�����, �� �ݼ��� �Ǵ� �������� �˻��ϴ� �Լ��̴�.
-    /// ���� ��ȸ�� �� �鵹�� �ݴ� �������� ���ų�, ��ȸ�� �����.
-    /// </summary>
-    /// <returns></returns>
     private void SetOverlineForbidden(List<(int, int)> emptyList)
     {
-        for (int i = 0; i < emptyList.Count; i++) //�¿� �˻�
+        for (int i = 0; i < emptyList.Count; i++)
         {
-            // ������ �˻�
-            int row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
 
             int blockIndex = 0;
 
-            for (int j = col; j <= 14 && j < col + 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; j <= 14 && j < col + 4; j++)
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -211,11 +211,10 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ���� �˻�
-            row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 1;
 
-            for (int j = col; 0 <= j && j > col - 4; --j) // + ���� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j > col - 4; --j)
             {
                 if (_board[row, j] == PlayerType.PlayerA)
                 {
@@ -233,15 +232,14 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) //���� �˻�
+        for (int i = 0; i < emptyList.Count; i++)
         {
-            // ���� �˻�
-            int row = emptyList[i].Item1 + 1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            int row = emptyList[i].Item1 + 1;
             int col = emptyList[i].Item2;
 
             int blockIndex = 0;
 
-            for (int j = row; j <= 14 && j < row + 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = row; j <= 14 && j < row + 4; j++)
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -254,10 +252,10 @@ public class ForbiddenRuleChecker
             }
 
             // �Ʒ��� �˻�
-            row = emptyList[i].Item1 - 1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2;
 
-            for (int j = row; 0 <= j && j > row - 4; --j) // + ���� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = row; 0 <= j && j > row - 4; --j)
             {
                 if (_board[j, col] == PlayerType.PlayerA)
                 {
@@ -275,16 +273,14 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // �آ�
+        for (int i = 0; i < emptyList.Count; i++)
         {
-            // �� ���� �˻�! // TODO : üũ Ȯ��
-
-            int row = emptyList[i].Item1 + 1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� - 1�� �Ǿ���Ѵ�.
+            int row = emptyList[i].Item1 + 1;
             int col = emptyList[i].Item2 + 1;
 
-            int blockIndex = 0; //1,2,3,4
+            int blockIndex = 0;
 
-            for (int j = 0; j < 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = 0; j < 4; j++)
             {
                 if (row + j > 14 || col + j > 14)
                 {
@@ -301,12 +297,10 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // �� �˻�! // TODO : üũ Ȯ��
-
-            row = emptyList[i].Item1 - 1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� - 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 - 1;
 
-            for (int j = 0; j < 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = 0; j < 4; j++)
             {
                 if (row - j < 0 || col - j < 0)
                 {
@@ -329,17 +323,17 @@ public class ForbiddenRuleChecker
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++) // �ע�
+        for (int i = 0; i < emptyList.Count; i++)
         {
             // ��(���� �Ʒ�) �˻�
-            int row = emptyList[i].Item1 + 1; // ������ �� ���� �ڸ����� ����ؾ� �ϴ� +1
+            int row = emptyList[i].Item1 + 1;
             int col = emptyList[i].Item2 - 1;
 
             int blockIndex = 0; // 1,2,3,4
 
-            for (int j = 0; j < 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ� �Ѵ�.
+            for (int j = 0; j < 4; j++)
             {
-                if (row + j > 14 || col - j < 0) // ���� �Ʒ� ���� ���� �ʰ� �˻�
+                if (row + j > 14 || col - j < 0)
                 {
                     break;
                 }
@@ -354,13 +348,12 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            // ��(������ ��) �˻�
-            row = emptyList[i].Item1 - 1; // ������ �� ���� �ڸ����� ����ؾ� �ϴ� -1
+            row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
 
-            for (int j = 0; j < 4; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ� �Ѵ�.
+            for (int j = 0; j < 4; j++)
             {
-                if (row - j < 0 || col + j > 14) // ������ �� ���� ���� �ʰ� �˻�
+                if (row - j < 0 || col + j > 14)
                 {
                     break;
                 }
@@ -381,163 +374,9 @@ public class ForbiddenRuleChecker
             }
         }
     }
-    #endregion
-
-    private List<(int, int)> FindEmpty4X4()
-    {
-        List<(int, int)> emptyList = new List<(int, int)>();
-        int row = _currentMoveIndex.Item1;
-        int col = _currentMoveIndex.Item2;
-
-        int currentCol = col + 1; // ������ Ž��
-
-        while (0 <= currentCol && currentCol < col + 5 && currentCol <= 14)
-        {
-            if (_board[row, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((row, currentCol));
-            }
-            else if (_board[row, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-
-            ++currentCol;
-        }
-
-        currentCol = col - 1; // ���� Ž��
-
-        while (0 <= currentCol && currentCol > col - 5 && currentCol <= 14)
-        {
-            if (_board[row, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((row, currentCol));
-            }
-            else if (_board[row, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-            --currentCol;
-        }
-
-        //�Ʒ��� Ž��
-        int currentRow = row + 1;
-
-        while (0 <= currentRow && currentRow < row + 5 && currentRow <= 14)
-        {
-            if (_board[currentRow, col] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, col));
-            }
-            else if (_board[currentRow, col] == PlayerType.PlayerB)
-            {
-                break;
-            }
-
-            ++currentRow;
-        }
-
-        // ���� Ž��
-        currentRow = row - 1;
-
-        while (0 <= currentRow && currentRow > row - 5 && currentRow <= 14)
-        {
-            if (_board[currentRow, col] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, col));
-            }
-            else if (_board[currentRow, col] == PlayerType.PlayerB)
-            {
-                break;
-            }
-            --currentRow;
-        }
-
-        // ������ �Ʒ� Ž��
-
-        currentRow = row + 1;
-        currentCol = col + 1;
-
-        while (currentRow <= 14 && currentCol <= 14 && currentRow < row + 5 && currentCol < col + 5)
-        {
-            if (_board[currentRow, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, currentCol));
-            }
-            else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-
-            ++currentRow;
-            ++currentCol;
-        }
-
-        // ���� �� Ž��
-
-        currentRow = row - 1;
-        currentCol = col - 1;
-
-        while (currentRow >= 0 && currentCol >= 0 && currentRow > row - 5 && currentCol > col - 5)
-        {
-            if (_board[currentRow, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, currentCol));
-            }
-            else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-            --currentRow;
-            --currentCol;
-        }
-
-
-        //�ע� Ž�� ����
-
-        // ���� �Ʒ� Ž��
-        currentRow = row + 1;
-        currentCol = col - 1;
-
-        while (currentRow <= 14 && currentCol >= 0 && currentRow < row + 5 && currentCol > col - 5)
-        {
-            if (_board[currentRow, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, currentCol));
-            }
-            else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-
-            ++currentRow;
-            --currentCol;
-        }
-
-        // ������ �� Ž��
-        currentRow = row - 1;
-        currentCol = col + 1;
-
-        while (currentRow >= 0 && currentCol <= 14 && currentRow > row - 5 && currentCol < col + 5)
-        {
-            if (_board[currentRow, currentCol] == PlayerType.None)
-            {
-                emptyList.Add((currentRow, currentCol));
-            }
-            else if (_board[currentRow, currentCol] == PlayerType.PlayerB)
-            {
-                break;
-            }
-
-            --currentRow;
-            ++currentCol;
-        }
-        return emptyList;
-    }
 
     private void Set4X4Forbidden(List<(int, int)> emptyList)
     {
-        //���� �ٸ� �������� 4x4 �ݼ��� ��
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_TURNING_COUNT = 5;
@@ -555,7 +394,7 @@ public class ForbiddenRuleChecker
             bool blockedRight = false;
             bool blockedLeft = false;
 
-            for (int j = col; j <= 14 && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = col; j < OMOL_LINE_LENGTH && j < col + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -605,7 +444,7 @@ public class ForbiddenRuleChecker
             blockedRight = false;
             blockedLeft = false;
 
-            for (int j = row; j <= 14 && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
+            for (int j = row; j < OMOL_LINE_LENGTH && j < row + 4 && turningCount < MAX_TURNING_COUNT && voidCount < MAX_VOID_COUNT; j++)
             {
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                     ++blockIndex;
@@ -759,19 +598,18 @@ public class ForbiddenRuleChecker
                 _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
-        
+
         for (int i = 0; i < emptyList.Count; i++)
         {
-            const int MAX_TURN_COUNT = 5; //���� ������ ����
+            const int MAX_TURN_COUNT = 5;
             int tempForbiddenCount = 0;
-            // ������ �˻�
-            int row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            int row = emptyList[i].Item1;
             int col = emptyList[i].Item2;
 
             int turnCount = 0;
             string tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
             {
                 ++turnCount;
 
@@ -795,16 +633,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// �� ĭ ��� 4
+                    break;
             }
 
-            row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 1;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
             {
                 ++turnCount;
 
@@ -831,13 +669,13 @@ public class ForbiddenRuleChecker
                     break;// �� ĭ ��� 4
             }
 
-            row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 2;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
             {
                 ++turnCount;
 
@@ -861,16 +699,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// �� ĭ ��� 4
+                    break;
             }
 
-            row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 3;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
             {
                 ++turnCount;
 
@@ -894,16 +732,16 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// �� ĭ ��� 4
+                    break;
             }
 
-            row = emptyList[i].Item1; //������ �� ���� �ڸ����� ����� �ؾ��ϴ� + 1�� �Ǿ���Ѵ�.
+            row = emptyList[i].Item1;
             col = emptyList[i].Item2 - 4;
 
             turnCount = 0;
             tempPattern = "";
 
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++) // + ���� j�� 0���� ũ�ų� ����, 15���� �۰ų� ���ƾ��Ѵ�.
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
             {
                 ++turnCount;
 
@@ -927,10 +765,302 @@ public class ForbiddenRuleChecker
                 case "AA.AA":
                 case "AAA.A":
                     ++tempForbiddenCount;
-                    break;// �� ĭ ��� 4
+                    break;
             }
 
             if (tempForbiddenCount > 1)
+            {
+                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+            }
+        }
+    }
+
+    private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
+    {
+        for (int i = 0; i < emptyList.Count; i++)
+        {
+            const int MAX_BLOCK_COUNT = 3;
+            const int MAX_DIRECITON_VOID_COUNT = 2;
+
+            int tempForbiddenCount = 0;
+
+            // 가로 검사
+            int row = emptyList[i].Item1;
+            int col = emptyList[i].Item2 + 1;
+            int blockIndex = 1;
+            int voidCount = 0;
+            bool isBlocked = false;
+            List<(int, int)> blackList = new List<(int, int)>();
+
+            for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+                if (_board[row, j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row, j));
+                }
+
+                else if (_board[row, j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            row = emptyList[i].Item1;
+            col = emptyList[i].Item2 - 1;
+            voidCount = 0;
+
+            for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
+            {
+
+                if (_board[row, j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row, j));
+                }
+                else if (_board[row, j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            {
+                if (!(Mathf.Abs(blackList[0].Item2 - blackList[1].Item2) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
+                {
+                    Debug.Log("!!");
+                    ++tempForbiddenCount;
+                }
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
+            }
+
+            // 세로 검사
+            row = emptyList[i].Item1 + 1;
+            col = emptyList[i].Item2;
+            blockIndex = 1;
+            voidCount = 0;
+            isBlocked = false;
+            blackList.Clear();
+
+            for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+
+                if (_board[j, col] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((j, col));
+                }
+                else if (_board[j, col] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            row = emptyList[i].Item1 - 1;
+            col = emptyList[i].Item2;
+            voidCount = 0;
+
+            for (int j = row; 0 <= j && j > row - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
+            {
+
+                if (_board[j, col] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((j, col));
+                }
+
+                else if (_board[j, col] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            {
+                if (!(Mathf.Abs(blackList[0].Item1 - blackList[1].Item1) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
+                {
+                    Debug.Log("11");
+                    ++tempForbiddenCount;
+                }
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
+            }
+
+            // 대각 ↘ 검사
+            row = emptyList[i].Item1 + 1;
+            col = emptyList[i].Item2 + 1;
+            blockIndex = 1;
+            voidCount = 0;
+            isBlocked = false;
+            blackList.Clear();
+
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+                if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row + j, col + j));
+                }
+                else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            row = emptyList[i].Item1 - 1;
+            col = emptyList[i].Item2 - 1;
+            voidCount = 0;
+
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+                if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+
+                if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row - j, col - j));
+                }
+                else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            {
+                int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
+                int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
+
+                if (deltaRow == deltaCol && deltaRow <= 3) // 대각선에 정확히 있고, 3칸 이내면 금수
+                {
+                    ++tempForbiddenCount;
+                }
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
+            }
+
+            // 대각 ↙ 검사
+            row = emptyList[i].Item1 + 1;
+            col = emptyList[i].Item2 - 1;
+            blockIndex = 1;
+            voidCount = 0;
+            isBlocked = false;
+            blackList.Clear();
+
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+
+                if (0 > row + j || row + j >= OMOL_LINE_LENGTH || 0 > col - j || col - j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row + j, col - j));
+                }
+                else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            row = emptyList[i].Item1 - 1;
+            col = emptyList[i].Item2 + 1;
+            voidCount = 0;
+
+            for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
+            {
+                if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
+                {
+                    break;
+                }
+
+                if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
+                {
+                    ++blockIndex;
+                    blackList.Add((row - j, col + j));
+                }
+                else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
+                {
+                    isBlocked = true;
+                    break;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.None)
+                {
+                    ++voidCount;
+                }
+            }
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            {
+                int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
+                int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
+
+                if (deltaRow == deltaCol && deltaRow <= 3) // 대각선에 정확히 있고, 3칸 이내면 금수
+                {
+                    ++tempForbiddenCount;
+                }
+            }
+            else if (blockIndex > MAX_BLOCK_COUNT)
+            {
+                break;
+            }
+
+            if (tempForbiddenCount >= 2)
             {
                 _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
             }

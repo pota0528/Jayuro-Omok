@@ -346,6 +346,7 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject UpDownResultPanelPrefab;
 
     public GameObject NoCoinNextWinLosePanel;
+    public int currentLevelCountData;
         
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
@@ -424,6 +425,7 @@ using UnityEngine.SceneManagement;
             }
             
             NoCoinNextWinLosePanel = winLosePanel;
+            currentLevelCountData = currentLevelCount;
         }
         
 
