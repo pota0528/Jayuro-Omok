@@ -196,6 +196,11 @@ public class ForbiddenRuleChecker
     {
         for (int i = 0; i < emptyList.Count; i++)
         {
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
+
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
 
@@ -386,6 +391,11 @@ public class ForbiddenRuleChecker
             const int MAX_BLOCK_COUNT = 4;
 
             int tempForbiddenCount = 0;
+
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
 
             // 가로 검사
             int row = emptyList[i].Item1;
@@ -786,6 +796,11 @@ public class ForbiddenRuleChecker
 
             int tempForbiddenCount = 0;
 
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
+
             // 가로 검사
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
@@ -828,7 +843,6 @@ public class ForbiddenRuleChecker
 
             for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
             {
-
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
