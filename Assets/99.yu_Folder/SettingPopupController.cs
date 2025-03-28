@@ -16,9 +16,9 @@ public class SettingPopupController : BaseUIController
     private void Start()
     {
         //슬라이더 초기화
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.5f);
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
         bgmSlider.value = savedBGMVolume;
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.5f);
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam");
         sfxSlider.value = savedSFXVolume;
 
         // 슬라이더 값 변경 시 볼륨 업데이트
@@ -37,7 +37,7 @@ public class SettingPopupController : BaseUIController
     {
         if (SceneManager.GetActiveScene().name == "Login")
         {
-            if (bgmSlider.value <= 0.1f)
+            if (bgmSlider.value <= 0.01f)
             {
                 StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOffSprite;
             }

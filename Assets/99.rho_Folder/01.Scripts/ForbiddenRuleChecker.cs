@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
@@ -194,6 +196,11 @@ public class ForbiddenRuleChecker
     {
         for (int i = 0; i < emptyList.Count; i++)
         {
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
+
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
 
@@ -384,6 +391,11 @@ public class ForbiddenRuleChecker
             const int MAX_BLOCK_COUNT = 4;
 
             int tempForbiddenCount = 0;
+
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
 
             // 가로 검사
             int row = emptyList[i].Item1;
@@ -784,12 +796,20 @@ public class ForbiddenRuleChecker
 
             int tempForbiddenCount = 0;
 
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
+
             // 가로 검사
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
             int blockIndex = 1;
             int voidCount = 0;
             bool isBlocked = false;
+            bool isLeftBlocked = false;
+            bool isRightBlocked = false;
+            
             List<(int, int)> blackList = new List<(int, int)>();
 
             for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
@@ -802,7 +822,13 @@ public class ForbiddenRuleChecker
 
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
+                    isLeftBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -817,7 +843,6 @@ public class ForbiddenRuleChecker
 
             for (int j = col; 0 <= j && j > col - 4 && voidCount < MAX_DIRECITON_VOID_COUNT; --j)
             {
-
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
@@ -825,7 +850,13 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isRightBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -834,7 +865,8 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked &&
+                !(isLeftBlocked && isRightBlocked)) //isLeftBlocked와 isrightBlocked 둘 다 막혀있으면 안되고 isLeftBlocked와 isrightBlocked 둘중 하나는 막혀있어도 됨 
             {
                 if (!(Mathf.Abs(blackList[0].Item2 - blackList[1].Item2) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
@@ -853,6 +885,8 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            isLeftBlocked = false;
+            isRightBlocked = false;
             blackList.Clear();
 
             for (int j = row; j <= 14 && j < row + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
@@ -865,7 +899,13 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
+                    isLeftBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -889,7 +929,13 @@ public class ForbiddenRuleChecker
 
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isRightBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -899,7 +945,8 @@ public class ForbiddenRuleChecker
             }
 
 
-            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked &&
+                !(isLeftBlocked && isRightBlocked))
             {
                 if (!(Mathf.Abs(blackList[0].Item1 - blackList[1].Item1) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
@@ -918,6 +965,8 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            isLeftBlocked = false;
+            isRightBlocked = false;
             blackList.Clear();
 
             for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
@@ -934,7 +983,16 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
+                    int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
+
+                    if (deltaRow == 1 && deltaCol == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isLeftBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -954,7 +1012,6 @@ public class ForbiddenRuleChecker
                     break;
                 }
 
-
                 if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
                 {
                     ++blockIndex;
@@ -962,7 +1019,16 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
+                    int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
+
+                    if (deltaRow == 1 && deltaCol == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isRightBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -971,7 +1037,8 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked &&
+                !(isLeftBlocked && isRightBlocked))
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
@@ -992,6 +1059,8 @@ public class ForbiddenRuleChecker
             blockIndex = 1;
             voidCount = 0;
             isBlocked = false;
+            isLeftBlocked = false;
+            isRightBlocked = false;
             blackList.Clear();
 
             for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
@@ -1009,7 +1078,16 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
+                    int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
+
+                    if (deltaRow == 1 && deltaCol == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isLeftBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -1036,7 +1114,16 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    isBlocked = true;
+                    int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
+                    int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
+
+                    if (deltaRow == 1 && deltaCol == 1)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+                    
+                    isRightBlocked = true;
                     break;
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
@@ -1045,7 +1132,8 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked &&
+                !(isLeftBlocked && isRightBlocked))
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
