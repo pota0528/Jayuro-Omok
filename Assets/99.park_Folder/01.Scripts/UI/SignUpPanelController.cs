@@ -51,6 +51,7 @@ public class SignUpPanelController : PanelController
         if (!password.Equals(confirmPassword))
         {
             Debug.Log("비밀번호 일치X ");
+            UIManager.Instance.OpenMessagePopup("비밀번호가 일치하지 않습니다.");
             return;
         }
         

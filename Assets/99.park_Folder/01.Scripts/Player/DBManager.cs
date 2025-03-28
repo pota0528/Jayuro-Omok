@@ -25,7 +25,7 @@ using BCrypt.Net;
             }
         }
 
-        //이미 있는 아이디인지 파악 
+        //이미 있는 아이디인지 파악 후 회원가입 . 
         public void RegisterPlayer(PlayerData playerData)
         {
             if (playerCollection == null)
@@ -50,7 +50,6 @@ using BCrypt.Net;
             }
             else
             {
-                Debug.Log("이미 존재하는 ID 입니다. ");
                 //이미 존재 id 메시지 팝업
                 UIManager.Instance.OpenMessagePopup("이미 존재하는 ID 입니다.");
             }
