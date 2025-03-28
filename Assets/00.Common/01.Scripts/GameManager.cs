@@ -117,10 +117,10 @@ public class GameManager : MonoBehaviour
                 _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = OnBlockClicked;
-                SetForbiddenMarks(forbiddenCollection, false);
+                SetForbiddenMarks(forbiddenCollection, false); //기존 금수들 마크 해제
                 var checker = new ForbiddenRuleChecker(_board);
-                forbiddenCollection = checker.CheckForbiddenRelease(forbiddenCollection);
-                SetForbiddenMarks(forbiddenCollection, true);
+                forbiddenCollection = checker.CheckForbiddenRelease(forbiddenCollection); // 기존 금수들 값 고정 및 해제
+                SetForbiddenMarks(forbiddenCollection, true); //기존 금수들 마크 설정
                 var _forbiddenCollection = checker.GetForbiddenSpots(currentMoveIndex);
                 SetForbiddenMarks(_forbiddenCollection, true);
                 forbiddenCollection.AddRange(_forbiddenCollection);

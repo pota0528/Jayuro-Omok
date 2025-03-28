@@ -777,7 +777,6 @@ public class ForbiddenRuleChecker
 
     private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
     {
-        Debug.Log(emptyList);
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_BLOCK_COUNT = 3;
@@ -835,15 +834,11 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 if (!(Mathf.Abs(blackList[0].Item2 - blackList[1].Item2) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
+                    Debug.Log("!!");
                     ++tempForbiddenCount;
                 }
             }
@@ -903,14 +898,12 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 if (!(Mathf.Abs(blackList[0].Item1 - blackList[1].Item1) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
+                    Debug.Log("11");
                     ++tempForbiddenCount;
                 }
             }
@@ -978,11 +971,7 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
@@ -1056,11 +1045,7 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
