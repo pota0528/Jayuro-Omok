@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BCrypt.Net;
 
     public class DBManager : Singleton<DBManager>
     {
@@ -36,6 +37,11 @@ using UnityEngine.SceneManagement;
             var existingPlayer = playerCollection.Find(p => p.id == playerData.id).FirstOrDefault();
             if (existingPlayer == null)
             {
+                //비밀번호 해시화
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(playerData.password);
+                //해시된 비밀번호로 새 playerData 생성 
+                playerData.password = hashedPassword;
+                
                 playerCollection.InsertOne(playerData);
                 Debug.Log("유저 등록 완료: " + playerData.nickname);
                 
@@ -62,7 +68,8 @@ using UnityEngine.SceneManagement;
                
             }
 
-            if (player.password != password)
+            //암호화 된 비밀번호 검증 
+            if (!BCrypt.Net.BCrypt.Verify(password, player.password))
             {
                 // 비밀번호가 틀리면
                 UIManager.Instance.OpenMessagePopup("비밀번호가 틀렸습니다..");
