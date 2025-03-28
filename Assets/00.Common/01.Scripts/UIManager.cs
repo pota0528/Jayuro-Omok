@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -28,47 +27,103 @@ using UnityEngine.SceneManagement;
         
         //UserPanel에 대한 참조 추가
         private GameObject userPanelInstance;
-
         private bool isUserPanelActive = false;
+        private bool isLogin = false; //로그인 상태 추적 
+        private GameObject loginPanelInstance;
         private void Start()
         {
-            _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-           OpenLoginPanel();
-           OpenStartTitlePanel();
+            Debug.Log("isLoig:"+isLogin);
+            InitializeUI();
            
-           if (_canvas != null && userPanel != null)
-           {
-               userPanelInstance = Instantiate(userPanel, _canvas.transform);
-               userPanelInstance.SetActive(false); // Initially inactive
-           }
-          
-            //playeData=UserSessionManager.Instance.GetPlayerData();
-            mongoDBManager = FindObjectOfType<DBManager>();
-           
+            if(isLogin==true)
+            {
+                // If already logged in, open the user panel
+                OpenUserPanel();
+                Debug.Log("유저패널 호출 ");
+            }
         }
+
+        private void InitializeUI()
+        {
+            _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            if (_canvas == null)
+            {
+                Debug.LogError("Canvas 객체를 찾을 수 없습니다.");
+                return;
+            }
+
+            mongoDBManager = FindObjectOfType<DBManager>();
+            if (_canvas != null && userPanel != null)
+            {
+                if (userPanelInstance == null || !userPanelInstance)
+                {
+                    userPanelInstance = Instantiate(userPanel, _canvas.transform);
+                }
+                userPanelInstance.SetActive(false); // 처음에는 비활성화
+            }
+
+            if (isLogin && playerData != null)
+            {
+                Debug.Log("로그인 되어있음, 플레이어데이터이씅");
+                OpenUserPanel();
+            }
+            else
+            {
+                Debug.Log("로그인 해야함 ");
+                OpenLoginPanel();
+            }
+            OpenStartTitlePanel();
+        }
+
 //로그인 후 Player데이터 설정 
         public void SetPlayerData(PlayerData playerData)
         {
             this.playerData = playerData;
             Debug.Log(playerData.nickname);
+            OpenUserPanel(); 
         }
 
-        public void OpenLoginPanel()
+        public void OpenLoginPanel() 
         {
-            if (_canvas != null)
-            {
-                // Deactivate the user panel if it's active
-                if (userPanelInstance != null)
-                {
-                    userPanelInstance.SetActive(false);
-                    isUserPanelActive = false; // Track that the user panel was deactivated
-                }
+            Debug.Log("로그인 패널 열림");
 
-                Debug.Log("로그인패널열기");
-                Instantiate(loginPanel, _canvas.transform);
+            // Canvas가 존재하는지 확인
+            if (_canvas == null)
+            {
+                Debug.LogError("Canvas가 없습니다.");
+                return;
+            }
+
+            // loginPanel이 null인지 확인하고, null일 경우 에러 처리
+            if (loginPanel == null)
+            {
+                Debug.LogError("Login Panel이 할당되지 않았습니다.");
+                return;
+            }
+
+            // loginPanel이 이미 인스턴스화 되어 있는지 확인
+            if (loginPanelInstance == null)
+            {
+                // 로그인 패널을 _canvas 하위에 인스턴스화
+                loginPanelInstance = Instantiate(loginPanel, _canvas.transform);
+                loginPanelInstance.SetActive(true); // 로그인 패널을 활성화
+                Debug.Log("Login Panel 인스턴스화 및 활성화됨");
+            }
+            else if (!loginPanelInstance.activeSelf)
+            {
+                // 이미 존재하는 loginPanelInstance가 비활성화되었을 경우 활성화
+                loginPanelInstance.SetActive(true);
+                Debug.Log("이미 존재하는 Login Panel을 활성화함");
+            }
+
+            // User Panel이 활성화된 상태라면 비활성화
+            if (userPanelInstance != null && userPanelInstance.activeSelf)
+            {
+                userPanelInstance.SetActive(false);
+                Debug.Log("User Panel 비활성화됨");
             }
         }
-
+        
         public void OpenSignUpPanel()
         {
           
@@ -81,9 +136,32 @@ using UnityEngine.SceneManagement;
 
         public void OpenUserPanel()
         {
-            if (_canvas != null)
+            if (_canvas == null)
             {
-                Instantiate(userPanel, _canvas.transform);
+                Debug.LogError("Canvas가 없습니다.");
+                return;
+            }
+
+            if (userPanel == null)
+            {
+                Debug.LogError("User Panel이 할당되지 않았습니다.");
+                return;
+            }
+
+            // userPanel이 이미 활성화되어 있지 않은 경우
+            if (userPanelInstance == null || !userPanelInstance.activeSelf)
+            {
+                if (userPanelInstance == null)
+                {
+                    // userPanel이 null일 경우 새로 인스턴스화
+                    userPanelInstance = Instantiate(userPanel, _canvas.transform);
+                }
+                userPanelInstance.SetActive(true);
+                Debug.Log("User Panel 활성화됨");
+            }
+            else
+            {
+                Debug.Log("User Panel이 이미 활성화되어 있습니다.");
             }
         }
 
@@ -143,25 +221,20 @@ using UnityEngine.SceneManagement;
 
             if (playerData != null)
             {
-                // 플레이어 프리팹이 없으므로 직접 플레이어 객체를 생성합니다.
-                GameObject playerObject = new GameObject("Player");  // 새로운 플레이어 오브젝트 생성
-                PlayerManager playerScript = playerObject.AddComponent<PlayerManager>();  // PlayerManager 컴포넌트 추가
-
+                SetPlayerData(playerData);
+                isLogin = true;
+                
+                GameObject playerObject = new GameObject("Player");
+                PlayerManager playerScript = playerObject.AddComponent<PlayerManager>();
                 if (playerScript != null)
                 {
-                    playerScript.SetPlayerData(playerData);  // 로그인된 플레이어 데이터 설정
+                    playerScript.SetPlayerData(playerData);
                 }
-
-                // 로그인 성공 시 UserPanel을 활성화
-                if (userPanelInstance != null)
+                if (loginPanel != null)
                 {
-                    userPanelInstance.SetActive(true);
-                    Debug.Log("UserPanel 활성화됨");
+                    loginPanel.SetActive(false); // 로그인 패널 숨기기
                 }
-                else
-                {
-                    Debug.LogError("UserPanel 인스턴스가 없습니다.");
-                }
+                OpenUserPanel();
             }
             else
             {
@@ -169,29 +242,19 @@ using UnityEngine.SceneManagement;
             }
         }
 
-
-
         
-        
-        
-
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _canvas = GameObject.FindObjectOfType<Canvas>();
+            _canvas = FindObjectOfType<Canvas>();
             if (_canvas == null)
             {
                 Debug.LogError("Canvas 객체를 찾을 수 없습니다.");
+                return;
             }
-            else
-            {
-                Debug.Log(_canvas);
-            }
-            
             if (scene.name == "Login")
             {
-                
-                OpenUserPanel();
-                OpenStartTitlePanel();
+                //씬 로드 시 UI 재초기화
+                InitializeUI();
             }
         }
     
@@ -282,7 +345,7 @@ using UnityEngine.SceneManagement;
     [SerializeField] private GameObject mainWinLosePanelPrefab;
     [SerializeField] private GameObject UpDownResultPanelPrefab;
 
-    public GameObject NoCoinNextWinLosePanel;
+    public GameObject winLosePanelObject;
         
     //스타트 타이틀 패널
     public void OpenStartTitlePanel()
@@ -360,7 +423,7 @@ using UnityEngine.SceneManagement;
                 mainWinLosePanel.GetComponent<MainWinLosePanelController>().MainWinPanelOpen();
             }
             
-            NoCoinNextWinLosePanel = winLosePanel;
+            winLosePanelObject = winLosePanel;
         }
         
 

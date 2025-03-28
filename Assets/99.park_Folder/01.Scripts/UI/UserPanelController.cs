@@ -13,6 +13,10 @@ using UnityEngine.UI;
         [SerializeField] private TMP_Text userNameText;
         [SerializeField] private TMP_Text cointText;
         [SerializeField] private Button profileButton;
+        
+        [SerializeField] private TMP_Text levelPointText;
+        
+        public static int levelPointCount=0;
 
         public void Start()
         {
@@ -28,6 +32,7 @@ using UnityEngine.UI;
             {
                 userNameText.text = playerData.level+"급 "+playerData.nickname;
                 cointText.text = "코인: " + playerData.coin.ToString(); 
+                levelPointText.text = "승점 포인트: "+playerData.levelPoint;//자현추가
                 //GameManager에서 저장된 이미지 인덱스를 가져와서 프로필 이미지 갱신 
                 //저장된 프로필 이미지 인덱스를 적용
                 Sprite profileImage =UIManager.Instance.GetProfileImage(playerData.imageIndex);
@@ -61,6 +66,10 @@ using UnityEngine.UI;
                 SceneManager.LoadScene("Game");
                 Debug.Log("게임 시작");
             }
+            
+            //자현추가
+            var winLosePanelObject = UIManager.Instance.winLosePanelPrefab;
+            levelPointCount = winLosePanelObject.GetComponent<WinLosePanelController>().GetLevelCount(playerData.level);
         }
 
         public void OnClickReplayButton()

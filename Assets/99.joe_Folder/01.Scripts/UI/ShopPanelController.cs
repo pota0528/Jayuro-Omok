@@ -85,7 +85,7 @@ public class ShopPanelController : PanelController
         // 자현 추가: 게임 씬일 경우 패널 갱신
         if (SceneManager.GetActiveScene().name == "Game")
         {
-            SetWinLosePanel(UIManager.Instance.NoCoinNextWinLosePanel);
+            SetWinLosePanel(UIManager.Instance.winLosePanelObject);
         }
     }
 
