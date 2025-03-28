@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class StartTitlePanelController : Singleton<StartTitlePanelController>
+public class StartTitlePanelController : BaseUIController
 {
     [SerializeField] private TextMeshProUGUI subText;
     [SerializeField] private TextMeshProUGUI titleOmokText;
@@ -22,6 +21,7 @@ public class StartTitlePanelController : Singleton<StartTitlePanelController>
     public Sprite soundOffSprite;
     public Sprite soundOnSprite;
     public Button soundButton;
+
     private delegate void ClockTimeDelegate();
     private ClockTimeDelegate clockDelegate;
     
@@ -34,9 +34,13 @@ public class StartTitlePanelController : Singleton<StartTitlePanelController>
 
     private void Start()
     {
+        
         TitleSetting();
     }
     
+    
+    
+
     public void OnPauseBGM()
     {
         if (AudioManager.Instance.BgmAudioSource.isPlaying)
@@ -56,11 +60,6 @@ public class StartTitlePanelController : Singleton<StartTitlePanelController>
     {
         clockDelegate?.Invoke();
         
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
-        if (savedBGMVolume <= 0.01f)
-        {
-            soundButton.GetComponent<Image>().sprite = soundOffSprite;
-        }
     }
     
     

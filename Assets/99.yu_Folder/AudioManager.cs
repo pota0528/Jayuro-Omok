@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -48,10 +47,7 @@ public class AudioManager : Singleton<AudioManager>
         if (volume <= 0)
         {
             volume = 0.01f;
-            
         }
-        
-        
 
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
 
@@ -78,7 +74,6 @@ public class AudioManager : Singleton<AudioManager>
         {
             newClip = audioClip[0];
         }
-            
         else if (sceneName == "Game")
         {
             newClip = audioClip[1];

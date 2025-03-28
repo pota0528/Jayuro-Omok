@@ -12,7 +12,7 @@ public class SettingPopupController : BaseUIController
     public Slider bgmSlider;
     public Slider sfxSlider;
     StartTitlePanelController startTitlePanelController;
-
+    
     private void Start()
     {
         //슬라이더 초기화
@@ -28,30 +28,8 @@ public class SettingPopupController : BaseUIController
         // 초기 볼륨 설정
         AudioManager.Instance.SetBGMVolume(bgmSlider.value);
         AudioManager.Instance.SetSFXVolume(sfxSlider.value);
-        
-
-
     }
-
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "Login")
-        {
-            if (bgmSlider.value <= 0.1f)
-            {
-                StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOffSprite;
-            }
-            else
-            {
-                StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOnSprite;
-            }
-            
-        }
-        
-    }
-
     
-
     private void OnDestroy()
     {
         // 슬라이더 값 변경 시 PlayerPrefs에 저장
