@@ -22,7 +22,7 @@ public class CoinPanelController : MonoBehaviour
     public void InitCoinCount(int coinCount)
     {
         _coinCount = coinCount;
-        _coinCountText.text = _coinCount.ToString();
+        _coinCountText.text = $"{_coinCount.ToString()}냥";
     }
         
 }
