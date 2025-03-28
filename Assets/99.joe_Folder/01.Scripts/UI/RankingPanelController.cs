@@ -5,205 +5,210 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-  public class RankingPanelController : PanelController
+public class RankingPanelController : PanelController
+{
+    [SerializeField] private GameObject rankingCellPrefab;
+    [SerializeField] private Transform contentTransform;
+    [SerializeField] private GameObject ScrollView;
+
+    [SerializeField] private float cellHeight;
+    [SerializeField] private float spacingY = 10f;
+
+    private ScrollRect _scrollViewScrollRect;
+    private RectTransform _scrollViewRectTransform;
+
+    private List<(int index, RankingCellPanel rankingCell)> _visibleCells;
+    private float _previousScrollRectYValue = 1f;
+    public int _maxRankingCount = 50;
+    private int _bufferRows = 2;
+
+    private List<PlayerData> _topPlayers;
+
+    protected override void Awake()
     {
-        [SerializeField] private GameObject rankingCellPrefab;  // 생성할 셀 프리팹
-        [SerializeField] private Transform contentTransform;    // ScrollView의 Content (셀들의 부모)
-        [SerializeField] private GameObject ScrollView;         // 스크롤 뷰 오브젝트
+        base.Awake();
+        _scrollViewScrollRect = ScrollView.GetComponent<ScrollRect>();
+        _scrollViewRectTransform = ScrollView.GetComponent<RectTransform>();
+    }
 
-        [SerializeField] private float cellHeight;              // 셀 높이
-        [SerializeField] private float spacingY = 10f;          // 셀 간 간격
+    private void Start()
+    {
+        SetTitleText("장원급제");
+        LoadRanking();
+        ReloadData();
+    }
 
-        private ScrollRect _scrollViewScrollRect;               // ScrollRect 컴포넌트
-        private RectTransform _scrollViewRectTransform;         // ScrollView의 RectTransform
+    private void LoadRanking()
+    {
+        var allPlayers = DBManager.Instance.GetAllPlayers();
+        allPlayers.Sort((a, b) => CalculateScore(b).CompareTo(CalculateScore(a)));
+        _topPlayers = allPlayers.Take(_maxRankingCount).ToList();
 
-        private List<(int index, RankingCellPanel rankingCell)> _visibleCells; // 현재 화면에 표시 중인 셀 리스트
-        private float _previousScrollRectYValue = 1f;           // 이전 프레임에서의 스크롤 위치
-        public int _maxRankingCount = 50;                       // 전체 랭킹 데이터 개수
-        private int _bufferRows = 2;                            // 위아래 여유 셀 개수 (화면 밖에서도 추가 생성)
-        
-        private PlayerData playerData;
-        
-        private List<PlayerData> _topPlayers; // 유저s 정보 리스트
+        ShowMyRanking();
+    }
 
+    private int CalculateScore(PlayerData player)
+    {
+        return (19 - player.level) * 1000
+             + player.levelPoint * 100
+             + player.win * 10;
+    }
 
-        protected override void Awake()
+    private (int start, int count) GetVisibleIndexRange()
+    {
+        float contentPosY = _scrollViewScrollRect.content.anchoredPosition.y;
+        float viewportHeight = _scrollViewScrollRect.viewport.rect.height;
+
+        int start = Mathf.FloorToInt(contentPosY / (cellHeight + spacingY));
+        int visibleCount = Mathf.CeilToInt(viewportHeight / (cellHeight + spacingY));
+
+        start = Mathf.Max(0, start - _bufferRows);
+        int count = Mathf.Min(_maxRankingCount, start + visibleCount + (_bufferRows * 2));
+
+        return (start, count);
+    }
+
+    private bool IsVisibleIndex(int index)
+    {
+        var (start, end) = GetVisibleIndexRange();
+        return start <= index && index <= end;
+    }
+
+    private RankingCellPanel CreateRankingCellPanel(int index)
+    {
+        PlayerData playerData;
+
+        if (_topPlayers != null && index < _topPlayers.Count)
         {
-            base.Awake();
-            _scrollViewScrollRect = ScrollView.GetComponent<ScrollRect>();
-            _scrollViewRectTransform = ScrollView.GetComponent<RectTransform>();
+            playerData = _topPlayers[index];
         }
-
-        private void Start()
+        else
         {
-            SetTitleText("장원급제"); // 패널 타이틀 설정
-            ReloadData(); // 데이터 로드 및 초기 화면 설정
-        }
-
-        /// <summary>
-        /// 현재 화면에 표시될 셀의 인덱스 범위를 계산
-        /// (버퍼 추가하여 여유 셀 포함)
-        /// </summary>
-        private (int start, int count) GetVisibleIndexRange()
-        {
-            float contentPosY = _scrollViewScrollRect.content.anchoredPosition.y; // 현재 스크롤 위치
-            float viewportHeight = _scrollViewScrollRect.viewport.rect.height;    // 뷰포트 높이
-
-            int start = Mathf.FloorToInt(contentPosY / (cellHeight + spacingY));  // 시작 인덱스 계산
-            int visibleCount = Mathf.CeilToInt(viewportHeight / (cellHeight + spacingY)); // 화면에 표시 가능한 개수
-
-            start = Mathf.Max(0, start - _bufferRows); // 위쪽 여유 셀 추가
-            int count = Mathf.Min(_maxRankingCount, start + visibleCount + (_bufferRows * 2)); // 전체 개수 제한
-
-            return (start, count);
-        }
-
-        /// <summary>
-        /// 특정 인덱스가 현재 화면에 표시되어야 하는지 확인
-        /// </summary>
-        private bool IsVisibleIndex(int index)
-        {
-            var (start, end) = GetVisibleIndexRange();
-            return start <= index && index <= end;
-        }
-
-        /// <summary>
-        /// 새로운 랭킹 셀을 생성하여 Content에 추가
-        /// (오브젝트 풀에서 가져와서 재사용)
-        /// </summary>
-        private RankingCellPanel CreateRankingCellPanel(int index)
-        {
-            PlayerData playerData;
-
-            // 유저 데이터가 있는 경우 정상 데이터로, 없으면 더미 데이터 생성
-            if (_topPlayers != null && index < _topPlayers.Count)
+            playerData = new PlayerData
             {
-                playerData = _topPlayers[index];
-            }
-            else
-            {
-                playerData = new PlayerData
-                {
-                    nickname = "순위 없음",
-                    level = 0,
-                    win = 0,
-                    lose = 0,
-                    score = 0,
-                    imageIndex = -1 // 기본 이미지 또는 비어 있음 처리
-                };
-            }
-
-            var rankingCellPanelObject = ObjectPool.Instance.GetObject();
-            var rankingCellPanel = rankingCellPanelObject.GetComponent<RankingCellPanel>();
-
-            rankingCellPanel.SetRankingCellData(playerData, index);
-            rankingCellPanel.transform.SetParent(contentTransform, false);
-
-            float yPosition = -(cellHeight + spacingY) * index;
-            rankingCellPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, yPosition);
-
-            return rankingCellPanel;
+                nickname = "순위 없음",
+                level = 0,
+                win = 0,
+                lose = 0,
+                imageIndex = -1
+            };
         }
 
+        var rankingCellPanelObject = ObjectPool.Instance.GetObject();
+        var rankingCellPanel = rankingCellPanelObject.GetComponent<RankingCellPanel>();
 
-        /// <summary>
-        /// Content 크기를 전체 데이터 개수에 맞춰 조정
-        /// </summary>
-        private void AdjustContentSize()
+        rankingCellPanel.SetRankingCellData(playerData, index);
+        rankingCellPanel.transform.SetParent(contentTransform, false);
+
+        float yPosition = -(cellHeight + spacingY) * index;
+        rankingCellPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, yPosition);
+
+        return rankingCellPanel;
+    }
+
+    private void AdjustContentSize()
+    {
+        RectTransform contentRect = contentTransform as RectTransform;
+        float totalHeight = _maxRankingCount * (cellHeight + spacingY);
+        contentRect.sizeDelta = new Vector2(0, totalHeight);
+    }
+
+    private void ReloadData()
+    {
+        AdjustContentSize();
+        _visibleCells = new List<(int index, RankingCellPanel rankingCell)>();
+
+        var (start, count) = GetVisibleIndexRange();
+        for (int i = start; i < count; i++)
         {
-            RectTransform contentRect = contentTransform as RectTransform;
-            float totalHeight = _maxRankingCount * (cellHeight + spacingY); // 총 리스트 높이 계산
-            contentRect.sizeDelta = new Vector2(0, totalHeight);
-        }
-
-        /// <summary>
-        /// 데이터 로드 및 화면 초기화 (초기 셀 생성)
-        /// </summary>
-        private void ReloadData()
-        {
-            // 유저s 정보 리스트 받아오기
-            _topPlayers = DBManager.Instance.GetTopPlayersByScore(_maxRankingCount);
-
-            
-            AdjustContentSize(); // Content 크기 조정
-            _visibleCells = new List<(int index, RankingCellPanel rankingCell)>(); // 현재 보이는 셀 리스트 초기화
-
-            var (start, count) = GetVisibleIndexRange();
-            for (int i = start; i < count; i++)
+            if (i < _maxRankingCount && !_visibleCells.Any(cell => cell.index == i))
             {
-                if (i < _maxRankingCount && !_visibleCells.Any(cell => cell.index == i))
-                {
-                    var rankingCellPanel = CreateRankingCellPanel(i);
-                    _visibleCells.Add((i, rankingCellPanel));
-                }
+                var rankingCellPanel = CreateRankingCellPanel(i);
+                _visibleCells.Add((i, rankingCellPanel));
             }
-        }
-
-        /// <summary>
-        /// 스크롤 시 기존 셀을 재활용하여 새로운 데이터를 표시
-        /// </summary>
-        public void OnValueChanged(Vector2 value)
-        {
-            if (_visibleCells.Count == 0) return; // 🚨 빈 리스트에서 호출 방지
-
-            if (_previousScrollRectYValue < value.y)
-            {
-                // 🔻 위로 스크롤 (맨 위의 셀을 제거하고 아래로 이동)
-                if (_visibleCells.Count > 0)
-                {
-                    var firstRow = _visibleCells.First();
-                    var newFirstIndex = firstRow.index - 1;
-
-                    if (IsVisibleIndex(newFirstIndex) && newFirstIndex >= 0)
-                    {
-                        var rankingCellPanel = CreateRankingCellPanel(newFirstIndex);
-                        _visibleCells.Insert(0, (newFirstIndex, rankingCellPanel));
-                    }
-                }
-
-                // 🔻 보이지 않는 셀 제거
-                if (_visibleCells.Count > 0)
-                {
-                    var lastRow = _visibleCells.Last();
-                    if (!IsVisibleIndex(lastRow.index))
-                    {
-                        ObjectPool.Instance.ReturnObject(lastRow.rankingCell.gameObject);
-                        _visibleCells.RemoveAt(_visibleCells.Count - 1);
-                    }
-                }
-            }
-            else
-            {
-                // 🔺 아래로 스크롤 (맨 아래의 셀을 제거하고 위로 이동)
-                if (_visibleCells.Count > 0)
-                {
-                    var lastRow = _visibleCells.Last();
-                    var newLastIndex = lastRow.index + 1;
-
-                    if (IsVisibleIndex(newLastIndex) && newLastIndex < _maxRankingCount)
-                    {
-                        var rankingCellPanel = CreateRankingCellPanel(newLastIndex);
-                        _visibleCells.Add((newLastIndex, rankingCellPanel));
-                    }
-                }
-
-                // 🔺 보이지 않는 셀 제거
-                if (_visibleCells.Count > 0)
-                {
-                    var firstRow = _visibleCells.First();
-                    if (!IsVisibleIndex(firstRow.index))
-                    {
-                        ObjectPool.Instance.ReturnObject(firstRow.rankingCell.gameObject);
-                        _visibleCells.RemoveAt(0);
-                    }
-                }
-            }
-
-            _previousScrollRectYValue = value.y;
-        }
-
-        public void OnClickCloseButton()
-        {
-            Hide();
         }
     }
+
+    //MyRanking
+    private void ShowMyRanking()
+    {
+        var myPlayerData = UserSessionManager.Instance.GetPlayerData();
+        int myRankIndex = _topPlayers.FindIndex(p => p.id == myPlayerData.id);
+
+        if (myRankIndex >= 0)
+        {
+            var myPanel = FindObjectOfType<MyRankingPanelController>();
+            if (myPanel != null)
+            {
+                myPanel.SetMyRankingData(myPlayerData, myRankIndex);
+            }
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    public void OnValueChanged(Vector2 value)
+    {
+        if (_visibleCells.Count == 0) return;
+
+        if (_previousScrollRectYValue < value.y)
+        {
+            if (_visibleCells.Count > 0)
+            {
+                var firstRow = _visibleCells.First();
+                var newFirstIndex = firstRow.index - 1;
+
+                if (IsVisibleIndex(newFirstIndex) && newFirstIndex >= 0)
+                {
+                    var rankingCellPanel = CreateRankingCellPanel(newFirstIndex);
+                    _visibleCells.Insert(0, (newFirstIndex, rankingCellPanel));
+                }
+            }
+
+            if (_visibleCells.Count > 0)
+            {
+                var lastRow = _visibleCells.Last();
+                if (!IsVisibleIndex(lastRow.index))
+                {
+                    ObjectPool.Instance.ReturnObject(lastRow.rankingCell.gameObject);
+                    _visibleCells.RemoveAt(_visibleCells.Count - 1);
+                }
+            }
+        }
+        else
+        {
+            if (_visibleCells.Count > 0)
+            {
+                var lastRow = _visibleCells.Last();
+                var newLastIndex = lastRow.index + 1;
+
+                if (IsVisibleIndex(newLastIndex) && newLastIndex < _maxRankingCount)
+                {
+                    var rankingCellPanel = CreateRankingCellPanel(newLastIndex);
+                    _visibleCells.Add((newLastIndex, rankingCellPanel));
+                }
+            }
+
+            if (_visibleCells.Count > 0)
+            {
+                var firstRow = _visibleCells.First();
+                if (!IsVisibleIndex(firstRow.index))
+                {
+                    ObjectPool.Instance.ReturnObject(firstRow.rankingCell.gameObject);
+                    _visibleCells.RemoveAt(0);
+                }
+            }
+        }
+
+        _previousScrollRectYValue = value.y;
+    }
+
+    public void OnClickCloseButton()
+    {
+        Hide();
+    }
+}

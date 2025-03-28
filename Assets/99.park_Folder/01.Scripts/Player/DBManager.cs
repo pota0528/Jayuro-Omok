@@ -86,6 +86,10 @@ using UnityEngine.SceneManagement;
             //유저 아이디로 해당 유저 찾기 (id 기준으로 찾고있음)   (조건, 데이터) 
             var filter = Builders<PlayerData>.Filter.Eq(p => p.id, playerData.id);
             UpdateDefinition<PlayerData> update;
+            
+            
+            
+            
             //프로필 이미지 인덱스만 업데이트 
             if (updateImageOnly)
             {
@@ -100,7 +104,6 @@ using UnityEngine.SceneManagement;
                     .Set(p => p.levelPoint, playerData.levelPoint)
                     .Set(p => p.win, playerData.win)
                     .Set(p => p.lose, playerData.lose)
-                    .Set(p => p.score, playerData.score) // 여기!
                     .Set(p => p.imageIndex, playerData.imageIndex);
             }
 
@@ -122,23 +125,18 @@ using UnityEngine.SceneManagement;
         }
   
 
-        public List<PlayerData> GetTopPlayersByScore(int topN = 50)
+        
+        public List<PlayerData> GetAllPlayers()
         {
             if (playerCollection == null)
             {
                 Debug.LogError("DB 연결 안됨.");
                 return new List<PlayerData>();
             }
-        
-            var sort = Builders<PlayerData>.Sort.Descending(p => p.score);
-            var topPlayers = playerCollection.Find(_ => true)
-                .Sort(sort)
-                .Limit(topN)
-                .ToList();
-            return topPlayers;
-        }
 
-      
+            return playerCollection.Find(_ => true).ToList();
+        }
+        
 
         protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {

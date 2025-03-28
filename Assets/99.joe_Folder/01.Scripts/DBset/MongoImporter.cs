@@ -55,7 +55,7 @@ public class MongoImporter
                 coin = p.coin,
                 win = p.win,
                 lose = p.lose,
-                score = p.score,
+                //score = p.score,
                 imageIndex = p.imageIndex
             });
         }
