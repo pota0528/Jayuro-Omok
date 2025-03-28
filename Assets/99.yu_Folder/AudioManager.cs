@@ -33,10 +33,10 @@ public class AudioManager : Singleton<AudioManager>
     private void Start()
     {
         // 저장된 볼륨 값을 불러옴
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.5f);
         SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
         
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam");
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.5f);
         SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
         
         OnPlayBGM(0);
@@ -52,6 +52,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
+        PlayerPrefs.Save();
 
     }
 
@@ -60,11 +61,12 @@ public class AudioManager : Singleton<AudioManager>
         if (volume <= 0)
         {
             
-            volume = 0.01f;
+            volume = 0.001f;
         }
         
         audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
         audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
+        PlayerPrefs.Save();
     }
     
     private void PlaySceneBGM(string sceneName)

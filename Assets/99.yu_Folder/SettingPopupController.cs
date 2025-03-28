@@ -37,7 +37,7 @@ public class SettingPopupController : BaseUIController
     {
         if (SceneManager.GetActiveScene().name == "Login")
         {
-            if (bgmSlider.value <= 0.01f)
+            if (bgmSlider.value <= 0.001f)
             {
                 StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOffSprite;
             }

@@ -27,48 +27,57 @@ public class StartTitlePanelController : Singleton<StartTitlePanelController>
     
     private void Awake()
     {
+        BGMInit();
         TitleInit();
     }
+
 
     private void Start()
     {
         TitleSetting();
-        BGMInit();
     }
 
     private void BGMInit()
     {
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
-        if (savedBGMVolume <= 0.01f)//슬라이드가 최솟값이라면
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.5f); // 기본값 0.5 설정
+        Image buttonImage = soundButton.GetComponent<Image>();
+
+        Debug.Log("BGMInit 실행됨, 현재 BGMParam 값: " + savedBGMVolume); // 값 확인 로그
+
+        if (savedBGMVolume <= 0.001f)
         {
-            soundButton.GetComponent<Image>().sprite = soundOffSprite;
-            
+            buttonImage.sprite = soundOffSprite;
+            Debug.Log("BGM이 꺼진 상태로 설정됨");
         }
         else
         {
-            soundButton.GetComponent<Image>().sprite = soundOnSprite;
+            buttonImage.sprite = soundOnSprite;
+            Debug.Log("BGM이 켜진 상태로 설정됨");
         }
     }
+
     
     public void BGMCheck()
     {
         float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
-        if (savedBGMVolume <= 0.01f)//슬라이드가 최솟값이라면
+        Image buttonImage = soundButton.GetComponent<Image>();
+
+        if (savedBGMVolume <= 0.001f) // 현재 음소거 상태라면
         {
-            soundButton.GetComponent<Image>().sprite = soundOnSprite;
+            buttonImage.sprite = soundOnSprite;
             PlayerPrefs.SetFloat("BGMParam", 0.5f);
-            PlayerPrefs.Save();
-            AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMParam"));
         }
-        else
+        else // 현재 소리가 나오는 상태라면
         {
-            soundButton.GetComponent<Image>().sprite = soundOffSprite;
+            buttonImage.sprite = soundOffSprite;
             PlayerPrefs.SetFloat("BGMParam", 0.001f);
-            PlayerPrefs.Save();
-            AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMParam"));
-       
         }
+
+        PlayerPrefs.Save();
+        AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMParam"));
+
     }
+
     
     private void Update()
     {
