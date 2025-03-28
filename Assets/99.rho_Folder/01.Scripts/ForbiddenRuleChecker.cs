@@ -822,7 +822,7 @@ public class ForbiddenRuleChecker
 
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item2) == 1)
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2)
                     {
                         isBlocked = true;
                         break;
@@ -850,7 +850,7 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item2) == 1)
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2)
                     {
                         isBlocked = true;
                         break;
@@ -899,7 +899,7 @@ public class ForbiddenRuleChecker
                 }
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item1) == 1)
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2)
                     {
                         isBlocked = true;
                         break;
@@ -929,7 +929,7 @@ public class ForbiddenRuleChecker
 
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item1) == 1)
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2)
                     {
                         isBlocked = true;
                         break;
@@ -986,7 +986,7 @@ public class ForbiddenRuleChecker
                     int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
                     {
                         isBlocked = true;
                         break;
@@ -1022,7 +1022,7 @@ public class ForbiddenRuleChecker
                     int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
                     {
                         isBlocked = true;
                         break;
@@ -1081,7 +1081,7 @@ public class ForbiddenRuleChecker
                     int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
                     {
                         isBlocked = true;
                         break;
@@ -1117,7 +1117,7 @@ public class ForbiddenRuleChecker
                     int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
                     {
                         isBlocked = true;
                         break;
