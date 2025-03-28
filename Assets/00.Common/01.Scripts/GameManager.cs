@@ -110,6 +110,28 @@ public class GameManager : MonoBehaviour
     {
         currentTurn = turnType;
         _timer.StartTimer();
+
+        if (currentTurn == TurnType.PlayerA)
+        {
+            _timer.OnTimeout = () =>
+            {
+                _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions();
+                _blockController.OnBlockClickedDelegate = null;
+                UIManager.Instance.OpenWinLosePanel(GameResult.Lose);
+            };
+        }
+        else if (currentTurn == TurnType.PlayerB)
+        {
+            _timer.OnTimeout = () =>
+            {
+                _timer.PauseTimer();
+                _blockController.DisableAllBlockInteractions();
+                _blockController.OnBlockClickedDelegate = null;
+                UIManager.Instance.OpenWinLosePanel(GameResult.Win);
+            };
+        }
+
         switch (turnType)
         {
             case TurnType.PlayerA:
@@ -125,26 +147,12 @@ public class GameManager : MonoBehaviour
                 forbiddenCollection.AddRange(_forbiddenCollection);
                 forbiddenCollection = forbiddenCollection.Distinct().ToList();
                 _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA);
-                _timer.OnTimeout = () =>
-                {
-                    _timer.PauseTimer();
-                    _blockController.DisableAllBlockInteractions();
-                    _blockController.OnBlockClickedDelegate = null;
-                    UIManager.Instance.OpenWinLosePanel(GameResult.Lose);
-                };
                 break;
             case TurnType.PlayerB:
                 _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnB);
                 _blockController.OnBlockClickedDelegate = null;
                 await AIMoveAsync(); // 비동기 AI 연산 호출
-                _timer.OnTimeout = () =>
-                {
-                    _timer.PauseTimer();
-                    _blockController.DisableAllBlockInteractions();
-                    _blockController.OnBlockClickedDelegate = null;
-                    UIManager.Instance.OpenWinLosePanel(GameResult.Win);
-                };
                 AudioManager.Instance.OnPutStone();  // 백돌 놓는 효과음 추가
                 break;
         }
