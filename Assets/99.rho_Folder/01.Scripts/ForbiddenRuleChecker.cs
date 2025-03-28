@@ -10,10 +10,9 @@ public class ForbiddenRuleChecker
     private (int, int) _currentMoveIndex;
     private List<(int, int)> _forbiddenCollection = new();
 
-    public ForbiddenRuleChecker(GameManager.PlayerType[,] board, (int, int) currentMoveIndex)
+    public ForbiddenRuleChecker(GameManager.PlayerType[,] board)
     {
         _board = board;
-        _currentMoveIndex = currentMoveIndex;
     }
 
     public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList)
@@ -28,10 +27,10 @@ public class ForbiddenRuleChecker
         return _forbiddenCollection;
     }
 
-    public List<(int, int)> GetForbiddenSpots()
+    public List<(int, int)> GetForbiddenSpots((int, int) currentMoveIndex)
     {
         _forbiddenCollection.Clear();
-
+        _currentMoveIndex = currentMoveIndex;
         var lineEmpty = FindEmptyPositionList();
         SetOverlineForbidden(lineEmpty);
         Set4X4Forbidden(lineEmpty);
@@ -835,15 +834,11 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 if (!(Mathf.Abs(blackList[0].Item2 - blackList[1].Item2) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
+                    Debug.Log("!!");
                     ++tempForbiddenCount;
                 }
             }
@@ -903,14 +898,12 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 if (!(Mathf.Abs(blackList[0].Item1 - blackList[1].Item1) > 3)) // 금수에서 가장 끝에 있는 서로의 흑돌이 3칸 초과하면
                 {
+                    Debug.Log("11");
                     ++tempForbiddenCount;
                 }
             }
@@ -978,11 +971,7 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
@@ -1056,11 +1045,7 @@ public class ForbiddenRuleChecker
                 }
             }
 
-            if (isBlocked)
-            {
-                continue;
-            }
-            if (blockIndex == MAX_BLOCK_COUNT)
+            if (blockIndex == MAX_BLOCK_COUNT && !isBlocked)
             {
                 int deltaRow = Mathf.Abs(blackList[0].Item1 - blackList[1].Item1);
                 int deltaCol = Mathf.Abs(blackList[0].Item2 - blackList[1].Item2);
