@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Threading.Tasks;
 using DG.Tweening;
 using static GameManager;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class GameManager : MonoBehaviour
     {
         None,
         PlayerA,
-        PlayerB
+        PlayerB,
+        PlayerX
     }
 
     private PlayerType[,] _board;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
     private Canvas _canvas;
     private PlayerData playerData;
     private Block[] _blocks;
-    
+
     private void Start()
     {
         playerData = UserSessionManager.Instance.GetPlayerData();
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         BeforeSetting();
         MCTS.Instance.UpdateBoard(_board); // 초기 보드 설정
-        
+
         if (playerData.level >= 12 && playerData.level <= 18) // 12 ~ 18 까지임
         {
             Debug.Log("하수 진입");
@@ -114,16 +116,20 @@ public class GameManager : MonoBehaviour
                 _timer.ChangeTurnResetTimer();
                 _gameUIController.SetGameUIMode(GameUIController.GameUIMode.TurnA);
                 _blockController.OnBlockClickedDelegate = OnBlockClicked;
-                var checker = new ForbiddenRuleChecker(_board, currentMoveIndex);
-                forbiddenCollection = checker.GetForbiddenSpots();
-                SetForbiddenMarks(forbiddenCollection);
+                SetForbiddenMarks(forbiddenCollection, false); //기존 금수들 마크 해제
+                var checker = new ForbiddenRuleChecker(_board);
+                forbiddenCollection = checker.CheckForbiddenRelease(forbiddenCollection); // 기존 금수들 값 고정 및 해제
+                SetForbiddenMarks(forbiddenCollection, true); //기존 금수들 마크 설정
+                var _forbiddenCollection = checker.GetForbiddenSpots(currentMoveIndex);
+                SetForbiddenMarks(_forbiddenCollection, true);
+                forbiddenCollection.AddRange(_forbiddenCollection);
+                forbiddenCollection = forbiddenCollection.Distinct().ToList();
                 _blockController.UpdateRecentMoveDisplay(TurnType.PlayerA);
                 _timer.OnTimeout = () =>
                 {
                     _timer.PauseTimer();
                     _blockController.DisableAllBlockInteractions();
                     _blockController.OnBlockClickedDelegate = null;
-                    SaveMatch(playerData.nickname);
                     UIManager.Instance.OpenWinLosePanel(GameResult.Lose);
                 };
                 break;
@@ -137,7 +143,6 @@ public class GameManager : MonoBehaviour
                     _timer.PauseTimer();
                     _blockController.DisableAllBlockInteractions();
                     _blockController.OnBlockClickedDelegate = null;
-                    SaveMatch(playerData.nickname);
                     UIManager.Instance.OpenWinLosePanel(GameResult.Win);
                 };
                 AudioManager.Instance.OnPutStone();  // 백돌 놓는 효과음 추가
@@ -155,6 +160,7 @@ public class GameManager : MonoBehaviour
         if (SetNewBoardValue(PlayerType.PlayerB, row, col))
         {
             currentMoveIndex = (row, col);
+            forbiddenCollection.Remove(currentMoveIndex);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerA);
@@ -198,30 +204,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    // private IEnumerator AIMove()
-    // {
-    //     MCTS.Instance.UpdateBoard(_board);
-    //     var (row, col) = MCTS.Instance.GetBestMove(50);
-    //     yield return new WaitForSeconds(1f);
-    //
-    //     if (SetNewBoardValue(PlayerType.PlayerB, row, col))
-    //     {
-    //         currentMoveIndex = (row, col);
-    //         var gameResult = CheckGameResult();
-    //         if (gameResult == GameResult.None)
-    //             SetTurn(TurnType.PlayerA);
-    //         else
-    //         {
-    //             //EndGame(gameResult);
-    //             _timer.PauseTimer();
-    //             _blockController.DisableAllBlockInteractions(); // 프리뷰와 최근 수 제거
-    //             _blockController.OnBlockClickedDelegate = null;
-    //             SaveMatch(playerData.nickname);
-    //             UIManager.Instance.OpenWinLosePanel(gameResult); //자현추가
-    //         }
-    //     }
-    // }
 
     private GameResult CheckGameResult()
     {
@@ -296,11 +278,23 @@ public class GameManager : MonoBehaviour
         return possibleMoves;
     }
 
-    private void SetForbiddenMarks(List<(int, int)> forbiddenList)
+    private void SetForbiddenMarks(List<(int, int)> forbiddenList, bool isForbidden)
     {
-        foreach (var (row, col) in forbiddenList)
+        if (isForbidden)
         {
-            _blockController.PlaceMarker(Block.MarkerType.Forbidden, row, col);
+            for (int i = 0; i < forbiddenList.Count; i++)
+            {
+                _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
+                _blockController.PlaceMarker(Block.MarkerType.Forbidden, forbiddenList[i].Item1, forbiddenList[i].Item2);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < forbiddenList.Count; i++)
+            {
+                _board[forbiddenList[i].Item1, forbiddenList[i].Item2] = PlayerType.PlayerX;
+                _blockController.PlaceMarker(Block.MarkerType.None, forbiddenList[i].Item1, forbiddenList[i].Item2);
+            }
         }
     }
 
@@ -326,5 +320,5 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.OpenGiveupPanel();
     }
-        
+
 }
