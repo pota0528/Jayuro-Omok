@@ -8,7 +8,7 @@ public class AudioManager : Singleton<AudioManager>
     public AudioSource BgmAudioSource;
     [SerializeField] private AudioSource SfxAudioSource;
     [SerializeField] private AudioSource SfxSelectorAudioSource;
-    [SerializeField] private AudioMixer audioMixer;
+    public AudioMixer audioMixer;
     public AudioClip[] audioClip;
 
     public void OnPutStone() // 바둑알 놓을 때
@@ -33,10 +33,10 @@ public class AudioManager : Singleton<AudioManager>
     private void Start()
     {
         // 저장된 볼륨 값을 불러옴
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.75f);
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
         SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
         
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.75f);
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam");
         SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
         
         OnPlayBGM(0);
@@ -47,11 +47,9 @@ public class AudioManager : Singleton<AudioManager>
         // BGM 볼륨 설정
         if (volume <= 0)
         {
-            volume = 0.01f;
+            volume = 0.001f;
             
         }
-        
-        
 
         audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
 

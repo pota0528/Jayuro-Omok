@@ -25,42 +25,54 @@ public class StartTitlePanelController : Singleton<StartTitlePanelController>
     private delegate void ClockTimeDelegate();
     private ClockTimeDelegate clockDelegate;
     
-
     private void Awake()
     {
         TitleInit();
-       
     }
 
     private void Start()
     {
         TitleSetting();
+        BGMInit();
     }
-    
-    public void OnPauseBGM()
+
+    private void BGMInit()
     {
-        if (AudioManager.Instance.BgmAudioSource.isPlaying)
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
+        if (savedBGMVolume <= 0.01f)//슬라이드가 최솟값이라면
         {
-            AudioManager.Instance.BgmAudioSource.Pause();
             soundButton.GetComponent<Image>().sprite = soundOffSprite;
+            
         }
         else
         {
-            AudioManager.Instance.BgmAudioSource.UnPause();
             soundButton.GetComponent<Image>().sprite = soundOnSprite;
-            
+        }
+    }
+    
+    public void BGMCheck()
+    {
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
+        if (savedBGMVolume <= 0.01f)//슬라이드가 최솟값이라면
+        {
+            soundButton.GetComponent<Image>().sprite = soundOnSprite;
+            PlayerPrefs.SetFloat("BGMParam", 0.5f);
+            PlayerPrefs.Save();
+            AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMParam"));
+        }
+        else
+        {
+            soundButton.GetComponent<Image>().sprite = soundOffSprite;
+            PlayerPrefs.SetFloat("BGMParam", 0.001f);
+            PlayerPrefs.Save();
+            AudioManager.Instance.SetBGMVolume(PlayerPrefs.GetFloat("BGMParam"));
+       
         }
     }
     
     private void Update()
     {
         clockDelegate?.Invoke();
-        
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
-        if (savedBGMVolume <= 0.01f)
-        {
-            soundButton.GetComponent<Image>().sprite = soundOffSprite;
-        }
     }
     
     
