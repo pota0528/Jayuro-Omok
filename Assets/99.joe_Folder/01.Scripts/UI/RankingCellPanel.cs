@@ -38,9 +38,11 @@ using TMPro;
             int lose = player.lose;
             int total = win + lose;
             float winRate = total > 0 ? (float)win / total : 0f;
-            int score = player.score;
+            //int score = player.score;
 
             kdText.text = $"승:{win} 패:{lose} ";
+            
+            
 
             _rankingIndex = rankingIndex;
             foreach (var rankingIndexText in rankingIndexTexts)
@@ -64,7 +66,12 @@ using TMPro;
         }
 
         
-        
+        private int CalculateScore(PlayerData player)
+        {
+            return (19 - player.level) * 1000
+                   + player.levelPoint * 100
+                   + player.win * 10;
+        }
         
         
         
