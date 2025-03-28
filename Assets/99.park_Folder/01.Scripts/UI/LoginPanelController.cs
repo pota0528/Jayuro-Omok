@@ -5,17 +5,43 @@ using park_namespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
-    public class LoginPanelController : MonoBehaviour
+public class LoginPanelController : MonoBehaviour
     {
         [SerializeField] private TMP_InputField _idInputField;
         [SerializeField] private TMP_InputField _passwordInputField;
+
+        [SerializeField] private Sprite OpenEye;
+        [SerializeField] private Sprite CloseEye;
+
+        [SerializeField] private Image ButtonImage;
 
         private  DBManager dbManager;
 
         private void Start()
         {
             dbManager = FindObjectOfType<DBManager>();
+        }
+
+        public void OnClickEye()
+        {
+            if (_passwordInputField != null)
+            {
+                if (_passwordInputField.contentType == TMP_InputField.ContentType.Password)
+                {
+                    ButtonImage.sprite = OpenEye;
+                    ButtonImage.rectTransform.sizeDelta = new Vector2(44,30);
+                    _passwordInputField.contentType = TMP_InputField.ContentType.Standard;
+                }
+                else
+                {
+                    ButtonImage.sprite = CloseEye;
+                    ButtonImage.rectTransform.sizeDelta = new Vector2(44,36);
+                    _passwordInputField.contentType = TMP_InputField.ContentType.Password;
+                }
+                _passwordInputField.ForceLabelUpdate();
+            }
         }
 
         public void OnClickLogInButton()
@@ -62,4 +88,5 @@ using UnityEngine.Rendering;
         }
     }
 
+ 
   

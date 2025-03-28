@@ -1,7 +1,7 @@
 
 using System;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
     public class UIManager : Singleton<UIManager>
@@ -29,21 +29,24 @@ using UnityEngine.SceneManagement;
         //UserPanel에 대한 참조 추가
         private GameObject userPanelInstance;
 
-        private bool isUserPanelActive = false;
+        private bool isLogin = false;
         private void Start()
         {
             _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            mongoDBManager = FindObjectOfType<DBManager>();
            OpenLoginPanel();
            OpenStartTitlePanel();
            
            if (_canvas != null && userPanel != null)
            {
                userPanelInstance = Instantiate(userPanel, _canvas.transform);
-               userPanelInstance.SetActive(false); // Initially inactive
+               userPanelInstance.SetActive(false); 
+              
+               Debug.Log("유저패널을 만들기 ");
            }
+           
+           
           
-            //playeData=UserSessionManager.Instance.GetPlayerData();
-            mongoDBManager = FindObjectOfType<DBManager>();
            
         }
 //로그인 후 Player데이터 설정 
@@ -57,11 +60,10 @@ using UnityEngine.SceneManagement;
         {
             if (_canvas != null)
             {
-                // Deactivate the user panel if it's active
                 if (userPanelInstance != null)
                 {
+                    Debug.Log("유저패널이 있음!!");
                     userPanelInstance.SetActive(false);
-                    isUserPanelActive = false; // Track that the user panel was deactivated
                 }
 
                 Debug.Log("로그인패널열기");
@@ -78,14 +80,7 @@ using UnityEngine.SceneManagement;
                
             }
         }
-
-        public void OpenUserPanel()
-        {
-            if (_canvas != null)
-            {
-                Instantiate(userPanel, _canvas.transform);
-            }
-        }
+        
 
         public void OpenProfilePanel()
         {
@@ -156,6 +151,8 @@ using UnityEngine.SceneManagement;
                 if (userPanelInstance != null)
                 {
                     userPanelInstance.SetActive(true);
+                    isLogin = true;
+                    Debug.Log("Login Player isLogin ="+isLogin);
                     Debug.Log("UserPanel 활성화됨");
                 }
                 else
@@ -189,9 +186,12 @@ using UnityEngine.SceneManagement;
             
             if (scene.name == "Login")
             {
-                
-                OpenUserPanel();
                 OpenStartTitlePanel();
+                if (isLogin == true)
+                {
+                    Instantiate(userPanel, _canvas.transform);
+                }
+                
             }
         }
     

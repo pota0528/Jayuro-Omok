@@ -11,6 +11,11 @@ public class SignUpPanelController : PanelController
     [SerializeField] private TMP_InputField _passwordInputField;
     [SerializeField] private TMP_InputField _confirmPasswordInputField;
 
+    [SerializeField] private Sprite OpenEye;
+    [SerializeField] private Sprite CloseEye;
+
+    [SerializeField] private Image PassWordButtonImage;
+    [SerializeField] private Image PasswordConfirmButtonImage;
     [SerializeField] private Button profileButton;
     private DBManager _mongoDBManager;
 
@@ -66,6 +71,7 @@ public class SignUpPanelController : PanelController
         //MongoDB에 저장
         _mongoDBManager.RegisterPlayer(newPlayer);
         Debug.Log("회원가입 완료: "+newPlayer.nickname);
+        
 
     }
     public void UpdateProfileImage(Sprite newProfileImage)
@@ -88,6 +94,50 @@ public class SignUpPanelController : PanelController
         UIManager.Instance.OpenLoginPanel();
         //TODO: 뒤로가기 누르면 로그인 패널이 나오게 하기 
     }
+
+    #region 로그인할때 비밀번호 눈 켜졌다꺼졌따
+    public void OnClickEye1()
+    {
+        if (_passwordInputField != null)
+        {
+            if (_passwordInputField.contentType == TMP_InputField.ContentType.Password)
+            {
+                PassWordButtonImage.sprite = OpenEye;
+                PassWordButtonImage.rectTransform.sizeDelta = new Vector2(44,30);
+                _passwordInputField.contentType = TMP_InputField.ContentType.Standard;
+            }
+            else
+            {
+                PassWordButtonImage.sprite = CloseEye;
+                PassWordButtonImage.rectTransform.sizeDelta = new Vector2(44,36);
+                _passwordInputField.contentType = TMP_InputField.ContentType.Password;
+            }
+            _passwordInputField.ForceLabelUpdate();
+        }
+    }
+    public void OnClickEye2()
+    {
+        if (_confirmPasswordInputField != null)
+        {
+            if (_confirmPasswordInputField.contentType == TMP_InputField.ContentType.Password)
+            {
+                PasswordConfirmButtonImage.sprite = OpenEye;
+                PasswordConfirmButtonImage.rectTransform.sizeDelta = new Vector2(44,30);
+                _confirmPasswordInputField.contentType = TMP_InputField.ContentType.Standard;
+            }
+            else
+            {
+                PasswordConfirmButtonImage.sprite = CloseEye;
+                PasswordConfirmButtonImage.rectTransform.sizeDelta = new Vector2(44,36);
+                _confirmPasswordInputField.contentType = TMP_InputField.ContentType.Password;
+            }
+            _confirmPasswordInputField.ForceLabelUpdate();
+        }
+    }
+    
+
+    #endregion
+    
 }
 
 
