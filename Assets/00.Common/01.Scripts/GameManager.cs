@@ -159,8 +159,8 @@ public class GameManager : MonoBehaviour
 
         if (SetNewBoardValue(PlayerType.PlayerB, row, col))
         {
-            currentMoveIndex = (row, col);
-            forbiddenCollection.Remove(currentMoveIndex);
+            var _tempCurrentMoveIndex = (row, col);
+            forbiddenCollection.Remove(_tempCurrentMoveIndex);
             var gameResult = CheckGameResult();
             if (gameResult == GameResult.None)
                 SetTurn(TurnType.PlayerA);
