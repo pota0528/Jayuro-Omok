@@ -828,12 +828,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
 
-                    isLeftBlocked = true;
-                    break;
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 3)
+                    {
+                        isLeftBlocked = true;
+                        break;
+                    }
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -856,12 +864,21 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isRightBlocked = true;
-                    break;
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 3)
+                    {
+                        isRightBlocked = true;
+                        break;
+                    }
+                    
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[row, j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -905,12 +922,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
 
-                    isLeftBlocked = true;
-                    break;
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 3)
+                    {
+                        isLeftBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[j, col] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[j, col] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -935,12 +960,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isRightBlocked = true;
-                    break;
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 3)
+                    {
+                        isRightBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[j, col] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[j, col] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -992,12 +1025,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isLeftBlocked = true;
-                    break;
+                    if (deltaRow == 3 && deltaCol == 3)
+                    {
+                        isLeftBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[row + j, col + j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -1028,12 +1069,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isRightBlocked = true;
-                    break;
+                    if (deltaRow == 3 && deltaCol == 3)
+                    {
+                        isRightBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[row - j, col - j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
@@ -1087,14 +1136,23 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isLeftBlocked = true;
-                    break;
+                    if (deltaRow == 3 && deltaCol == 3)
+                    {
+                        isLeftBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[row + j, col - j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
                 }
+                else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
+                }
             }
+
 
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
@@ -1123,12 +1181,20 @@ public class ForbiddenRuleChecker
                         break;
                     }
                     
-                    isRightBlocked = true;
-                    break;
+                    if (deltaRow == 3 && deltaCol == 3)
+                    {
+                        isRightBlocked = true;
+                        break;
+                    }
                 }
-                else if (_board[row, j] == GameManager.PlayerType.None)
+                else if (_board[row - j, col + j] == GameManager.PlayerType.None)
                 {
                     ++voidCount;
+                }
+                else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerX)
+                {
+                    isBlocked = true;
+                    break;
                 }
             }
 
