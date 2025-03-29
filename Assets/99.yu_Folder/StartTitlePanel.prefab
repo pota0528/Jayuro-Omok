@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2924803094561418970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2930549266330739006}
         m_TargetAssemblyTypeName: StartTitlePanelController, Assembly-CSharp
-        m_MethodName: BGMCheck
+        m_MethodName: OnClickSoundMuteButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1432,6 +1432,7 @@ MonoBehaviour:
   soundOffSprite: {fileID: 21300000, guid: 43adeda5c3307ba44a1c0de2b23fd95d, type: 3}
   soundOnSprite: {fileID: 21300000, guid: def3603cf457c4d4990080c5620f2ef4, type: 3}
   soundButton: {fileID: 5964915686424496199}
+  isMuted: 0
 --- !u!1 &8427857011705993118
 GameObject:
   m_ObjectHideFlags: 0
