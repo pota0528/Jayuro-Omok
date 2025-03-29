@@ -16,7 +16,7 @@ public class AudioManager : Singleton<AudioManager>
     {
         // 저장된 볼륨 값을 불러옴
         PlayerPrefs.SetFloat("BGMSlider", 0.2f);//슬라이더바
-        PlayerPrefs.SetFloat("SFXSlider", 0.2f);
+        PlayerPrefs.SetFloat("SFXSlider", 0.75f);
         PlayerPrefs.Save();
         
         SetBGMVolume(PlayerPrefs.GetFloat("BGMSlider")); // 초기 BGM 볼륨 설정
