@@ -38,10 +38,7 @@ public class GameManager : Singleton<GameManager>
 
         // Game UI 초기화
         _gameUIController.SetGameUIMode(GameUIController.GameUIMode.Init);
-        _board[7, 7] = PlayerType.PlayerA;
-        currentMoveindex = (7, 7);
-        _blockController.PlaceMarker(Block.MarkerType.Black, LINE_COUNT / 2, LINE_COUNT / 2, moveIndex);
-        SetTurn(TurnType.PlayerB);
+        SetTurn(TurnType.PlayerA);
     }
 
     private void EndGame(GameResult gameResult)
