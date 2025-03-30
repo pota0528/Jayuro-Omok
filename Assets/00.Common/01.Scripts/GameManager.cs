@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
                 var checker = new ForbiddenRuleChecker(_board);
                 forbiddenCollection = checker.CheckForbiddenRelease(forbiddenCollection); // 기존 금수들 값 고정 및 해제
                 SetForbiddenMarks(forbiddenCollection, true); //기존 금수들 마크 설정
-                var _forbiddenCollection = checker.GetForbiddenSpots(currentMoveIndex);
+                List<(int, int)> _forbiddenCollection = checker.GetForbiddenSpots(currentMoveIndex); //배열은 참조형이므로 배열을 이어쓰면 안된다.
                 SetForbiddenMarks(_forbiddenCollection, true);
                 forbiddenCollection.AddRange(_forbiddenCollection);
                 forbiddenCollection = forbiddenCollection.Distinct().ToList();

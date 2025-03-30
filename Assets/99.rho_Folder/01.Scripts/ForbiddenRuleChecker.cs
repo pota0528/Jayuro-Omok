@@ -868,6 +868,11 @@ public class ForbiddenRuleChecker //최종
 
         for (int i = 0; i < emptyList.Count; i++)
         {
+            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
+            {
+                continue;
+            }
+
             const int MAX_BLOCK_COUNT = 3;
             const int MAX_DIRECITON_VOID_COUNT = 2;
 
@@ -886,15 +891,22 @@ public class ForbiddenRuleChecker //최종
 
             for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
+                //만약 14라면..
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (j == 14)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row, j));
                 }
 
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2)
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -925,12 +937,18 @@ public class ForbiddenRuleChecker //최종
             {
                 if (_board[row, j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (j == 0)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row, j));
                 }
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2)
+                    if (Mathf.Abs(j - emptyList[i].Item2) == 1 || Mathf.Abs(j - emptyList[i].Item2) == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -983,12 +1001,18 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                 {
+                    if (j == 14)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((j, col));
                 }
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2)
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -1020,13 +1044,19 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[j, col] == GameManager.PlayerType.PlayerA)
                 {
+                    if (j == 0)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((j, col));
                 }
 
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2)
+                    if (Mathf.Abs(j - emptyList[i].Item1) == 1 || Mathf.Abs(j - emptyList[i].Item1) == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -1083,6 +1113,12 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[row + j, col + j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (row + j == 14 || col + j == 14)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row + j, col + j));
                 }
@@ -1091,7 +1127,7 @@ public class ForbiddenRuleChecker //최종
                     int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -1114,6 +1150,7 @@ public class ForbiddenRuleChecker //최종
                 }
             }
 
+            //↖ 대각선 검사
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 - 1;
             voidCount = 0;
@@ -1127,6 +1164,12 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[row - j, col - j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (row - j == 0 || col - j == 0)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row - j, col - j));
                 }
@@ -1135,7 +1178,7 @@ public class ForbiddenRuleChecker //최종
                     int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -1194,6 +1237,12 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[row + j, col - j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (row + j == 14 || col - j == 0)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row + j, col - j));
                 }
@@ -1202,7 +1251,7 @@ public class ForbiddenRuleChecker //최종
                     int deltaRow = Math.Abs((row + j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col - j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
@@ -1229,7 +1278,7 @@ public class ForbiddenRuleChecker //최종
             row = emptyList[i].Item1 - 1;
             col = emptyList[i].Item2 + 1;
             voidCount = 0;
-
+            //↗ 대각선 검사
             for (int j = 0; j < 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
             {
                 if (0 > row - j || row - j >= OMOL_LINE_LENGTH || 0 > col + j || col + j >= OMOL_LINE_LENGTH)
@@ -1239,6 +1288,12 @@ public class ForbiddenRuleChecker //최종
 
                 if (_board[row - j, col + j] == GameManager.PlayerType.PlayerA)
                 {
+                    if (row - j == 0 || col + j == 14)
+                    {
+                        isBlocked = true;
+                        break;
+                    }
+
                     ++blockIndex;
                     blackList.Add((row - j, col + j));
                 }
@@ -1247,7 +1302,7 @@ public class ForbiddenRuleChecker //최종
                     int deltaRow = Math.Abs((row - j) - emptyList[i].Item1);
                     int deltaCol = Math.Abs((col + j) - emptyList[i].Item2);
 
-                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2)
+                    if (deltaRow == 1 && deltaCol == 1 || deltaRow == 2 && deltaCol == 2 || voidCount == 0)
                     {
                         isBlocked = true;
                         break;
