@@ -17,7 +17,7 @@ public class ForbiddenRuleChecker //최종
         _board = board;
     }
 
-    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList) //배열은 참조형이라 서로 연결되지 않도록!
+    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList) //배열은 참조형이라 서로 연결되지 않도록 새로 리스트 만들어서 반환
     {
         for (int i = 0; i < _forbiddenList.Count; i++)
         {
@@ -679,6 +679,181 @@ public class ForbiddenRuleChecker //최종
             }
 
             if (tempForbiddenCount >= 2)
+            {
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
+            }
+        }
+
+        for (int i = 0; i < emptyList.Count; i++)
+        {
+            const int MAX_TURN_COUNT = 5;
+            int tempForbiddenCount = 0;
+            int row = emptyList[i].Item1;
+            int col = emptyList[i].Item2;
+
+            int turnCount = 0;
+            string tempPattern = "";
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
+                {
+                    tempPattern += "A";
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    return _tempForbiddenList;
+                }
+                else if (_board[row, j] == PlayerType.None)
+                {
+                    tempPattern += ".";
+                }
+            }
+
+            switch (tempPattern)
+            {
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;
+            }
+
+            row = emptyList[i].Item1;
+            col = emptyList[i].Item2 - 1;
+
+            turnCount = 0;
+            tempPattern = "";
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
+                {
+                    tempPattern += "A";
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    return _tempForbiddenList;
+                }
+                else if (_board[row, j] == PlayerType.None)
+                {
+                    tempPattern += ".";
+                }
+            }
+
+            switch (tempPattern)
+            {
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;// �� ĭ ��� 4
+            }
+
+            row = emptyList[i].Item1;
+            col = emptyList[i].Item2 - 2;
+
+            turnCount = 0;
+            tempPattern = "";
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
+                {
+                    tempPattern += "A";
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    return _tempForbiddenList;
+                }
+                else if (_board[row, j] == PlayerType.None)
+                {
+                    tempPattern += ".";
+                }
+            }
+
+            switch (tempPattern)
+            {
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;
+            }
+
+            row = emptyList[i].Item1;
+            col = emptyList[i].Item2 - 3;
+
+            turnCount = 0;
+            tempPattern = "";
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
+                {
+                    tempPattern += "A";
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    return _tempForbiddenList;
+                }
+                else if (_board[row, j] == PlayerType.None)
+                {
+                    tempPattern += ".";
+                }
+            }
+
+            switch (tempPattern)
+            {
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;
+            }
+
+            row = emptyList[i].Item1;
+            col = emptyList[i].Item2 - 4;
+
+            turnCount = 0;
+            tempPattern = "";
+
+            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
+            {
+                ++turnCount;
+
+                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
+                {
+                    tempPattern += "A";
+                }
+                else if (_board[row, j] == PlayerType.PlayerB)
+                {
+                    return _tempForbiddenList;
+                }
+                else if (_board[row, j] == PlayerType.None)
+                {
+                    tempPattern += ".";
+                }
+            }
+
+            switch (tempPattern)
+            {
+                case "A.AAA":
+                case "AA.AA":
+                case "AAA.A":
+                    ++tempForbiddenCount;
+                    break;
+            }
+
+            if (tempForbiddenCount > 1)
             {
                 _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
