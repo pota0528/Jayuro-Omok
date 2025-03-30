@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,35 +11,39 @@ public class ForbiddenRuleChecker
     private GameManager.PlayerType[,] _board;
     private const int OMOL_LINE_LENGTH = 15;
     private (int, int) _currentMoveIndex;
-    private List<(int, int)> _forbiddenCollection = new();
 
     public ForbiddenRuleChecker(GameManager.PlayerType[,] board)
     {
         _board = board;
     }
 
-    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList)
+    public List<(int, int)> CheckForbiddenRelease(List<(int, int)> _forbiddenList) //배열은 참조형이라 서로 연결되지 않도록!
     {
         for (int i = 0; i < _forbiddenList.Count; i++)
         {
             _board[_forbiddenList[i].Item1, _forbiddenList[i].Item2] = GameManager.PlayerType.None;
         }
 
-        Set3X3Forbidden(_forbiddenList);
+        var tempForbiddenList1 = Set3X3Forbidden(_forbiddenList);
+        var tempForbiddenList2 = Set4X4Forbidden(_forbiddenList);
 
-        return _forbiddenCollection;
+        List<(int, int)> mergedList = tempForbiddenList1.Concat(tempForbiddenList2).Distinct().ToList();
+
+        return mergedList;
     }
 
     public List<(int, int)> GetForbiddenSpots((int, int) currentMoveIndex)
     {
-        _forbiddenCollection.Clear();
         _currentMoveIndex = currentMoveIndex;
-        var lineEmpty = FindEmptyPositionList();
-        SetOverlineForbidden(lineEmpty);
-        Set4X4Forbidden(lineEmpty);
-        Set3X3Forbidden(lineEmpty);
 
-        return _forbiddenCollection;
+        List<(int, int)> lineEmpty = FindEmptyPositionList();
+        List<(int, int)> _tempList1 = SetOverlineForbidden(lineEmpty);
+        List<(int, int)> _tempList2 = Set4X4Forbidden(lineEmpty);
+        List<(int, int)> _tempList3 = Set3X3Forbidden(lineEmpty);
+
+        List<(int, int)> mergedList = _tempList1.Concat(_tempList2).Concat(_tempList3).Distinct().ToList(); //병합하고 중복 제거
+
+        return mergedList;
     }
 
     private List<(int, int)> FindEmptyPositionList()
@@ -192,15 +197,12 @@ public class ForbiddenRuleChecker
         return emptyList;
     }
 
-    private void SetOverlineForbidden(List<(int, int)> emptyList)
+    private List<(int, int)> SetOverlineForbidden(List<(int, int)> emptyList)
     {
+        List<(int, int)> _tempForbiddenList = new();
+
         for (int i = 0; i < emptyList.Count; i++)
         {
-            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
-            {
-                continue;
-            }
-
             int row = emptyList[i].Item1;
             int col = emptyList[i].Item2 + 1;
 
@@ -235,7 +237,7 @@ public class ForbiddenRuleChecker
 
             if (blockIndex >= 5)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
@@ -276,7 +278,7 @@ public class ForbiddenRuleChecker
 
             if (blockIndex >= 5)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
@@ -326,7 +328,7 @@ public class ForbiddenRuleChecker
 
             if (blockIndex >= 5)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
@@ -377,13 +379,17 @@ public class ForbiddenRuleChecker
 
             if (blockIndex >= 5)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
+
+        return _tempForbiddenList;
     }
 
-    private void Set4X4Forbidden(List<(int, int)> emptyList)
+    private List<(int, int)> Set4X4Forbidden(List<(int, int)> emptyList)
     {
+        List<(int, int)> _tempForbiddenList = new();
+
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_TURNING_COUNT = 5;
@@ -391,11 +397,6 @@ public class ForbiddenRuleChecker
             const int MAX_BLOCK_COUNT = 4;
 
             int tempForbiddenCount = 0;
-
-            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
-            {
-                continue;
-            }
 
             // 가로 검사
             int row = emptyList[i].Item1;
@@ -607,199 +608,23 @@ public class ForbiddenRuleChecker
 
             if (tempForbiddenCount >= 2)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
 
-        for (int i = 0; i < emptyList.Count; i++)
-        {
-            const int MAX_TURN_COUNT = 5;
-            int tempForbiddenCount = 0;
-            int row = emptyList[i].Item1;
-            int col = emptyList[i].Item2;
-
-            int turnCount = 0;
-            string tempPattern = "";
-
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
-            {
-                ++turnCount;
-
-                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
-                {
-                    tempPattern += "A";
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    return;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    tempPattern += ".";
-                }
-            }
-
-            switch (tempPattern)
-            {
-                case "A.AAA":
-                case "AA.AA":
-                case "AAA.A":
-                    ++tempForbiddenCount;
-                    break;
-            }
-
-            row = emptyList[i].Item1;
-            col = emptyList[i].Item2 - 1;
-
-            turnCount = 0;
-            tempPattern = "";
-
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
-            {
-                ++turnCount;
-
-                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
-                {
-                    tempPattern += "A";
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    return;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    tempPattern += ".";
-                }
-            }
-
-            switch (tempPattern)
-            {
-                case "A.AAA":
-                case "AA.AA":
-                case "AAA.A":
-                    ++tempForbiddenCount;
-                    break;// �� ĭ ��� 4
-            }
-
-            row = emptyList[i].Item1;
-            col = emptyList[i].Item2 - 2;
-
-            turnCount = 0;
-            tempPattern = "";
-
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
-            {
-                ++turnCount;
-
-                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
-                {
-                    tempPattern += "A";
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    return;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    tempPattern += ".";
-                }
-            }
-
-            switch (tempPattern)
-            {
-                case "A.AAA":
-                case "AA.AA":
-                case "AAA.A":
-                    ++tempForbiddenCount;
-                    break;
-            }
-
-            row = emptyList[i].Item1;
-            col = emptyList[i].Item2 - 3;
-
-            turnCount = 0;
-            tempPattern = "";
-
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
-            {
-                ++turnCount;
-
-                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
-                {
-                    tempPattern += "A";
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    return;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    tempPattern += ".";
-                }
-            }
-
-            switch (tempPattern)
-            {
-                case "A.AAA":
-                case "AA.AA":
-                case "AAA.A":
-                    ++tempForbiddenCount;
-                    break;
-            }
-
-            row = emptyList[i].Item1;
-            col = emptyList[i].Item2 - 4;
-
-            turnCount = 0;
-            tempPattern = "";
-
-            for (int j = col; 0 <= j && j <= 14 && turnCount < MAX_TURN_COUNT; j++)
-            {
-                ++turnCount;
-
-                if (_board[row, j] == PlayerType.PlayerA || j == emptyList[i].Item2)
-                {
-                    tempPattern += "A";
-                }
-                else if (_board[row, j] == PlayerType.PlayerB)
-                {
-                    return;
-                }
-                else if (_board[row, j] == PlayerType.None)
-                {
-                    tempPattern += ".";
-                }
-            }
-
-            switch (tempPattern)
-            {
-                case "A.AAA":
-                case "AA.AA":
-                case "AAA.A":
-                    ++tempForbiddenCount;
-                    break;
-            }
-
-            if (tempForbiddenCount > 1)
-            {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
-            }
-        }
+        return _tempForbiddenList;
     }
 
-    private void Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
+    private List<(int, int)> Set3X3Forbidden(List<(int, int)> emptyList) //아니면 바둑돌을 찾았을때의 턴이 몇인지..
     {
+        List<(int, int)> _tempForbiddenList = new();
+
         for (int i = 0; i < emptyList.Count; i++)
         {
             const int MAX_BLOCK_COUNT = 3;
             const int MAX_DIRECITON_VOID_COUNT = 2;
 
             int tempForbiddenCount = 0;
-
-            if (emptyList[i].Item1 == 0 || emptyList[i].Item2 == 0 || emptyList[i].Item1 == 14 || emptyList[i].Item2 == 14)
-            {
-                continue;
-            }
 
             // 가로 검사
             int row = emptyList[i].Item1;
@@ -1216,8 +1041,10 @@ public class ForbiddenRuleChecker
 
             if (tempForbiddenCount >= 2)
             {
-                _forbiddenCollection.Add((emptyList[i].Item1, emptyList[i].Item2));
+                _tempForbiddenList.Add((emptyList[i].Item1, emptyList[i].Item2));
             }
         }
+
+        return _tempForbiddenList;
     }
 }
