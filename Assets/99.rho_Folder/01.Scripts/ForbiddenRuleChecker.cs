@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static GameManager;
 
-public class ForbiddenRuleChecker
+public class ForbiddenRuleChecker //최종
 {
     private GameManager.PlayerType[,] _board;
     private const int OMOL_LINE_LENGTH = 15;
@@ -413,8 +413,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedRight = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -433,8 +442,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row, j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedLeft = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -463,8 +481,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedRight = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -483,8 +510,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[j, col] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedLeft = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -515,8 +551,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row + j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedRight = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -537,8 +582,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row - j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedLeft = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -569,8 +623,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row + j, col - j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedRight = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedRight = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -591,8 +654,17 @@ public class ForbiddenRuleChecker
                     ++blockIndex;
                 else if (_board[row - j, col + j] == GameManager.PlayerType.PlayerB)
                 {
-                    blockedLeft = true;
-                    break;
+                    if (emptyList[i].Item1 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item1 == 0 || emptyList[i].Item2 == OMOL_LINE_LENGTH - 1 || emptyList[i].Item2 == 0)
+                    {
+                        blockedRight = true;
+                        blockedLeft = true;
+                        break;
+                    }
+                    else
+                    {
+                        blockedLeft = true;
+                        break;
+                    }
                 }
                 else
                 {
@@ -634,7 +706,7 @@ public class ForbiddenRuleChecker
             bool isBlocked = false;
             bool isLeftBlocked = false;
             bool isRightBlocked = false;
-            
+
             List<(int, int)> blackList = new List<(int, int)>();
 
             for (int j = col; j <= 14 && j < col + 4 && voidCount < MAX_DIRECITON_VOID_COUNT; j++)
@@ -688,13 +760,13 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (Mathf.Abs(j - emptyList[i].Item2) == 3)
                     {
                         isRightBlocked = true;
                         break;
                     }
-                    
+
                 }
                 else if (_board[row, j] == GameManager.PlayerType.None)
                 {
@@ -784,7 +856,7 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (Mathf.Abs(j - emptyList[i].Item1) == 3)
                     {
                         isRightBlocked = true;
@@ -849,7 +921,7 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (deltaRow == 3 && deltaCol == 3)
                     {
                         isLeftBlocked = true;
@@ -893,7 +965,7 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (deltaRow == 3 && deltaCol == 3)
                     {
                         isRightBlocked = true;
@@ -960,7 +1032,7 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (deltaRow == 3 && deltaCol == 3)
                     {
                         isLeftBlocked = true;
@@ -1005,7 +1077,7 @@ public class ForbiddenRuleChecker
                         isBlocked = true;
                         break;
                     }
-                    
+
                     if (deltaRow == 3 && deltaCol == 3)
                     {
                         isRightBlocked = true;
