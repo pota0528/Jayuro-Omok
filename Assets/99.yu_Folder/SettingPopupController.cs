@@ -11,52 +11,38 @@ public class SettingPopupController : BaseUIController
 {
     public Slider bgmSlider;
     public Slider sfxSlider;
-    StartTitlePanelController startTitlePanelController;
-
+    public static Action<bool> OnMute;
     private void Start()
     {
         //슬라이더 초기화
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam");
-        bgmSlider.value = savedBGMVolume;
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam");
-        sfxSlider.value = savedSFXVolume;
+        bgmSlider.value = PlayerPrefs.GetFloat("BGMSlider");
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXSlider");
 
-        // 슬라이더 값 변경 시 볼륨 업데이트
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
-
-        // 초기 볼륨 설정
-        AudioManager.Instance.SetBGMVolume(bgmSlider.value);
-        AudioManager.Instance.SetSFXVolume(sfxSlider.value);
-        
-
-
-    }
-
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "Login")
-        {
-            if (bgmSlider.value <= 0.001f)
-            {
-                StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOffSprite;
-            }
-            else
-            {
-                StartTitlePanelController.Instance.soundButton.GetComponent<Image>().sprite = StartTitlePanelController.Instance.soundOnSprite;
-            }
-            
-        }
         
     }
-
     
+    private void OnEnable()
+    {
+        OnMute += UpdateSliders;
+    }
+
+    private void OnDisable()
+    {
+        OnMute -= UpdateSliders;
+    }
+
+    private void UpdateSliders(bool isMuted)
+    {
+        bgmSlider.value = isMuted ? bgmSlider.minValue : PlayerPrefs.GetFloat("BGMSlider");
+    }
 
     private void OnDestroy()
     {
         // 슬라이더 값 변경 시 PlayerPrefs에 저장
-        PlayerPrefs.SetFloat("BGMParam", bgmSlider.value);
-        PlayerPrefs.SetFloat("SFXParam", sfxSlider.value);
+        PlayerPrefs.SetFloat("BGMSlider", bgmSlider.value);
+        PlayerPrefs.SetFloat("SFXSlider", sfxSlider.value);
         PlayerPrefs.Save();
     }
 }

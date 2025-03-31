@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,20 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private AudioSource SfxSelectorAudioSource;
     public AudioMixer audioMixer;
     public AudioClip[] audioClip;
-
+    
+    private void Start()
+    {
+        // 저장된 볼륨 값을 불러옴
+        PlayerPrefs.SetFloat("BGMSlider", 0.2f);//슬라이더바
+        PlayerPrefs.SetFloat("SFXSlider", 0.75f);
+        PlayerPrefs.Save();
+        
+        SetBGMVolume(PlayerPrefs.GetFloat("BGMSlider")); // 초기 BGM 볼륨 설정
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXSlider")); // 초기 SFX 볼륨 설정
+        
+        OnPlayBGM(0);
+    }
+    
     public void OnPutStone() // 바둑알 놓을 때
     {
         SfxAudioSource.Play();
@@ -29,43 +43,17 @@ public class AudioManager : Singleton<AudioManager>
             SfxSelectorAudioSource.Play();
         }
     }
-
-    private void Start()
+    
+    public void SetBGMVolume(float sliderVolume)
     {
-        // 저장된 볼륨 값을 불러옴
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMParam", 0.5f);
-        SetBGMVolume(savedBGMVolume); // 초기 BGM 볼륨 설정
-        
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXParam", 0.5f);
-        SetSFXVolume(savedSFXVolume); // 초기 SFX 볼륨 설정
-        
-        OnPlayBGM(0);
-    }
-
-    public void SetBGMVolume(float volume)
-    {
-        // BGM 볼륨 설정
-        if (volume <= 0)
-        {
-            volume = 0.001f;
-            
-        }
-
-        audioMixer.SetFloat("BGMParam", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("BGM", Mathf.Log10(sliderVolume) * 20);
         PlayerPrefs.Save();
-
     }
 
     public void SetSFXVolume(float volume)
     {
-        if (volume <= 0)
-        {
-            
-            volume = 0.001f;
-        }
-        
-        audioMixer.SetFloat("SFXParam", Mathf.Log10(volume) * 20);
-        audioMixer.SetFloat("SFXSelectorParam", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        audioMixer.SetFloat("SFXSelector", Mathf.Log10(volume) * 20);
         PlayerPrefs.Save();
     }
     
@@ -83,8 +71,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             newClip = audioClip[1];
         }
-            
-
+        
         if (newClip != null && BgmAudioSource.clip != newClip)
         {
             BgmAudioSource.clip = newClip;
@@ -93,8 +80,6 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
     
-    
-
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PlaySceneBGM(scene.name);
