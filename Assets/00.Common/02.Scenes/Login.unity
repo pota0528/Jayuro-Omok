@@ -264,6 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1095279519}
   - component: {fileID: 1095279520}
+  - component: {fileID: 1095279521}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -325,6 +326,20 @@ MonoBehaviour:
   mainWinLosePanelPrefab: {fileID: 8272083933614300683, guid: a8790d3eab2dbd14bb5be560c7ddf20f, type: 3}
   UpDownResultPanelPrefab: {fileID: 1459309161923910732, guid: b003742a4ddffc743997f5c4895b46f7, type: 3}
   winLosePanelObject: {fileID: 0}
+--- !u!114 &1095279521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095279517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2840c5abf73d845b2a226f108bcdff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCursor: {fileID: 2800000, guid: 642c1244eb0f7fb4daafb863def92f49, type: 3}
+  clickCursor: {fileID: 2800000, guid: a137d558cd98345459f606d3ef07fecc, type: 3}
 --- !u!1 &1311660850
 GameObject:
   m_ObjectHideFlags: 0

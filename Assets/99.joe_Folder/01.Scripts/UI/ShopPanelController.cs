@@ -14,11 +14,11 @@ public class ShopPanelController : PanelController
     private int _pendingPurchaseIndex = -1;
 
     // 각 버튼에 대응하는 코인 금액
-    private readonly int[] coinAmounts = { 100, -100, 250, 400, 600, 800, 1000, 1200, 1500, 2000 };
+    private readonly int[] coinAmounts = { 100, -100, 200, 400, 600, 800, 1000, -1000, 1500, 2000 };
 
     private void Start()
     {
-        SetTitleText("전당포");
+        SetTitleText("코인상점");
         _playerData = UserSessionManager.Instance.GetPlayerData();
         GenerateShopButtons();
     }
