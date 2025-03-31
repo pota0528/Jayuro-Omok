@@ -63,7 +63,7 @@ public class SignUpPanelController : PanelController
             password = password,
             level = 18,
             levelPoint = 0,
-            coin = 1000,
+            coin = 200,
             win = 0,
             lose = 0,
             imageIndex =selectedImageIndex
