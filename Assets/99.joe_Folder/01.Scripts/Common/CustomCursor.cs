@@ -11,7 +11,7 @@ public class CustomCursor : MonoBehaviour
     {
         // 기본 커서를 설정합니다.
         SetCursor(defaultCursor);
-        Cursor.SetCursor(PlayerSettings.defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(PlayerSettings.defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
    
         
     }
